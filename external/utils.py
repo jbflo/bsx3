@@ -23,3 +23,7 @@ def init_hwr_paths():
 
     dpath = os.path.abspath(os.path.join(os.path.dirname(__file__)))
     os.environ["CUSTOM_HARDWARE_OBJECTS_PATH"] = os.path.join(dpath, "HardwareObjects")
+
+
+def get_config_dir():
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "/config"))
