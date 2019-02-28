@@ -5,4 +5,4 @@ from bsx3.backend.bsxapp import get_app
 
 def login():
     """ Login example routine """
-    print(get_app().COUNTER)
+    print(get_app().get_ho("ldaplogin").login("test", "test"))
