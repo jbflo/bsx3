@@ -12,8 +12,8 @@ class Application():
     COUNTER = 1
     _HWR = None
 
-    def __init__(self):
-        pass
+    def __init__(self, hwr):
+        Application._HWR = hwr
 
     @staticmethod
     def get_ho(name):
@@ -35,8 +35,7 @@ def init_app(hwr):
     global APP
 
     if not APP:
-        APP = Application()
-        Application._HWR = hwr
+        APP = Application(hwr
 
     return APP
 
@@ -45,7 +44,7 @@ def get_app():
     """ Returns the application instance """
 
     if not APP:
-        msg = "Could not get Application object, call to init_app probably missing"
+        msg="Could not get Application object, call to init_app probably missing"
         logging.error(msg)
         sys.exit(-1)
 

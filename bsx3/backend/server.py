@@ -7,6 +7,7 @@ from flask_socketio import SocketIO
 from bsx3.backend.routes import home, auth, counter
 from bsx3.backend.bsxapp import init_app
 
+# pylint: disable=import-error
 from HardwareRepository import HardwareRepository as hwr
 
 

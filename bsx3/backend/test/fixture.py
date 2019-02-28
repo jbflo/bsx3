@@ -5,6 +5,7 @@ import pytest
 from external.utils import init_hwr_paths, get_config_dir
 init_hwr_paths()
 
+# pylint: disable=wrong-import-position
 from bsx3.backend import server
 
 
