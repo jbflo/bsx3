@@ -1,0 +1,240 @@
+.sv-data-1 {
+    background: lightCyan;
+    padding: 0;
+}
+
+.sv-data-2 {
+    background: lightPink;
+    height: 40px;
+    white-space: nowrap;
+}
+
+.sv-data-3 {
+    background: LightGoldenRodYellow;
+    height: 40px;
+    white-space: nowrap;
+}
+
+.sv-data-4 {
+    background: LightSteelBlue;
+}
+
+table.sv-data-table {
+    table-layout: fixed;
+}
+
+table.sv-data-table tbody tr {
+    font-size: 13px;
+    padding: 0;
+}
+
+table.sv-data-table tbody tr td {
+    height: 36px;
+}
+
+table.sv-data-table .td-data-item-1 {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.sv-data-table .td-data-item-2 {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    white-space: no-wrap;
+}
+
+table.sv-data-table .td-data-item-3 {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.sv-data-table .td-data-item-4 {
+    padding: 0;
+    text-align: right;
+    vertical-align: middle;
+}
+
+table.sv-data-table input[type=number] {
+    border: solid 1px #ccc;
+    max-width: 50px;
+}
+
+.edit-parameters {
+    margin: 3px;
+}
+
+table.sv-data-table .card {}
+
+.parameters-container .row {}
+
+.parameter-pg-col {
+    background: lightBlue;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 872px) {
+    table.sv-data-table {}
+    div.parameter-pg-col {
+        min-width: 100%!important;
+        padding: 0;
+    }
+    .card {
+        display: block;
+        margin: 10px auto!important;
+        min-width: 100%!important;
+    }
+}
+
+@media (min-width: 872px) {
+    .parameters-container {
+        background: lightPink;
+        margin: 0 auto;
+        max-width: 840px;
+        padding: 10px;
+    }
+    .card {
+        width: 195px;
+    }
+}
+
+
+/* Vertical Tabs */
+
+.vertical-tabs {
+    font-size: 14px;
+    padding: 10px;
+    color: #008000
+}
+
+.vertical-tabs .nav-tabs .nav-link {
+    background: #4CAF50;
+    border: 1px solid transparent;
+    color: #fff;
+    height: 37px
+}
+
+.vertical-tabs .nav-tabs .nav-link.active {
+    background-color: #009900!important;
+    border-color: transparent !important;
+    color: #fff;
+}
+
+.vertical-tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0rem!important;
+}
+
+.vertical-tabs .tab-content>.active {
+    background: #fff;
+    display: block;
+}
+
+.vertical-tabs .nav.nav-tabs {
+    border-bottom: 0;
+    border-right: 1px solid transparent;
+    display: block;
+    float: left;
+    margin-right: 20px;
+    padding-right: 15px;
+}
+
+.vertical-tabs div.tab-content {
+    border: solid 1px #4CAF50!important;
+    max-height: 200px;
+}
+
+.vertical-tabs .sv-tab-panel {
+    background: #fff;
+    height: 145px;
+    padding-top: 10px;
+}
+
+.vertical-tabs div#home-v.tab-pane .sv-tab-panel {
+    background: #a6dba6
+}
+
+.vertical-tabs div#profile-v.tab-pane .sv-tab-panel {
+    background: #99d699;
+}
+
+.vertical-tabs div#messages-v.tab-pane .sv-tab-panel {
+    background: #8cd18c
+}
+
+.vertical-tabs div#settings-v.tab-pane .sv-tab-panel {
+    background: #80cc80
+}
+
+
+/* Vertical Tabs */
+
+.horizontal-tabs {
+    font-size: 14px;
+    font-size: bold;
+    padding: 10px;
+    color: #030000
+}
+
+.horizontal-tabs .nav-tabs .nav-link {
+    background-color: rgb(225, 236, 238);
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0)
+}
+
+.horizontal-tabs .nav-tabs .nav-link.active {
+    background-color: #02252e!important;
+    border-color: transparent !important;
+    color: #fff;
+}
+
+.horizontal-tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.5rem!important;
+    border-top-right-radius: 0.5rem!important;
+}
+
+.horizontal-tabs .tab-content>.active {
+    background: #fff;
+    display: block;
+}
+
+.horizontal-tabs .nav.nav-tabs {
+    border-bottom: 0;
+    border-right: 1px solid transparent;
+    background-color: rgb(225, 236, 238);
+    border-top-left-radius: 0.5rem!important;
+    border-top-right-radius: 0.5rem!important;
+}
+
+.horizontal-tabs div.tab-content {
+    border: solid rgb(225, 236, 238)!important;
+    max-height: 150px;
+}
+
+.horizontal-tabs .sv-tab-panel {
+    background: #fff;
+    height: 110px;
+    padding-top: 10px;
+}
+
+.horizontal-tabs .sv-tab-panel {
+    padding: 10px
+}
+
+@media (max-width: 967px) {
+    .nav.nav-tabs {
+        border-bottom: 0;
+        border-right: 1px solid transparent;
+        display: block;
+        margin-right: 20px;
+        width: 100%!important
+    }
+    .horizontal-tabs .nav-tabs {
+        width: 100%;
+        padding: 0
+    }
+}

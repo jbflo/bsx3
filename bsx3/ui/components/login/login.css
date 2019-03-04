@@ -1,0 +1,28 @@
+@media all and (min-width: 480px) {
+    .login {
+        width: 425px;
+        height: 350px;
+        text-align: center;
+        background-color: rgba(240, 248, 255, 0.4);
+        box-shadow: rgba(13, 67, 114, 0.4);
+        border-radius: 4px;
+        margin: 0 auto;
+        margin-top: 150px;
+    }
+    .login Form {
+        margin-top: 150px;
+        margin: 30px auto;
+        max-width: 320px;
+        box-shadow: rgba(13, 67, 114, 0.4);
+    }
+    .login Form Image {
+        top: -10px;
+        margin-bottom: 50px;
+    }
+    .title {
+        font-size: 25px;
+    }
+    .login Form .btn {
+        background-color: rgba(240, 248, 255, 0.4)
+    }
+}

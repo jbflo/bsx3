@@ -1,0 +1,31 @@
+@media all and (min-width: 480px) {
+    .Header {
+        background-color: #0F2027;
+        height: 50px;
+        font-weight: bold;
+    }
+    .brand {
+        color: rgb(159, 172, 173);
+        font-weight: bold;
+    }
+    .item {
+        color: rgb(159, 172, 173);
+        margin: 0;
+        padding-left: 4px;
+        padding-right: 4px;
+        font-weight: bold;
+    }
+    .brand:hover,
+    .item:hover {
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        transition-duration: 0.3s;
+        transition-property: transform;
+        transform: scale(1.1);
+    }
+}
