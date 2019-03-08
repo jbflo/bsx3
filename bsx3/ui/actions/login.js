@@ -1,11 +1,14 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable space-before-function-paren */
 /* eslint-disable eol-last */
 /* eslint-disable indent */
 import fetch from 'isomorphic-fetch';
-// import { showErrorPanel, setLoading, getInitialState } from './general';
-// import { sendClearQueue, clearAll } from './queue';
-// import { setMaster } from './remoteAccess';
 import { createBrowserHistory } from 'history';
+// import { browserHistory } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { showErrorPanel, setLoading, getInitialState } from './general';
+// import { sendClearQueue, clearAll } from './queue';
+import { setMaster } from './remoteAccess';
 
 
 export function setLoginInfo(loginInfo) {
@@ -35,7 +38,7 @@ export function selectProposal(prop) {
 }
 
 export function sendMail(sender, content) {
-    fetch('mxcube/api/v0.1/send_feedback', {
+    fetch('bsx3/api/v0.1/send_feedback', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -48,7 +51,7 @@ export function sendMail(sender, content) {
 
 
 export function postProposal(number) {
-    return fetch('mxcube/api/v0.1/lims/proposal', {
+    return fetch('bsx3/api/v0.1/lims/proposal', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -59,31 +62,31 @@ export function postProposal(number) {
     });
 }
 
-// export function sendSelectProposal(number) {
-//   return function (dispatch) {
-//     postProposal(number).then((response) => {
-//       if (response.status >= 400) {
-//         dispatch(showErrorPanel(true, 'Server refused to select proposal'));
-//         browserHistory.push('/login');
-//       } else {
-//         browserHistory.push('/');
-//       }
-//     });
-//   };
-// }
+export function sendSelectProposal(number) {
+    return function(dispatch) {
+        postProposal(number).then((response) => {
+            if (response.status >= 400) {
+                dispatch(showErrorPanel(true, 'Server refused to select proposal'));
+                BrowserRouter.push('/login');
+            } else {
+                BrowserRouter.push('/');
+            }
+        });
+    };
+}
 
-// export function startSession() {
-//   return function (dispatch, getState) {
-//     const loginInfo = getState().login.loginInfo;
-//     dispatch(setMaster(loginInfo.master, loginInfo.observerName));
-//     dispatch(getInitialState());
-//     dispatch(setLoading(false));
-//   };
-// }
+export function startSession() {
+    return function(dispatch, getState) {
+        const loginInfo = getState().login.loginInfo;
+        dispatch(setMaster(loginInfo.master, loginInfo.observerName));
+        dispatch(getInitialState());
+        dispatch(setLoading(false));
+    };
+}
 
 export function getLoginInfo() {
     return function(dispatch) {
-        return fetch('mxcube/api/v0.1/login_info', {
+        return fetch('bsx3/api/v0.1/login_info', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -108,7 +111,7 @@ export function signOut() {
 
 export function signIn(proposal, password) {
     return function(dispatch) {
-        fetch('mxcube/api/v0.1/login', {
+        fetch('bsx3/api/v0.1/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -142,7 +145,7 @@ export function signIn(proposal, password) {
 export function doSignOut() {
     // eslint-disable-next-line space-before-function-paren
     return function(dispatch) {
-        return fetch('mxcube/api/v0.1/signout', {
+        return fetch('bsx3/api/v0.1/signout', {
             credentials: 'include'
         }).then(() => {
             dispatch(signOut());

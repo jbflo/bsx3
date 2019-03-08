@@ -20,7 +20,8 @@ export default class DefaultBusy extends React.Component {
         <div className="popinput-input-busy" />
         <ButtonToolbar className="popinput-busy-buttonbar">
           <Button bsStyle="danger" className="btn-sm" onClick={this.cancel}>
-            <i className="glyphicon glyphicon-remove" />
+            {/* <i className="glyphicon glyphicon-remove" /> */}
+            Can
           </Button>
         </ButtonToolbar>
       </div>

@@ -6,7 +6,6 @@ import { Route } from 'react-router-dom';
 // import thunk from 'redux-thunk';
 // import createLogger from 'redux-logger';
 // import { persistStore } from 'redux-persist';
-// import rootReducer from '../reducers/index_reducer';
 import NavLoggedOut from './header/NavLoggedOut';
 import NavLoggedIn from './header/NavLoggedIn';
 import Login from './login/Login';
@@ -89,14 +88,12 @@ class Main extends Component {
     return [
       headercontent,
       <div className="main">
-        <div>
-          <Route exact path="/login" component={Login} />
-          <Route path="/datacollection" component={DataCollection} />
-          <Route exact path="/" component={DataCollection}>
-            {/* <IndexRoute component={SampleViewContainer} /> */}
-            {/* <Route path="/datacollection" component={SampleViewContainer} /> */}
-          </Route>
-        </div>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/datacollection" component={DataCollection} />
+        {/* <Route exact path="/" component={DataCollection}>
+          <IndexRoute component={SampleViewContainer} />
+          <Route path="/datacollection" component={SampleViewContainer} />
+        </Route> */}
       </div>
     ];
   }

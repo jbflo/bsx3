@@ -34,6 +34,7 @@ export default class LabeledValue extends React.Component {
               bsStyle="default"
               style={labelStyle}
             >
+
               {this.props.name}
             </Label>
           </div>
@@ -42,8 +43,8 @@ export default class LabeledValue extends React.Component {
               bsStyle={this.props.level}
               style={valueStyle}
             >
+              {this.props.name}
               {this.props.value}
-              {' '}
               {this.props.suffix}
             </Label>
           </div>

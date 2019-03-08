@@ -1,81 +1,3 @@
-.sv-data-1 {
-    background: lightCyan;
-    padding: 0;
-}
-
-.sv-data-2 {
-    background: lightPink;
-    height: 40px;
-    white-space: nowrap;
-}
-
-.sv-data-3 {
-    background: LightGoldenRodYellow;
-    height: 40px;
-    white-space: nowrap;
-}
-
-.sv-data-4 {
-    background: LightSteelBlue;
-}
-
-table.sv-data-table {
-    table-layout: fixed;
-}
-
-table.sv-data-table tbody tr {
-    font-size: 13px;
-    padding: 0;
-}
-
-table.sv-data-table tbody tr td {
-    height: 36px;
-}
-
-table.sv-data-table .td-data-item-1 {
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-}
-
-table.sv-data-table .td-data-item-2 {
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-    white-space: no-wrap;
-}
-
-table.sv-data-table .td-data-item-3 {
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-}
-
-table.sv-data-table .td-data-item-4 {
-    padding: 0;
-    text-align: right;
-    vertical-align: middle;
-}
-
-table.sv-data-table input[type=number] {
-    border: solid 1px #ccc;
-    max-width: 50px;
-}
-
-.edit-parameters {
-    margin: 3px;
-}
-
-table.sv-data-table .card {}
-
-.parameters-container .row {}
-
-.parameter-pg-col {
-    background: lightBlue;
-    margin: 0;
-    padding: 0;
-}
-
 @media (max-width: 872px) {
     table.sv-data-table {}
     div.parameter-pg-col {
@@ -102,75 +24,9 @@ table.sv-data-table .card {}
 }
 
 
-/* Vertical Tabs */
+/* Horizontal Tabs */
 
-.vertical-tabs {
-    font-size: 14px;
-    padding: 10px;
-    color: #008000
-}
-
-.vertical-tabs .nav-tabs .nav-link {
-    background: #4CAF50;
-    border: 1px solid transparent;
-    color: #fff;
-    height: 37px
-}
-
-.vertical-tabs .nav-tabs .nav-link.active {
-    background-color: #009900!important;
-    border-color: transparent !important;
-    color: #fff;
-}
-
-.vertical-tabs .nav-tabs .nav-link {
-    border: 1px solid transparent;
-    border-top-left-radius: 0rem!important;
-}
-
-.vertical-tabs .tab-content>.active {
-    background: #fff;
-    display: block;
-}
-
-.vertical-tabs .nav.nav-tabs {
-    border-bottom: 0;
-    border-right: 1px solid transparent;
-    display: block;
-    float: left;
-    margin-right: 20px;
-    padding-right: 15px;
-}
-
-.vertical-tabs div.tab-content {
-    border: solid 1px #4CAF50!important;
-    max-height: 200px;
-}
-
-.vertical-tabs .sv-tab-panel {
-    background: #fff;
-    height: 145px;
-    padding-top: 10px;
-}
-
-.vertical-tabs div#home-v.tab-pane .sv-tab-panel {
-    background: #a6dba6
-}
-
-.vertical-tabs div#profile-v.tab-pane .sv-tab-panel {
-    background: #99d699;
-}
-
-.vertical-tabs div#messages-v.tab-pane .sv-tab-panel {
-    background: #8cd18c
-}
-
-.vertical-tabs div#settings-v.tab-pane .sv-tab-panel {
-    background: #80cc80
-}
-
-
-/* Vertical Tabs */
+.row {}
 
 .horizontal-tabs {
     font-size: 14px;
@@ -182,19 +38,17 @@ table.sv-data-table .card {}
 .horizontal-tabs .nav-tabs .nav-link {
     background-color: rgb(225, 236, 238);
     border: 1px solid transparent;
-    color: rgb(0, 0, 0)
-}
-
-.horizontal-tabs .nav-tabs .nav-link.active {
-    background-color: #02252e!important;
-    border-color: transparent !important;
-    color: #fff;
-}
-
-.horizontal-tabs .nav-tabs .nav-link {
+    color: rgb(0, 0, 0);
     border: 1px solid transparent;
     border-top-left-radius: 0.5rem!important;
     border-top-right-radius: 0.5rem!important;
+}
+
+.horizontal-tabs .nav-tabs .nav-link.active {
+    background: #00467F;
+    background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
+    background: linear-gradient(to right, #A5CC82, #00467F);
+    color: #fff;
 }
 
 .horizontal-tabs .tab-content>.active {
@@ -212,12 +66,12 @@ table.sv-data-table .card {}
 
 .horizontal-tabs div.tab-content {
     border: solid rgb(225, 236, 238)!important;
-    max-height: 150px;
+    max-height: 1000px;
 }
 
 .horizontal-tabs .sv-tab-panel {
     background: #fff;
-    height: 110px;
+    height: 1000px;
     padding-top: 10px;
 }
 

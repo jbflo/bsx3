@@ -1,3 +1,36 @@
+/*  Style Sheet for PopInput Content */
+
+.btn {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin: 2px
+}
+
+.btn-success {
+    margin-left: 5px;
+}
+
+.btn-danger {
+    margin-right: 8px;
+}
+
+.form-control {
+    margin-left: 10px;
+}
+
+.popover {
+    height: 85px;
+}
+
+.popcontent {
+    position: relative;
+    top: -35px;
+}
+
+
+/* --------------------------------  */
+
 .popinput-input-label {
     display: inline-block;
     min-width: 90px;

@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  Form, Button, FormControl, ButtonToolbar
-}
-  from 'react-bootstrap';
-
+import { Form, Row, Button } from 'react-bootstrap';
+import NumericInput from 'react-numeric-input';
 import './style.css';
 
 export default class DefaultInput extends React.Component {
@@ -18,7 +15,8 @@ export default class DefaultInput extends React.Component {
   }
 
   getValue() {
-    const input = ReactDOM(this.formControl);
+    const input = this.NumericInput;
+    console.log(input.value);
     return input.value;
   }
 
@@ -47,52 +45,23 @@ export default class DefaultInput extends React.Component {
   render() {
     return (
       <Form inline onSubmit={this.submit} noValidate>
-        <div
-          className="rw-widget rw-numberpicker"
-          style={{ width: Number(this.props.inputSize) + 10, display: 'inline-block' }}
-        >
-          <span className="rw-select">
-            <button
-              type="button"
-              className="rw-btn"
-              onClick={this.stepIncrement}
-            >
-              <i aria-hidden="true" className="rw-i rw-i-caret-up" />
-            </button>
-            <button
-              type="button"
-              className="rw-btn"
-              onClick={this.stepDecrement}
-            >
-              <i aria-hidden="true" className="rw-i rw-i-caret-down" />
-            </button>
-          </span>
-          <FormControl
-            className="rw-input"
-            style={{ width: this.props.inputSize }}
-            // eslint-disable-next-line react/no-string-refs
-            ref="formControl"
-            label="input"
-            step="any"
+        <Form.Group as={Row} className="pull-right popcontent" role="group">
+          <NumericInput
+            // size={this.props.inputSize}
+            size={5}
+            className="form-control"
+            column
+            sm="2"
             inputRef={(ref) => { this.input = ref; }}
-            type={this.props.dataType}
-            placeholder=""
-            defaultValue={this.props.value}
+            ref={(ref) => { this.NumericInput = ref; }}
+            step={0.1}
+            precision={2}
+            value={this.props.value}
+            snap
           />
-        </div>
-        <ButtonToolbar style={{ marginLeft: '0px' }} className="form-group editable-buttons">
-          <Button bsStyle="primary" className="btn-sm" onClick={this.save}>
-            <i className="glyphicon glyphicon-ok" />
-          </Button>
-          { !this.props.inplace
-            ? (
-              <Button bsStyle="default" className="btn-sm" onClick={this.cancel}>
-                <i className="glyphicon glyphicon-remove" />
-              </Button>
-            )
-            : null
-          }
-        </ButtonToolbar>
+          <Button column sm="2" type="button" className="btn btn-xs btn-success img-circle" onClick={this.save}>&#x2713;</Button>
+          <Button column sm="2" type="button" className="btn btn-xs btn-danger img-circle" onClick={this.cancel}>X</Button>
+        </Form.Group>
       </Form>
     );
   }

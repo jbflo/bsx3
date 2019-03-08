@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { OverlayTrigger, Popover, Label } from 'react-bootstrap';
-import { STATE } from '../../../actions/beamline_action';
+import { STATE } from '../../../actions/beamline';
 
 
 import DefaultInput from './DefaultInput';
 import DefaultBusy from './DefaultBusy';
 import './style.css';
-// import '../input.css';
+import '../input.css';
 
 
 /**
@@ -149,7 +149,7 @@ export default class LabelPopInput extends React.Component {
 
     let input = (
       <DefaultInput
-        ref={(ref) => { this.props.inputRef = ref; }}
+        ref={(ref) => { this.input = ref; }}
         precision={this.props.precision}
         step={this.props.data.step}
         dataType={this.props.dataType}
@@ -207,12 +207,12 @@ export default class LabelPopInput extends React.Component {
     }
 
     const popover = (
-      <Popover ref={this.ref} id={title} title={title}>
+      <Popover ref={this.popover} id={title} title={title}>
         <div className={`${inputVisibility} popinput-form-container`}>
           {this.inputComponent()}
         </div>
-        <div ref={this.ref} className={inputVisibility}>{this.props.data.msg}</div>
-        <div ref={this.ref} className={`${busyVisibility} popinput-input-loading`}>
+        <div ref={this.inputVisibility} className={inputVisibility}>{this.props.data.msg}</div>
+        <div ref={this.busyVisibility} className={`${busyVisibility} popinput-input-loading`}>
           {this.busyComponent()}
         </div>
       </Popover>);
@@ -240,7 +240,7 @@ export default class LabelPopInput extends React.Component {
           }}
         >
           <OverlayTrigger
-            ref={this.ref}
+            ref={this.overlay}
             trigger="click"
             rootClose
             placement={this.props.placement}
@@ -248,7 +248,7 @@ export default class LabelPopInput extends React.Component {
           >
             <a
               href
-              ref={this.ref}
+              ref={this.a}
               onContextMenu={this.onLinkClick}
               key="valueLabel"
               className={`label-popinput-input-link ${linkClass}`}

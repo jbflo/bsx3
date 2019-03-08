@@ -39,23 +39,23 @@ export function busyStateAction(name) {
 }
 
 export function sendGetAllAttributes() {
-    const url = 'mxcube/api/v0.1/beamline';
+    // const url = 'bsx3/api/v0.1/beamline';
 
-    return (dispatch) => {
-        fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-type': 'application/json'
-                },
-                credentials: 'include'
-            }).then(response => response.json())
-            .then((data) => {
-                dispatch(getBeamlineAttrsAction(data));
-            }, () => {
-                throw new Error(`GET ${url} failed`);
-            });
-    };
+    // return (dispatch) => {
+    //     fetch(url, {
+    //             method: 'GET',
+    //             headers: {
+    //                 Accept: 'application/json',
+    //                 'Content-type': 'application/json'
+    //             },
+    //             credentials: 'include'
+    //         }).then(response => response.json())
+    //         .then((data) => {
+    //             dispatch(getBeamlineAttrsAction(data));
+    //         }, () => {
+    //             throw new Error(`GET ${url} failed`);
+    //         });
+    // };
 }
 
 

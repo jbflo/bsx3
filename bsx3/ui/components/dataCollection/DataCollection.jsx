@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-// import Tabs from 'react-bootstrap/Tabs';
-// import Tab from 'react-bootstrap/Tab';
 import TabPane from 'react-bootstrap/TabPane';
 import TabContent from 'react-bootstrap/TabContent';
+import { showTaskForm } from '../../actions/taskForm';
 import BeamlineSetupContainer from './BeamlineSetupContainer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -15,7 +14,7 @@ import 'bootstrap/dist/js/bootstrap';
 
 import './dataC.css';
 
-export default class Body extends Component {
+class DataCollection extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -30,15 +29,14 @@ export default class Body extends Component {
 
     return [
 
-      <Row className="col-md-8 col-sm-12">
+      <div>
         <BeamlineSetupContainer />
-      </Row>,
+      </div>,
 
-      <Container className="contain" style={{ marginTop: '0px', with: '100%' }}>
+      <div className="contain" style={{ marginTop: '0px', with: '100%', height: '1000px' }}>
 
-        <Row className="row">
-
-          <div className="col-md-8 col-sm-12">
+        <div className="row justify-content-end">
+          <div className="col-md-6 col-sm-12">
             <div className="horizontal-tabs">
               <Nav className="nav nav-tabs" role="tablist">
                 <Nav.Item><Nav.Link data-toggle="tab" href="#home-h" role="tab" aria-controls="home">Home</Nav.Link></Nav.Item>
@@ -69,10 +67,35 @@ export default class Body extends Component {
               </TabContent>
             </div>
           </div>
-        </Row>
-      </Container>
+        </div>
+      </div>
 
 
     ];
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    motorInputDisable: state.beamline.motorInputDisable,
+    motors: state.beamline.motors,
+    availableMethods: state.beamline.availableMethods,
+    defaultParameters: state.taskForm.defaultParameters,
+    workflows: state.workflow.workflows,
+    cellCounting: state.taskForm.defaultParameters.mesh.cell_counting,
+    cellSpacing: state.taskForm.defaultParameters.mesh.cell_spacing,
+    proposal: state.login.selectedProposal,
+    remoteAccess: state.remoteAccess
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    showForm: bindActionCreators(showTaskForm, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DataCollection);

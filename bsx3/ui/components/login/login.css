@@ -1,28 +1,35 @@
 @media all and (min-width: 480px) {
     .login {
         width: 425px;
-        height: 350px;
+        height: 400px;
         text-align: center;
-        background-color: rgba(240, 248, 255, 0.4);
-        box-shadow: rgba(13, 67, 114, 0.4);
-        border-radius: 4px;
+        background: #00467F;
+        background: -webkit-linear-gradient(to right, rgba(165, 204, 130, 0.514), rgba(0, 70, 127, 0.329));
+        background: linear-gradient(to right, rgba(165, 204, 130, 0.514), rgba(0, 70, 127, 0.329));
+        border-radius: 14px;
         margin: 0 auto;
-        margin-top: 150px;
+        margin-top: 110px;
     }
-    .login Form {
-        margin-top: 150px;
+    .form-group {
         margin: 30px auto;
         max-width: 320px;
         box-shadow: rgba(13, 67, 114, 0.4);
     }
-    .login Form Image {
-        top: -10px;
-        margin-bottom: 50px;
-    }
     .title {
+        color: whitesmoke;
         font-size: 25px;
+        margin-top: 60px;
     }
-    .login Form .btn {
-        background-color: rgba(240, 248, 255, 0.4)
+    .login .btn {
+        margin-left: 0%;
+        margin-top: 20px;
+        min-width: 320px;
+        border-radius: 6px;
+        border: 0px;
+        color: azure;
+        font-weight: bold;
+        background-color: #0F2027;
+        background: -webkit-linear-gradient(to right, rgb(165, 204, 130), rgb(0, 70, 127));
+        background: linear-gradient(to right, rgb(165, 204, 130), rgb(0, 70, 127));
     }
 }

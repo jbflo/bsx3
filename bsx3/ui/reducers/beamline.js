@@ -2,7 +2,7 @@
 /* eslint-disable object-curly-spacing */
 /* eslint-disable max-len */
 /* eslint-disable indent */
-// import { STATE } from '../actions/beamline_action';
+import { STATE } from '../actions/beamline';
 import { RUNNING } from '../constants';
 
 /**
@@ -28,7 +28,55 @@ export const INITIAL_STATE = {
             state: 'undefined',
             msg: 'UNKNOWN',
             readonly: false
-        }
+        },
+        energy: {
+            limits: [
+                0,
+                1000,
+                0.1
+            ],
+            name: 'energy',
+            value: '0',
+            state: STATE.IDLE,
+            msg: '',
+            readonly: false
+        },
+        wavelength: {
+            limits: [
+                0,
+                1000,
+                0.1
+            ],
+            name: 'wavelength',
+            value: '0',
+            state: STATE.IDLE,
+            msg: '',
+            readonly: false
+        },
+        sampleName: {
+            limits: [
+                0,
+                1000,
+                0.1
+            ],
+            name: 'sampleName',
+            value: '0',
+            state: STATE.IDLE,
+            msg: 'UNKNOWN',
+            readonly: false
+        },
+        attenuation: {
+            limits: [
+                0,
+                1000,
+                0.1
+            ],
+            name: 'sampleName',
+            value: '0',
+            state: STATE.IDLE,
+            msg: 'UNKNOWN',
+            readonly: false
+        },
     },
     motors: {
         focus: { position: 0, state: 0, limits: [0, 1] },

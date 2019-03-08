@@ -1,41 +1,16 @@
 import React from 'react';
-
-import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { STATE } from '../../../actions/beamline_action';
+import Popover from 'react-bootstrap/Popover';
+import {
+  OverlayTrigger
+} from 'react-bootstrap';
+import { STATE } from '../../../actions/beamline';
 
 
 import DefaultInput from './DefaultInput';
 import DefaultBusy from './DefaultBusy';
 import './style.css';
-// import '../input.css';
 
 
-/**
- * A simple "Popover Input" input control, the value is displayed as text and
- * the associated input is displayed in an overlay when the text is clicked.
- *
- * Valid react properties are:
- *
- *   dataType:   The data type of the value (the input will addapt
- *               accordingly)
- *   inputSize:  Input field size, with any html unit; px, em, rem ...
- *   pkey:       Key used when retreiving or sending data to server
- *   name:       Name displayed in label
- *   suffix:     Suffix to display after value
- *   data:       Object containing value, the current state of the value and
- *               a message describing the state. The object have the following
- *               format:
- *
- *                    data: {value: <value>, state: <state>, msg: <msg>}
- *
- *   title:      Title displayed at the top of popover
- *   placement:  Placement of Popover (left, right, bottom, top)
- *   onSave:     Callback called when user hits save button
- *   onCancel:   Callback called when user hits cancel button
- *
- * @class
- *
- */
 export default class PopInput extends React.Component {
   constructor(props) {
     super(props);
@@ -123,7 +98,8 @@ export default class PopInput extends React.Component {
 
 
   save() {
-    this.setValue(this.input.getValue());
+    // eslint-disable-next-line react/no-string-refs
+    this.setValue(this.refs.input.getValue());
   }
 
 
@@ -157,7 +133,7 @@ export default class PopInput extends React.Component {
 
     let input = (
       <DefaultInput
-        ref={(ref) => { this.props.inputRef = ref; }}
+        ref={(ref) => { this.input = ref; }}
         precision={this.props.precision}
         step={this.props.data.step}
         dataType={this.props.dataType}
@@ -200,10 +176,9 @@ export default class PopInput extends React.Component {
     return state === STATE.ABORT;
   }
 
-
   render() {
     const linkClass = 'editable-click';
-    const busyVisibility = this.isBusy() ? '' : 'hidden';
+    // const busyVisibility = this.isBusy() ? '' : 'hidden';
     const inputVisibility = !this.isBusy() ? '' : 'hidden';
     const title = (this.props.title === '') ? this.props.name : this.props.title;
 
@@ -220,20 +195,21 @@ export default class PopInput extends React.Component {
         <div className={`${inputVisibility} popinput-form-container`}>
           {this.inputComponent()}
         </div>
-        <div
-          ref={(ref) => { this.props.inputVisibility.ref = ref; }}
+        {/* <div
+          ref={(ref) => { this.inputVisibility = ref; }}
           className={inputVisibility}
         >
           {this.props.data.msg}
         </div>
 
-        <div ref={(ref) => { this.props.busyComponent.ref = ref; }} className={`${busyVisibility} popinput-input-loading`}>
+        <div ref={(ref) => { this.busyVisibility = ref; }} className={`${busyVisibility}
+        popinput-input-loading`}>
           {this.busyComponent()}
-        </div>
+        </div> */}
       </span>);
 
     const popover = (
-      <Popover ref={(ref) => { this.props.popoverContent.ref = ref; }} id={title} title={title}>
+      <Popover ref={(ref) => { this.Popover = ref; }} id={title} title={title} className="popover">
         { popoverContent }
       </Popover>);
 
@@ -243,52 +219,29 @@ export default class PopInput extends React.Component {
       value = value.toFixed(parseInt(this.props.data.precision, 10));
     }
 
-    return (
-      <div style={this.props.style} className={`${this.props.className} popinput-input-container`}>
-        { this.props.name
-          ? (
-            <span
-              className={`popinput-input-label ${this.props.ref}`}
-            >
-              {this.props.name}
-:
-            </span>
-          ) : null
-        }
-        <span
-          className={`popinput-input-value ${this.props.pkey}`}
+    return [
+
+      <OverlayTrigger
+        ref={(ref) => { this.overlay = ref; }}
+        trigger="click"
+        rootClose
+        placement={this.props.placement}
+        overlay={popover}
+        className="overlay"
+      >
+        <a
+          ref={(ref) => { this.a = ref; }}
+          onContextMenu={this.onLinkClick}
+          key="valueLabel"
+          className={`popinput-input-link ${linkClass} ${stateClass}`}
+          href
         >
-          { this.props.inplace
-            ? (
-              <span>
-                { popoverContent }
-              </span>
-            )
-            : (
-              <OverlayTrigger
-                ref={(ref) => { this.ref = ref; }}
-                trigger="click"
-                rootClose
-                placement={this.props.placement}
-                overlay={popover}
-              >
-                <a
-                  ref={(ref) => { this.ref = ref; }}
-                  onContextMenu={this.onLinkClick}
-                  key="valueLabel"
-                  className={`popinput-input-link ${linkClass} ${stateClass}`}
-                  href
-                >
-                  {value}
-                  {' '}
-                  {this.props.suffix}
-                </a>
-              </OverlayTrigger>
-            )
-            }
-        </span>
-      </div>
-    );
+          {value}
+          {' '}
+          {this.props.suffix}
+        </a>
+      </OverlayTrigger>
+    ];
   }
 }
 

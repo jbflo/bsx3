@@ -2,35 +2,46 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  Button, InputGroup, Form, Image, Nav, Alert
+  Form, Image, Nav, Alert
 } from 'react-bootstrap';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-
-import * as LoginAPI from './login-api';
+import loader from '../../img/loader.gif';
+import * as LoginAPI from '../../actions/login';
 
 import './login.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // const redirectRoute = '/login';
+    // this.handleSubmit = this.handleSubmit.bind(this);
     this.signIn = this.signIn.bind(this);
-
-
-    this.usernameRef = React.createRef();
-    this.passwordRef = React.createRef();
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    // let logini;
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const username = this.username.value;
-    const password = this.password.value;
-    this.props.setLoading(true);
-    this.props.loginRequest(username, password);
+
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   const username = this.props.login.username.value;
+  //   const password = this.password.value;
+
+  //   console.log({ username }, '  ', { password });
+  //   this.props.setLoading(true);
+  //   this.props.signIn(username.toLowerCase(), password);
+  // }
+
+
+  handleKeyPress(target) {
+    if (target.charCode === 13) {
+      this.signIn();
+    }
+    if (target.charCode === 13) {
+      this.logini = true;
+    }
   }
 
   validateForm() {
@@ -41,55 +52,59 @@ class Login extends Component {
   }
 
   signIn() {
-    if (
-      this.props.login.username.length > 0
-      && this.props.login.password.length > 0
-    ) {
-      return true;
-    }
-
-    return false;
+    const username = this.username.value;
+    const password = this.password.value;
+    console.log({ username }, '  ', { password });
+    this.props.setLoading(true);
+    this.props.signIn(username.toLowerCase(), password);
+    return true;
   }
 
   render() {
+    if (this.props.loading && !this.props.showProposalsForm) {
+      return <img src={loader} className="centered" alt="Loading" />;
+    }
+
     return [
       <div className="login">
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <Nav className="justify-content-center">
-            <Image style={{ width: '80px', marginBottom: '60px' }} src="holder.js/171x180" />
+            <Image style={{ width: '80px', marginBottom: '40px', marginTop: '75px' }} src="holder.js/171x180" />
             <Nav.Item className="title"> BsxCube 3</Nav.Item>
           </Nav>
-          <Form.Group controlId="username" bsSize="large">
-            <InputGroup>
-              <Form.Control
-                required
-                inputRef={(usernameRef) => { this.username = usernameRef; }}
-                autoFocus
-                type="text"
-                placeholder="LoginID"
-              />
-            </InputGroup>
-          </Form.Group>
-
-          <Form.Group controlId="password" bsSize="large">
+          <Form.Group className="form-group" controlId="username" bsSize="large">
             <Form.Control
               required
-              inputRef={(passwordRef) => { this.password = passwordRef; }}
+              inputRef={(ref) => { this.username = ref; }}
+              autoFocus
+              type="text"
+              name="username"
+              placeholder="LoginID"
+            />
+          </Form.Group>
+
+          <Form.Group className="form-group" controlId="password" bsSize="large">
+            <Form.Control
+              required
+              onKeyPress={this.handleKeyPress}
+              inputRef={(ref) => { this.password = ref; }}
               type="password"
+              name="password"
               placeholder="password"
             />
           </Form.Group>
 
-          <Button
-            className="btn-dark"
-            block
-            bsSize="large"
+          <button
+            className="btn"
             // disabled={!this.validateForm()}
             type="submit"
+            onClick={this.signIn}
           >
             Login
-          </Button>
+          </button>
           {(this.props.showError ? <Alert bsStyle="danger"><h4>Login failed</h4></Alert> : '')}
+          {(<Alert bsStyle="danger"><h4>{this.username}</h4></Alert>,
+            <Alert bsStyle="danger"><h4>{this.password}</h4></Alert>)}
         </Form>
       </div>
     ];

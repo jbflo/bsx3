@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import store, { history } from './components/redux-store';
+import store, { history } from './reducers/redux-store';
 import Main from './components/Main';
 import * as serviceWorker from './serviceWorker';
 
