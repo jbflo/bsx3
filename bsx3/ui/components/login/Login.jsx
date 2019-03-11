@@ -1,38 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { Redirect } from 'react-router-dom';
 import {
   Form, Image, Nav, Alert
 } from 'react-bootstrap';
-
+import { userActions } from '../../actions/userActions';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import loader from '../../img/loader.gif';
-import * as LoginAPI from '../../actions/login';
+import logo from '../../img/logo.png'; // relative path to logo
 
 import './login.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.props.dispatch(userActions.logout());
     // const redirectRoute = '/login';
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    this.signIn = this.signIn.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {};
+    // this.signIn = this.signIn.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     // let logini;
   }
 
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   const username = this.props.login.username.value;
-  //   const password = this.password.value;
+  handleSubmit(event) {
+    event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+    // const { username, password } = this.state;
+    if (username && password) {
+      this.props.dispatch(userActions.login(username.toLowerCase(), password));
+      // alert({ username }, ' ', { password });
+    }
 
-  //   console.log({ username }, '  ', { password });
-  //   this.props.setLoading(true);
-  //   this.props.signIn(username.toLowerCase(), password);
-  // }
+    // this.props.setLoading(true);
+  }
 
 
   handleKeyPress(target) {
@@ -51,26 +56,41 @@ class Login extends Component {
     );
   }
 
-  signIn() {
-    const username = this.username.value;
-    const password = this.password.value;
-    console.log({ username }, '  ', { password });
-    this.props.setLoading(true);
-    this.props.signIn(username.toLowerCase(), password);
-    return true;
-  }
 
   render() {
     if (this.props.loading && !this.props.showProposalsForm) {
       return <img src={loader} className="centered" alt="Loading" />;
     }
+    // let isSuccess;
+    // let msg;
 
+    // // eslint-disable-next-line no-prototype-builtins
+    // if (this.props.response.login.hasOwnProperty('response')) {
+    //   isSuccess = this.props.response.login.response.success;
+    //   msg = this.props.response.login.response.message;
+
+    //   if (isSuccess) {
+    //     localStorage.removeItem('token');
+    //     localStorage.setItem('token', this.props.response.login.response.token);
+    //     // setCookie('token', this.props.response.login.response.token, 1);
+    //   }
+    // }
+
+    const { isLoginPending, isLoginSuccess, loginError } = this.props;
+    const { loggingIn } = this.props;
     return [
       <div className="login">
-        <Form>
+        {/* {!isSuccess ? <div>{msg}</div> : <Redirect to="/" />} */}
+        <Form name="Login" onSubmit={this.handleSubmit}>
           <Nav className="justify-content-center">
-            <Image style={{ width: '80px', marginBottom: '40px', marginTop: '75px' }} src="holder.js/171x180" />
-            <Nav.Item className="title"> BsxCube 3</Nav.Item>
+            <Image
+              style={{
+                width: '80px', height: '80px', marginBottom: '20px', marginTop: '35px', marginLeft: '11%'
+              }}
+              // src={logo}
+              alt="LOGO"
+            />
+            {/* <Nav.Item className="title"> BsxCube 3</Nav.Item> */}
           </Nav>
           <Form.Group className="form-group" controlId="username" bsSize="large">
             <Form.Control
@@ -96,12 +116,19 @@ class Login extends Component {
 
           <button
             className="btn"
-            // disabled={!this.validateForm()}
+          // disabled={!this.validateForm()}
             type="submit"
-            onClick={this.signIn}
           >
-            Login
+          Login
           </button>
+          {loggingIn
+              && <img src={logo} alt=" " />
+          }
+          <div className="message">
+            { isLoginPending && <div>Please wait...</div> }
+            { isLoginSuccess && <div>Success.</div> }
+            { loginError && <div>{loginError.message}</div> }
+          </div>
           {(this.props.showError ? <Alert bsStyle="danger"><h4>Login failed</h4></Alert> : '')}
           {(<Alert bsStyle="danger"><h4>{this.username}</h4></Alert>,
             <Alert bsStyle="danger"><h4>{this.password}</h4></Alert>)}
@@ -111,15 +138,20 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps(state) {
+  // const { loggingIn } = state.authentication;
+  return {
+    state
+  };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(LoginAPI, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     login: (email, password) => dispatch(login(email, password))
+//   };
+// }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+//  mapDispatchToProps
 )(Login);

@@ -21,6 +21,7 @@
     "bootstrap-css-only": "^4.3.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "^2.4.2",
+    "config": "^3.0.1",
     "connected-react-router": "^6.1.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",

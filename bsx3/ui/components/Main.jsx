@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-// import { IndexRoute } from 'react-router';
+import { createBrowserHistory } from 'history';
 // import crosstabSync from 'redux-persist-crosstab';
 // import { createStore, applyMiddleware } from 'redux';
 // import thunk from 'redux-thunk';
@@ -10,10 +10,15 @@ import NavLoggedOut from './header/NavLoggedOut';
 import NavLoggedIn from './header/NavLoggedIn';
 import Login from './login/Login';
 import DataCollection from './dataCollection/DataCollection';
+import './main.css';
 // import { serverIO } from '../serverIO';
 // import { getLoginInfo } from '../actions/login_action';
-
-import './main.css';
+// eslint-disable-next-line import/prefer-default-export
+// export const login = (user) => ({
+//     type: types.LOGIN_USER,
+//     user
+// })
+const history = createBrowserHistory();
 
 // const store = createStore(rootReducer, applyMiddleware(thunk, createLogger()));
 
@@ -59,41 +64,39 @@ class Main extends Component {
     this.state = { initialized: false };
   }
 
+
   componentWillMount() {
-    // const persistor = persistStore(store,
-    //   {
-    //     blacklist: ['remoteAccess', 'beamline', 'sampleChanger',
-    //       'form', 'login', 'general', 'logger', 'shapes',
-    //       'sampleView', 'taskResult', 'sampleChangerMaintenance'],
-    //     storage: new ServerStorage()
-    //   },
-    //   () => {
-    /* eslint-disable react/no-set-state */
     this.setState({ initialized: true });
-    /* eslint-enable react/no-set-state */
-    // });
-
-    // serverIO.connectStateSocket(persistor);
-
-    // crosstabSync(persistor);
+    if (!this.props.authenticated) {
+      history.push('/');
+    }
   }
 
+  componentWillUpdate(nextProps) {
+    if (!nextProps.authenticated) {
+      history.push('/');
+    }
+  }
 
   render() {
-    const login = true;
-    let headercontent;
-    if (login) { headercontent = <NavLoggedIn />; } else { headercontent = <NavLoggedOut />; }
+    // const login = true;
+    // let headercontent;
+    // if (login) {
+    //   headercontent = <NavLoggedIn />;
+    // } else { headercontent = <NavLoggedOut />; }
     if (!this.state.initialized) return <span>Loading...</span>;
 
     return [
-      headercontent,
+    //  headercontent,
       <div className="main">
+        { <Route exact path="/login" component={NavLoggedOut} />
+        }
+        { <Route exact path="/datacollection" component={NavLoggedIn} />
+        }
         <Route exact path="/login" component={Login} />
         <Route exact path="/datacollection" component={DataCollection} />
-        {/* <Route exact path="/" component={DataCollection}>
-          <IndexRoute component={SampleViewContainer} />
-          <Route path="/datacollection" component={SampleViewContainer} />
-        </Route> */}
+        <Route exact path="/" component={NavLoggedIn} />
+        <Route exact path="/" component={DataCollection} />
       </div>
     ];
   }

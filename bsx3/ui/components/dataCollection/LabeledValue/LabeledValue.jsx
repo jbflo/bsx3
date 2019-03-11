@@ -17,7 +17,7 @@ export default class LabeledValue extends React.Component {
       display: 'block-inline',
       fontSize: '100%',
       borderRadius: '0px',
-      color: '#000',
+      color: 'antiquewhite',
       padding: '0px'
     };
 

@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  Navbar, Nav, Form, Badge
+  Navbar, Nav, Badge
 } from 'react-bootstrap';
-import FormCheck from 'react-bootstrap/FormCheck';
+// import FormCheck from 'react-bootstrap/FormCheck';
 import { Label } from 'react-bootstrap/Form';
+import InOutSwitch from './OnOffSwitch/OnOffSwitch';
 import PopInput from './PopInput/PopInput';
 import LabeledValue from './LabeledValue/LabeledValue';
 
@@ -13,7 +14,7 @@ import LabeledValue from './LabeledValue/LabeledValue';
 import {
   sendGetAllAttributes,
   sendSetAttribute,
-  sendAbortCurrentAction
+  // sendAbortCurrentAction
 }
   from '../../actions/beamline';
 
@@ -56,8 +57,8 @@ class BeamlineSetupContainer extends React.Component {
 
     return [
       <Navbar className="setup rounded-top">
-        <Navbar.Collapse className="justify-content-start" style={{ marginLeft: '320px' }}>
-          <Nav className="nav">
+        <Navbar.Collapse className="justify-content-start" style={{ marginLeft: '20px' }}>
+          {/* <Nav className="nav">
             <Form.Group controlId="formBasicPassword">
               <FormCheck
                 type="checkbox"
@@ -72,11 +73,46 @@ class BeamlineSetupContainer extends React.Component {
                 { this.props.beamline.attributes.shutter.value}
               </Form.Label>
             </Form.Group>
+          </Nav> */}
+
+          <Nav className="nav">
+            <Label className="name btn">
+            Shuter
+              {'  '}
+              <Badge variant={variantStyle}>
+                {' '}
+                { this.props.beamline.attributes.energy.readonly
+                  ? (
+                    <Nav.Item className="item">
+                      <LabeledValue
+                        suffix=""
+                        name=""
+                        value={this.props.beamline.attributes.shutter.value}
+                      />
+                    </Nav.Item>
+                  )
+                  : (
+                    <Nav.Item className="item">
+                      <InOutSwitch
+                        // onText={this.props.beamline.attributes}
+                        // offText={this.props.beamline.attributes}
+                        // labelText={this.props.beamline.attributes}
+                        pkey={1}
+                        // data={this.props.beamline.attributes}
+                        // onSave={this.setAttribute}
+                        // optionsOverlay={this.beamstopAlignmentOverlay()}
+                      />
+                    </Nav.Item>
+                  )
+               }
+
+              </Badge>
+            </Label>
           </Nav>
 
           <Nav className="nav">
             <Label className="name btn">
-                Energy :
+                Energy
               {'  '}
               <Badge variant={variantStyle}>
                 {' '}
@@ -106,48 +142,13 @@ class BeamlineSetupContainer extends React.Component {
 
               </Badge>
             </Label>
-
-          </Nav>
-
-          <Nav className="nav">
-            <Label className="name btn">
-                Energy :
-              {'  '}
-              <Badge variant={variantStyle}>
-                {' '}
-                { this.props.beamline.attributes.energy.readonly
-                  ? (
-                    <Nav.Item className="item">
-                      <LabeledValue
-                        suffix="keV"
-                        name=""
-                        value={this.props.beamline.attributes.energy.value}
-                      />
-                    </Nav.Item>
-                  )
-                  : (
-                    <Nav.Item className="item">
-                      <PopInput
-                        name="Energy"
-                        pkey="energy"
-                        suffix="keV"
-                        data={this.props.beamline.attributes.energy}
-                        onSave={this.setAttribute}
-                        onCancel={this.onCancelHandler}
-                      />
-                    </Nav.Item>
-                  )
-               }
-
-              </Badge>
-            </Label>
-
           </Nav>
         </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end" style={{ marginLeft: '320px' }}>
+
+        <Navbar.Collapse className="justify-content-end" style={{ marginLeft: '20px' }}>
           <Nav className="nav">
-            <Label className="name btn" style={{ width: '180px' }}>
-            Sample Name :
+            <Label className="name btn">
+             Sample Name
               {'  '}
               <Badge variant={variantStyle} className="badge">
                 <Nav.Item className="item">
@@ -162,8 +163,56 @@ class BeamlineSetupContainer extends React.Component {
           </Nav>
 
           <Nav className="nav">
-            <Label className="name btn" style={{ width: '180px' }}>
-            Attenuation :
+            <Label className="name btn">
+            Run No.
+              {'  '}
+              <Badge variant={variantStyle}>
+                <Nav.Item className="item">
+                  <LabeledValue
+                    suffix=""
+                    name=""
+                    value={this.props.beamline.attributes.attenuation.value}
+                  />
+                </Nav.Item>
+              </Badge>
+            </Label>
+          </Nav>
+
+          <Nav className="nav">
+            <Label className="name btn">
+            Attenuation
+              {'  '}
+              <Badge variant={variantStyle}>
+                <Nav.Item className="item">
+                  <LabeledValue
+                    suffix=""
+                    name=""
+                    value={this.props.beamline.attributes.attenuation.value}
+                  />
+                </Nav.Item>
+              </Badge>
+            </Label>
+          </Nav>
+
+          <Nav className="nav">
+            <Label className="name btn">
+            Time / frame
+              {'  '}
+              <Badge variant={variantStyle}>
+                <Nav.Item className="item">
+                  <LabeledValue
+                    suffix=""
+                    name=""
+                    value={this.props.beamline.attributes.attenuation.value}
+                  />
+                </Nav.Item>
+              </Badge>
+            </Label>
+          </Nav>
+
+          <Nav className="nav">
+            <Label className="name btn">
+             Frames No.
               {'  '}
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
@@ -197,7 +246,7 @@ function mapDispatchToProps(dispatch) {
     getAllAttributes: bindActionCreators(sendGetAllAttributes, dispatch),
     // sampleViewActions: bindActionCreators(SampleViewActions, dispatch),
     setAttribute: bindActionCreators(sendSetAttribute, dispatch),
-    abortCurrentAction: bindActionCreators(sendAbortCurrentAction, dispatch)
+    // abortCurrentAction: bindActionCreators(sendAbortCurrentAction, dispatch)
   };
 }
 

@@ -33,7 +33,7 @@ export default class NavLoggedIn extends Component {
         <Nav className="mr-auto" style={{ marginLeft: '18em' }}>
           <LinkContainer className="link " to="/logging" eventKey={1}><Nav.Link className="item1"> System log</Nav.Link></LinkContainer>
           <LinkContainer className="link " to="/datacollection" eventKey={2}><Nav.Link className="item1"> Data Collection</Nav.Link></LinkContainer>
-          <LinkContainer className="link " to="/systemelog" eventKey={2}><Nav.Link className="item1"> System Log</Nav.Link></LinkContainer>
+          <LinkContainer className="link " to="/systemelog" eventKey={3}><Nav.Link className="item1"> System Log</Nav.Link></LinkContainer>
         </Nav>
         <Nav pullRight className="" style={{ }}>
           <LinkContainer className="link " to="/help" eventKey={3}><Nav.Link className="item all fas fa-info-circle"> Help</Nav.Link></LinkContainer>

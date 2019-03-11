@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import store, { history } from './reducers/redux-store';
+import store, { history } from './store/redux-store';
 import Main from './components/Main';
 import * as serviceWorker from './serviceWorker';
 
@@ -12,7 +12,10 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // store.dispatch(initCounterRequest());
+// setup fake backend
+import { configureFakeBackend } from './_helpers/fake-backend';
 
+configureFakeBackend();
 const target = document.querySelector('#root');
 
 render(

@@ -1,6 +1,6 @@
 /* eslint-disable eol-last */
 /* eslint-disable indent */
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
 // The different states a beamline attribute can assume.
 export const STATE = {
     IDLE: 'READY',
@@ -39,73 +39,10 @@ export function busyStateAction(name) {
 }
 
 export function sendGetAllAttributes() {
-    // const url = 'bsx3/api/v0.1/beamline';
 
-    // return (dispatch) => {
-    //     fetch(url, {
-    //             method: 'GET',
-    //             headers: {
-    //                 Accept: 'application/json',
-    //                 'Content-type': 'application/json'
-    //             },
-    //             credentials: 'include'
-    //         }).then(response => response.json())
-    //         .then((data) => {
-    //             dispatch(getBeamlineAttrsAction(data));
-    //         }, () => {
-    //             throw new Error(`GET ${url} failed`);
-    //         });
-    // };
 }
 
 
+// eslint-disable-next-line no-unused-vars
 export function sendSetAttribute(name, value) {
-    const url = `mxcube/api/v0.1/beamline/${name}`;
-
-    return (dispatch) => {
-        dispatch(busyStateAction(name));
-
-        fetch(url, {
-                method: 'PUT',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({ name, value })
-            }).then(response => response.json())
-            .then((data) => {
-                dispatch(setBeamlineAttrAction(data));
-            }, () => {
-                throw new Error(`PUT ${url} failed`);
-            });
-    };
-}
-
-
-export function sendAbortCurrentAction(name) {
-    return () => {
-        fetch(`mxcube/api/v0.1/beamline/${name}/abort`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-type': 'application/json'
-            },
-            credentials: 'include'
-        });
-    };
-}
-
-
-export function sendPrepareForNewSample() {
-    return () => {
-        fetch('mxcube/api/v0.1/beamline/prepare_beamline', {
-            method: 'PUT',
-            credentials: 'include',
-            headers: {
-                Accept: 'application/json',
-                'Content-type': 'application/json'
-            }
-        });
-    };
 }

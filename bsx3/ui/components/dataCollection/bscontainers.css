@@ -20,14 +20,14 @@
         .nav {
             color: rgb(6, 80, 85);
             margin: 0;
-            padding-left: 50px;
-            padding-right: 50px;
+            padding-right: 15px;
             font-weight: bold;
         }
         .name {
-            color: rgb(6, 80, 85);
+            color: antiquewhite;
+            font: bold;
             margin-right: 10px;
-            width: 150px;
+            width: 140px;
             z-index: 2;
         }
         .badge {

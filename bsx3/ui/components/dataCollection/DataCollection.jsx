@@ -35,7 +35,18 @@ class DataCollection extends Component {
 
       <div className="contain" style={{ marginTop: '0px', with: '100%', height: '1000px' }}>
 
-        <div className="row justify-content-end">
+        <div className="row">
+          <div className="col-md-2 col-sm-3">
+            <div className="horizontal-tabs">
+              <Nav className="nav nav-tabs" role="tablist">
+                <Nav.Item><Nav.Link active data-toggle="tab" href="#control-h" role="tab" aria-controls="home">Control</Nav.Link></Nav.Item>
+              </Nav>
+              <TabContent className="tab-content">
+                <TabPane className="active" id="control-h" role="tabpanel"><TabPane className="sv-tab-panel">Control Content</TabPane></TabPane>
+              </TabContent>
+            </div>
+          </div>
+
           <div className="col-md-6 col-sm-12">
             <div className="horizontal-tabs">
               <Nav className="nav nav-tabs" role="tablist">
