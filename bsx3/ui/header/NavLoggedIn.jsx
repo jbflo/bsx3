@@ -35,7 +35,7 @@ export default class NavLoggedIn extends Component {
           <LinkContainer className="link " to="/datacollection" eventKey={2}><Nav.Link className="item1"> Data Collection</Nav.Link></LinkContainer>
           <LinkContainer className="link " to="/systemelog" eventKey={3}><Nav.Link className="item1"> System Log</Nav.Link></LinkContainer>
         </Nav>
-        <Nav pullRight className="" style={{ }}>
+        <Nav pullright className="" style={{ fontSize: '13px' }}>
           <LinkContainer className="link " to="/help" eventKey={3}><Nav.Link className="item all fas fa-info-circle"> Help</Nav.Link></LinkContainer>
           <LinkContainer className="link " to="/remoteaccess" eventKey={4}><Nav.Link className="item all fas fa-user-alt"> User Info</Nav.Link></LinkContainer>
           <LinkContainer className="link " to="/login" eventKey={5}><Nav.Link className="item all fas fa-sign-out-alt"> Sign out</Nav.Link></LinkContainer>

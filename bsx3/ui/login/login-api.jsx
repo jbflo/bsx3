@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { history } from '../app/redux-store';
 
 // import axios from 'axios';
 
@@ -46,6 +47,7 @@ export function loginRequest(username, password) {
         // eslint-disable-next-line no-console
         console.log(response.data);
         dispatch(authenticate(username, password));
+        history.push('/');
       }).catch((error) => {
         throw (error);
       });

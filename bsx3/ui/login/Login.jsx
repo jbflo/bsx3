@@ -4,23 +4,21 @@ import { connect } from 'react-redux';
 import {
   Form, Image, Nav, Alert
 } from 'react-bootstrap';
-import { userActions } from '../../actions/userActions';
+import * as LoginAPI from './login-api';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import loader from '../../img/loader.gif';
-import logo from '../../img/logo.png'; // relative path to logo
+import loader from '../img/loader.gif';
+import logo from '../img/logo.png'; // relative path to logo
 
 import './login.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.props.dispatch(userActions.logout());
-    // const redirectRoute = '/login';
+    // this.props.dispatch(LoginAPI.logout());
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {};
-    // this.signIn = this.signIn.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     // let logini;
   }
@@ -30,12 +28,9 @@ class Login extends Component {
     event.preventDefault();
     const username = event.target.username.value;
     const password = event.target.password.value;
-    // const { username, password } = this.state;
     if (username && password) {
-      this.props.dispatch(userActions.login(username.toLowerCase(), password));
-      // alert({ username }, ' ', { password });
+      this.props.dispatch(LoginAPI.loginRequest(username.toLowerCase(), password));
     }
-
     // this.props.setLoading(true);
   }
 
@@ -51,8 +46,8 @@ class Login extends Component {
 
   validateForm() {
     return (
-      this.props.login.username > 0
-      && this.props.login.password > 0
+      this.props.username > 0
+      && this.props.password > 0
     );
   }
 
@@ -90,7 +85,6 @@ class Login extends Component {
               // src={logo}
               alt="LOGO"
             />
-            {/* <Nav.Item className="title"> BsxCube 3</Nav.Item> */}
           </Nav>
           <Form.Group className="form-group" controlId="username" bsSize="large">
             <Form.Control
@@ -116,7 +110,7 @@ class Login extends Component {
 
           <button
             className="btn"
-          // disabled={!this.validateForm()}
+            // disabled={!this.validateForm()}
             type="submit"
           >
           Login
@@ -153,5 +147,4 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-//  mapDispatchToProps
 )(Login);

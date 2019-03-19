@@ -3,7 +3,7 @@ import Popover from 'react-bootstrap/Popover';
 import {
   OverlayTrigger
 } from 'react-bootstrap';
-import { STATE } from '../../../actions/beamline';
+import { STATE } from '../../beamlinestatus/beamline-api';
 
 
 import DefaultInput from './DefaultInput';

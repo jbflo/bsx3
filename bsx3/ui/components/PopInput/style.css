@@ -49,7 +49,7 @@
 
 .popinput-input-busy {
     display: inline-block;
-    background-image: url(../../../img/busy-indicator.gif);
+    background-image: url(../../img/busy-indicator.gif);
     height: 32px;
     width: 32px;
 }

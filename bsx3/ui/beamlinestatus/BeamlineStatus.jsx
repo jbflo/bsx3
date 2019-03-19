@@ -6,9 +6,9 @@ import {
 } from 'react-bootstrap';
 // import FormCheck from 'react-bootstrap/FormCheck';
 import { Label } from 'react-bootstrap/Form';
-import InOutSwitch from './OnOffSwitch/OnOffSwitch';
-import PopInput from './PopInput/PopInput';
-import LabeledValue from './LabeledValue/LabeledValue';
+import InOutSwitch from '../components/OnOffSwitch/OnOffSwitch';
+import PopInput from '../components/PopInput/PopInput';
+import LabeledValue from '../components/LabeledValue/LabeledValue';
 
 
 import {
@@ -16,11 +16,11 @@ import {
   sendSetAttribute,
   // sendAbortCurrentAction
 }
-  from '../../actions/beamline';
+  from './beamline-api';
 
 import './bscontainers.css';
 
-class BeamlineSetupContainer extends React.Component {
+class BeamlineStatus extends React.Component {
   constructor(props) {
     super(props);
 
@@ -254,4 +254,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BeamlineSetupContainer);
+)(BeamlineStatus);

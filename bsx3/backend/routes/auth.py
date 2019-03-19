@@ -11,7 +11,8 @@ def login():
     """ Example login """
     auth.login()
     resp = jsonify({"test": "OK"})
-    print(request.params())
+
+    print(request.get_json())
     print("TEST !")
     return resp
 

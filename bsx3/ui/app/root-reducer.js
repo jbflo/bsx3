@@ -5,12 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import { reducer as formReducer } from 'redux-form';
 
 import counter from '../counter/counter-api';
-import login from './login';
-import beamline from './beamline';
-import general from './general';
-import taskForm from './taskForm';
-import workflow from './workflow';
-import remoteAccess from './remoteAccess';
+import beamline from '../beamlinestatus/beamline-api';
 
 export default function createRootReducer(history) {
     // if (action.type === 'SIGNOUT') {
@@ -20,12 +15,7 @@ export default function createRootReducer(history) {
     return combineReducers({
         router: connectRouter(history),
         counter,
-        login,
         beamline,
-        remoteAccess,
-        general,
-        taskForm,
-        workflow,
         form: formReducer
     });
 }

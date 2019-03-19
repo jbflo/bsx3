@@ -1,12 +1,10 @@
 
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
 import TabPane from 'react-bootstrap/TabPane';
 import TabContent from 'react-bootstrap/TabContent';
-import { showTaskForm } from '../../actions/taskForm';
-import BeamlineSetupContainer from './BeamlineSetupContainer';
+import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'jquery';
@@ -30,7 +28,7 @@ class DataCollection extends Component {
     return [
 
       <div>
-        <BeamlineSetupContainer />
+        <BeamlineStatus />
       </div>,
 
       <div className="contain" style={{ marginTop: '0px', with: '100%', height: '1000px' }}>
@@ -86,24 +84,12 @@ class DataCollection extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    motorInputDisable: state.beamline.motorInputDisable,
-    motors: state.beamline.motors,
-    availableMethods: state.beamline.availableMethods,
-    defaultParameters: state.taskForm.defaultParameters,
-    workflows: state.workflow.workflows,
-    cellCounting: state.taskForm.defaultParameters.mesh.cell_counting,
-    cellSpacing: state.taskForm.defaultParameters.mesh.cell_spacing,
-    proposal: state.login.selectedProposal,
-    remoteAccess: state.remoteAccess
-  };
+function mapStateToProps() {
+  return { };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    showForm: bindActionCreators(showTaskForm, dispatch)
-  };
+function mapDispatchToProps() {
+  return { };
 }
 
 export default connect(
