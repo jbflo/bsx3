@@ -1,13 +1,12 @@
 import React from 'react';
 
 import { OverlayTrigger, Popover, Label } from 'react-bootstrap';
-import { STATE } from '../../../actions/beamline';
+import { STATE } from '../../beamlinestatus/beamline-api';
 
 
 import DefaultInput from './DefaultInput';
 import DefaultBusy from './DefaultBusy';
 import './style.css';
-import '../input.css';
 
 
 /**

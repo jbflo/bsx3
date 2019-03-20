@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import TabPane from 'react-bootstrap/TabPane';
 import TabContent from 'react-bootstrap/TabContent';
 import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
+import Queue from '../queue/Queue';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'jquery';
@@ -72,7 +73,11 @@ class DataCollection extends Component {
               </Nav>
               <TabContent className="tab-content">
                 <TabPane className="active" id="messages-h" role="tabpanel"><TabPane className="sv-tab-panel">Home Panel</TabPane></TabPane>
-                <TabPane id="queue-h" role="tabpanel"><TabPane className="sv-tab-panel">Queue Panel</TabPane></TabPane>
+                <TabPane id="queue-h" role="tabpanel">
+                  <TabPane className="sv-tab-panel">
+                    <Queue />
+                  </TabPane>
+                </TabPane>
               </TabContent>
             </div>
           </div>

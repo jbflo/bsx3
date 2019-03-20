@@ -48,7 +48,7 @@ class BeamlineStatus extends React.Component {
   // }
 
   render() {
-    let variantStyle = 'warning';
+    let variantStyle = 'success';
     if (this.props.data.state === 'out') {
       variantStyle = 'success';
     } else if (this.props.data.state === 'in') {
@@ -65,7 +65,6 @@ class BeamlineStatus extends React.Component {
                 name="Shuter"
                 pkey="shuter"
                 suffix=""
-
               />
               <Form.Label>
                 Shuter :

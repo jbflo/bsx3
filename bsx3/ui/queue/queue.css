@@ -1,0 +1,32 @@
+.queue{
+    position: relative;
+
+}
+
+.bar{
+    position: relative;
+    top: 790px;
+    align-content: center;
+}
+.btnitem{
+    position: relative;
+    left: 18%;
+}
+
+.btnq {
+    width: 140px;
+    height: 60px;
+    text-align: center;
+    margin: 8px;
+    align-content: center;
+}
+
+.btn-success {
+    margin-left: 5px;
+}
+
+.btn-danger {
+    margin-right: 8px;
+}
+
+
