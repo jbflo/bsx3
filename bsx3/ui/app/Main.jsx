@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import NavLoggedOut from '../header/NavLoggedOut';
 import NavLoggedIn from '../header/NavLoggedIn';
 import Login from '../login/Login';
-import DataCollection from '../datacollection/DataCollection';
+import Datacollection from '../datacollection/Datacollection';
 import './main.css';
 
 const history = createBrowserHistory();
@@ -44,9 +44,9 @@ class Main extends Component {
         { <Route exact path="/datacollection" component={NavLoggedIn} />
         }
         <Route exact path="/login" component={Login} />
-        <Route exact path="/datacollection" component={DataCollection} />
+        <Route exact path="/datacollection" component={Datacollection} />
         <Route exact path="/" component={NavLoggedIn} />
-        <Route exact path="/" component={DataCollection} />
+        <Route exact path="/" component={Datacollection} />
       </div>
     ];
   }

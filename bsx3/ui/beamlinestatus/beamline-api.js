@@ -54,6 +54,14 @@ export const INITIAL_STATE = {
       msg: '',
       readonly: false
     },
+    machinfo: {
+      limits: [],
+      name: 'machinfo',
+      value: -1,
+      state: 'STATE.IDLE',
+      msg: 'UNKNOWN',
+      readonly: false
+    },
     wavelength: {
       limits: [
         0,
@@ -90,33 +98,7 @@ export const INITIAL_STATE = {
       msg: 'UNKNOWN',
       readonly: false
     },
-  },
-  motors: {
-    focus: { position: 0, state: 0, limits: [0, 1] },
-    phi: { position: 0, state: 0, limits: [0, 1] },
-    phiy: { position: 0, state: 0, limits: [0, 1] },
-    phiz: { position: 0, state: 0, limits: [0, 1] },
-    sampx: { position: 0, state: 0, limits: [0, 1] },
-    sampy: { position: 0, state: 0, limits: [0, 1] },
-    BackLight: { position: 0, state: 0, limits: [0, 1] },
-    FrontLight: { position: 0, state: 0, limits: [0, 1] },
-    BackLightSwitch: { position: 0, state: 0, limits: [0, 1] },
-    FrontLightSwitch: { position: 0, state: 0, limits: [0, 1] },
-    kappa: { position: 0, state: 0, limits: [0, 1] },
-    kappa_phi: { position: 0, state: 0, limits: [0, 1] },
-    zoom: { position: 0, state: 0, limits: [0, 1] },
-    sample_horizontal: { position: 0, state: 0, limits: [0, 1] },
-    sample_vertical: { position: 0, state: 0, limits: [0, 1] },
-    beamstop_distance: { position: 0, state: 0, limits: [0, 1] }
-  },
-  beamlineActionsList: [],
-  currentBeamlineAction: { show: false, messages: [], arguments: [] },
-  motorInputDisable: false,
-  lastPlotId: null,
-  plotsInfo: {},
-  plotsData: {},
-  availableMethods: {},
-  energyScanElements: []
+  }
 };
 
 

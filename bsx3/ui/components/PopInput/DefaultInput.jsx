@@ -16,7 +16,7 @@ export default class DefaultInput extends React.Component {
 
   getValue() {
     const input = this.NumericInput;
-    console.log(input.value);
+    // console.log(input.value);
     return input.value;
   }
 
@@ -49,18 +49,17 @@ export default class DefaultInput extends React.Component {
           <NumericInput
             // size={this.props.inputSize}
             size={5}
-            className="form-control"
+            className="form-control numericinput"
             column
             sm="2"
-            inputRef={(ref) => { this.input = ref; }}
             ref={(ref) => { this.NumericInput = ref; }}
             step={0.1}
             precision={2}
             value={this.props.value}
-            snap
+            // snap
           />
-          <Button column sm="2" type="button" className="btn btn-xs btn-success img-circle" onClick={this.save}>&#x2713;</Button>
-          <Button column sm="2" type="button" className="btn btn-xs btn-danger img-circle" onClick={this.cancel}>X</Button>
+          <Button column sm="2" type="button" className="btnpopinput btnsuccess btn-xs btn-success img-circle" onClick={this.save}>&#x2713;</Button>
+          <Button column sm="2" type="button" className="btnpopinput btndanger btn-xs btn-danger img-circle" onClick={this.cancel}>X</Button>
         </Form.Group>
       </Form>
     );

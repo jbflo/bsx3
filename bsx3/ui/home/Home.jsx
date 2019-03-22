@@ -9,7 +9,7 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'jquery';
 import 'bootstrap/dist/js/bootstrap';
 
-import './queue.css';
+import './home.css';
 
 class SampleQueueContainer extends Component {
   constructor(props, context) {
@@ -25,8 +25,8 @@ class SampleQueueContainer extends Component {
         <Navbar className="bar" style={{ paddingBottom: '80' }}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Nav className="btnitem">
-            <Button column sm="2" type="button" className="btnqs btn-xs btn-success " onClick={this.save}>Start Queue</Button>
-            <Button column sm="2" type="button" className="btnqd btn-xs btn-danger " onClick={this.cancel}>Stop Queue</Button>
+            <Button column sm="2" type="button" className="btnq btn-xs btn-success img-circle" onClick={this.save}>Start Queue</Button>
+            <Button column sm="2" type="button" className="btnq btn-xs btn-danger img-circle" onClick={this.cancel}>Stop Queue</Button>
           </Nav>
         </Navbar>
       </div>

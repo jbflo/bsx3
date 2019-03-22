@@ -56,8 +56,9 @@ class BeamlineStatus extends React.Component {
     }
 
     return [
-      <Navbar className="setup rounded-top">
-        <Navbar.Collapse className="justify-content-start" style={{ marginLeft: '20px' }}>
+      <Navbar collapseOnSelect expand="lg" className="bmstatus ">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse className="collapse" id="responsive-navbar-nav" style={{ marginLeft: '20px' }}>
           {/* <Nav className="nav">
             <Form.Group controlId="formBasicPassword">
               <FormCheck
@@ -104,12 +105,11 @@ class BeamlineStatus extends React.Component {
                     </Nav.Item>
                   )
                }
-
               </Badge>
             </Label>
           </Nav>
 
-          <Nav className="nav">
+          <Nav className="nav ">
             <Label className="name btn">
                 Energy
               {'  '}
@@ -142,10 +142,23 @@ class BeamlineStatus extends React.Component {
               </Badge>
             </Label>
           </Nav>
-        </Navbar.Collapse>
 
-        <Navbar.Collapse className="justify-content-end" style={{ marginLeft: '20px' }}>
           <Nav className="nav">
+            <Label className="name btn">
+             Ring Current
+              {'  '}
+              <Badge variant={variantStyle}>
+                <Nav.Item className="item">
+                  <LabeledValue
+                    suffix="mAmps"
+                    name=""
+                    value={this.props.beamline.attributes.machinfo.value}
+                  />
+                </Nav.Item>
+              </Badge>
+            </Label>
+          </Nav>
+          <Nav className="nav mr-auto">
             <Label className="name btn">
              Sample Name
               {'  '}
@@ -160,7 +173,7 @@ class BeamlineStatus extends React.Component {
               </Badge>
             </Label>
           </Nav>
-
+          {/* Pullright  */}
           <Nav className="nav">
             <Label className="name btn">
             Run No.

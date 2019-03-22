@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+@media all and (min-width: 480px), (max-width: 767px) {
     .Header {
         background: #00467F;
         background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
@@ -12,9 +12,6 @@
     }
     .item1 {
         /* color: rgb(250, 248, 248); */
-        margin: 10px;
-        padding-left: 4px;
-        padding-right: 4px;
         font-weight: bold;
     }
     .item {

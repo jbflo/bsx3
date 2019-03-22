@@ -1,31 +1,34 @@
 /*  Style Sheet for PopInput Content */
 
-.btn {
+.btnpopinput {
     width: 35px;
     height: 35px;
     text-align: center;
     margin: 2px
 }
 
-.btn-success {
-    margin-left: 5px;
+.btnsuccess {
+    margin-left: 15px;
 }
 
-.btn-danger {
+.btndanger {
     margin-right: 8px;
 }
 
 .form-control {
     margin-left: 10px;
+    padding: 0% !important;
 }
 
 .popover {
     height: 85px;
+    z-index:9999 !important;
 }
 
 .popcontent {
     position: relative;
     top: -35px;
+    margin-top: 30px;
 }
 
 
@@ -43,7 +46,7 @@
 }
 
 .popinput-busy-buttonbar {
-    display: inline-block;
+    /* display: inline-block; */
     float: right;
 }
 

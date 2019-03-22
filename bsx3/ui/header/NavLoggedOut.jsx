@@ -11,9 +11,7 @@ export default class NavLoggedout extends Component {
       <Navbar className="Header" style={{ paddingBottom: '80' }}>
         <Nav.Link href="./" className="brand">BSXcube 3</Nav.Link>
         <Navbar.Collapse className="justify-content-end">
-          <Nav className="justify-content-end" pullRight style={{ }}>
-            <LinkContainer className="link " to="/help" eventKey={3}><Nav.Link className="item all fas fa-info-circle"> Help</Nav.Link></LinkContainer>
-          </Nav>
+          <LinkContainer className="link " to="/help" eventKey={3}><Nav.Link className="item all fas fa-info-circle"> Help</Nav.Link></LinkContainer>
         </Navbar.Collapse>
       </Navbar>
     );

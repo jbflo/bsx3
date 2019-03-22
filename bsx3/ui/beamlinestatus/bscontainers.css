@@ -1,12 +1,15 @@
     @media all and (min-width: 480px) {
-        .setup {
+        .bmstatus {
             position: relative;
             height: 100px;
             max-width: 100%;
             margin-bottom: 50px;
             font-weight: bold;
+            z-index:9999 !important;
+            position:relative;
+            float: none!important;
         }
-        .setup:hover {
+        .bmstatus:hover {
             -webkit-transform: perspective(1px) translateZ(0);
             transform: perspective(1px) translateZ(0);
             box-shadow: 0 0 5px rgba(121, 138, 155, 0);
@@ -28,15 +31,13 @@
             font: bold;
             margin-right: 10px;
             width: 140px;
-            z-index: 2;
         }
         .badge {
             width: 100%;
             height: 20px;
             position: relative;
-            z-index: 1;
         }
-        input[type="checkbox"] {
+        /* input[type="checkbox"] {
             position: relative;
             width: 80px;
             height: 35px;
@@ -81,5 +82,13 @@
             background: #63cdff;
             left: 70px;
             box-shadow: 0 0 5px #13b3ff, 0 0 15px #13b3ff;
-        }
+        } */
     }
+
+    /* change navbar background on collapse */
+@media (max-width: 768px) {
+    .collapse {
+        background-color: rgb(225, 236, 238);
+        width: 140px!important;
+    }
+  }
