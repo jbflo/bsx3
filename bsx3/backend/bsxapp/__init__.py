@@ -6,6 +6,10 @@ import logging
 # Application instance
 APP = None
 
+HOMAP = [
+    {"attr": "auth", "role": "ldaplogin", "required": True},
+    {"attr": "beamline", "role": "beamline", "required": True},
+]
 
 class Application():
     """ Encapsulates all application wide data """
@@ -14,18 +18,27 @@ class Application():
 
     def __init__(self, hwr):
         Application._HWR = hwr
+        self.auth = None
+        self.beamline = None
+
+        for ho in HOMAP:
+            setattr(self, ho["attr"], Application.get_ho(ho["role"], ho["required"]))
 
     @staticmethod
-    def get_ho(name):
+    def get_ho(name, required=True):
         if not Application._HWR:
             logging.error("HardwareRepository not initialized")
             sys.exit(-1)
 
         ho = Application._HWR.getHardwareObject(name)
 
-        if not ho:
-            logging.error("No HardwareObject with name %s", name)
+        if not ho and required:
+            logging.error("[APP]: No HardwareObject with name %s", name)
             sys.exit(-1)
+        elif not ho and not required:
+            logging.error("[APP]: No HardwareObject with name %s", name)
+        else:
+            logging.info("[APP]: Found HardwareObject %s", name)
 
         return ho
 

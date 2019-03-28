@@ -4,7 +4,7 @@ import logging
 from flask import Flask
 from flask_socketio import SocketIO
 
-from bsx3.backend.routes import home, auth, counter
+from bsx3.backend.routes import home, auth, counter, beamline
 from bsx3.backend.bsxapp import init_app
 
 # pylint: disable=import-error
@@ -16,6 +16,7 @@ def init_backend(hwr_config_dir):
     flask_app.register_blueprint(home.api, url_prefix='')
     flask_app.register_blueprint(auth.api, url_prefix='/auth')
     flask_app.register_blueprint(counter.api, url_prefix='/counter')
+    flask_app.register_blueprint(beamline.api, url_prefix='/beamline')
 
     _hwr = hwr.getHardwareRepository(hwr_config_dir)
     _hwr.connect()

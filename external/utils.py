@@ -22,8 +22,7 @@ def init_hwr_paths():
             logging.info("Using HardwareRepository from %s", HWR_ROOT)
 
     dpath = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-    os.environ["CUSTOM_HARDWARE_OBJECTS_PATH"] = os.path.join(dpath, "HardwareObjects")
-
+    sys.path.insert(0, os.path.join(dpath, "SAXHO"))
 
 def get_config_dir():
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), "/config"))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "config"))

@@ -1,0 +1,24 @@
+<object class="Beamline">
+  <shutters>
+    <object href="/fast-shutter" role="fast_shutter"/>
+  </shutters>
+
+  <object href="/machine-info" role="machine_info"/>
+  <object href="/energy" role="energy"/>
+
+<!--
+  <procedures>
+    <object href="/quickrealign-procedure" role="quickrealign"/>  
+  </procedures>
+-->
+
+<!--
+     Application will exit if HardwareObjects that are not optional
+     are unsuccessfully initialized.
+
+     Comma seperated list of optional HardwreObjects
+-->
+  <optional>
+  </optional>
+
+</object>
