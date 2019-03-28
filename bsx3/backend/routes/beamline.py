@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Beamline routes """
 from flask import Blueprint, jsonify
-
 from bsx3.backend.bsxapp import beamline
 
 api = Blueprint('beamline_api', __name__)
