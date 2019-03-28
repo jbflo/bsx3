@@ -6,6 +6,11 @@ import store, { history } from './app/redux-store';
 import Main from './app/Main';
 import * as serviceWorker from './serviceWorker';
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'jquery';
+import 'bootstrap/dist/js/bootstrap';
+
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

@@ -4,7 +4,6 @@
             height: 100px;
             max-width: 100%;
             margin-bottom: 50px;
-            font-weight: bold;
             z-index:9999 !important;
             position:relative;
             float: none!important;
@@ -14,7 +13,7 @@
             transform: perspective(1px) translateZ(0);
             box-shadow: 0 0 5px rgba(121, 138, 155, 0);
             position: relative;
-            background-color: rgb(225, 236, 238);
+            background: linear-gradient(to right, rgba(153, 184, 127, 0.479), rgba(153, 184, 127, 0.479));
             -webkit-transition-property: color;
             transition-property: color;
             -webkit-transition-duration: 0.3s;
@@ -23,72 +22,31 @@
         .nav {
             color: rgb(6, 80, 85);
             margin: 0;
-            padding-right: 15px;
-            font-weight: bold;
+            padding-right: 5px;
+            width: 140px
         }
         .name {
-            color: antiquewhite;
-            font: bold;
+            color: rgb(215, 250, 245);
+            font-size: 13px !important;
             margin-right: 10px;
             width: 140px;
         }
         .badge {
             width: 100%;
-            height: 20px;
+            height: 25px;
             position: relative;
         }
-        /* input[type="checkbox"] {
-            position: relative;
-            width: 80px;
-            height: 35px;
-            -webkit-appearance: none;
-            background: linear-gradient(0deg, #333, #000);
-            outline: none;
-            border-radius: 14px;
-            box-shadow: 0 0 0 2px #353535, 0 0 0 2.5px #353535, inset 0 0 5px rgba(0, 0, 0, 1), 0 2.5px 10px rgba(0, 0, 0, .5), inset 0 0 7.5px rgba(0, 0, 0, .2);
-        }
-        input:checked[type="checkbox"] {
-            background: linear-gradient(0deg, #6dd1ff, #20b7ff);
-            box-shadow: 0 0 1px #6dd1ff, 0 0 0 2px #353535, 0 0 0 2.5px #353535, inset 0 0 5px rgba(0, 0, 0, 1), 0 2.5px 10px rgba(0, 0, 0, .5), inset 0 0 7.5px rgba(0, 0, 0, .2);
-        }
-        input[type="checkbox"]:before {
-            content: '';
-            position: absolute;
-            top: calc(25% - 4px);
-            left: 0px;
-            width: 51px;
-            height: 30px;
-            background: linear-gradient(0deg, #000, #6b6b6b);
-            border-radius: 10px;
-            box-shadow: 0 0 0 1px #232323;
-            transform: scale(.98, .96);
-            transition: .5s;
-        }
-        input:checked[type="checkbox"]:before {
-            left: 27px;
-        }
-        input[type="checkbox"]:after {
-            content: '';
-            position: absolute;
-            top: calc(50% - 4px);
-            left: 44px;
-            width: 5px;
-            height: 5px;
-            background: linear-gradient(0deg, #6b6b6b, #000);
-            border-radius: 50%;
-            transition: .5s;
-        }
-        input:checked[type="checkbox"]:after {
-            background: #63cdff;
-            left: 70px;
-            box-shadow: 0 0 5px #13b3ff, 0 0 15px #13b3ff;
-        } */
     }
 
     /* change navbar background on collapse */
 @media (max-width: 768px) {
     .collapse {
-        background-color: rgb(225, 236, 238);
-        width: 140px!important;
+        background-color: rgba(153, 184, 127, 0.479);
+        width: 153px!important;
+        margin: 0%;
+        border-radius: 20px;
+    }
+    .bmstatus {
+        width: 180px!important;
     }
   }

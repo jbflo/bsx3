@@ -4,13 +4,13 @@
 }
 
 .bar{
-    position: relative;
-    top: 790px;
+    /* position: relative;
+    top: 790px; */
     align-content: center;
 }
 .btnitem{
-    position: relative;
-    left: 18%;
+    /* position: relative;
+    left: 18%; */
 }
 
 .btnqs, .btnqd {

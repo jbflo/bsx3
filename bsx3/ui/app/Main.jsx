@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import NavLoggedOut from '../header/NavLoggedOut';
 import NavLoggedIn from '../header/NavLoggedIn';
 import Login from '../login/Login';
-import Datacollection from '../datacollection/Datacollection';
+import Datacollection from '../datacollection/DataCollection';
 import './main.css';
 
 const history = createBrowserHistory();

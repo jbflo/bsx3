@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import {
   Navbar, Nav, Button
 } from 'react-bootstrap';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap';
 
 import './queue.css';
 
@@ -21,8 +17,8 @@ class SampleQueueContainer extends Component {
 
   render() {
     return [
-      <div className="queue" style={{ marginTop: '0px', with: '100%', height: '1000px' }}>
-        <Navbar className="bar" style={{ paddingBottom: '80' }}>
+      <div className="queue">
+        <Navbar className="bar">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Nav className="btnitem">
             <Button column sm="2" type="button" className="btnqs btn-xs btn-success " onClick={this.save}>Start Queue</Button>

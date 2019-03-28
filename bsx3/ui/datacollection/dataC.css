@@ -1,10 +1,15 @@
 
 /* Horizontal Tabs */
-
+.contain{
+    margin-left: 0% !important;
+    position: relative;
+    left: -15px;
+    width: 99%;
+}
 .horizontal-tabs {
     font-size: 14px;
     font-size: bold;
-    padding: 10px;
+    /* padding-right: 10px; */
     color: #030000
 }
 
@@ -23,33 +28,41 @@
     background: linear-gradient(to right, rgba(165, 204, 130, 0.877), rgba(0, 70, 127, 0.829));
     color: #fff;
 }
-
-.horizontal-tabs .tab-content>.active {
-    background: #fff;
-    display: block;
-}
-
-.horizontal-tabs .nav.nav-tabs {
-    border-bottom: 0;
-    border-right: 1px solid transparent;
-    background-color: rgb(225, 236, 238);
-    border-top-right-radius: 0.7rem!important;
-}
-
-.horizontal-tabs div.tab-content {
-    border: solid rgb(225, 236, 238)!important;
-    max-height: 1000px;
-}
-
-.horizontal-tabs .sv-tab-panel {
-    background: #fff;
-    height: 900px;
-    padding-top: 10px;
-    padding: 10px
-}
-
 .row{
     z-index:2 !important;
+}
+.card{
+    background: transparent;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important;
+    position: relative;
+    top: 0;
+    left: 2.5%;
+}
+.appbar{
+    width: 100%!important;
+    background: transparent!important;
+    box-Shadow: 20px !important;
+    position: relative!important;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+}
+.tabs{
+    color: rgb(5, 38, 43);
+    background: linear-gradient(to right, rgba(153, 184, 127, 0.479), rgba(153, 184, 127, 0.479));
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    height: 70px;
+}
+.tab{
+    margin-top: 100px;
+    padding: 10px;
+    border-bottom-right-radius: 50px 20px;
+}
+.appbar:hover{
+    box-shadow: 0 2px 5px rgba(165, 204, 130, 0.877), 0 3px 5px rgba(0, 70, 127, 0.829);
 }
 
 @media (max-width: 967px) {
@@ -58,7 +71,6 @@
     }
     .nav.nav-tabs {
         border-bottom: 0;
-        border-right: 1px solid transparent;
         display: block;
         margin-right: 20px;
         width: 100%!important

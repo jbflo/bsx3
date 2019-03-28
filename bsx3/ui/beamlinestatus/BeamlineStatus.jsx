@@ -77,11 +77,11 @@ class BeamlineStatus extends React.Component {
 
           <Nav className="nav">
             <Label className="name btn">
-            Shuter
+            Shutter
               {'  '}
               <Badge variant={variantStyle}>
                 {' '}
-                { this.props.beamline.attributes.energy.readonly
+                { this.props.beamline.attributes.shutter.readonly
                   ? (
                     <Nav.Item className="item">
                       <LabeledValue
@@ -143,7 +143,7 @@ class BeamlineStatus extends React.Component {
             </Label>
           </Nav>
 
-          <Nav className="nav">
+          <Nav className="nav mr-auto">
             <Label className="name btn">
              Ring Current
               {'  '}
@@ -158,7 +158,8 @@ class BeamlineStatus extends React.Component {
               </Badge>
             </Label>
           </Nav>
-          <Nav className="nav mr-auto">
+
+          <Nav className="nav ">
             <Label className="name btn">
              Sample Name
               {'  '}
@@ -247,8 +248,6 @@ function mapStateToProps(state) {
   return {
     data: { value: 'undefined', state: 'IN', msg: 'UNKNOWN' },
     beamline: state.beamline,
-    sampleview: state.sampleview,
-    sampleChanger: state.sampleChanger
   };
 }
 

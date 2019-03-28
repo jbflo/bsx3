@@ -1,0 +1,39 @@
+
+/* Css for Seu.jsx Content  */
+.sc{
+    position: relative;
+    caption-side: top;
+    /* height: 100px */
+}
+.sctable{
+    position: relative;
+    caption-side: top;
+    height: 100px
+
+}
+.navbartop{
+    position: relative;
+}
+
+.bar{
+    position: relative;
+    align-content: center;
+}
+.btnaddqueue {
+    /* position: relative; */
+    /* left: 87.5%; */
+    background: #00695c!important;
+    color: #fff!important;
+    width: 150px;
+    height: 50px
+}
+
+.labelinput{
+    position: relative;
+    top: 0%;
+    margin-top: 0%;
+    background: #00695c!important;
+    color: #fff!important;
+}
+
+/* Css for Sc Table  */
