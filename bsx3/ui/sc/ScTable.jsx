@@ -10,7 +10,8 @@ import {
   IntegratedSorting
 } from '@devexpress/dx-react-grid';
 import {
-  Grid, VirtualTable, Toolbar, TableHeaderRow, TableSelection,
+  Grid, VirtualTable, Toolbar, TableHeaderRow, TableColumnResizing,
+  TableSelection,
   TableEditRow,
   TableEditColumn,
   DragDropProvider, TableGroupRow, TableColumnReordering, GroupingPanel,
@@ -33,8 +34,8 @@ import SaveMenu from './SaveMenu';
 import './sc.css';
 import {
   generateRows,
-  seuValues,
-} from './generator';
+  scDeafaultValues,
+} from '../constant/generator';
 import FolderUploader from './FolderUploader';
 
 
@@ -180,7 +181,7 @@ const EditCell = (props) => {
 
 const getRowId = row => row.id;
 
-class Seutable extends React.PureComponent {
+class ScTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -199,7 +200,7 @@ class Seutable extends React.PureComponent {
         { name: 'flow', title: 'Flow', },
         { name: 'temp', title: 'Temp', },
       ],
-      tableColumnExtensions: [
+      defaultColumnWidths: [
         { columnName: 'id', width: 60 },
         { columnName: 'samplename', width: 100 },
         { columnName: 'concentration', width: 120 },
@@ -211,10 +212,10 @@ class Seutable extends React.PureComponent {
         { columnName: 'attenuation', width: 110 },
         { columnName: 'buffer', width: 80 },
         { columnName: 'flow', width: 70 },
-        { columnName: 'Temp', width: 20 },
+        { columnName: 'temp', width: 70 },
       ],
       rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...seuValues },
+        columnValues: { id: ({ index }) => index, ...scDeafaultValues },
         length: 2,
       }),
       // selection: [],
@@ -284,7 +285,7 @@ class Seutable extends React.PureComponent {
     const {
       rows,
       columns,
-      tableColumnExtensions,
+      defaultColumnWidths,
       // selection,
       // sorting,
       editingRowIds,
@@ -295,7 +296,7 @@ class Seutable extends React.PureComponent {
     } = this.state;
 
     return (
-      <Paper style={{ height: '500px' }}>
+      <Paper style={{ height: '510px' }}>
         <Grid
           container
           style={{ height: '100px' }}
@@ -328,8 +329,12 @@ class Seutable extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
           <VirtualTable
-            columnExtensions={tableColumnExtensions}
+            columnExtensions={defaultColumnWidths}
             cellComponent={Cell}
+          />
+          <TableColumnResizing
+            defaultColumnWidths={defaultColumnWidths}
+            onColumnWidthsChange={this.changeColumnWidths}
           />
           <TableHeaderRow showSortingControls />
           <TableSelection showSelectAll />
@@ -354,8 +359,13 @@ class Seutable extends React.PureComponent {
             <div style={{ marginRight: '20px' }}>
               <SaveMenu className="menesavebtn" />
             </div>
-            <div style={{ }}>
+            <div className="mr-auto" style={{ marginTop: '0px' }}>
               <FolderUploader className="folderup" />
+            </div>
+            <div style={{ }}>
+              <Button variant="contained" className="btnaddqueue" align="right">
+                Add to Queue
+              </Button>
             </div>
           </div>
         </Grid>
@@ -380,4 +390,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Seutable); withStyles(styles, { name: 'ControlledModeDemo' });
+)(ScTable); withStyles(styles, { name: 'ControlledModeDemo' });

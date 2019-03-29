@@ -1,7 +1,7 @@
     @media all and (min-width: 480px) {
         .bmstatus {
             position: relative;
-            height: 100px;
+            height: 90px;
             max-width: 100%;
             margin-bottom: 50px;
             z-index:9999 !important;
@@ -20,13 +20,12 @@
             transition-duration: 0.3s;
         }
         .nav {
-            color: rgb(6, 80, 85);
             margin: 0;
             padding-right: 5px;
             width: 140px
         }
         .name {
-            color: rgb(215, 250, 245);
+            color: rgb(6, 80, 85)!important;
             font-size: 13px !important;
             margin-right: 10px;
             width: 140px;
@@ -46,7 +45,23 @@
         margin: 0%;
         border-radius: 20px;
     }
+    .nav {
+        margin: 0;
+        padding-right: 5px;
+        width: 144px
+    }
     .bmstatus {
         width: 180px!important;
+    }
+    .name {
+        color: rgb(6, 80, 85)!important;
+        font-size: 9px !important;
+        margin-right: 10px;
+        width: 135px;
+    }
+    .badge {
+        width: 100%;
+        height: 25px;
+        position: relative;
     }
   }

@@ -58,7 +58,7 @@ class BeamlineStatus extends React.Component {
     return [
       <Navbar collapseOnSelect expand="lg" className="bmstatus ">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse className="collapse" id="responsive-navbar-nav" style={{ marginLeft: '20px' }}>
+        <Navbar.Collapse className="collapse" id="responsive-navbar-nav" style={{ marginLeft: '0px' }}>
           {/* <Nav className="nav">
             <Form.Group controlId="formBasicPassword">
               <FormCheck

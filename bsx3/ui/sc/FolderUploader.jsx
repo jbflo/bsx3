@@ -38,7 +38,7 @@ class FolderUploader extends React.Component {
 
   render() {
     return (
-      <div className="">
+      <div className="folderU">
         <label htmlFor="files" className="btn labelinput"> Choose Saving Directory </label>
         <input type="file" id="files" ref={(ref) => { this.folder = ref; }} style={{ visibility: 'hidden' }} />
       </div>

@@ -5,11 +5,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import ScTable from './ScTable';
 
 import './sc.css';
+import LabeledValue from '../components/LabeledValue/LabeledValue';
 
 
 const styles = {
@@ -35,7 +34,13 @@ class Sc extends Component {
     // const { classes } = this.props;
     return [
       <div className="sc">
-        <hr style={{ marginTop: '40px', with: '100%' }} />
+        <hr style={{ marginTop: '20px', with: '100%' }} />
+        <div style={{ }}>
+          <LabeledValue>
+            Add to Queue
+          </LabeledValue>
+        </div>
+        <h2 style={{ marginTop: '10px', marginBottom: '20px', with: '100%' }}> Sample Configuration </h2>
         {/* <div>
           <input
             accept="image/*"
@@ -46,16 +51,6 @@ class Sc extends Component {
           />
         </div> */}
         <ScTable className="sctable" />
-        <Grid
-          container
-          direction="row"
-          justify="flex-end"
-          alignItems="baseline"
-        >
-          <Button variant="contained" className="btnaddqueue" align="right">
-            Add to Queue
-          </Button>
-        </Grid>
       </div>
     ];
   }

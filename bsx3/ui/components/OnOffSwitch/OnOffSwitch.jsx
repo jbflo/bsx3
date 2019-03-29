@@ -96,7 +96,7 @@ export default class InOutSwitch extends React.Component {
       display: 'block',
       fontSize: '100%',
       borderRadius: '0px',
-      color: '#000'
+      // color: '#000'
     };
 
     return (
