@@ -1,269 +1,97 @@
-
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import {
-  SortingState,
-  EditingState,
-  GroupingState, IntegratedGrouping,
-  IntegratedSorting
-} from '@devexpress/dx-react-grid';
-import {
-  Grid, VirtualTable, Toolbar, TableHeaderRow,
-  TableEditRow,
-  TableEditColumn, TableColumnResizing, TableColumnVisibility,
-  DragDropProvider, TableGroupRow, TableColumnReordering, GroupingPanel,
-  // TableFixedColumns,
-} from '@devexpress/dx-react-grid-material-ui';
-import Grid1 from '@material-ui/core/Grid';
-import { Card, Button, CardContent } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TableCell from '@material-ui/core/TableCell';
-import Paper from '@material-ui/core/Paper';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+// import GridListTileBar from '@material-ui/core/GridListTileBar';
+import {
+  Card, Button, CardContent, Grid
+} from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CancelIcon from '@material-ui/icons/Cancel';
+import QueueProgress from '../components/progress/QueueProgress';
+import queueData from './queue-api';
 import './queue.css';
 
-import {
-  generateRows,
-  queueDeafaultValues,
-} from '../constant/generator';
 
-const styles = {
-  lookupEditCell: {
-    // paddingTop: theme.spacing.unit * 0.875,
-    // paddingRight: theme.spacing.unit,
-    // paddingLeft: theme.spacing.unit,
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    height: 640,
+    backgroundColor: theme.palette.background.paper,
   },
-  dialog: {
-    width: 'calc(100% - 16px)',
+  gridList: {
+    width: 500,
+    height: 500,
+    padding: 0,
+    margin: 0,
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
   },
-  inputRoot: {
-    width: '100%',
+  gridListItem: {
+    height: 10,
+    padding: 0,
+    margin: 0,
   },
-};
+  titleBar: {
+    background:
+      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, '
+      + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
+  icon: {
+    color: 'white',
+  },
+});
 
-const AddButton = ({ onExecute }) => (
-  <div style={{ textAlign: 'center' }}>
-    <Button
-      style={{ backgroundColor: '#4caf50', color: '#fff' }}
-      onClick={onExecute}
-      title="Create new row"
-    >
-      New
-    </Button>
-  </div>
-);
-
-const DuplicateButton = ({ onExecute }) => (
-  <div style={{ textAlign: 'center' }}>
-    <Button
-      style={{ backgroundColor: '#4caf50', color: '#fff' }}
-      onClick={onExecute}
-      title="Create new row"
-    >
-      Duplicate
-    </Button>
-  </div>
-);
-
-const EditButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Edit row" color="primary">
-    <EditIcon style={{ color: '#00695c' }} />
-  </IconButton>
-);
-
-const DeleteButton = ({ onExecute }) => (
-  <IconButton
-    style={{ marginLeft: '0px' }}
-    color="secondary"
-    onClick={() => {
-      // eslint-disable-next-line
-      if (window.confirm('Are you sure you want to delete this row?')) {
-        onExecute();
-      }
-    }}
-    title="Delete row"
-  >
-    <DeleteIcon />
-  </IconButton>
-);
-
-const CommitButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Save changes">
-    <SaveIcon />
-  </IconButton>
-);
-
-const CancelButton = ({ onExecute }) => (
-  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
-    <CancelIcon />
-  </IconButton>
-);
-
-const commandComponents = {
-  add: AddButton,
-  duplicate: DuplicateButton,
-  edit: EditButton,
-  delete: DeleteButton,
-  commit: CommitButton,
-  cancel: CancelButton,
-};
-
-const Command = ({ id, onExecute }) => {
-  const CommandButton = commandComponents[id];
-  return (
-    <CommandButton
-      onExecute={onExecute}
-    />
-  );
-};
-
-const availableValues = {
-  // product: globalSalesValues.product,
-  // region: globalSalesValues.region,
-  // customer: globalSalesValues.customer,
-};
-
-const LookupEditCellBase = ({
-  availableColumnValues, value, onValueChange, classes,
-}) => (
-  <TableCell
-    className={classes.lookupEditCell}
-  >
-    <Select
-      value={value}
-      onChange={event => onValueChange(event.target.value)}
-      input={(
-        <Input
-          classes={{ root: classes.inputRoot }}
-        />
-)}
-    >
-      {availableColumnValues.map(item => (
-        <MenuItem key={item} value={item}>
-          {item}
-        </MenuItem>
-      ))}
-    </Select>
-  </TableCell>
-);
-export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
-
-const Cell = (props) => {
-  const { column } = props;
-  if (column.name === 'control') {
-    return (
-      <IconButton color="secondary" title="Cancel changes">
-        <CancelIcon />
-      </IconButton>
-    );
-  }
-  if (column.name === 'queuetype') {
-    return <span className="btn queuetype"> HPLC</span>;
-  }
-  if (column.name === 'sample') {
-    return <span className="btn sample"> Queue.x </span>;
-  }
-  return <VirtualTable.Cell {...props} />;
-};
-
-const EditCell = (props) => {
-  const { column } = props;
-  const availableColumnValues = availableValues[column.name];
-  if (availableColumnValues) {
-    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
-  }
-  return <TableEditRow.Cell {...props} />;
-};
-
-const getRowId = row => row.id;
-
+/**
+ * The example data is structured as follows:
+ *
+ * [etc...]
+ *
+ * const queueData = [
+ *   {
+ *    queuetype: 'HPLC',
+ *    sample: 'sample',
+ *    state: 'running',
+ *    control: 'hidden',
+ *    cols: 2,
+ *    featured: true,
+ *   },
+ *   {
+ *     [etc...]
+ *   },
+ * ];
+ */
 class Queue extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      queueDataState: queueData,
+    };
 
     this.startQueue = this.startQueue.bind(this);
     this.stopQueue = this.stopQueue.bind(this);
-    this.state = {
-      columns: [
-        { name: 'id', title: 'No', },
-        { name: 'queuetype', title: 'Current', },
-        { name: 'sample', title: 'Sample', },
-        { name: 'state', title: 'State', },
-        { name: 'control', title: 'Control', },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'id', width: 10 },
-        { columnName: 'queuetype', width: 80 },
-        { columnName: 'sample', width: 120 },
-        { columnName: 'state', width: 70 },
-        { columnName: 'control', width: 70 },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...queueDeafaultValues },
-        length: 2,
-      }),
-      hiddenColumnNames: ['id'],
-      addedRows: [],
-    };
-    const getStateRows = () => {
-      const { rows } = this.state;
-      return rows;
-    };
-    this.changeColumnWidths = (tableColumnExtensions) => {
-      this.setState({ tableColumnExtensions });
-    };
-
-    this.hiddenColumnNamesChange = (hiddenColumnNames) => {
-      this.setState({ hiddenColumnNames });
-    };
-    this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
-
-      })),
-    });
-    // this.changeRowChanges = rowChanges => this.setState({ rowChanges });
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let { rows } = this.state;
-      if (added) {
-        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
-            id: startingAddedId + index,
-            ...row,
-          })),
-        ];
-      }
-      if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
-      if (deleted) {
-        rows = this.deleteRows(deleted);
-      }
-      this.setState({ rows });
-    };
-
-    this.deleteRows = (deletedIds) => {
-      const rows = getStateRows().slice();
-      deletedIds.forEach((rowId) => {
-        const index = rows.findIndex(row => row.id === rowId);
-        if (index > -1) {
-          rows.splice(index, 1);
-        }
-      });
-      return rows;
-    };
-    // this.changeColumnOrder = (order) => {
-    //   this.setState({ columnOrder: order });
-    // };
+    this.deleteQueue = this.deleteQueue.bind(this);
   }
+
+  deleteQueue = queue => () => {
+    if (queue.state === 'running') {
+      alert('Cant not delete this Queue: it is Running !)'); // eslint-disable-line no-alert
+      return;
+    }
+
+    this.setState((state) => {
+      const queueDataState = [...state.queueDataState];
+      const queueuToDelete = queueDataState.indexOf(queue);
+      queueDataState.splice(queueuToDelete, 1);
+      return { queueDataState };
+    });
+  };
 
   startQueue() {
     if (this.props.onSave !== undefined) {
@@ -279,13 +107,17 @@ class Queue extends React.PureComponent {
   }
 
   render() {
-    const {
-      rows,
-      columns,
-      tableColumnExtensions,
-      hiddenColumnNames,
-      addedRows,
-    } = this.state;
+    const { queueDataState } = this.state;
+    let iconVisibility = 'visible';
+
+    queueDataState.map(((_queu => () => {
+      if (_queu.state === 'running') {
+        iconVisibility = 'hidden';
+      }
+      if (_queu.state === 'stop') {
+        iconVisibility = 'visible';
+      }
+    })));
 
     let btn = <Button style={{ backgroundColor: '#4caf50', color: '#fff' }} disabled>No State yet---</Button>;
     if (this.props.data.state === 'stop') {
@@ -293,74 +125,79 @@ class Queue extends React.PureComponent {
     } else if (this.props.data.state === 'start') {
       btn = <Button style={{ backgroundColor: '#f44336', color: '#fff' }} onClick={this.stopQueue}>{this.props.stopText}</Button>;
     }
-    return [
-      <Paper style={{ height: '546px' }}>
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <GridList cellHeight={40} spacing={1} className={classes.gridList}>
+          {queueDataState.map(queue => (
+            <GridListTile
+              key={queue.queuetype}
+              cols={queue.featured ? 2 : 1}
+              rows={queue.featured ? 2 : 1}
+              className={classes.gridListItem}
+            >
+              <Card>
+                <IconButton
+                  style={{ marginLeft: '10px', outline: 'none', }}
+                  color="secondary"
+                  onClick={this.deleteQueue(queue)}
+                  title={queue.control}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <span className="btn queuetype">
+                  {queue.queuetype}
+                </span>
+                <span className="btn sample">
+                  {queue.sample}
+                </span>
+                <QueueProgress />
+
+                <IconButton color="secondary" title={iconVisibility} style={{ visibility: iconVisibility, outline: 'none', }}>
+                  <CancelIcon />
+                </IconButton>
+              </Card>
+              {/* <GridListTileBar
+                title={queue.title}
+                titlePosition="top"
+                actionIcon={(
+                    <IconButton className={classes.icon}>
+                    <StarBorderIcon />
+                    </IconButton>
+                )}
+                actionPosition="left"
+                className={classes.titleBar}
+                /> */}
+            </GridListTile>
+          ))}
+        </GridList>
         <Grid
           container
-          style={{ height: '100px' }}
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: '' }}
         >
-          <DragDropProvider />
-          <SortingState
-            defaultSorting={[]}
-            // sorting={sorting}
-            // onSortingChange={this.changeSorting}
-          />
-          <GroupingState />
-          <IntegratedSorting />
-          <IntegratedGrouping />
-          <EditingState
-            onRowChangesChange={this.changeRowChanges}
-            addedRows={addedRows}
-            onAddedRowsChange={this.changeAddedRows}
-            onCommitChanges={this.commitChanges}
-          />
-          <VirtualTable
-            columnExtensions={tableColumnExtensions}
-            cellComponent={Cell}
-          />
-          <TableColumnResizing
-            columnWidths={tableColumnExtensions}
-            onColumnWidthsChange={this.changeColumnWidths}
-          />
-          <TableHeaderRow showSortingControls />
-          <TableColumnVisibility
-            hiddenColumnNames={hiddenColumnNames}
-            onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
-          />
-          <TableColumnReordering
-            defaultOrder={columns.map(column => column.name)}
-            // order={columnOrder}
-            // onOrderChange={this.changeColumnOrder}
-          />
-          <TableEditRow cellComponent={EditCell} />
-          <TableEditColumn
-            width={60}
-            showDeleteCommand
-            commandComponent={Command}
-          />
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showSortingControls />
+          <Card className="cardbtnqueue">
+            <CardContent>{btn}</CardContent>
+          </Card>
         </Grid>
-      </Paper>,
-      <Grid1
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: '' }}
-      >
-        <Card className="cardbtnqueue">
-          <CardContent>{btn}</CardContent>
-        </Card>
-      </Grid1>
-    ];
+      </div>
+    );
   }
 }
+
+Queue.defaultProps = {
+  classes: PropTypes.object.isRequired,
+  startText: 'Start Queue',
+  stopText: 'Stop Queue',
+  labelText: '',
+  pkey: undefined,
+  onSave: undefined,
+  data: { value: 'undefined', state: 'START', msg: 'UNKNOWN' }
+};
+
 
 function mapStateToProps(state) {
   return {
@@ -378,13 +215,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Queue); withStyles(styles, { name: 'ControlledModeDemo' });
-
-Queue.defaultProps = {
-  startText: 'Start Queue',
-  stopText: 'Stop Queue',
-  labelText: '',
-  pkey: undefined,
-  onSave: undefined,
-  data: { value: 'undefined', state: 'START', msg: 'UNKNOWN' }
-};
+)(Queue); withStyles(styles);

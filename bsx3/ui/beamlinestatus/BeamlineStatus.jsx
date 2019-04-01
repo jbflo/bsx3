@@ -129,7 +129,7 @@ class BeamlineStatus extends React.Component {
                     <Nav.Item className="item">
                       <PopInput
                         name="Energy"
-                        pkey="energy"
+                        pkey={2}
                         suffix="keV"
                         data={this.props.beamline.attributes.energy}
                         onSave={this.setAttribute}
@@ -150,6 +150,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey={3}
                     suffix="mAmps"
                     name=""
                     value={this.props.beamline.attributes.machinfo.value}
@@ -166,6 +167,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle} className="badge">
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey={4}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.sampleName.value}
@@ -182,6 +184,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey={5}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -198,6 +201,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey={6}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -214,6 +218,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey={7}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -230,6 +235,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
+                    pkey="frame"
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}

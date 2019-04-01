@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import green from '@material-ui/core/colors/green';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
-import SaveIcon from '@material-ui/icons/Save';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+import './queueprogress.css';
 
 const styles = theme => ({
   root: {
@@ -27,17 +28,19 @@ const styles = theme => ({
   fabProgress: {
     color: green[500],
     position: 'absolute',
-    top: -6,
-    left: -6,
+    outline: 'none',
+    // top: -6,
+    // left: -6,
     zIndex: 1,
   },
   buttonProgress: {
     color: green[500],
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
+    outline: 'none',
+    // top: '50%',
+    // left: '50%',
+    // marginTop: -12,
+    // marginLeft: -12,
   },
 });
 
@@ -73,31 +76,17 @@ class QueueProgress extends React.Component {
   render() {
     const { loading, success } = this.state;
     const { classes } = this.props;
-    const buttonClassname = classNames({
-      [classes.buttonSuccess]: success,
-    });
+    // const buttonClassname = classNames({
+    //   [classes.buttonSuccess]: success,
+    // });
 
     return (
-      <div className={classes.root}>
-        <div className={classes.wrapper}>
-          <Fab color="primary" className={buttonClassname} onClick={this.handleButtonClick}>
-            {success ? <CheckIcon /> : <SaveIcon />}
-          </Fab>
-          {loading && <CircularProgress size={68} className={classes.fabProgress} />}
-        </div>
-        <div className={classes.wrapper}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={buttonClassname}
-            disabled={loading}
-            onClick={this.handleButtonClick}
-          >
-            Accept terms
-          </Button>
-          {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-        </div>
-      </div>
+      // <div>
+      <Fab className="fabprogress" onClick={this.handleButtonClick}>
+        {success ? <CheckIcon className="checkiconprogress" /> : <StarBorderIcon className="stariconprogress" />}
+        {loading && <CircularProgress size={50} className={classes.fabProgress} style={{ marginLeft: '0px', outline: 'none', }} />}
+      </Fab>
+
     );
   }
 }

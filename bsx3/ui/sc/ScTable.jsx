@@ -17,6 +17,7 @@ import {
   DragDropProvider, TableGroupRow, TableColumnReordering, GroupingPanel,
   // TableFixedColumns,
 } from '@devexpress/dx-react-grid-material-ui';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -180,6 +181,8 @@ const EditCell = (props) => {
 };
 
 const getRowId = row => row.id;
+const Root = props => <Grid.Root {...props} style={{ height: '90%', width: '100%' }} />;
+
 
 class ScTable extends React.PureComponent {
   constructor(props) {
@@ -298,11 +301,10 @@ class ScTable extends React.PureComponent {
     return (
       <Paper style={{ height: '510px' }}>
         <Grid
-          container
-          style={{ height: '100px' }}
           rows={rows}
           columns={columns}
           getRowId={getRowId}
+          rootComponent={Root}
         >
           <DragDropProvider />
           <SelectionState
@@ -331,6 +333,7 @@ class ScTable extends React.PureComponent {
           <VirtualTable
             columnExtensions={defaultColumnWidths}
             cellComponent={Cell}
+            height="auto"
           />
           <TableColumnResizing
             defaultColumnWidths={defaultColumnWidths}
@@ -345,7 +348,7 @@ class ScTable extends React.PureComponent {
           />
           <TableEditRow cellComponent={EditCell} />
           <TableEditColumn
-            width={120}
+            width={110}
             showAddCommand={!addedRows.length}
             showDuplicateCommand={!addedRows.length}
             showEditCommand
@@ -365,6 +368,7 @@ class ScTable extends React.PureComponent {
             <div style={{ }}>
               <Button variant="contained" className="btnaddqueue" align="right">
                 Add to Queue
+                <i className="fas fa-share-square" style={{ marginLeft: '10px' }} />
               </Button>
             </div>
           </div>
@@ -376,7 +380,7 @@ class ScTable extends React.PureComponent {
 
 function mapStateToProps(state) {
   return {
-    seu: state.seu,
+    sc: state.sc,
   };
 }
 

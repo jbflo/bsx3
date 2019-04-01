@@ -3,3 +3,11 @@
   font-Weight: '50';
   line-Height: '1.5em'
 }
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+btn:focus {
+    outline: none;
+}

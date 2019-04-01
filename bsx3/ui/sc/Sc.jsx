@@ -8,8 +8,6 @@ import { withStyles } from '@material-ui/core/styles';
 import ScTable from './ScTable';
 
 import './sc.css';
-import LabeledValue from '../components/LabeledValue/LabeledValue';
-
 
 const styles = {
   button: {
@@ -35,21 +33,12 @@ class Sc extends Component {
     return [
       <div className="sc">
         <hr style={{ marginTop: '20px', with: '100%' }} />
-        <div style={{ }}>
-          <LabeledValue>
-            Add to Queue
-          </LabeledValue>
+        <div>
+          <h3 className="" style={{ marginTop: '10px', marginBottom: '20px', with: '100%' }}> Sample Configuration </h3>
         </div>
-        <h2 style={{ marginTop: '10px', marginBottom: '20px', with: '100%' }}> Sample Configuration </h2>
-        {/* <div>
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="outlined-button-file"
-            multiple
-            type="file"
-          />
-        </div> */}
+        <div>
+          <h6> Queue Name : ....</h6>
+        </div>
         <ScTable className="sctable" />
       </div>
     ];

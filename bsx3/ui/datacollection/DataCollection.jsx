@@ -39,6 +39,7 @@ const styles = {
     backgroundColor: '#FFFFFF80',
     color: ' #004d40',
     borderRadius: 11,
+    outline: 'none',
   }
 
 };
@@ -84,10 +85,9 @@ class Datacollection extends Component {
                 >
                   <Tabs
                     className="tabs"
-                    // inkBarStyle={{ background: 'green' }}
                     value={valuetab1}
                     onChange={this.handleChangeTab1}
-                    indicatorColor="default"
+                    indicatorColor="none"
                     variant="fullWidth"
                     scrollButtons="auto"
                     classes={{
@@ -97,7 +97,7 @@ class Datacollection extends Component {
                     }}
 
                   >
-                    {/* We do that to Apply different style to the Tab Header */}
+                    {/* We do that to Apply different style when Tab Header is Activ or not */}
                     {valuetab1 === 0 ? <Tab label="Home" className="tab" style={styles.active_tab} />
                       : <Tab label="Home" className="tab" style={styles.default_tab} /> }
 
@@ -135,7 +135,7 @@ class Datacollection extends Component {
                     className="tabs"
                     value={valuetab2}
                     onChange={this.handleChangeTab2}
-                    indicatorColor="default"
+                    indicatorColor="none"
                     variant="fullWidth"
                     classes={{
                       root: classes.tabsRoot,
@@ -144,15 +144,16 @@ class Datacollection extends Component {
                       // tabSelected: classes.tabSelected
                     }}
                   >
-                    {valuetab2 === 0 ? <Tab label="Messages" style={styles.active_tab} />
+                    {valuetab2 === 0 ? <Tab label="Queue" style={styles.active_tab} />
+                      : <Tab label="Queue" style={styles.default_tab} /> }
+
+                    {valuetab2 === 1 ? <Tab label="Messages" style={styles.active_tab} />
                       : <Tab label="Messages" style={styles.default_tab} /> }
 
-                    {valuetab2 === 1 ? <Tab label="Queue" style={styles.active_tab} />
-                      : <Tab label="Queue" style={styles.default_tab} /> }
                   </Tabs>
                 </AppBar>
-                {valuetab2 === 0 && <TabContainer>Content Messages Panel Here</TabContainer>}
-                {valuetab2 === 1 && <TabContainer><Queue /></TabContainer>}
+                {valuetab2 === 0 && <TabContainer><Queue /></TabContainer>}
+                {valuetab2 === 1 && <TabContainer>Content Messages Panel Here</TabContainer>}
               </Card>
             </div>
           </div>

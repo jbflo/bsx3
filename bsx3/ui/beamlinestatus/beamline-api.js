@@ -1,4 +1,7 @@
+import axios from 'axios';
 import { RUNNING } from '../app/constants';
+
+const API_URL = '/api/beamline';
 
 // import fetch from 'isomorphic-fetch';
 // The different states a beamline attribute can assume.
@@ -340,7 +343,20 @@ export function busyStateAction(name) {
   };
 }
 
-export function sendGetAllAttributes() {}
+export function sendGetAllAttributes() {
 
-// eslint-disable-next-line no-unused-vars
-export function sendSetAttribute(name, value) {}
+}
+
+export function sendSetAttribute(name) {
+  return (dispatch) => {
+    dispatch(busyStateAction(name));
+    dispatch({ type: BL_ATTR_GET_ALL });
+    axios.post(`${API_URL}/${name}`)
+      .then((response) => {
+        dispatch(setBeamlineAttrAction(response.data.beamline));
+      })
+      .catch((Error) => {
+        throw new Error(`PUT ${API_URL} failed`);
+      });
+  };
+}

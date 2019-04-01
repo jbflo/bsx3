@@ -43,8 +43,8 @@
     background: transparent!important;
     box-Shadow: 20px !important;
     position: relative!important;
-    border-bottom-left-radius: 20%;
-    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
 }
 .tabs{
     color: rgb(5, 38, 43);
@@ -52,8 +52,8 @@
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    border-bottom-left-radius: 20%;
-    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
     height: 70px;
 }
 .tab{

@@ -8,7 +8,7 @@ from bsx3.backend.bsxapp import counter
 api = Blueprint('counter_api', __name__)
 
 
-@api.route("increment", methods=["POST"])
+@api.route("/increment", methods=["POST"])
 def increment():
     """ Increment counter.
 
@@ -22,7 +22,7 @@ def increment():
     return resp
 
 
-@api.route("decrement", methods=["POST"])
+@api.route("/decrement", methods=["POST"])
 def decrement():
     """ Decrements counter.
 
@@ -36,7 +36,7 @@ def decrement():
     return resp
 
 
-@api.route("get-count", methods=["POST"])
+@api.route("/get-count", methods=["POST"])
 def get_count():
     """ Return current count.
 

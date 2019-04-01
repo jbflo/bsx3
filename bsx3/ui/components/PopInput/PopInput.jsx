@@ -229,17 +229,17 @@ export default class PopInput extends React.Component {
         overlay={popover}
         className="overlay"
       >
-        <a
+        <span
           ref={(ref) => { this.a = ref; }}
           onContextMenu={this.onLinkClick}
           key="valueLabel"
           className={`popinput-input-link ${linkClass} ${stateClass}`}
-          href
+          // href
         >
           {value}
           {' '}
           {this.props.suffix}
-        </a>
+        </span>
       </OverlayTrigger>
     ];
   }

@@ -20,10 +20,10 @@ export const scDeafaultValues = {
 };
 
 export const queueDeafaultValues = {
-  id: ['0', '1'],
-  queuetype: ['SC', 'HPLC'],
-  label: ['purge', 'queue1', 'Equilibrate'],
-  state: ['Ongoing', 'Next', 'Finish'],
+  // id: ['0', '1'],
+  // queuetype: ['SC', 'HPLC'],
+  // label: ['purge', 'queue1', 'Equilibrate'],
+  // state: ['Ongoing', 'Next', 'Finish'],
 };
 
 // here we ...

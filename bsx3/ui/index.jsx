@@ -13,8 +13,11 @@ import 'bootstrap/dist/js/bootstrap';
 import 'mdbreact/dist/css/mdb.css';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { initCounterRequest } from './counter/counter-api';
 
 const target = document.querySelector('#root');
+
+store.dispatch(initCounterRequest());
 
 render(
   <Provider store={store}>
