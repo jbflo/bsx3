@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import * as CounterAPI from './counter-api';
 
@@ -10,25 +11,26 @@ class Counter extends React.Component {
       <p>
         {`Clicked ${this.props.count} times`}
         {' '}
-        <button type="button" onClick={this.props.incCounterRequest}>
-          +
-        </button>
+        <Button type="button" onClick={this.props.incCounterRequest}>
+          Hello +
+        </Button>
         {' '}
-        <button type="button" onClick={this.props.decCounterRequest}>
+        <Button type="button" onClick={this.props.decCounterRequest}>
           -
-        </button>
+        </Button>
         {' '}
-        <button type="button" onClick={this.props.incrementAsync}>
+        <Button type="button" onClick={this.props.incrementAsync}>
           Increment async
-        </button>
+        </Button>
         {' '}
-        <button type="button" onClick={this.props.decrementAsync}>
+        <Button type="button" onClick={this.props.decrementAsync}>
           Decrement async
-        </button>
+        </Button>
       </p>
     );
   }
 }
+
 
 function mapStateToProps({ counter }) {
   return {

@@ -1,0 +1,65 @@
+.queue{
+    position: relative;
+
+}
+
+.btnqs, .btnqd {
+    width: 140px;
+    height: 60px;
+    text-align: center;
+    margin: 8px;
+    align-content: center;
+    transition:all .08s linear;
+    position:relative;
+    outline:medium none;
+    border:0px;
+}
+.btnqs:focus, btnqd:focus {
+    outline:medium none;
+}
+
+.btnqs:active, btnqd:active {
+    outline:medium none;
+}
+
+
+.btnqs {
+    margin-left: 5px;
+    box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#5cb85c;
+}
+
+.btnqd {
+    margin-left: 8px;
+    box-shadow:0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #C24032, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#c63702;
+}
+
+.queueTable{
+    height: 30px!important;
+    width: 1000px!important;
+}
+
+.cardbtnqueue{
+    margin-top: 20px;
+}
+
+.queuetype{
+    width: 60px !important;
+    height: 35px!important;
+    font-size: 13px!important;
+    background: #e4980c !important;
+    color: white !important;
+    margin-left: 10px;
+}
+
+.sample{
+    width: 200px !important;
+    height: 35px!important;
+    background: #607d8b !important;
+    color: white !important;
+    font-size: 13px !important;
+    margin-left: 10px!important;
+    margin-right: 20px!important;
+}
+

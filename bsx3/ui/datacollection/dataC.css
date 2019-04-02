@@ -1,0 +1,82 @@
+
+/* Horizontal Tabs */
+.contain{
+    margin-left: 0% !important;
+    position: relative;
+    left: -15px;
+    width: 99%;
+}
+.horizontal-tabs {
+    font-size: 14px;
+    font-size: bold;
+    /* padding-right: 10px; */
+    color: #030000
+}
+
+.horizontal-tabs .nav-tabs .nav-link {
+    background-color: rgb(225, 236, 238);
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0);
+    border: 1px solid transparent;
+    padding: 15px;
+    margin-right: 30px;
+}
+
+.horizontal-tabs .nav-tabs .nav-link.active {
+    background: #00467F;
+    background: -webkit-linear-gradient(to right, rgba(165, 204, 130, 0.877), rgba(0, 70, 127, 0.829));
+    background: linear-gradient(to right, rgba(165, 204, 130, 0.877), rgba(0, 70, 127, 0.829));
+    color: #fff;
+}
+.row{
+    z-index:2 !important;
+}
+.card{
+    background: transparent;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important;
+    position: relative;
+    top: 0;
+    left: 2.5%;
+}
+.appbar{
+    width: 100%!important;
+    background: transparent!important;
+    box-Shadow: 20px !important;
+    position: relative!important;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+.tabs{
+    color: rgb(5, 38, 43);
+    background: linear-gradient(to right, rgba(153, 184, 127, 0.479), rgba(153, 184, 127, 0.479));
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    height: 70px;
+}
+.tab{
+    margin-top: 100px;
+    padding: 10px;
+    border-bottom-right-radius: 50px 20px;
+}
+.appbar:hover{
+    box-shadow: 0 2px 5px rgba(165, 204, 130, 0.877), 0 3px 5px rgba(0, 70, 127, 0.829);
+}
+
+@media (max-width: 967px) {
+    .contain{
+        z-index:2 !important;
+    }
+    .nav.nav-tabs {
+        border-bottom: 0;
+        display: block;
+        margin-right: 20px;
+        width: 100%!important
+    }
+    .horizontal-tabs .nav-tabs {
+        width: 100%;
+        padding: 0
+    }
+}

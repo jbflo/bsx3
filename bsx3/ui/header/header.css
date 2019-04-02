@@ -1,0 +1,54 @@
+@media all and (min-width: 480px), (max-width: 767px) {
+    .Header {
+        background: #00467F;
+        background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
+        background: linear-gradient(to right, #A5CC82, #00467F);
+        height: 40px;
+        /* font-weight: bold; */
+    }
+    .brand {
+        color: rgb(255, 255, 255)!important;
+        font-weight: bold;
+    }
+    .item1 {
+        /* color: rgb(250, 248, 248); */
+        font-weight: bold;
+    }
+    .item {
+        color: rgb(201, 209, 209)!important;
+        margin: 0;
+        padding-left: 4px;
+        padding-right: 4px;
+        /* font-weight: bold; */
+    }
+    .item1:hover {
+        color: rgb(255, 255, 255)!important;
+        vertical-align: middle;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        transition-duration: 0.3s;
+        transition-property: transform;
+        transform: scale(1.1);
+    }
+    .brand:hover {
+        color: rgb(12, 12, 12)!important;
+        vertical-align: middle;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        transition-duration: 0.3s;
+        transition-property: transform;
+        transform: scale(1.1);
+    }
+    .item:hover {
+        color: rgb(135, 154, 165)!important;
+        vertical-align: middle;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        transition-duration: 0.3s;
+        transition-property: transform;
+        transform: scale(1.1);
+    }
+}

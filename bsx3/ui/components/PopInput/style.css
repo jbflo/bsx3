@@ -1,0 +1,85 @@
+/*  Style Sheet for PopInput Content */
+
+.btnpopinput {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin: 2px
+}
+
+.btnsuccess {
+    margin-left: 15px;
+}
+
+.btndanger {
+    margin-right: 8px;
+}
+
+.form-control {
+    margin-left: 10px;
+    padding: 0% !important;
+}
+
+.popover {
+    height: 85px;
+    z-index:9999 !important;
+}
+
+.popcontent {
+    position: relative;
+    top: -35px;
+    margin-top: 30px;
+}
+
+
+/* --------------------------------  */
+
+.popinput-input-label {
+    display: inline-block;
+    min-width: 90px;
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.popinput-input-value {
+    display: inline-block;
+}
+
+.popinput-busy-buttonbar {
+    /* display: inline-block; */
+    float: right;
+}
+
+.popinput-input-busy {
+    display: inline-block;
+    background-image: url(../../img/busy-indicator.gif);
+    height: 32px;
+    width: 32px;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+    display: inline;
+}
+
+.value-label-enter-success {
+    transition: background-color 1000ms ease-out;
+}
+
+.popinput-input-container {
+    display: inline;
+}
+
+.popinput-input-editicon {
+    visibility: hidden;
+    color: #999;
+    margin-right: 5px;
+}
+
+.popinput-input-link:hover>.popinput-input-editicon {
+    visibility: visible;
+}
+
+.editable-click {
+    cursor: pointer;
+}
