@@ -2,6 +2,10 @@
 """ Utileties for accessing beamline hardware"""
 from bsx3.backend.bsxapp import get_app
 
+
+def get_shutter_state_def():
+    pass
+
 def get_shutters():
     """
     Retreives dictionary represenation of all shutters
@@ -16,6 +20,8 @@ def get_shutters():
     shutters = []
 
     for role, shutter in get_app().beamline.get_shutters().items():
+        import pdb
+        pdb.set_trace()
         shutters.append(
             {"name": role,
              "state": shutter.state(),

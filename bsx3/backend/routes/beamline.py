@@ -31,6 +31,7 @@ def energy():
     resp.status_code = 200
     return resp
 
+
 @api.route("machine-info", methods=["POST"])
 def machine_info():
     """ Gets machine info

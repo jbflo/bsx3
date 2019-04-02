@@ -8,7 +8,6 @@ init_hwr_paths()
 # pylint: disable=wrong-import-position
 from bsx3.backend import server
 
-
 @pytest.fixture
 def client():
     """PyTest fixture for REST API"""
