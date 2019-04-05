@@ -6,35 +6,49 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 // import GridListTileBar from '@material-ui/core/GridListTileBar';
 import {
-  Card, Button, CardContent, Grid
+  Card, Button, Grid
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CancelIcon from '@material-ui/icons/Cancel';
-import QueueProgress from '../components/progress/QueueProgress';
+// import CancelIcon from '@material-ui/icons/Cancel';
+import QueueProgress from './QueueProgress';
 import queueData from './queue-api';
 import './queue.css';
 
 
-const styles = theme => ({
+const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    height: 640,
-    backgroundColor: theme.palette.background.paper,
+    height: 660,
+    // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 500,
+    width: 550,
     height: 500,
     padding: 0,
     margin: 0,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
+  gridListAuto: {
+    width: 550,
+    padding: 0,
+    margin: 0,
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+  // Apply different Background color to Queue Types and Samples
+  hplc: {
+    background: '#e4980c',
+  },
+  sc: {
+    background: '#00bfa5',
+  },
   gridListItem: {
-    height: 10,
+    height: 60,
     padding: 0,
     margin: 0,
   },
@@ -46,7 +60,7 @@ const styles = theme => ({
   icon: {
     color: 'white',
   },
-});
+};
 
 /**
  * The example data is structured as follows:
@@ -88,7 +102,9 @@ class Queue extends React.PureComponent {
     this.setState((state) => {
       const queueDataState = [...state.queueDataState];
       const queueuToDelete = queueDataState.indexOf(queue);
-      queueDataState.splice(queueuToDelete, 1);
+      if (queueuToDelete !== -1) {
+        queueDataState.splice(queueuToDelete, 1);
+      }
       return { queueDataState };
     });
   };
@@ -108,81 +124,74 @@ class Queue extends React.PureComponent {
 
   render() {
     const { queueDataState } = this.state;
-    let iconVisibility = 'visible';
 
-    queueDataState.map(((_queu => () => {
-      if (_queu.state === 'running') {
-        iconVisibility = 'hidden';
-      }
-      if (_queu.state === 'stop') {
-        iconVisibility = 'visible';
-      }
-    })));
+    // let colorS = '#e4980c';
+    // // eslint-disable-next-line array-callback-return
+    // queueDataState.map((_queu) => {
+    //   if (_queu.queuetype === 'HPLC') {
+    //     colorS = '#00695c';
+    //   } else if (_queu.queuetype === 'SC') {
+    //     colorS = '#e4980c';
+    //   }
+    // });
 
-    let btn = <Button style={{ backgroundColor: '#4caf50', color: '#fff' }} disabled>No State yet---</Button>;
+    let btn = <Button className="btnqs" disabled>No State yet---</Button>;
     if (this.props.data.state === 'stop') {
-      btn = <Button title="Start Queue" style={{ backgroundColor: '#4caf50', color: '#fff' }} onClick={this.sartQueue}>{this.props.startText}</Button>;
+      btn = <Button title="Start Queue" className="btnqs" onClick={this.sartQueue}>{this.props.startText}</Button>;
     } else if (this.props.data.state === 'start') {
-      btn = <Button style={{ backgroundColor: '#f44336', color: '#fff' }} onClick={this.stopQueue}>{this.props.stopText}</Button>;
+      btn = <Button className="btnqd" onClick={this.stopQueue}>{this.props.stopText}</Button>;
     }
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <GridList cellHeight={40} spacing={1} className={classes.gridList}>
-          {queueDataState.map(queue => (
-            <GridListTile
-              key={queue.queuetype}
-              cols={queue.featured ? 2 : 1}
-              rows={queue.featured ? 2 : 1}
-              className={classes.gridListItem}
-            >
-              <Card>
+      <div style={styles.root}>
+        <Card className="cardqueue">
+          <GridList
+            cellHeight={60}
+            spacing={1}
+            style={{ ...queueDataState.length > 6 ? styles.gridList : styles.gridListAuto }}
+          >
+            {queueDataState.map(queue => (
+              <GridListTile
+                key={queue.key}
+                cols={2}
+                rows={1}
+                style={styles.gridListItem}
+              >
+                <hr style={{ marginBottom: '0px', with: '100%' }} />
                 <IconButton
-                  style={{ marginLeft: '10px', outline: 'none', }}
+                  style={{ marginLeft: '0px', outline: 'none', }}
                   color="secondary"
                   onClick={this.deleteQueue(queue)}
                   title={queue.control}
                 >
                   <DeleteIcon />
                 </IconButton>
-                <span className="btn queuetype">
+                <span className="btn queuetype" style={{ ...queue.queuetype === 'SC' ? styles.hplc : styles.sc }}>
                   {queue.queuetype}
                 </span>
                 <span className="btn sample">
                   {queue.sample}
                 </span>
                 <QueueProgress />
-
-                <IconButton color="secondary" title={iconVisibility} style={{ visibility: iconVisibility, outline: 'none', }}>
+                {/* <IconButton color="secondary" title="Cancel Queue"
+                style={{ visibility: queue.control, outline: 'none', }}>
                   <CancelIcon />
-                </IconButton>
-              </Card>
-              {/* <GridListTileBar
-                title={queue.title}
-                titlePosition="top"
-                actionIcon={(
-                    <IconButton className={classes.icon}>
-                    <StarBorderIcon />
-                    </IconButton>
-                )}
-                actionPosition="left"
-                className={classes.titleBar}
-                /> */}
-            </GridListTile>
-          ))}
-        </GridList>
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: '' }}
-        >
-          <Card className="cardbtnqueue">
-            <CardContent>{btn}</CardContent>
-          </Card>
-        </Grid>
+                </IconButton> */}
+              </GridListTile>
+            ))}
+          </GridList>
+        </Card>
+        <Card className="cardbtnqueue">
+          <Grid
+            container
+            spacing={0}
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            {btn}
+          </Grid>
+        </Card>
       </div>
     );
   }
