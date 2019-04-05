@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Beamline routes """
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from bsx3.backend.bsxapp import beamline
 
 api = Blueprint('beamline_api', __name__)
@@ -44,7 +44,7 @@ def machine_info():
     return resp
 
 
-@api.route("beamline", methods=["POST"])
+@api.route("/get-beamline", methods=["POST"])
 def _beamline():
     """ Retreives all relevant attributes associated to
         the beamline
@@ -55,4 +55,6 @@ def _beamline():
     """
     resp = jsonify(beamline.get_beamline())
     resp.status_code = 200
+    print(request.get_json())
+    print("TEST GET BEAMLINE ATTRIB!")
     return resp

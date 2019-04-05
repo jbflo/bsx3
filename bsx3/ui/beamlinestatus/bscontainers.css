@@ -1,11 +1,12 @@
     @media all and (min-width: 480px) {
         .bmstatus {
             position: relative;
-            height: 90px;
+            height: 80px;
             max-width: 100%;
             margin-bottom: 50px;
             z-index:9999 !important;
             position:relative;
+            background: linear-gradient(to right, rgba(122, 145, 104, 0.185), rgba(122, 145, 104, 0.185));
             float: none!important;
         }
         .bmstatus:hover {
@@ -13,7 +14,7 @@
             transform: perspective(1px) translateZ(0);
             box-shadow: 0 0 5px rgba(121, 138, 155, 0);
             position: relative;
-            background: linear-gradient(to right, rgba(153, 184, 127, 0.479), rgba(153, 184, 127, 0.479));
+            background: linear-gradient(to right, rgba(108, 145, 81, 0.137), rgba(108, 145, 81, 0.137));
             -webkit-transition-property: color;
             transition-property: color;
             -webkit-transition-duration: 0.3s;
@@ -40,7 +41,7 @@
     /* change navbar background on collapse */
 @media (max-width: 768px) {
     .collapse {
-        background-color: rgba(153, 184, 127, 0.479);
+        background-color: rgba(108, 145, 81, 0.233);
         width: 153px!important;
         margin: 0%;
         border-radius: 20px;
@@ -63,5 +64,6 @@
         width: 100%;
         height: 25px;
         position: relative;
+        
     }
   }
