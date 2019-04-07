@@ -151,8 +151,6 @@ export function initCounterRequest() {
   return (dispatch) => {
     dispatch(setLoading(true));
 
-    // debugger;
-
     axios.post(`${API_URL}/get-count`)
       .then((response) => {
         dispatch(setCount(response.data.counter));

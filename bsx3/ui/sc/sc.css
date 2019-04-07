@@ -3,6 +3,8 @@
 .sc{
     position: relative;
     caption-side: top;
+    margin-left: 10px;
+    margin-right: 10px;
     /* height: 100px */
 }
 .sctable{

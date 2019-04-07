@@ -1,11 +1,12 @@
 .queue{
+    margin-top: 100px;
     position: relative;
 
 }
 
 .btnqs, .btnqd {
     width: 140px;
-    height: 60px;
+    height: 50px;
     text-align: center;
     margin: 8px;
     align-content: center;
@@ -25,14 +26,16 @@
 
 .btnqs {
     margin-left: 5px;
-    box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#5cb85c;
+    box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.082) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.26)!important;
+    color: white !important;
+    background-color:#5cb85c!important;
 }
 
 .btnqd {
     margin-left: 8px;
-    box-shadow:0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #C24032, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#c63702;
+    box-shadow:0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #C24032, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5)!important;
+    color: white!important;
+    background-color:#c63702!important;
 }
 
 .queueTable{
@@ -40,26 +43,78 @@
     width: 1000px!important;
 }
 
-.cardbtnqueue{
-    margin-top: 20px;
+.cardqueue{
+    margin-top: 15px;
+    padding-top: 20px;
+    height: 560px !important;
+    transform: translateZ(0)!important;
 }
 
 .queuetype{
+    position: relative;
+    left: 5px;
     width: 60px !important;
-    height: 35px!important;
+    height: 32px!important;
     font-size: 13px!important;
-    background: #e4980c !important;
-    color: white !important;
-    margin-left: 10px;
+    /* background: #e4980c !important; */
+    /* color: white !important; */
+    margin-left: 0px;
+    margin-right: 0px!important;
 }
 
 .sample{
     width: 200px !important;
-    height: 35px!important;
+    height: 32px!important;
     background: #607d8b !important;
     color: white !important;
     font-size: 13px !important;
-    margin-left: 10px!important;
-    margin-right: 20px!important;
+    margin-left: 0px!important;
+    margin-right: 30px!important;
 }
 
+.cardbtnqueue{
+    margin-top: 10px;
+    display: flex!important;
+    text-align: center!important;
+    padding: 10px;
+    width: 100%;
+}
+
+/*  Queue Progress css part */
+
+.fabprogress:focus{
+    outline: none !important;
+}
+
+.fabprogress{
+    width: 1px !important;
+    height: 1px !important;
+    outline: none; 
+    /* background-color: #7cb342!important; */
+}
+
+.checkiconprogress{
+    background-color: #7cb342!important;
+    color: #fff!important;
+}
+
+.stariconprogress{
+    color: #c3d2d3!important;
+
+}
+.initchip{
+    background: #607d8b!important;
+}
+
+.chipsuccess{
+    width: 1500px !important;
+    background: #7cb342!important;
+    color: #fff!important;
+}
+
+.checkprogress{
+   margin: 0px !important;
+   color: #7cb342!important;
+   height: 5px;
+
+}

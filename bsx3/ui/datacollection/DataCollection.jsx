@@ -2,31 +2,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import Tabs from 'react-bootstrap/Tabs';
+// import Tabs from 'react-responsive-tabs';
+import Tab from 'react-bootstrap/Tab';
 import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
 import Queue from '../queue/Queue';
 import Hplc from '../hplc/Hplc';
 import Sc from '../sc/Sc';
-
-
+// import 'react-responsive-tabs/styles.css';
 import './dataC.css';
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 const styles = {
   root: {
@@ -34,16 +18,30 @@ const styles = {
   },
   default_tab: {
     boxShadow: '0 2px 3px 1px rgba(165, 204, 130, 0.877)',
-  },
-  active_tab: {
-    backgroundColor: '#FFFFFF80',
-    color: ' #004d40',
     borderRadius: 11,
     outline: 'none',
   }
-
 };
 
+// const tab1 = <Sc />;
+// const tabs = [{ name: 'George Washington', biography: [tab1] },
+//   { name: 'Theodore Roosevelt', biography: '...' }];
+
+// function getTabs() {
+//   return tabs.map((president, index) => ({
+//     title: president.name,
+//     // getContent: () => president.biography,
+//     getContent: () => (
+//       <div className="tab-container">
+//         <div className="tab-name">{president.biography}</div>
+//       </div>
+//     ),
+//     /* Optional parameters */
+//     key: index,
+//     tabClassName: 'nav-tabs',
+//     panelClassName: 'panel',
+//   }));
+// }
 class Datacollection extends Component {
   constructor(props, context) {
     super(props, context);
@@ -51,110 +49,78 @@ class Datacollection extends Component {
       valuetab1: 0,
       valuetab2: 0,
     };
-    this.handleChangeTab1 = this.handleChangeTab1.bind(this);
-    this.handleChangeTab2 = this.handleChangeTab2.bind(this);
+    // this.handleChangeTab1 = this.handleChangeTab1.bind(this);
+    // this.handleChangeTab2 = this.handleChangeTab2.bind(this);
   }
 
-  handleChangeTab1 = (event, valuetab1) => {
-    this.setState({ valuetab1 });
-  };
+  // handleChangeTab1 = (event, valuetab1) => {
+  //   this.setState({ valuetab1 });
+  // };
 
-  handleChangeTab2 = (event, valuetab2) => {
-    this.setState({ valuetab2 });
-  };
+  // handleChangeTab2 = (event, valuetab2) => {
+  //   this.setState({ valuetab2 });
+  // };
 
   render() {
-    const { classes } = this.props;
-    const { valuetab1, valuetab2 } = this.state;
+    // const { valuetab1, valuetab2 } = this.state;
 
     return [
 
       <div>
-        <BeamlineStatus />
+        <BeamlineStatus key="bmstatatus" />
       </div>,
 
       <div className="contain">
         <div className="row">
           <div className="col-md-8 col-sm-12">
             <div className="horizontal-tabs">
-              <Card className="card">
-                <AppBar
-                  className="appbar"
-                  position="static"
-                  color="default"
+              <div className="card">
+                {/* <Tabs items={getTabs()} /> */}
+                <Tabs
+                  className="tabs"
+                  id="controlled-tab-example"
+                  activeKey={this.state.valuetab1}
+                  onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
-                  <Tabs
-                    className="tabs"
-                    value={valuetab1}
-                    onChange={this.handleChangeTab1}
-                    indicatorColor="none"
-                    variant="fullWidth"
-                    scrollButtons="auto"
-                    classes={{
-                      root: classes.tabsRoot,
-                      indicator: classes.displayNone,
-                      // tabSelected: classes.tabSelected
-                    }}
+                  <Tab className="tab" eventKey={0} title="Home" style={styles.default_tab}>
+                    Code Home Panel Here
+                  </Tab>
+                  <Tab className="tab" eventKey={1} title="Sample Changer" style={styles.default_tab}>
+                    <Sc />
+                  </Tab>
+                  <Tab className="tab" eventKey={2} title="HPLC" style={styles.default_tab}>
+                    <Hplc />
+                  </Tab>
+                  <Tab className="tab" eventKey={3} title="Work Flow" style={styles.default_tab}>
+                    Content Work Flow Panel Here
+                  </Tab>
+                  <Tab className="tab" eventKey={4} title="Set Up" style={styles.default_tab}>
+                    Content Set Up PanelHere
+                  </Tab>
 
-                  >
-                    {/* We do that to Apply different style when Tab Header is Activ or not */}
-                    {valuetab1 === 0 ? <Tab label="Home" className="tab" style={styles.active_tab} />
-                      : <Tab label="Home" className="tab" style={styles.default_tab} /> }
-
-                    {valuetab1 === 1 ? <Tab label="Sample Changer" style={styles.active_tab} />
-                      : <Tab label="Sample Changer" style={styles.default_tab} /> }
-
-                    {valuetab1 === 2 ? <Tab label="HPLC" style={styles.active_tab} />
-                      : <Tab label="HPLC" style={styles.default_tab} /> }
-
-                    {valuetab1 === 3 ? <Tab label="Work Flow" style={styles.active_tab} />
-                      : <Tab label="Work Flow" style={styles.default_tab} /> }
-
-                    {valuetab1 === 4 ? <Tab label="Set Up" style={styles.active_tab} />
-                      : <Tab label="Set Up" style={styles.default_tab} /> }
-                  </Tabs>
-                </AppBar>
-                {valuetab1 === 0 && <TabContainer>Code Home Panel Here</TabContainer>}
-                {valuetab1 === 1 && <TabContainer><Sc /></TabContainer>}
-                {valuetab1 === 2 && <TabContainer><Hplc /></TabContainer>}
-                {valuetab1 === 3 && <TabContainer>Content Work Flow Panel Here</TabContainer>}
-                {valuetab1 === 4 && <TabContainer>Content Set Up PanelHere</TabContainer>}
-              </Card>
+                  {/* {valuetab1 === 4 ? <Tab title="Set Up" style={styles.active_tab} />
+                    : <Tab title="Set Up" style={styles.default_tab} /> } */}
+                </Tabs>
+              </div>
             </div>
           </div>
-          {/* Tab for messages and Queue */}
+          {/* Tab for messages and Queue  */}
           <div className="col-md-4 col-sm-12">
-            <div className="horizontal-tabs">
-              <Card className="card">
-                <AppBar
-                  className="appbar"
-                  position="static"
-                  color="default"
+            <div className="horizontal-tabs spec">
+              <div className="card">
+                <Tabs
+                  className="tabs"
+                  activeKey={this.state.valuetab2}
+                  onSelect={valuetab2 => this.setState({ valuetab2 })}
                 >
-                  <Tabs
-                    className="tabs"
-                    value={valuetab2}
-                    onChange={this.handleChangeTab2}
-                    indicatorColor="none"
-                    variant="fullWidth"
-                    classes={{
-                      root: classes.tabsRoot,
-                      indicator: classes.displayNone,
-                      scrollButtons: classes.displayNone,
-                      // tabSelected: classes.tabSelected
-                    }}
-                  >
-                    {valuetab2 === 0 ? <Tab label="Queue" style={styles.active_tab} />
-                      : <Tab label="Queue" style={styles.default_tab} /> }
-
-                    {valuetab2 === 1 ? <Tab label="Messages" style={styles.active_tab} />
-                      : <Tab label="Messages" style={styles.default_tab} /> }
-
-                  </Tabs>
-                </AppBar>
-                {valuetab2 === 0 && <TabContainer><Queue /></TabContainer>}
-                {valuetab2 === 1 && <TabContainer>Content Messages Panel Here</TabContainer>}
-              </Card>
+                  <Tab className="tab" eventKey={0} title="Queue" style={styles.default_tab}>
+                    <Queue />
+                  </Tab>
+                  <Tab className="tab" eventKey={1} title="Sample Changer" style={styles.default_tab}>
+                  Content Messages Panel Here
+                  </Tab>
+                </Tabs>
+              </div>
             </div>
           </div>
         </div>
@@ -164,6 +130,7 @@ class Datacollection extends Component {
     ];
   }
 }
+
 
 function mapStateToProps() {
   return { };
@@ -180,4 +147,4 @@ Datacollection.defaultProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Datacollection); withStyles(styles);
+)(Datacollection);

@@ -10,7 +10,6 @@ export const LOGIN = 'counter/LOGIN';
 export const initialState = {
   username: '',
   password: '',
-  remember: false,
 };
 
 const API_URL = '/api/auth';
@@ -44,7 +43,6 @@ export function loginRequest(username, password) {
   return (dispatch) => {
     axios.post(`${API_URL}/login`, { username, password })
       .then((response) => {
-        // eslint-disable-next-line no-console
         console.log(response.data);
         dispatch(authenticate(username, password));
         history.push('/');

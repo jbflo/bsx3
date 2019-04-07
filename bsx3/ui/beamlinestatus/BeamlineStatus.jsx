@@ -4,18 +4,13 @@ import { bindActionCreators } from 'redux';
 import {
   Navbar, Nav, Badge
 } from 'react-bootstrap';
-// import FormCheck from 'react-bootstrap/FormCheck';
 import { Label } from 'react-bootstrap/Form';
 import InOutSwitch from '../components/OnOffSwitch/OnOffSwitch';
 import PopInput from '../components/PopInput/PopInput';
 import LabeledValue from '../components/LabeledValue/LabeledValue';
 
 
-import {
-  sendGetAllAttributes,
-  sendSetAttribute,
-  // sendAbortCurrentAction
-}
+import * as beamlineAPI
   from './beamline-api';
 
 import './bscontainers.css';
@@ -24,18 +19,19 @@ class BeamlineStatus extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.onSaveHandler = this.onSaveHandler.bind(this);
-    // this.setAttribute = this.setAttribute.bind(this);
+    this.onSaveHandler = this.onSaveHandler.bind(this);
+    this.setAttribute = this.setAttribute.bind(this);
     this.onCancelHandler = this.onCancelHandler.bind(this);
+    // const API_URL = '/api/beamline'.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.props.getAllAttributes();
-  // }
+  componentDidMount() {
+    this.props.getAllAttributes();
+  }
 
-  // onSaveHandler(name, value) {
-  //   this.props.setAttribute(name, value);
-  // }
+  onSaveHandler(name, value) {
+    this.props.setAttribute(name, value);
+  }
 
 
   onCancelHandler(name) {
@@ -43,9 +39,9 @@ class BeamlineStatus extends React.Component {
   }
 
 
-  // setAttribute(name, value) {
-  //   this.props.setAttribute(name, value);
-  // }
+  setAttribute(name, value) {
+    this.props.setAttribute(name, value);
+  }
 
   render() {
     let variantStyle = 'success';
@@ -86,6 +82,7 @@ class BeamlineStatus extends React.Component {
                     <Nav.Item className="item">
                       <LabeledValue
                         suffix=""
+                        key={1}
                         name=""
                         value={this.props.beamline.attributes.shutter.value}
                       />
@@ -94,12 +91,12 @@ class BeamlineStatus extends React.Component {
                   : (
                     <Nav.Item className="item">
                       <InOutSwitch
-                        // onText={this.props.beamline.attributes}
-                        // offText={this.props.beamline.attributes}
-                        // labelText={this.props.beamline.attributes}
-                        pkey={1}
-                        // data={this.props.beamline.attributes}
-                        // onSave={this.setAttribute}
+                        // onText={this.props.beamline.attributes.shutter.commanad[0]}
+                        // offText={this.props.beamline.attributes.shutter.commanad[1]}
+                        // labelText={this.props.beamline.attributes.shutter.state}
+                        key={1}
+                        data={this.props.beamline.attributes.shutter}
+                        onSave={this.setAttribute}
                         // optionsOverlay={this.beamstopAlignmentOverlay()}
                       />
                     </Nav.Item>
@@ -120,6 +117,7 @@ class BeamlineStatus extends React.Component {
                     <Nav.Item className="item">
                       <LabeledValue
                         suffix="keV"
+                        key={2}
                         name=""
                         value={this.props.beamline.attributes.energy.value}
                       />
@@ -129,7 +127,7 @@ class BeamlineStatus extends React.Component {
                     <Nav.Item className="item">
                       <PopInput
                         name="Energy"
-                        pkey={2}
+                        key="energy"
                         suffix="keV"
                         data={this.props.beamline.attributes.energy}
                         onSave={this.setAttribute}
@@ -150,7 +148,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey={3}
+                    key={3}
                     suffix="mAmps"
                     name=""
                     value={this.props.beamline.attributes.machinfo.value}
@@ -167,7 +165,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle} className="badge">
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey={4}
+                    key={4}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.sampleName.value}
@@ -184,7 +182,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey={5}
+                    key={5}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -201,7 +199,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey={6}
+                    key={6}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -218,7 +216,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey={7}
+                    key={7}
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -235,7 +233,7 @@ class BeamlineStatus extends React.Component {
               <Badge variant={variantStyle}>
                 <Nav.Item className="item">
                   <LabeledValue
-                    pkey="frame"
+                    key="frame"
                     suffix=""
                     name=""
                     value={this.props.beamline.attributes.attenuation.value}
@@ -252,23 +250,21 @@ class BeamlineStatus extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    state,
     data: { value: 'undefined', state: 'IN', msg: 'UNKNOWN' },
     beamline: state.beamline,
   };
 }
 
-
 function mapDispatchToProps(dispatch) {
-  return {
-    getAllAttributes: bindActionCreators(sendGetAllAttributes, dispatch),
-    // sampleViewActions: bindActionCreators(SampleViewActions, dispatch),
-    setAttribute: bindActionCreators(sendSetAttribute, dispatch),
-    // abortCurrentAction: bindActionCreators(sendAbortCurrentAction, dispatch)
-  };
+  return bindActionCreators({
+    getAllAttributes: beamlineAPI.sendGetAllAttributes,
+    setAttribute: beamlineAPI.sendSetAttribute
+  }, dispatch);
 }
 
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(BeamlineStatus);

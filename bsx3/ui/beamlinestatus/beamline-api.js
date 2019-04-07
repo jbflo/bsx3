@@ -11,16 +11,6 @@ export const STATE = {
   ABORT: 'UNUSABLE'
 };
 
-// Action types
-export const BL_ATTR_SET = 'BL_ATTR_SET';
-export const BL_ATTR_GET_ALL = 'BL_ATTR_GET_ALL';
-export const BL_ATTR_SET_STATE = 'BL_ATTR_SET_STATE';
-export const BL_ATTR_MOV_SET_STATE = 'BL_ATTR_MOV_SET_STATE';
-export const BL_ATTR_ACT_SET_STATE = 'BL_ATTR_ACT_SET_STATE';
-export const BL_MACH_INFO = 'BL_MACH_INFO';
-export const BL_ATTR_MOV_SET = 'BL_ATTR_MOV_SET';
-export const BL_ATTR_ACT_SET = 'BL_ATTR_ACT_SET';
-
 /**
  *  Initial redux state for beamline attributes, object containing each beamline
  *  attribute (name, attribute object). Each attribute object in turn have the
@@ -136,50 +126,6 @@ export default (state = INITIAL_STATE, action) => {
       data.attributes[action.data.name].state = action.data.state;
       return data;
 
-    case 'SET_MOTOR_MOVING':
-      return {
-        ...state,
-        motorInputDisable: true,
-        motors: {
-          ...state.motors,
-          [action.name.toLowerCase()]: {
-            ...state.motors[action.name.toLowerCase()],
-            state: action.status
-          }
-        }
-      };
-
-    case 'SAVE_MOTOR_POSITIONS':
-      return {
-        ...state,
-        motors: { ...state.motors, ...action.data },
-        zoom: action.data.zoom.position
-      };
-    case 'SAVE_MOTOR_POSITION':
-      return {
-        ...state,
-        motors: {
-          ...state.motors,
-          [action.name]: {
-            ...state.motors[action.name],
-            position: action.value,
-            state: state.motors[action.name].state
-          }
-        }
-      };
-    case 'UPDATE_MOTOR_STATE':
-      return {
-        ...state,
-        motorInputDisable: action.value !== 2,
-        motors: {
-          ...state.motors,
-          [action.name]: {
-            ...state.motors[action.name],
-            position: state.motors[action.name].position,
-            state: action.value
-          }
-        }
-      };
     case 'SET_INITIAL_STATE':
       return {
         ...INITIAL_STATE,
@@ -192,11 +138,6 @@ export default (state = INITIAL_STATE, action) => {
         beamlineActionsList: action.data.beamlineSetup.actionsList.slice(0),
         availableMethods: action.data.beamlineSetup.availableMethods,
         energyScanElements: action.data.beamlineSetup.energyScanElements
-      };
-    case 'BL_MACH_INFO':
-      return {
-        ...state,
-        machinfo: { ...state.machinfo, ...action.info },
       };
     case 'ACTION_SET_STATE':
     {
@@ -277,51 +218,20 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, beamlineActionsList, currentBeamlineAction };
     }
-    case 'NEW_PLOT':
-    {
-      const plotId = action.plotInfo.id;
-      const plotsInfo = {
-        ...state.plotsInfo,
-        [plotId]: {
-          labels: action.plotInfo.labels,
-          title: action.plotInfo.title,
-          end: false
-        }
-      };
-      const plotsData = { ...state.plotsData };
-      plotsData[plotId] = [];
-
-      return {
-        ...state,
-        plotsInfo,
-        plotsData,
-        lastPlotId: plotId
-      };
-    }
-    case 'PLOT_DATA':
-    {
-      const plotsData = { ...state.plotsData };
-      if (action.fullDataSet) {
-        plotsData[action.id] = action.data;
-      } else {
-        const plotData = [...plotsData[action.id]];
-        plotData.push(...action.data);
-        plotsData[action.id] = plotData;
-      }
-      return { ...state, plotsData };
-    }
-    case 'PLOT_END':
-    {
-      const plotsInfo = { ...state.plotsInfo };
-      const plotInfo = plotsInfo[action.id];
-      plotInfo.end = true;
-      plotsInfo[action.id] = plotInfo;
-      return { ...state, plotsInfo };
-    }
     default:
       return state;
   }
 };
+
+// \\\\\\\\\\\\\\\\\\\\\\\\\  Action \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+// Action types
+export const BL_ATTR_SET = 'BL_ATTR_SET';
+export const BL_ATTR_GET_ALL = 'BL_ATTR_GET_ALL';
+export const BL_ATTR_SET_STATE = 'BL_ATTR_SET_STATE';
+export const BL_ATTR_MOV_SET_STATE = 'BL_ATTR_MOV_SET_STATE';
+export const BL_ATTR_ACT_SET_STATE = 'BL_ATTR_ACT_SET_STATE';
+export const BL_ATTR_MOV_SET = 'BL_ATTR_MOV_SET';
+export const BL_ATTR_ACT_SET = 'BL_ATTR_ACT_SET';
 
 
 export function setBeamlineAttrAction(data) {
@@ -332,9 +242,6 @@ export function getBeamlineAttrsAction(data) {
   return { type: BL_ATTR_GET_ALL, data };
 }
 
-export function setMachInfo(info) {
-  return { type: BL_MACH_INFO, info };
-}
 
 export function busyStateAction(name) {
   return {
@@ -344,7 +251,16 @@ export function busyStateAction(name) {
 }
 
 export function sendGetAllAttributes() {
-
+  return (dispatch) => {
+    // debugger;
+    axios.post(`${API_URL}/get-beamline`)
+      .then((response) => {
+        console.log(response.data);
+        dispatch(getBeamlineAttrsAction(response.data.beamline));
+      }).catch((error) => {
+        throw (error);
+      });
+  };
 }
 
 export function sendSetAttribute(name) {

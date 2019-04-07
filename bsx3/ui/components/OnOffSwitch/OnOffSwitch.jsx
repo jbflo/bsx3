@@ -78,12 +78,12 @@ export default class InOutSwitch extends React.Component {
   }
 
   render() {
-    let msgBgStyle = 'warning';
-    if (this.props.data.state === 'out') {
-      msgBgStyle = 'success';
-    } else if (this.props.data.state === 'in') {
-      msgBgStyle = 'danger';
-    }
+    // let msgBgStyle = 'warning';
+    // if (this.props.data.state === 'out') {
+    //   msgBgStyle = 'success';
+    // } else if (this.props.data.state === 'in') {
+    //   msgBgStyle = 'danger';
+    // }
 
     let btn = <Button block bsSize="small" disabled>---</Button>;
     if (this.props.data.state === 'out') {
@@ -110,7 +110,7 @@ export default class InOutSwitch extends React.Component {
           overlay={(<Popover style={{ height: '50px' }} id={`${this.props.labelText} popover`}>{btn}</Popover>)}
         >
           <div onContextMenu={this.onLinkRightClick}>
-            <Label bsStyle={msgBgStyle} style={msgLabelStyle}>{this.props.data.msg}</Label>
+            <Label style={msgLabelStyle}>{this.props.data.msg}</Label>
           </div>
         </OverlayTrigger>
       </div>
