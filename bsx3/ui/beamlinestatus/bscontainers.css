@@ -1,9 +1,9 @@
     @media all and (min-width: 480px) {
         .bmstatus {
             position: relative;
-            height: 80px;
+            height: 70px;
             max-width: 100%;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             z-index:9999 !important;
             position:relative;
             background: linear-gradient(to right, rgba(122, 145, 104, 0.185), rgba(122, 145, 104, 0.185));
@@ -22,12 +22,13 @@
         }
         .nav {
             margin: 0;
-            padding-right: 5px;
-            width: 140px
+            padding-right: 2px;
+            width: 140px;
+            height: 65px;
         }
         .name {
             color: rgb(6, 80, 85)!important;
-            font-size: 13px !important;
+            font-size: 11px !important;
             margin-right: 10px;
             width: 140px;
         }
