@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 // import Card from '@material-ui/core/Card';
 // import AppBar from '@material-ui/core/AppBar';
 // import Tabs from '@material-ui/core/Tabs';
@@ -11,10 +12,16 @@ import Nav from 'react-bootstrap/Nav';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 // import TabContainer from 'react-bootstrap/TabContainer';
+=======
+import Tabs from 'react-bootstrap/Tabs';
+// import Tabs from 'react-responsive-tabs';
+import Tab from 'react-bootstrap/Tab';
+>>>>>>> master
 import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
 // import Queue from '../queue/Queue';
 import Hplc from '../hplc/Hplc';
 import Sc from '../sc/Sc';
+<<<<<<< HEAD
 
 // import Wrapper from '../components/tabs/Wrapper';
 // import Tab from '../components/tabs/Tab';
@@ -22,9 +29,13 @@ import Sc from '../sc/Sc';
 // import TabPanel from '../components/tabs/TabPanel';
 
 
+=======
+// import 'react-responsive-tabs/styles.css';
+>>>>>>> master
 import './dataC.css';
 import './tabStyle.css';
 
+<<<<<<< HEAD
 // function TabContainer(props) {
 //   return (
 //     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -37,20 +48,17 @@ import './tabStyle.css';
 //   children: PropTypes.node.isRequired,
 // };
 
+=======
+>>>>>>> master
 const styles = {
   root: {
     flexGrow: 1,
   },
   default_tab: {
     boxShadow: '0 2px 3px 1px rgba(165, 204, 130, 0.877)',
-  },
-  active_tab: {
-    backgroundColor: '#FFFFFF80',
-    color: ' #004d40',
     borderRadius: 11,
     outline: 'none',
   }
-
 };
 // function demoTab(content) {
 //   let cl = 'FancyTabs-tabInner';
@@ -62,6 +70,25 @@ const styles = {
 //   );
 // }
 
+// const tab1 = <Sc />;
+// const tabs = [{ name: 'George Washington', biography: [tab1] },
+//   { name: 'Theodore Roosevelt', biography: '...' }];
+
+// function getTabs() {
+//   return tabs.map((president, index) => ({
+//     title: president.name,
+//     // getContent: () => president.biography,
+//     getContent: () => (
+//       <div className="tab-container">
+//         <div className="tab-name">{president.biography}</div>
+//       </div>
+//     ),
+//     /* Optional parameters */
+//     key: index,
+//     tabClassName: 'nav-tabs',
+//     panelClassName: 'panel',
+//   }));
+// }
 class Datacollection extends Component {
   constructor(props, context) {
     super(props, context);
@@ -95,6 +122,7 @@ class Datacollection extends Component {
           <div className="col-md-8 col-sm-12">
             <div className="horizontal-tabs">
               <div className="card">
+<<<<<<< HEAD
                 <div
                   className="appbar"
                   position="static"
@@ -126,11 +154,40 @@ class Datacollection extends Component {
                       : <Tab title="Set Up" style={styles.default_tab} /> } */}
                   </Tabs>
                 </div>
+=======
+                {/* <Tabs items={getTabs()} /> */}
+                <Tabs
+                  className="tabs"
+                  id="controlled-tab-example"
+                  activeKey={this.state.valuetab1}
+                  onSelect={valuetab1 => this.setState({ valuetab1 })}
+                >
+                  <Tab className="tab" eventKey={0} title="Home" style={styles.default_tab}>
+                    Code Home Panel Here
+                  </Tab>
+                  <Tab className="tab" eventKey={1} title="Sample Changer" style={styles.default_tab}>
+                    <Sc />
+                  </Tab>
+                  <Tab className="tab" eventKey={2} title="HPLC" style={styles.default_tab}>
+                    <Hplc />
+                  </Tab>
+                  <Tab className="tab" eventKey={3} title="Work Flow" style={styles.default_tab}>
+                    Content Work Flow Panel Here
+                  </Tab>
+                  <Tab className="tab" eventKey={4} title="Set Up" style={styles.default_tab}>
+                    Content Set Up PanelHere
+                  </Tab>
+
+                  {/* {valuetab1 === 4 ? <Tab title="Set Up" style={styles.active_tab} />
+                    : <Tab title="Set Up" style={styles.default_tab} /> } */}
+                </Tabs>
+>>>>>>> master
               </div>
             </div>
           </div>
           {/* Tab for messages and Queue  */}
           <div className="col-md-4 col-sm-12">
+<<<<<<< HEAD
             <div className="horizontal-tabs">
               <div className="card">
                 <Nav
@@ -159,6 +216,22 @@ class Datacollection extends Component {
                 </Nav>
                 {/* {valuetab2 === 0 && <TabContainer><Queue /></TabContainer>}
                 {valuetab2 === 1 && <TabContainer>Content Messages Panel Here</TabContainer>} */}
+=======
+            <div className="horizontal-tabs spec">
+              <div className="card">
+                <Tabs
+                  className="tabs"
+                  activeKey={this.state.valuetab2}
+                  onSelect={valuetab2 => this.setState({ valuetab2 })}
+                >
+                  <Tab className="tab" eventKey={0} title="Queue" style={styles.default_tab}>
+                    <Queue />
+                  </Tab>
+                  <Tab className="tab" eventKey={1} title="Sample Changer" style={styles.default_tab}>
+                  Content Messages Panel Here
+                  </Tab>
+                </Tabs>
+>>>>>>> master
               </div>
             </div>
           </div>

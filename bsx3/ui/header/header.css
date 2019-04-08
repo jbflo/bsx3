@@ -3,7 +3,11 @@
         background: #00467F;
         background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
         background: linear-gradient(to right, #A5CC82, #00467F);
+<<<<<<< HEAD
         height: 30px;
+=======
+        height: 22px;
+>>>>>>> master
         /* font-weight: bold; */
     }
     .brand {
