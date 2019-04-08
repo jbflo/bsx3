@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 import {
   Navbar, Nav, Badge
 } from 'react-bootstrap';
@@ -8,12 +9,12 @@ import { Label } from 'react-bootstrap/Form';
 import InOutSwitch from '../components/OnOffSwitch/OnOffSwitch';
 import PopInput from '../components/PopInput/PopInput';
 import LabeledValue from '../components/LabeledValue/LabeledValue';
-
-
 import * as beamlineAPI
   from './beamline-api';
 
 import './bscontainers.css';
+
+const API_URL = '/api/beamline';
 
 class BeamlineStatus extends React.Component {
   constructor(props) {
@@ -25,8 +26,16 @@ class BeamlineStatus extends React.Component {
     // const API_URL = '/api/beamline'.bind(this);
   }
 
+  state = {
+    testbeam: [],
+  };
+
   componentDidMount() {
-    this.props.getAllAttributes();
+    axios.post(`${API_URL}/get-beamline`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ testbeam: response.data });
+      });
   }
 
   onSaveHandler(name, value) {
@@ -52,6 +61,13 @@ class BeamlineStatus extends React.Component {
     }
 
     return [
+      <div>
+        <span>
+          {' '}
+          { this.state.testbeam.energy }
+          {' '}
+        </span>
+      </div>,
       <Navbar collapseOnSelect expand="lg" className="bmstatus ">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="collapse" id="responsive-navbar-nav" style={{ marginLeft: '0px' }}>

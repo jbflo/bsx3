@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -32,14 +30,14 @@ class Sc extends Component {
     // const { classes } = this.props;
     return [
       <div className="sc">
-        <hr style={{ marginTop: '20px', with: '100%' }} />
         <div>
-          <h3 className="" style={{ marginTop: '10px', marginBottom: '20px', with: '100%' }}> Sample Configuration </h3>
+          <h3 className="" style={{ paddingTop: '30px', with: '100%' }}> Sample Configuration </h3>
         </div>
+        <hr style={{ marginBottom: '20px', with: '100%' }} />
         <div>
           <h6> Queue Name : ....</h6>
         </div>
-        <ScTable className="sctable" />
+        <ScTable />
       </div>
     ];
   }

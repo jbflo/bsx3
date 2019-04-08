@@ -24,23 +24,23 @@ const styles = theme => ({
 class FolderUploader extends React.Component {
   componentDidMount() {
     if (this.folder) {
-      this.folder.directory = true;
-      this.folder.webkitdirectory = true;
+      // this.folder.directory = true;
+      // this.folder.webkitdirectory = true;
     }
   }
 
   componentDidUpdate() {
     if (this.folder) {
-      this.folder.directory = true;
-      this.folder.webkitdirectory = true;
+      // this.folder.directory = true;
+      // this.folder.webkitdirectory = true;
     }
   }
 
   render() {
     return (
       <div className="folderU">
-        <label htmlFor="files" className="btn labelinput"> Choose Saving Directory </label>
-        <input type="file" id="files" ref={(ref) => { this.folder = ref; }} style={{ visibility: 'hidden' }} />
+        <label htmlFor="files" className="btn labelinput" style={{ marginRight: '0px' }}> Directory Path : </label>
+        <input type="text" id="files" ref={(ref) => { this.folder = ref; }} style={{ marginLeft: '-5px', height: '30px', paddingLeft: '5px' }} />
       </div>
     );
   }

@@ -44,12 +44,7 @@
 }
 
 .cardqueue{
-<<<<<<< HEAD
     padding-top: 30px;
-=======
-    margin-top: 15px;
-    padding-top: 20px;
->>>>>>> master
     height: 560px !important;
     transform: translateZ(0)!important;
 }

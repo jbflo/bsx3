@@ -23,6 +23,7 @@ const styles = {
     justifyContent: 'space-around',
     overflow: 'hidden',
     height: 660,
+    marginTop: 20,
     // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
