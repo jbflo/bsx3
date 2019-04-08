@@ -9,6 +9,7 @@ import {
   GroupingState, IntegratedGrouping,
   IntegratedSorting
 } from '@devexpress/dx-react-grid';
+import Nav from 'react-bootstrap/Nav';
 import {
   Grid, VirtualTable, Toolbar, TableHeaderRow, TableColumnResizing,
   TableSelection,
@@ -16,21 +17,15 @@ import {
   TableEditColumn,
   DragDropProvider, TableGroupRow, TableColumnReordering, GroupingPanel,
   // TableFixedColumns,
-} from '@devexpress/dx-react-grid-material-ui';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TableCell from '@material-ui/core/TableCell';
+} from '@devexpress/dx-react-grid-bootstrap4';
+// import TableCell from '@material-ui/core/TableCell';
 
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { withStyles } from '@material-ui/core/styles';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Button from 'react-bootstrap/Button';
+import {
+  MdEdit, MdDeleteSweep, MdCancel, MdSave
+} from 'react-icons/md';
+
 import SaveMenu from './SaveMenu';
 import './sc.css';
 import {
@@ -40,29 +35,50 @@ import {
 import FolderUploader from './FolderUploader';
 
 
-const styles = {
-  lookupEditCell: {
-    // paddingTop: theme.spacing.unit * 0.875,
-    // paddingRight: theme.spacing.unit,
-    // paddingLeft: theme.spacing.unit,
-  },
-  dialog: {
-    width: 'calc(100% - 16px)',
-  },
-  inputRoot: {
-    width: '100%',
-  },
-};
+// const styles = {
+//   lookupEditCell: {
+//     // paddingTop: theme.spacing.unit * 0.875,
+//     // paddingRight: theme.spacing.unit,
+//     // paddingLeft: theme.spacing.unit,
+//   },
+//   dialog: {
+//     width: 'calc(100% - 16px)',
+//   },
+//   inputRoot: {
+//     width: '100%',
+//   },
+// };
+// const CommandButton = ({
+//   onExecute, icon, text, hint, color,
+// }) => (
+//   <button
+//     type="button"
+//     className="btn btn-link"
+//     style={{ padding: 11 }}
+//     onClick={(e) => {
+//       onExecute();
+//       e.stopPropagation();
+//     }}
+//     title={hint}
+//   >
+//     <span className={color || 'undefined'}>
+//       {icon ? <i className={`oi oi-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
+//       {text}
+//     </span>
+//   </button>
+// );
 
 const AddButton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
     <Button
-      style={{ backgroundColor: '#4caf50', color: '#fff' }}
+      style={{ height: '35px' }}
       onClick={onExecute}
       title="Create new row"
+      variant="success"
     >
       New
     </Button>
+    {/* <CommandButton icon="plus" text="New" hint="Create new row" onExecute={onExecute} /> */}
   </div>
 );
 
@@ -79,14 +95,17 @@ const DuplicateButton = ({ onExecute }) => (
 );
 
 const EditButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Edit row" color="primary">
-    <EditIcon style={{ color: '#00695c' }} />
-  </IconButton>
+  // <CommandButton icon="pencil" hint="Edit row" color="text-warning" onExecute={onExecute} />
+  <MdEdit
+    className="edit-icon md-icon"
+    onClick={onExecute}
+  />
 );
 
 const DeleteButton = ({ onExecute }) => (
-  <IconButton
-    color="secondary"
+  <MdDeleteSweep
+    className="md-icon del-icon"
+    color="dander"
     onClick={() => {
       // eslint-disable-next-line
       if (window.confirm('Are you sure you want to delete this row?')) {
@@ -94,21 +113,16 @@ const DeleteButton = ({ onExecute }) => (
       }
     }}
     title="Delete row"
-  >
-    <DeleteIcon />
-  </IconButton>
+  />
+
 );
 
 const CommitButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Save changes">
-    <SaveIcon />
-  </IconButton>
+  <MdSave onClick={onExecute} title="Save changes" className="md-icon save-icon" />
 );
 
 const CancelButton = ({ onExecute }) => (
-  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
-    <CancelIcon />
-  </IconButton>
+  <MdCancel color="secondary" onClick={onExecute} title="Cancel changes" className="md-icon cancel-icon" />
 );
 
 const commandComponents = {
@@ -121,9 +135,9 @@ const commandComponents = {
 };
 
 const Command = ({ id, onExecute }) => {
-  const CommandButton = commandComponents[id];
+  const ButtonComponent = commandComponents[id];
   return (
-    <CommandButton
+    <ButtonComponent
       onExecute={onExecute}
     />
   );
@@ -135,30 +149,29 @@ const availableValues = {
   // customer: globalSalesValues.customer,
 };
 
-const LookupEditCellBase = ({
-  availableColumnValues, value, onValueChange, classes,
+const LookupEditCell = ({
+  column, availableColumnValues, value, onValueChange,
 }) => (
-  <TableCell
-    className={classes.lookupEditCell}
+  <td
+    style={{
+      verticalAlign: 'middle',
+      padding: 1
+    }}
   >
-    <Select
+    <select
+      className="form-control"
       value={value}
+      style={{ width: '100%', textAlign: column.align }}
       onChange={event => onValueChange(event.target.value)}
-      input={(
-        <Input
-          classes={{ root: classes.inputRoot }}
-        />
-)}
     >
       {availableColumnValues.map(item => (
-        <MenuItem key={item} value={item}>
+        <option key={item} value={item}>
           {item}
-        </MenuItem>
+        </option>
       ))}
-    </Select>
-  </TableCell>
+    </select>
+  </td>
 );
-export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const Cell = (props) => {
   const { column } = props;
@@ -299,12 +312,13 @@ class ScTable extends React.PureComponent {
     } = this.state;
 
     return (
-      <Paper style={{ height: '510px' }}>
+      <Nav style={{ height: '590px', marginLeft: '0px', width: '100%' }}>
         <Grid
           rows={rows}
           columns={columns}
           getRowId={getRowId}
           rootComponent={Root}
+          style={{ height: '390px', marginLeft: '0px', width: '100%' }}
         >
           <DragDropProvider />
           <SelectionState
@@ -348,7 +362,7 @@ class ScTable extends React.PureComponent {
           />
           <TableEditRow cellComponent={EditCell} />
           <TableEditColumn
-            width={110}
+            width={90}
             showAddCommand={!addedRows.length}
             showDuplicateCommand={!addedRows.length}
             showEditCommand
@@ -358,7 +372,7 @@ class ScTable extends React.PureComponent {
           <TableGroupRow />
           <Toolbar />
           <GroupingPanel showSortingControls />
-          <div style={{ display: 'flex' }}>
+          <Nav style={{ display: 'flex', width: '100%', marginBottom: '0px' }}>
             <div style={{ marginRight: '20px' }}>
               <SaveMenu className="menesavebtn" />
             </div>
@@ -371,9 +385,9 @@ class ScTable extends React.PureComponent {
                 <i className="fas fa-share-square" style={{ marginLeft: '10px' }} />
               </Button>
             </div>
-          </div>
+          </Nav>
         </Grid>
-      </Paper>
+      </Nav>
     );
   }
 }
@@ -394,4 +408,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScTable); withStyles(styles, { name: 'ControlledModeDemo' });
+)(ScTable);
