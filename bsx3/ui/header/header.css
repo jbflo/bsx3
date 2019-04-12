@@ -3,8 +3,9 @@
         background: #00467F;
         background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
         background: linear-gradient(to right, #A5CC82, #00467F);
-        height: 20px;
+        height: 22px;
         font-size: 12px;
+        margin-bottom: 0% !important;
     }
     .brand {
         color: rgb(255, 255, 255)!important;

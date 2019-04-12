@@ -39,8 +39,15 @@ class FolderUploader extends React.Component {
   render() {
     return (
       <div className="folderU">
-        <label htmlFor="files" className="btn labelinput" style={{ marginRight: '0px' }}> Directory Path : </label>
-        <input type="text" id="files" ref={(ref) => { this.folder = ref; }} style={{ marginLeft: '-5px', height: '30px', paddingLeft: '5px' }} />
+        <label htmlFor="files" className="btn labelinput" style={{ zIndex: '2' }}> Directory Path : </label>
+        <input
+          type="text"
+          id="files"
+          ref={(ref) => { this.folder = ref; }}
+          style={{
+            position: 'relative', top: '-1.4px', marginLeft: '-12px', height: '32px', paddingLeft: '8px'
+          }}
+        />
       </div>
     );
   }

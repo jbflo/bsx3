@@ -8,7 +8,7 @@
 }
 
 .horizontal-tabs .nav-tabs {
-    font-size: 14px!important;
+    font-size: 13px!important;
     font-weight: bold!important;
     width: 100%;
     background: linear-gradient(to right, rgba(153, 184, 127, 0.158), rgba(153, 184, 127, 0.158));
@@ -17,7 +17,7 @@
     height: 65px;
     border-color: #00695da8!important;
     border-bottom: 1px ridge ;
-    /* box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important; */
+    box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important;
 }
 
 .spec .nav-tabs .nav-link {
@@ -40,6 +40,7 @@
     transform: translateY(10px);
     -webkit-transform: translateY(10px);
     height: 45px;
+    outline: none;
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
 }
@@ -73,6 +74,7 @@
     box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important;
     position: relative;
     top: 0;
+    height: 800px;
     left: 2.5%;
 }
 

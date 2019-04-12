@@ -7,20 +7,21 @@ def get_shutters():
     Retreives dictionary represenation of all shutters
 
     Returns:
-        dict: {
-            name: str
-            state: IntEnum
-            is_valid: bool
-        }
+        dict: { name : {
+                        name: str
+                        state: IntEnum
+                        is_valid: bool
+                       }       
+              }
     """
-    shutters = []
+    shutters = {}
 
     for role, shutter in get_app().beamline.get_shutters().items():
-        shutters.append(
-            {"name": role,
-             "state": shutter.state(),
-             "is_valid": shutter.is_valid()
-            })
+        shutters[role] = {
+            "name": role,
+            "state": shutter.state(),
+            "is_valid": shutter.is_valid()
+        }
 
     return shutters
 
@@ -64,12 +65,11 @@ def toggle_shutter_state(name):
     Returns:
         None
     """
-
     shutter = get_app().beamline.get_shutters().get(name, None)
 
     if shutter.state() == shutter.STATE.OPEN.name:
         close_shutter(name)
-    elif shutter.state == shutter.STATE.CLOSED.name:
+    elif shutter.state() == shutter.STATE.CLOSED.name:
         open_shutter(name)
     else:
         raise RuntimeWarning("Shutter %s is in %s state" % (name, shutter.state()))

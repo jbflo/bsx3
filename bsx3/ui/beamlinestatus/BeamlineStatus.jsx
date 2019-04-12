@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import {
   Navbar, Nav, Badge
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
-import InOutSwitch from '../components/OnOffSwitch/OnOffSwitch';
+import SimpleInOut from '../components/SimpleInOut/SimpleInOut';
 import PopInput from '../components/PopInput/PopInput';
 import LabeledValue from '../components/LabeledValue/LabeledValue';
 import * as beamlineAPI
@@ -14,34 +13,28 @@ import * as beamlineAPI
 
 import './bscontainers.css';
 
-const API_URL = '/api/beamline';
+// const API_URL = '/api/beamline';
 
 class BeamlineStatus extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      // testbeam: [],
+    };
     this.onSaveHandler = this.onSaveHandler.bind(this);
     this.setAttribute = this.setAttribute.bind(this);
     this.onCancelHandler = this.onCancelHandler.bind(this);
     // const API_URL = '/api/beamline'.bind(this);
   }
 
-  state = {
-    testbeam: [],
-  };
-
   componentDidMount() {
-    axios.post(`${API_URL}/get-beamline`)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ testbeam: response.data });
-      });
+    this.props.getAllBLValues();
   }
 
-  onSaveHandler(name, value) {
-    this.props.setAttribute(name, value);
+  onSaveHandler(name) {
+    this.props.toggleShutter(name);
   }
-
 
   onCancelHandler(name) {
     this.props.abortCurrentAction(name);
@@ -53,71 +46,29 @@ class BeamlineStatus extends React.Component {
   }
 
   render() {
-    let variantStyle = 'success';
-    if (this.props.data.state === 'out') {
-      variantStyle = 'success';
-    } else if (this.props.data.state === 'in') {
-      variantStyle = 'danger';
-    }
-
+    const variantStyle = 'success';
     return [
-      <div>
-        <span>
-          {' '}
-          { this.state.testbeam.energy }
-          {' '}
-        </span>
-      </div>,
       <Navbar collapseOnSelect expand="lg" className="bmstatus ">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="collapse" id="responsive-navbar-nav" style={{ marginLeft: '0px' }}>
-          {/* <Nav className="nav">
-            <Form.Group controlId="formBasicPassword">
-              <FormCheck
-                type="checkbox"
-                name="Shuter"
-                pkey="shuter"
-                suffix=""
-              />
-              <Form.Label>
-                Shuter :
-                {' '}
-                { this.props.beamline.attributes.shutter.value}
-              </Form.Label>
-            </Form.Group>
-          </Nav> */}
-
           <Nav className="nav">
             <Label className="name btn">
-            Shutter
+              {this.props.beamline.shutters.fast_shutter.name}
               {'  '}
-              <Badge variant={variantStyle}>
-                {' '}
-                { this.props.beamline.attributes.shutter.readonly
-                  ? (
-                    <Nav.Item className="item">
-                      <LabeledValue
-                        suffix=""
-                        key={1}
-                        name=""
-                        value={this.props.beamline.attributes.shutter.value}
-                      />
-                    </Nav.Item>
-                  )
-                  : (
-                    <Nav.Item className="item">
-                      <InOutSwitch
-                        // onText={this.props.beamline.attributes.shutter.commanad[0]}
-                        // offText={this.props.beamline.attributes.shutter.commanad[1]}
-                        // labelText={this.props.beamline.attributes.shutter.state}
-                        key={1}
-                        data={this.props.beamline.attributes.shutter}
-                        onSave={this.setAttribute}
-                        // optionsOverlay={this.beamstopAlignmentOverlay()}
-                      />
-                    </Nav.Item>
-                  )
-               }
+              <Badge
+                className={this.props.beamline.shutters.fast_shutter.state === 'OPEN' ? 'btn-success' : 'bgdanger'}
+              >
+                <Nav.Item className="item">
+                  <SimpleInOut
+                    onText="OPEN"
+                    offText="CLOSED"
+                    key={this.props.beamline.shutters.fast_shutter.name}
+                    data={this.props.beamline.shutters.fast_shutter}
+                    onSave={() => {
+                      this.onSaveHandler(this.props.beamline.shutters.fast_shutter.name);
+                    }}
+                  />
+                </Nav.Item>
               </Badge>
             </Label>
           </Nav>
@@ -125,34 +76,19 @@ class BeamlineStatus extends React.Component {
           <Nav className="nav ">
             <Label className="name btn">
                 Energy
-              {'  '}
-              <Badge variant={variantStyle}>
-                {' '}
-                { this.props.beamline.attributes.energy.readonly
-                  ? (
-                    <Nav.Item className="item">
-                      <LabeledValue
-                        suffix="keV"
-                        key={2}
-                        name=""
-                        value={this.props.beamline.attributes.energy.value}
-                      />
-                    </Nav.Item>
-                  )
-                  : (
-                    <Nav.Item className="item">
-                      <PopInput
-                        name="Energy"
-                        key="energy"
-                        suffix="keV"
-                        data={this.props.beamline.attributes.energy}
-                        onSave={this.setAttribute}
-                        onCancel={this.onCancelHandler}
-                      />
-                    </Nav.Item>
-                  )
-               }
-
+              <Badge variant={variantStyle} className="badge">
+                <Nav.Item className="item">
+                  {/* { this.props.beamline.energy.energy } */}
+                  <PopInput
+                    name="Energy"
+                    key="energy"
+                    suffix="keV"
+                    value={this.props.beamline.energy.energy}
+                    data={this.props.beamline.energy.energy}
+                    onSave={this.setBLValue}
+                    onCancel={this.onCancelHandler}
+                  />
+                </Nav.Item>
               </Badge>
             </Label>
           </Nav>
@@ -165,9 +101,9 @@ class BeamlineStatus extends React.Component {
                 <Nav.Item className="item">
                   <LabeledValue
                     key={3}
-                    suffix="mAmps"
+                    suffix=""
                     name=""
-                    value={this.props.beamline.attributes.machinfo.value}
+                    value={this.props.beamline.machine_info.current}
                   />
                 </Nav.Item>
               </Badge>
@@ -184,7 +120,7 @@ class BeamlineStatus extends React.Component {
                     key={4}
                     suffix=""
                     name=""
-                    value={this.props.beamline.attributes.sampleName.value}
+                    value={this.props.beamline.sampleName.value}
                   />
                 </Nav.Item>
               </Badge>
@@ -201,7 +137,7 @@ class BeamlineStatus extends React.Component {
                     key={5}
                     suffix=""
                     name=""
-                    value={this.props.beamline.attributes.attenuation.value}
+                    value={this.props.beamline.attenuation.value}
                   />
                 </Nav.Item>
               </Badge>
@@ -218,7 +154,7 @@ class BeamlineStatus extends React.Component {
                     key={6}
                     suffix=""
                     name=""
-                    value={this.props.beamline.attributes.attenuation.value}
+                    value={this.props.beamline.attenuation.value}
                   />
                 </Nav.Item>
               </Badge>
@@ -235,7 +171,7 @@ class BeamlineStatus extends React.Component {
                     key={7}
                     suffix=""
                     name=""
-                    value={this.props.beamline.attributes.attenuation.value}
+                    value={this.props.beamline.attenuation.value}
                   />
                 </Nav.Item>
               </Badge>
@@ -252,7 +188,7 @@ class BeamlineStatus extends React.Component {
                     key="frame"
                     suffix=""
                     name=""
-                    value={this.props.beamline.attributes.attenuation.value}
+                    value={this.props.beamline.attenuation.value}
                   />
                 </Nav.Item>
               </Badge>
@@ -274,8 +210,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getAllAttributes: beamlineAPI.sendGetAllAttributes,
-    setAttribute: beamlineAPI.sendSetAttribute
+    getAllBLValues: beamlineAPI.getBeamline,
+    toggleShutter: beamlineAPI.toggleShutter,
   }, dispatch);
 }
 

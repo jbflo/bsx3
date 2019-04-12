@@ -5,14 +5,14 @@
     caption-side: top;
     margin-left: 0px;
     margin-right: 0px;
-    /* height: 100px */
+    height: 600px
 }
-.sctable{
-    position: relative;
+.gridtable{
+    /* height: 1000px !important; */
+    /* background: #7cb342!important; */
     caption-side: top;
-    height: 100px
-
 }
+
 .navbartop{
     position: relative;
 }
@@ -22,7 +22,9 @@
     align-content: center;
 }
 .btnaddqueue {
-    margin-top: 30px!important;
+    position: relative;
+    top: 65px;
+    /* margin-top: 30px!important; */
     font-size: 12px!important;
     background: #7cb342!important;
     color: #fff!important;

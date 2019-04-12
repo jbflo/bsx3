@@ -56,5 +56,21 @@ def _beamline():
     resp = jsonify(beamline.get_beamline())
     resp.status_code = 200
     print(request.get_json())
-    print("TEST GET BEAMLINE ATTRIB!")
+    return resp
+
+
+@api.route("/toggle-shutter", methods=["POST"])
+def toggle_shutter():
+    """ Toggles shutter open/closed 
+
+        Returns shutter JSON response
+    """
+    data = request.get_json()
+    name = data.get('name')
+    beamline.toggle_shutter_state(name)
+    shutter = beamline.get_shutters().get(name)
+
+    resp = jsonify(shutter)
+    resp.status_code = 200
+
     return resp

@@ -1,18 +1,20 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import GridListTileBar from '@material-ui/core/GridListTileBar';
 import {
-  Card, Button, Grid
-} from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-// import CancelIcon from '@material-ui/icons/Cancel';
-import QueueProgress from './QueueProgress';
-import queueData from './queue-api';
+  Card, Button, Nav
+} from 'react-bootstrap';
+// import {
+//   MdDeleteSweep
+// } from 'react-icons/md';
+
+// import QueueProgress from './QueueProgress';
+// import queueData from './queue-api';
 import './queue.css';
 
 
@@ -82,16 +84,68 @@ const styles = {
  *   },
  * ];
  */
+// using some little inline style helpers to make the app look okay
+const getItems = count => Array.from({ length: count }, (v, k) => k).map(k => ({
+  id: `item-${k}`,
+  content: `item ${k}`
+}));
+
+const grid = 8;
+const getItemStyle = (draggableStyle, isDragging) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: 'none',
+  padding: grid * 2,
+  marginBottom: grid,
+
+  // change background colour if dragging(드래깅시 배경색 변경)
+  background: isDragging ? 'lightgreen' : 'grey',
+
+  // styles we need to apply on draggables(드래그에 필요한 스타일 적용)
+  ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  padding: grid,
+  width: 250
+});
+
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 class Queue extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      queueDataState: queueData,
+      queueDataState: getItems(10),
     };
 
     this.startQueue = this.startQueue.bind(this);
     this.stopQueue = this.stopQueue.bind(this);
     this.deleteQueue = this.deleteQueue.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  onDragEnd(result) {
+  // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+    const queueDataState = reorder(
+      this.state.queueDataState,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      queueDataState
+    });
   }
 
   deleteQueue = queue => () => {
@@ -136,7 +190,7 @@ class Queue extends React.PureComponent {
     //   }
     // });
 
-    let btn = <Button className="btnqs" disabled>No State yet---</Button>;
+    let btn = <Button className="btnqs btn-success" disabled>No State yet---</Button>;
     if (this.props.data.state === 'stop') {
       btn = <Button title="Start Queue" className="btnqs" onClick={this.sartQueue}>{this.props.startText}</Button>;
     } else if (this.props.data.state === 'start') {
@@ -146,52 +200,82 @@ class Queue extends React.PureComponent {
     return (
       <div style={styles.root}>
         <Card className="cardqueue">
-          <GridList
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {queueDataState.map((queue, index) => (
+                    <Draggable
+                      key={queue.id}
+                      draggableId={queue.id}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <div>
+                          <div
+                            ref={provided.innerRef}
+                            style={getItemStyle(
+                              provided.draggableStyle,
+                              snapshot.isDragging
+                            )}
+                            {...provided.dragHandleProps}
+                          >
+                            {queue.content}
+                            {provided.placeholder}
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+          {/* <Row
             cellHeight={60}
             spacing={1}
             style={{ ...queueDataState.length > 6 ? styles.gridList : styles.gridListAuto }}
           >
             {queueDataState.map(queue => (
-              <GridListTile
+              <Col
+                xs={12}
                 key={queue.key}
                 cols={2}
                 rows={1}
                 style={styles.gridListItem}
               >
-                <hr style={{ marginBottom: '0px', with: '100%' }} />
-                <IconButton
-                  style={{ marginLeft: '0px', outline: 'none', }}
-                  color="secondary"
-                  onClick={this.deleteQueue(queue)}
-                  title={queue.control}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <span className="btn queuetype" style={{ ...queue.queuetype === 'SC' ? styles.hplc : styles.sc }}>
+                <MdDeleteSweep
+                  draggable
+                  className="md-icon del-icon"
+                  color="dander"
+                  onClick={() => {
+                    if (window.confirm('Are you sure you want to delete this Queue?')) {
+                      this.deleteQueue(queue);
+                    }
+                  }}
+                  title="Delete row"
+                />
+                <span draggable className="btn queuetype" style={{ ...queue.queuetype ===
+                  'SC' ? styles.hplc : styles.sc }}>
                   {queue.queuetype}
                 </span>
                 <span className="btn sample">
                   {queue.sample}
                 </span>
                 <QueueProgress />
-                {/* <IconButton color="secondary" title="Cancel Queue"
-                style={{ visibility: queue.control, outline: 'none', }}>
-                  <CancelIcon />
-                </IconButton> */}
-              </GridListTile>
+                <hr style={{ marginBottom: '0px', with: '100%' }} />
+              </Col>
             ))}
-          </GridList>
-        </Card>
-        <Card className="cardbtnqueue">
-          <Grid
-            container
-            spacing={0}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            {btn}
-          </Grid>
+          </Row> */}
+          <Nav className="cardbtnqueue justify-content-center">
+            <Nav.Item>
+              {btn}
+            </Nav.Item>
+          </Nav>
         </Card>
       </div>
     );
@@ -225,4 +309,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Queue); withStyles(styles);
+)(Queue);

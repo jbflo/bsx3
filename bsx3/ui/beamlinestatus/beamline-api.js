@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { RUNNING } from '../app/constants';
 
 const API_URL = '/api/beamline';
 
@@ -10,6 +9,12 @@ export const STATE = {
   BUSY: 'MOVING',
   ABORT: 'UNUSABLE'
 };
+
+export const SET_BL_VALUE = 'BL_ATTR_SET';
+export const GET_BEAMLINE = 'beamline/GET_BEAMLINE';
+export const SET_BL_STATE = 'BL_ATTR_SET_STATE';
+export const UPDATE_SHUTTER = 'beamline/UPDATE_SHUTTER';
+
 
 /**
  *  Initial redux state for beamline attributes, object containing each beamline
@@ -22,257 +27,118 @@ export const STATE = {
  *     msg:    arbitray message describing current state
  */
 export const INITIAL_STATE = {
-  attributes: {
-    shutter: {
-      limits: [
-        0,
-        1,
-        1
-      ],
+  shutters: {
+    fast_shutter: {
       name: 'fast_shutter',
-      value: 'undefined',
+      is_valid: false,
       state: 'undefined',
-      msg: 'UNKNOWN',
-      readonly: false
-    },
-    energy: {
-      limits: [
-        0,
-        1000,
-        0.1
-      ],
-      name: 'energy',
-      value: '0',
-      state: STATE.IDLE,
-      msg: '',
-      readonly: false
-    },
-    machinfo: {
-      limits: [],
-      name: 'machinfo',
-      value: -1,
-      state: 'STATE.IDLE',
-      msg: 'UNKNOWN',
-      readonly: false
-    },
-    wavelength: {
-      limits: [
-        0,
-        1000,
-        0.1
-      ],
-      name: 'wavelength',
-      value: '0',
-      state: STATE.IDLE,
-      msg: '',
-      readonly: false
-    },
-    sampleName: {
-      limits: [
-        0,
-        1000,
-        0.1
-      ],
-      name: 'sampleName',
-      value: '0',
-      state: STATE.IDLE,
-      msg: 'UNKNOWN',
-      readonly: false
-    },
-    attenuation: {
-      limits: [
-        0,
-        1000,
-        0.1
-      ],
-      name: 'sampleName',
-      value: '0',
-      state: STATE.IDLE,
-      msg: 'UNKNOWN',
-      readonly: false
-    },
-  }
+    }
+  },
+  energy: {
+    name: 'Energy',
+    energy: 0,
+    energy_limits: [0, 0],
+    state: true,
+    tunable: true,
+    wavelength: 0,
+    wavelength_limits: [0, 0]
+  },
+  machine_info: {
+    limits: [],
+    name: 'machinfo',
+    current: '0',
+    state: 'STATE.IDLE',
+    message: 'UNKNOWN',
+    readonly: false
+  },
+  sampleName: {
+    name: 'sampleName',
+    value: '0',
+    state: STATE.IDLE,
+    msg: 'UNKNOWN',
+    readonly: true
+  },
+  attenuation: {
+    limits: [0, 1000, 0.1],
+    name: 'sampleName',
+    value: '0',
+    state: STATE.IDLE,
+    msg: 'UNKNOWN',
+    readonly: true
+  },
 };
 
-
+// //////////////////////// Reducer ///////////////////
 export default (state = INITIAL_STATE, action) => {
-  let data = {};
-
   switch (action.type) {
-    case 'BL_ATTR_GET_ALL':
+    case GET_BEAMLINE:
       return Object.assign({}, state, action.data);
-
-    case 'BL_ATTR_SET':
-    {
-      const attrData = Object.assign(state.attributes[action.data.name] || {}, action.data);
-      return {
-        ...state,
-        attributes: {
-          ...state.attributes,
-          [action.data.name]: attrData
-        }
-      };
-    }
-    case 'BL_ACT_SET':
-      return {
-        ...state,
-        actuators: {
-          ...state.actuators,
-          [action.data.name]: action.data
-        }
-      };
-    case 'BL_ATTR_SET_STATE':
-      data = Object.assign({}, state);
-      data.attributes[action.data.name].state = action.data.state;
-      return data;
-
-    case 'SET_INITIAL_STATE':
-      return {
-        ...INITIAL_STATE,
-        motors: { ...INITIAL_STATE.motors, ...action.data.Motors },
-        attributes: { ...INITIAL_STATE.actuators, ...action.data.beamlineSetup.attributes },
-        motorsLimits: {
-          ...INITIAL_STATE.motorsLimits,
-          ...action.data.motorsLimits
-        },
-        beamlineActionsList: action.data.beamlineSetup.actionsList.slice(0),
-        availableMethods: action.data.beamlineSetup.availableMethods,
-        energyScanElements: action.data.beamlineSetup.energyScanElements
-      };
-    case 'ACTION_SET_STATE':
-    {
-      const beamlineActionsList = JSON.parse(JSON.stringify(state.beamlineActionsList));
-      const currentBeamlineAction = {};
-      state.beamlineActionsList.some((beamlineAction, i) => {
-        if (beamlineAction.name === action.cmdName) {
-          beamlineActionsList[i].state = action.state;
-          beamlineActionsList[i].data = action.data;
-
-          if (action.state === RUNNING) {
-            beamlineActionsList[i].messages = [];
-          }
-          Object.assign(currentBeamlineAction, state.currentBeamlineAction,
-            JSON.parse(JSON.stringify(beamlineActionsList[i])));
-          return true;
-        }
-        return false;
-      });
-      return { ...state, beamlineActionsList, currentBeamlineAction };
-    }
-    case 'ACTION_SET_ARGUMENT':
-    {
-      const beamlineActionsList = JSON.parse(JSON.stringify(state.beamlineActionsList));
-      const currentBeamlineAction = {};
-      state.beamlineActionsList.some((beamlineAction, i) => {
-        if (beamlineAction.name === action.cmdName) {
-          beamlineActionsList[i].arguments[action.argIndex].value = action.value;
-          Object.assign(currentBeamlineAction, state.currentBeamlineAction,
-            JSON.parse(JSON.stringify(beamlineActionsList[i])));
-          return true;
-        }
-        return false;
-      });
-
-      return { ...state, beamlineActionsList, currentBeamlineAction };
-    }
-    case 'ACTION_SHOW_OUTPUT':
-    {
-      const currentBeamlineAction = {};
-      state.beamlineActionsList.some((beamlineAction) => {
-        if (beamlineAction.name === action.cmdName) {
-          Object.assign(currentBeamlineAction,
-            JSON.parse(JSON.stringify(beamlineAction)),
-            { show: true });
-          return true;
-        }
-        return false;
-      });
-      return { ...state, currentBeamlineAction };
-    }
-    case 'ACTION_HIDE_OUTPUT':
+    case UPDATE_SHUTTER:
     {
       return {
         ...state,
-        currentBeamlineAction: Object.assign({},
-          JSON.parse(JSON.stringify(state.currentBeamlineAction)), { show: false })
-      };
-    }
-    case 'ADD_USER_MESSAGE':
-    {
-      if (state.currentBeamlineAction.state !== RUNNING) {
-        return state;
-      }
-
-      const cmdName = state.currentBeamlineAction.name;
-      const beamlineActionsList = JSON.parse(JSON.stringify(state.beamlineActionsList));
-      const currentBeamlineAction = {};
-      state.beamlineActionsList.some((beamlineAction, i) => {
-        if (beamlineAction.name === cmdName) {
-          beamlineActionsList[i].messages.push(action.message);
-          Object.assign(currentBeamlineAction, state.currentBeamlineAction,
-            JSON.parse(JSON.stringify(beamlineActionsList[i])));
-          return true;
+        shutters: {
+          ...state.shutters,
+          [action.shutter.name]: { ...action.shutter }
         }
-        return false;
-      });
-
-      return { ...state, beamlineActionsList, currentBeamlineAction };
+      };
     }
     default:
       return state;
   }
 };
 
-// \\\\\\\\\\\\\\\\\\\\\\\\\  Action \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-// Action types
-export const BL_ATTR_SET = 'BL_ATTR_SET';
-export const BL_ATTR_GET_ALL = 'BL_ATTR_GET_ALL';
-export const BL_ATTR_SET_STATE = 'BL_ATTR_SET_STATE';
-export const BL_ATTR_MOV_SET_STATE = 'BL_ATTR_MOV_SET_STATE';
-export const BL_ATTR_ACT_SET_STATE = 'BL_ATTR_ACT_SET_STATE';
-export const BL_ATTR_MOV_SET = 'BL_ATTR_MOV_SET';
-export const BL_ATTR_ACT_SET = 'BL_ATTR_ACT_SET';
 
-
-export function setBeamlineAttrAction(data) {
-  return { type: BL_ATTR_SET, data };
-}
-
-export function getBeamlineAttrsAction(data) {
-  return { type: BL_ATTR_GET_ALL, data };
+// Action functions
+export function setBeamlineAction(data) {
+  return { type: SET_BL_VALUE, data };
 }
 
 
-export function busyStateAction(name) {
-  return {
-    type: BL_ATTR_SET_STATE,
-    data: { name, state: STATE.BUSY }
-  };
+export function getBeamlineAction(data) {
+  return { type: GET_BEAMLINE, data };
 }
 
-export function sendGetAllAttributes() {
+export function updateShutterAction(shutter) {
+  return { type: UPDATE_SHUTTER, shutter };
+}
+
+
+export function getBeamline() {
   return (dispatch) => {
     // debugger;
     axios.post(`${API_URL}/get-beamline`)
       .then((response) => {
-        console.log(response.data);
-        dispatch(getBeamlineAttrsAction(response.data.beamline));
-      }).catch((error) => {
+        dispatch(getBeamlineAction(response.data));
+      })
+      .catch((error) => {
         throw (error);
       });
   };
 }
 
-export function sendSetAttribute(name) {
+
+export function setBeamline(name) {
   return (dispatch) => {
-    dispatch(busyStateAction(name));
-    dispatch({ type: BL_ATTR_GET_ALL });
     axios.post(`${API_URL}/${name}`)
       .then((response) => {
-        dispatch(setBeamlineAttrAction(response.data.beamline));
+        dispatch(setBeamlineAction(response.data.beamline));
       })
-      .catch((Error) => {
-        throw new Error(`PUT ${API_URL} failed`);
+      .catch((error) => {
+        throw (error);
+      });
+  };
+}
+
+
+export function toggleShutter(name) {
+  return (dispatch) => {
+    axios.post(`${API_URL}/toggle-shutter`, { name })
+      .then((response) => {
+        dispatch(updateShutterAction(response.data));
+      })
+      .catch((error) => {
+        throw (error);
       });
   };
 }
