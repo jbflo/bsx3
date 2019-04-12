@@ -22,7 +22,7 @@ export default class NavLoggedIn extends Component {
 
   render() {
     return (
-      <Navbar className="Header justify-content-between" style={{ paddingBottom: '80' }}>
+      <Navbar className="Header justify-content-between">
         <Navbar.Brand href="./" className="brand">BSXcube 3</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Nav className="justify-content-center" style={{ }}>

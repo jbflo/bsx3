@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
-import Queue from '../queue/Queue';
+import App from '../queue/index';
 import Hplc from '../hplc/Hplc';
 import Sc from '../sc/Sc';
 
@@ -61,20 +61,16 @@ class Datacollection extends Component {
                   activeKey={this.state.valuetab1}
                   onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
-                  <Tab eventKey={0} title="HOME" className="tab" style={styles.active_tab}>
-                    <Sc />
-                    {/* Code Home Panel Here */}
+                  <Tab eventKey={0} title="SAMPLE CHANGER" className="tab" style={styles.default_tab}>
+                    <Sc key="sc" />
                   </Tab>
-                  <Tab eventKey={1} title="SAMPLE CHANGER" className="tab" style={styles.default_tab}>
-                    TEMP
+                  <Tab eventKey={1} title="HPLC" className="tab" style={styles.active_tab}>
+                    <Hplc key="hplc" />
                   </Tab>
-                  <Tab eventKey={2} title="HPLC" className="tab" style={styles.active_tab}>
-                    <Hplc />
-                  </Tab>
-                  <Tab eventKey={3} title="WORK FLOW" style={styles.active_tab}>
+                  <Tab eventKey={2} title="WORK FLOW" style={styles.active_tab}>
                     Content Work Flow Panel Here
                   </Tab>
-                  <Tab eventKey={4} title="SET UP" style={styles.active_tab}>
+                  <Tab eventKey={3} title="SET UP" style={styles.active_tab}>
                     Content Set Up PanelHere
                   </Tab>
                 </Tabs>
@@ -92,7 +88,7 @@ class Datacollection extends Component {
                   onSelect={valuetab2 => this.setState({ valuetab2 })}
                 >
                   <Tab eventKey={0} title="QUEUE" className="tab" style={styles.active_tab}>
-                    <Queue />
+                    <App />
                   </Tab>
                   <Tab eventKey={1} title="MESSAGES" className="tab" style={styles.default_tab}>
                     Content Messages Panel Here

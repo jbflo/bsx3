@@ -10,10 +10,6 @@ import sc from '../sc/sc-api';
 import queue from '../queue/queue-api';
 
 export default function createRootReducer(history) {
-    // if (action.type === 'SIGNOUT') {
-    //     state = undefined; // eslint-disable-line no-param-reassign
-    // }
-
     return combineReducers({
         router: connectRouter(history),
         counter,

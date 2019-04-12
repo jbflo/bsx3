@@ -2,21 +2,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import Card from 'react-bootstrap/Card';
 import ScTable from './ScTable';
 
 import './sc.css';
 
-const styles = {
-  button: {
-    backgroundColor: '#00695c',
-    color: '#fff',
-    width: '100px'
-  },
-  input: {
-    display: 'none',
-  },
-};
+// const styles = {
+//   button: {
+//     backgroundColor: '#00695c',
+//     color: '#fff',
+//     width: '100px'
+//   },
+//   input: {
+//     display: 'none',
+//   },
+// };
 
 class Sc extends Component {
   constructor(props, context) {
@@ -31,11 +31,16 @@ class Sc extends Component {
     return [
       <div className="sc">
         <div>
-          <h3 className="" style={{ paddingTop: '30px', with: '100%' }}> Sample Configuration </h3>
-        </div>
-        <hr style={{ marginBottom: '20px', with: '100%' }} />
-        <div>
-          <h6> Queue Name : ....</h6>
+          <Card.Title
+            style={{ position: 'relative', top: '30px', marginLeft: '20px' }}
+          >
+            Sample Configuration
+          </Card.Title>
+          <Card.Text
+            style={{ position: 'relative', top: '30px', marginLeft: '15px' }}
+          >
+            Queue Name : ....
+          </Card.Text>
         </div>
         <ScTable />
       </div>
@@ -61,4 +66,4 @@ Sc.defaultProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Sc); withStyles(styles);
+)(Sc);
