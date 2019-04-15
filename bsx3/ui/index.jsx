@@ -13,11 +13,19 @@ import 'bootstrap/dist/js/bootstrap';
 import 'mdbreact/dist/css/mdb.css';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { initCounterRequest } from './counter/counter-api';
+
+import { initAppRequest } from './app/main-api';
+import { loginSuccess } from './login/login-api';
 
 const target = document.querySelector('#root');
 
-store.dispatch(initCounterRequest());
+store.dispatch(initAppRequest());
+
+const accessToken = localStorage.getItem('access_token');
+
+if (accessToken) {
+  store.dispatch(loginSuccess(), localStorage.getItem('username'));
+}
 
 render(
   <Provider store={store}>

@@ -4,9 +4,13 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { reducer as formReducer } from 'redux-form';
 
-import counter from '../counter/counter-api';
+import app from './main-api';
 import beamline from '../beamlinestatus/beamline-api';
 import sc from '../sc/sc-api';
+import login from '../login/login-api';
+
+import counter from '../counter/counter-api';
+
 
 export default function createRootReducer(history) {
     // if (action.type === 'SIGNOUT') {
@@ -15,7 +19,9 @@ export default function createRootReducer(history) {
 
     return combineReducers({
         router: connectRouter(history),
+        app,
         counter,
+        login,
         beamline,
         sc,
         form: formReducer

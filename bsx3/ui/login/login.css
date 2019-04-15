@@ -32,3 +32,15 @@
         margin-bottom: 50px!important;
     }
 }
+
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 60px 0;
+    }
+  
+    .LoginInner {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+  

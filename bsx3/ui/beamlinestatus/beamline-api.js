@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { RUNNING } from '../app/constants';
 
-const API_URL = '/api/beamline';
+const API_URL = '/bsxcube/api/v0.1/beamline';
 
 // import fetch from 'isomorphic-fetch';
 // The different states a beamline attribute can assume.
@@ -355,8 +355,8 @@ export function sendSetAttribute(name) {
       .then((response) => {
         dispatch(setBeamlineAttrAction(response.data.beamline));
       })
-      .catch((Error) => {
-        throw new Error(`PUT ${API_URL} failed`);
+      .catch((error) => {
+        throw new Error(`PUT ${API_URL} failed with ${error}`);
       });
   };
 }

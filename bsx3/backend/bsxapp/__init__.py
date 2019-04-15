@@ -13,11 +13,17 @@ HOMAP = [
 
 class Application():
     """ Encapsulates all application wide data """
-    COUNTER = 1
     _HWR = None
+    _JWT = None
 
-    def __init__(self, hwr):
+    COUNTER = 1
+    SIO = None
+    
+    def __init__(self, hwr, sio, jwt):
         Application._HWR = hwr
+        Application._JWT = jwt
+        Application.SIO = sio
+
         self.auth = None
         self.beamline = None
 
@@ -43,12 +49,12 @@ class Application():
         return ho
 
 
-def init_app(hwr):
+def init_app(hwr, sio, jwt):
     """ Initializes the application instance """
     global APP
 
     if not APP:
-        APP = Application(hwr)
+        APP = Application(hwr, sio, jwt)
 
     return APP
 
