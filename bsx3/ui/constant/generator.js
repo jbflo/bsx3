@@ -5,12 +5,12 @@ export const defaultColumnValues = {
 };
 
 export const scDeafaultValues = {
-  id: ['0', '1'],
+  // id: [0, 1],
   samplename: ['s1', 's2'],
   concentration: ['c1', 'c2'],
   plate: ['p1', 'p2'],
   row: ['r1', 'R2'],
-  column: ['r1', 'R2'],
+  column: ['co1', 'co22'],
   frame: ['f3', 'f4'],
   exposuretime: ['e5', 'e6'],
   attenuation: ['A1', 'A2'],

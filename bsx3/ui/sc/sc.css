@@ -3,14 +3,16 @@
 .sc{
     position: relative;
     caption-side: top;
-    /* height: 100px */
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 600px
 }
-.sctable{
-    position: relative;
+.gridtable{
+    /* height: 1000px !important; */
+    /* background: #7cb342!important; */
     caption-side: top;
-    height: 100px
-
 }
+
 .navbartop{
     position: relative;
 }
@@ -20,12 +22,13 @@
     align-content: center;
 }
 .btnaddqueue {
-    /* position: relative; */
-    /* left: 87.5%; */
+    position: relative;
+    top: 65px;
+    /* margin-top: 30px!important; */
+    font-size: 12px!important;
     background: #7cb342!important;
     color: #fff!important;
-    width: 160px;
-    height: 40px
+    width: 140px;
 }
 
 .labelinput{
@@ -34,11 +37,30 @@
     margin-top: 0%!important;
     background: #00695c!important;
     color: #fff!important;
+    font-size: 12px!important;
 }
-/* .folderU{
-    position: relative;
-    top: 0%!important;
-    margin-top: 0%!important;
-} */
+.folderU{
+    margin-top: 30px!important;
+}
 
+.md-icon{
+    height: 25px!important;
+    width: 25px!important;
+    cursor: pointer!important;
+    margin: 10px!important;
+}
+.del-icon{
+    color: #f82424;
+}
+.edit-icon{
+    color: orange;
+}
+
+.save-icon{
+    color: #7cb342;
+}
+
+.cancel-icon{
+    color: #b34242;
+}
 /* Css for Sc Table  */

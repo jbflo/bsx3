@@ -9,6 +9,8 @@ import {
   GroupingState, IntegratedGrouping,
   IntegratedSorting
 } from '@devexpress/dx-react-grid';
+
+import Nav from 'react-bootstrap/Nav';
 import {
   Grid, VirtualTable, Toolbar, TableHeaderRow, TableColumnResizing,
   TableSelection,
@@ -16,53 +18,30 @@ import {
   TableEditColumn,
   DragDropProvider, TableGroupRow, TableColumnReordering, GroupingPanel,
   // TableFixedColumns,
-} from '@devexpress/dx-react-grid-material-ui';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TableCell from '@material-ui/core/TableCell';
+} from '@devexpress/dx-react-grid-bootstrap4';
+// import TableCell from '@material-ui/core/TableCell';
 
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { withStyles } from '@material-ui/core/styles';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Button from 'react-bootstrap/Button';
+import {
+  MdEdit, MdDeleteSweep, MdCancel, MdSave
+} from 'react-icons/md';
+import * as action from './sc-api';
 import SaveMenu from './SaveMenu';
 import './sc.css';
-import {
-  generateRows,
-  scDeafaultValues,
-} from '../constant/generator';
 import FolderUploader from './FolderUploader';
-
-
-const styles = {
-  lookupEditCell: {
-    // paddingTop: theme.spacing.unit * 0.875,
-    // paddingRight: theme.spacing.unit,
-    // paddingLeft: theme.spacing.unit,
-  },
-  dialog: {
-    width: 'calc(100% - 16px)',
-  },
-  inputRoot: {
-    width: '100%',
-  },
-};
 
 const AddButton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
     <Button
-      style={{ backgroundColor: '#4caf50', color: '#fff' }}
+      style={{ height: '35px', width: '50px', fontWeight: 'bold' }}
       onClick={onExecute}
       title="Create new row"
+      variant="success"
     >
-      New
+      +
     </Button>
+    {/* <CommandButton icon="plus" text="New" hint="Create new row" onExecute={onExecute} /> */}
   </div>
 );
 
@@ -79,14 +58,17 @@ const DuplicateButton = ({ onExecute }) => (
 );
 
 const EditButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Edit row" color="primary">
-    <EditIcon style={{ color: '#00695c' }} />
-  </IconButton>
+  // <CommandButton icon="pencil" hint="Edit row" color="text-warning" onExecute={onExecute} />
+  <MdEdit
+    className="edit-icon md-icon"
+    onClick={onExecute}
+  />
 );
 
 const DeleteButton = ({ onExecute }) => (
-  <IconButton
-    color="secondary"
+  <MdDeleteSweep
+    className="md-icon del-icon"
+    color="dander"
     onClick={() => {
       // eslint-disable-next-line
       if (window.confirm('Are you sure you want to delete this row?')) {
@@ -94,21 +76,16 @@ const DeleteButton = ({ onExecute }) => (
       }
     }}
     title="Delete row"
-  >
-    <DeleteIcon />
-  </IconButton>
+  />
+
 );
 
 const CommitButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Save changes">
-    <SaveIcon />
-  </IconButton>
+  <MdSave onClick={onExecute} title="Save changes" className="md-icon save-icon" />
 );
 
 const CancelButton = ({ onExecute }) => (
-  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
-    <CancelIcon />
-  </IconButton>
+  <MdCancel color="secondary" onClick={onExecute} title="Cancel changes" className="md-icon cancel-icon" />
 );
 
 const commandComponents = {
@@ -121,44 +98,38 @@ const commandComponents = {
 };
 
 const Command = ({ id, onExecute }) => {
-  const CommandButton = commandComponents[id];
+  const ButtonComponent = commandComponents[id];
   return (
-    <CommandButton
+    <ButtonComponent
       onExecute={onExecute}
     />
   );
 };
 
-const availableValues = {
-  // product: globalSalesValues.product,
-  // region: globalSalesValues.region,
-  // customer: globalSalesValues.customer,
-};
 
-const LookupEditCellBase = ({
-  availableColumnValues, value, onValueChange, classes,
+const LookupEditCell = ({
+  column, availableColumnValues, value, onValueChange,
 }) => (
-  <TableCell
-    className={classes.lookupEditCell}
+  <td
+    style={{
+      verticalAlign: 'middle',
+      padding: 1
+    }}
   >
-    <Select
+    <select
+      className="form-control"
       value={value}
+      style={{ width: '100%', textAlign: column.align }}
       onChange={event => onValueChange(event.target.value)}
-      input={(
-        <Input
-          classes={{ root: classes.inputRoot }}
-        />
-)}
     >
       {availableColumnValues.map(item => (
-        <MenuItem key={item} value={item}>
+        <option key={item} value={item}>
           {item}
-        </MenuItem>
+        </option>
       ))}
-    </Select>
-  </TableCell>
+    </select>
+  </td>
 );
-export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const Cell = (props) => {
   const { column } = props;
@@ -171,86 +142,67 @@ const Cell = (props) => {
   return <VirtualTable.Cell {...props} />;
 };
 
-const EditCell = (props) => {
-  const { column } = props;
-  const availableColumnValues = availableValues[column.name];
-  if (availableColumnValues) {
-    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
-  }
-  return <TableEditRow.Cell {...props} />;
-};
 
 const getRowId = row => row.id;
-const Root = props => <Grid.Root {...props} style={{ height: '90%', width: '100%' }} />;
+const Root = props => <Grid.Root {...props} style={{ height: '100%', width: '100%' }} />;
+const columns = [
+  { name: 'id', title: 'No', },
+  { name: 'samplename', title: 'Sample N.', },
+  { name: 'concentration', title: 'Concentration', },
+  { name: 'plate', title: 'Plate', },
+  { name: 'row', title: 'Row', },
+  { name: 'column', title: 'Column', },
+  { name: 'frame', title: 'Frame', },
+  { name: 'exposuretime', title: 'Exposure T', },
+  { name: 'attenuation', title: 'Attenuation', },
+  { name: 'buffer', title: 'Buffer', },
+  { name: 'flow', title: 'Flow', },
+  { name: 'temp', title: 'Temp', },
+];
 
-
-class ScTable extends React.PureComponent {
+class ScTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      columns: [
-        { name: 'id', title: 'No', },
-        { name: 'samplename', title: 'Sample N.', },
-        { name: 'concentration', title: 'Concentration', },
-        { name: 'plate', title: 'Plate', },
-        { name: 'row', title: 'Row', },
-        { name: 'column', title: 'Column', },
-        { name: 'frame', title: 'Frame', },
-        { name: 'exposuretime', title: 'Exposure T', },
-        { name: 'attenuation', title: 'Attenuation', },
-        { name: 'buffer', title: 'Buffer', },
-        { name: 'flow', title: 'Flow', },
-        { name: 'temp', title: 'Temp', },
-      ],
-      defaultColumnWidths: [
-        { columnName: 'id', width: 60 },
-        { columnName: 'samplename', width: 100 },
-        { columnName: 'concentration', width: 120 },
-        { columnName: 'plate', width: 80 },
-        { columnName: 'row', width: 65 },
-        { columnName: 'column', width: 85 },
-        { columnName: 'frame', width: 80 },
-        { columnName: 'exposuretime', width: 100 },
-        { columnName: 'attenuation', width: 110 },
-        { columnName: 'buffer', width: 80 },
-        { columnName: 'flow', width: 70 },
-        { columnName: 'temp', width: 70 },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...scDeafaultValues },
-        length: 2,
-      }),
-      // selection: [],
-      // sorting: [],
-      // editingRowIds: [],
-      addedRows: [],
-      // rowChanges: {},
-      // columnOrder: ['id', 'Sample Name.', 'Concentration.', 'Plate.', 'Row.',
-      // 'Column', 'Frame.', 'exposuretime', 'attenuation', 'buffer', 'flow', 'temp'],
-      // leftFixedColumns: [TableEditColumn.COLUMN_TYPE],
+      // testbeam: [],
     };
-    const getStateRows = () => {
-      const { rows } = this.state;
+  }
+
+  render() {
+    // const getStateRows = () => {
+    //   const { rows } = this.props.sc.rows;
+    //   return rows;
+    // };
+    const deleteRows = (deletedIds) => {
+      const rows = this.props.sc.rows.slice();
+      deletedIds.forEach((rowId) => {
+        const index = rows.findIndex(row => row.id === rowId);
+        if (index > -1) {
+          rows.splice(index, 1);
+        }
+      });
       return rows;
     };
-
-    // this.changeSelection = selection => this.setState({ selection });
-    // this.changeSorting = sorting => this.setState({ sorting });
-    // this.changeEditingRowIds = editingRowIds => this.setState({ editingRowIds });
-    this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
-        // amount: 0,
-        // discount: 0,
-        // saleDate: new Date().toISOString().split('T')[0],
-        // product: availableValues.product[0],
-        // region: availableValues.region[0],
-        // customer: availableValues.customer[0],
+    const availableValues = {
+      samplename: this.props.sc.scD.samplename,
+    };
+    const EditCell = () => {
+      // const { column } = columns;
+      const availableColumnValues = availableValues[columns.name];
+      if (availableColumnValues) {
+        return <LookupEditCell {...this.props} availableColumnValues={availableColumnValues} />;
+      }
+      return <TableEditRow.Cell {...this.props} />;
+    };
+    const changeAddedRows = () => ({
+      addedRows: this.props.sc.addedRows.map(row => (Object.keys(row).length ? row : {
+        samplename: availableValues.samplename[0],
       })),
     });
-    // this.changeRowChanges = rowChanges => this.setState({ rowChanges });
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let { rows } = this.state;
+
+    const commitChanges = ({ added, changed, deleted }) => {
+      let { rows } = this.props.sc.rows;
       if (added) {
         const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
@@ -265,92 +217,61 @@ class ScTable extends React.PureComponent {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       if (deleted) {
-        rows = this.deleteRows(deleted);
+        rows = deleteRows(deleted);
       }
-      this.setState({ rows });
-    };
-    this.deleteRows = (deletedIds) => {
-      const rows = getStateRows().slice();
-      deletedIds.forEach((rowId) => {
-        const index = rows.findIndex(row => row.id === rowId);
-        if (index > -1) {
-          rows.splice(index, 1);
-        }
-      });
       return rows;
     };
-    // this.changeColumnOrder = (order) => {
-    //   this.setState({ columnOrder: order });
-    // };
-  }
-
-  render() {
-    const {
-      rows,
-      columns,
-      defaultColumnWidths,
-      // selection,
-      // sorting,
-      editingRowIds,
-      addedRows,
-      rowChanges,
-      // columnOrder,
-      // leftFixedColumns,
-    } = this.state;
-
-    return (
-      <Paper style={{ height: '510px' }}>
+    return [
+      <Nav style={{ height: '470px', marginLeft: '0px', width: '100%' }}>
         <Grid
-          rows={rows}
+          rows={this.props.sc.rows}
           columns={columns}
           getRowId={getRowId}
           rootComponent={Root}
+          className="gridtable"
         >
           <DragDropProvider />
           <SelectionState
-            defaultSelection={[]}
-            // selection={selection}
-            // onSelectionChange={this.changeSelection}
+            selection={this.props.sc.selection}
+            onSelectionChange={this.props.sc.onSelectionChange}
           />
           <IntegratedSelection />
           <SortingState
-            defaultSorting={[]}
-            // sorting={sorting}
-            // onSortingChange={this.changeSorting}
+            defaultSorting={[0]}
+            sorting={this.props.sc.sorting}
+            onSortingChange={this.props.sc.onSortingChange}
           />
           <GroupingState />
           <IntegratedSorting />
           <IntegratedGrouping />
           <EditingState
-            editingRowIds={editingRowIds}
-            onEditingRowIdsChange={this.changeEditingRowIds}
-            rowChanges={rowChanges}
-            onRowChangesChange={this.changeRowChanges}
-            addedRows={addedRows}
-            onAddedRowsChange={this.changeAddedRows}
-            onCommitChanges={this.commitChanges}
+            editingRowIds={this.props.sc.editingRowIds}
+            onEditingRowIdsChange={this.props.sc.onEditingRowIdsChange}
+            rowChanges={this.props.sc.rowChanges}
+            onRowChangesChange={this.props.sc.onRowChangesChange}
+            addedRows={this.props.sc.addedRows}
+            columnExtensions={this.props.sc.defaultColumnWidths}
+            onAddedRowsChange={changeAddedRows}
+            onCommitChanges={commitChanges}
           />
           <VirtualTable
-            columnExtensions={defaultColumnWidths}
+            columnExtensions={this.props.sc.defaultColumnWidths}
             cellComponent={Cell}
             height="auto"
           />
           <TableColumnResizing
-            defaultColumnWidths={defaultColumnWidths}
-            onColumnWidthsChange={this.changeColumnWidths}
+            defaultColumnWidths={this.props.sc.defaultColumnWidths}
+            onColumnWidthsChange={this.props.sc.onColumnWidthsChange}
           />
           <TableHeaderRow showSortingControls />
           <TableSelection showSelectAll />
           <TableColumnReordering
             defaultOrder={columns.map(column => column.name)}
-            // order={columnOrder}
-            // onOrderChange={this.changeColumnOrder}
           />
           <TableEditRow cellComponent={EditCell} />
           <TableEditColumn
-            width={110}
-            showAddCommand={!addedRows.length}
-            showDuplicateCommand={!addedRows.length}
+            width={90}
+            showAddCommand={!this.props.sc.addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
@@ -358,8 +279,8 @@ class ScTable extends React.PureComponent {
           <TableGroupRow />
           <Toolbar />
           <GroupingPanel showSortingControls />
-          <div style={{ display: 'flex' }}>
-            <div style={{ marginRight: '20px' }}>
+          <Nav style={{ width: '100%', marginBottom: '0px' }}>
+            <div style={{ marginLeft: '10px', marginRight: '10px' }}>
               <SaveMenu className="menesavebtn" />
             </div>
             <div className="mr-auto" style={{ marginTop: '0px' }}>
@@ -367,31 +288,40 @@ class ScTable extends React.PureComponent {
             </div>
             <div style={{ }}>
               <Button variant="contained" className="btnaddqueue" align="right">
-                Add to Queue
+              Add to Queue
                 <i className="fas fa-share-square" style={{ marginLeft: '10px' }} />
               </Button>
             </div>
-          </div>
+          </Nav>
         </Grid>
-      </Paper>
-    );
+      </Nav>
+    ];
   }
 }
 
 function mapStateToProps(state) {
   return {
+    state,
     sc: state.sc,
   };
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  onSortingChange: sorting => dispatch(action.createGridAction('sorting', sorting)),
+  onSelectionChange: selection => dispatch(action.createGridAction('selection', selection)),
+  onExpandedRowIdsChange: expandedRowIds => dispatch(action.createGridAction('expandedRowIds', expandedRowIds)),
+  onGroupingChange: grouping => dispatch(action.createGridAction('grouping', grouping)),
+  onExpandedGroupsChange: expandedGroups => dispatch(action.createGridAction('expandedGroups', expandedGroups)),
+  onFiltersChange: filters => dispatch(action.createGridAction('filters', filters)),
+  onColumnOrderChange: order => dispatch(action.createGridAction('columnOrder', order)),
+  onColumnWidthsChange: widths => dispatch(action.createGridAction('columnWidths', widths)),
+  onRowChangesChange: rowChanges => dispatch(action.createGridAction('rowChanges', rowChanges)),
+  onEditingRowIdsChange: editingRowIds => (action.createGridAction('editingRowIds', editingRowIds)),
+  onAddedRowsChange: addedRows => (action.createGridAction('addedRows', addedRows)),
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScTable); withStyles(styles, { name: 'ControlledModeDemo' });
+)(ScTable);

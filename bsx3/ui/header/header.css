@@ -3,12 +3,14 @@
         background: #00467F;
         background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
         background: linear-gradient(to right, #A5CC82, #00467F);
-        height: 40px;
-        /* font-weight: bold; */
+        height: 22px;
+        font-size: 12px;
+        margin-bottom: 0% !important;
     }
     .brand {
         color: rgb(255, 255, 255)!important;
         font-weight: bold;
+        font-size: 14px!important;
     }
     .item1 {
         /* color: rgb(250, 248, 248); */
@@ -20,6 +22,7 @@
         padding-left: 4px;
         padding-right: 4px;
         /* font-weight: bold; */
+        font-size: 12px!important;
     }
     .item1:hover {
         color: rgb(255, 255, 255)!important;

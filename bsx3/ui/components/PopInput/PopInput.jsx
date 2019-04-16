@@ -213,10 +213,10 @@ export default class PopInput extends React.Component {
         { popoverContent }
       </Popover>);
 
-    let value = this.props.data.value ? parseFloat(this.props.data.value) : '-';
-
-    if (value !== '-' && this.props.data.precision) {
-      value = value.toFixed(parseInt(this.props.data.precision, 10));
+    // let value = this.props.data.value ? parseFloat(this.props.data.value) : '-';
+    let value = this.props.value ? parseFloat(this.props.value) : '-';
+    if (value !== '-' && this.props.precision) {
+      value = value.toFixed(parseInt(this.props.precision, 10));
     }
 
     return [
@@ -259,7 +259,7 @@ PopInput.defaultProps = {
   pkey: undefined,
   onSave: undefined,
   onCancel: undefined,
-  data: {
-    value: 0, state: 'ABORTED', msg: '', step: 0.1
-  }
+  // data: {
+  //   value: 0, state: 'ABORTED', msg: '', step: 0.1
+  // }
 };
