@@ -2,30 +2,26 @@
 """ Utileties for accessing beamline hardware"""
 from bsx3.backend.bsxapp import get_app
 
-
-def get_shutter_state_def():
-    pass
-
-
 def get_shutters():
     """
     Retreives dictionary represenation of all shutters
 
     Returns:
-        dict: {
-            name: str
-            state: IntEnum
-            is_valid: bool
-        }
+        dict: { name : {
+                        name: str
+                        state: IntEnum
+                        is_valid: bool
+                       }       
+              }
     """
-    shutters = []
+    shutters = {}
 
     for role, shutter in get_app().beamline.get_shutters().items():
-        shutters.append(
-            {"name": role,
-             "state": shutter.state(),
-             "is_valid": shutter.is_valid()
-             })
+        shutters[role] = {
+            "name": role,
+            "state": shutter.state(),
+            "is_valid": shutter.is_valid()
+        }
 
     return shutters
 
@@ -69,12 +65,11 @@ def toggle_shutter_state(name):
     Returns:
         None
     """
-
     shutter = get_app().beamline.get_shutters().get(name, None)
 
     if shutter.state() == shutter.STATE.OPEN.name:
         close_shutter(name)
-    elif shutter.state == shutter.STATE.CLOSED.name:
+    elif shutter.state() == shutter.STATE.CLOSED.name:
         open_shutter(name)
     else:
         raise RuntimeWarning("Shutter %s is in %s state" % (name, shutter.state()))
@@ -102,7 +97,7 @@ def get_energy():
         "tunable": energy.can_move_energy(),
         "energy_limits": energy.get_energy_limits(),
         "wavelength_limits": energy.get_wavelength_limits()
-    }
+        }
 
 
 def set_energy(energy):
@@ -146,7 +141,6 @@ def get_machine_info():
         "current": machine_info.getCurrent(),
         "message": machine_info.getMessage()
     }
-
 
 def get_beamline():
     """ Returns dictiornary represenation of all beamline attributes

@@ -5,8 +5,9 @@ import NoRequireAuth from '../login/NoRequireAuth';
 import RequireAuth from '../login/RequireAuth';
 
 // import NavLoggedOut from '../header/NavLoggedOut';
-import NavLoggedIn from '../header/NavLoggedIn';
+// import NavLoggedIn from '../header/NavLoggedIn';
 import LoginJSForm from '../login/LoginJSForm';
+import Counter from '../counter/Counter';
 // import Datacollection from '../datacollection/DataCollection';
 import './main.css';
 
