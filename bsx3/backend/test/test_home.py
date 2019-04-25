@@ -8,5 +8,3 @@ def test_home(client):
     resp = client.get(base_prefix)
     assert resp.status_code == 200
     assert 'HOME' in resp.data.decode()
-
-
