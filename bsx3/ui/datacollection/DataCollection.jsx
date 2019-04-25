@@ -8,7 +8,7 @@ import App from '../queue/index';
 import Hplc from '../hplc/Hplc';
 import Sc from '../sc/Sc';
 
-import './dataC.css';
+// import './dataC.css';
 
 const styles = {
   root: {
@@ -48,7 +48,7 @@ class Datacollection extends Component {
         <div className="row" style={{ marginTop: '1em' }}>
           <div className="col-md-8 col-sm-12">
             <div className="horizontal-tabs">
-              <div className="card">
+              <div>
                 <Tabs
                   style={{ width: '100%' }}
                   className="tabs"
@@ -74,7 +74,7 @@ class Datacollection extends Component {
           {/* Tab for messages and Queue  */}
           <div className="col-md-4 col-sm-12">
             <div className="horizontal-tabs spec">
-              <div className="card">
+              <div>
                 <Tabs
                   style={{ width: '100%' }}
                   className="tabs"
