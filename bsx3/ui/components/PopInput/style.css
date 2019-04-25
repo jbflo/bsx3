@@ -1,86 +1,65 @@
-/*  Style Sheet for PopInput Content */
-
-.btnpopinput {
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    margin: 2px
-}
-
-.btnsuccess {
-    margin-left: 15px;
-}
-
-.btndanger {
-    margin-right: 8px;
-}
-
-.form-control {
-    margin-left: 10px;
-    padding: 0% !important;
-}
-
-.popover {
-    height: 85px;
-    z-index:9999 !important;
-}
-
-.popcontent {
-    position: relative;
-    top: -35px;
-    margin-top: 30px;
-}
-
-
-/* --------------------------------  */
-
-.popinput-input-label {
-    display: inline-block;
+.popinput-input-label{ 
+    display: block;
     min-width: 90px;
-    margin-right: 1rem;
     font-weight: bold;
+  }
+ 
+.popinput-busy-buttonbar{
+  display: inline-block;
+  float: right;
+}
+  
+.popinput-input-busy{
+  display: inline-block;
+  background-image: url(../../img/busy-indicator.gif);
+  height: 32px;
+  width: 32px;
 }
 
-.popinput-input-value {
-    display: inline-block;
+.popinput-input{
+  height: 31px;
+  margin-right: 1m;
 }
 
-.popinput-busy-buttonbar {
-    /* display: inline-block; */
-    float: right;
+.visibility-hidden{ 
+  visibility: hidden;
+  display: inline;
 }
-
-.popinput-input-busy {
-    display: inline-block;
-    background-image: url(../../img/busy-indicator.gif);
-    height: 32px;
-    width: 32px;
+  
+.value-label-enter-success{
+  transition: background-color 1000ms ease-out;
 }
-
-.visibility-hidden {
-    visibility: hidden;
-    display: inline;
-}
-
-.value-label-enter-success {
-    transition: background-color 1000ms ease-out;
-}
-
+  
 .popinput-input-container {
-    display: inline;
+  display: inline;
 }
 
+.popinput-form-container {
+  margin: 0.2em;
+}
+    
 .popinput-input-editicon {
-    visibility: hidden;
-    color: #999;
-    margin-right: 5px;
+  visibility: hidden;
+  color: #999;
+  margin-right: 5px;
+}
+  
+.popinput-input-link{
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
 }
 
-.popinput-input-link:hover>.popinput-input-editicon {
-    visibility: visible;
+.popinput-input-link:hover {
+  visibility: visible;
+  text-decoration:none;
 }
 
+.popinput-input-link:hover > .popinput-input-editicon {
+  visibility: visible;
+}
+  
 .editable-click {
-    cursor: pointer;
-    color: rgb(255, 255, 255);
+  cursor: pointer;
 }
+  

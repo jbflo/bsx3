@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
 import App from '../queue/index';
 import Hplc from '../hplc/Hplc';
 import Sc from '../sc/Sc';
@@ -44,14 +43,9 @@ class Datacollection extends Component {
   render() {
     // const { valuetab1, valuetab2 } = this.state;
 
-    return [
-
-      <div>
-        <BeamlineStatus key="bmstatatus" />
-      </div>,
-
-      <div className="contain">
-        <div className="row">
+    return (
+      <span className="datacollection-container">
+        <div className="row" style={{ marginTop: '1em' }}>
           <div className="col-md-8 col-sm-12">
             <div className="horizontal-tabs">
               <div className="card">
@@ -98,8 +92,8 @@ class Datacollection extends Component {
             </div>
           </div>
         </div>
-      </div>
-    ];
+      </span>
+    );
   }
 }
 

@@ -2,22 +2,27 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+
 import store, { history } from './app/redux-store';
-import Main from './app/Main';
+import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap';
-import 'mdbreact/dist/css/mdb.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+// import 'mdbreact/dist/css/mdb.css';
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { initAppRequest } from './app/main-api';
 import { loginSuccess } from './login/login-api';
 
 const target = document.querySelector('#root');
+
+const loader = document.querySelector('#loader');
+const showLoader = () => loader.classList.remove('hidden');
+const hideLoader = () => loader.classList.add('hidden');
+
+window.showLoader = showLoader;
+window.hideLoader = hideLoader;
 
 store.dispatch(initAppRequest());
 
@@ -30,7 +35,9 @@ if (accessToken) {
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Main />
+      <App
+        hideLoader={hideLoader}
+      />
     </ConnectedRouter>
   </Provider>,
   target

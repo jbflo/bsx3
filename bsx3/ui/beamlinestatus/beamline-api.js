@@ -36,7 +36,7 @@ export const INITIAL_STATE = {
   },
   energy: {
     name: 'Energy',
-    energy: 0,
+    value: 0,
     energy_limits: [0, 0],
     state: true,
     tunable: true,
@@ -107,7 +107,7 @@ export function updateShutterAction(shutter) {
 export function getBeamline() {
   return (dispatch) => {
     // debugger;
-    axios.post(`${API_URL}/get-beamline`)
+    axios.get(`${API_URL}/beamline`)
       .then((response) => {
         dispatch(getBeamlineAction(response.data));
       })

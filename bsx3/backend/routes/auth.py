@@ -1,33 +1,28 @@
 # -*- coding: utf-8 -*-
 """ Auth module """
-from flask import Blueprint, request
+import functools
+
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from flask_restplus import Api
-from flask_restplus import Resource
 
 from bsx3.backend.bsxapp import auth
-from bsx3.backend.bsxapp.schemas import JSON_SCHEMAS
+from bsx3.backend.schemas import UserLoginModel, AccessTokenResponseModel
+from bsx3.backend.flaskutils import Api
 
-api = Blueprint("auth_api", __name__)
-rp_api = Api(api)
+api = Api("auth_api", __name__)
 
-user_login_model = rp_api.schema_model('UserLogin', JSON_SCHEMAS.get("user_login_js"))
+@api.route("/login", request_model=UserLoginModel, response_model=AccessTokenResponseModel, methods=["post"])
+def login(data: UserLoginModel):
+    """ Example login """
 
-@rp_api.route("/login")
-class LoginResource(Resource):
-    @rp_api.expect(user_login_model, validate=True)
-    def post(self):
-        """ Example login """
-        data = request.json
+    if auth.login(data.username, data.password):
+        access_token = create_access_token(identity=data.username)
 
-        if auth.login(data.get("username"), data.get("password")):
-            access_token = create_access_token(identity=data.get("username"))
-            resp = {"access_token": access_token}, 200
-
-        return resp
+    return {"access_token": access_token}
     
-    @jwt_required
-    def get(self):
-        """ Example """
-        current_user = get_jwt_identity()
-        return jsonify(logged_in_as=current_user), 200
+@jwt_required
+@api.route("/login", methods=["get"])
+def get_current_indentity():
+    """ Example """
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200

@@ -1,38 +1,56 @@
 import React from 'react';
-import { Label } from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
 
 import './style.css';
 
 
 export default class LabeledValue extends React.Component {
   render() {
+    let badgeStyle = {
+      display: 'inline-block',
+      fontSize: '100%',
+      marginBottom: '3px',
+      color: '#000',
+      padding: '5px'
+    };
+
     let valueStyle = {
-      backgroundColor: 'transparent',
-      display: 'block-inline',
+      display: 'inline-block',
       fontSize: '100%',
       borderRadius: '0px',
-      color: 'rgb(255, 255, 255)',
-      padding: '0px'
+      color: '#000',
+      padding: '3px'
     };
 
     if (this.props.look === 'vertical') {
+      badgeStyle = { display: 'block', fontSize: '100%', marginBottom: '3px' };
       valueStyle = { display: 'block', fontSize: '100%', borderRadius: '0px' };
     }
 
-    return [
+    return (
       <div>
         <span>
           <div>
-            <Label
+            <Badge
+              variant="secondary"
+              style={badgeStyle}
+            >
+              {this.props.name}
+            </Badge>
+          </div>
+          <div>
+            <Badge
+              variant={this.props.level}
               style={valueStyle}
             >
               {this.props.value}
+              {' '}
               {this.props.suffix}
-            </Label>
+            </Badge>
           </div>
         </span>
       </div>
-    ];
+    );
   }
 }
 
@@ -41,6 +59,6 @@ LabeledValue.defaultProps = {
   value: 0,
   name: '',
   suffix: '',
-  look: 'horizontal',
+  look: 'vertical',
   level: 'info'
 };

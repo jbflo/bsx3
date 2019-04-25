@@ -80,7 +80,7 @@ def get_energy():
 
     Returns:
         dict: {
-            energy: (float) KeV
+            value: (float) KeV
             wavelength: (float) m
             state: (bool) the current state
             tunable (bool) True if the energy can be changes false otherwise
@@ -91,6 +91,7 @@ def get_energy():
     energy = get_app().beamline.energy
 
     return {
+        "value": energy.get_current_energy(),
         "energy": energy.get_current_energy(),
         "wavelength": energy.get_current_wavelength(),
         "state": energy.is_ready(),

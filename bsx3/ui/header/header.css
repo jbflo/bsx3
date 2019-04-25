@@ -1,57 +1,13 @@
-@media all and (min-width: 480px), (max-width: 767px) {
-    .Header {
-        background: #00467F;
-        background: -webkit-linear-gradient(to right, #A5CC82, #00467F);
-        background: linear-gradient(to right, #A5CC82, #00467F);
-        height: 22px;
-        font-size: 12px;
-        margin-bottom: 0% !important;
-    }
-    .brand {
-        color: rgb(255, 255, 255)!important;
-        font-weight: bold;
-        font-size: 14px!important;
-    }
-    .item1 {
-        /* color: rgb(250, 248, 248); */
-        font-weight: bold;
-    }
-    .item {
-        color: rgb(201, 209, 209)!important;
-        margin: 0;
-        padding-left: 4px;
-        padding-right: 4px;
-        /* font-weight: bold; */
-        font-size: 12px!important;
-    }
-    .item1:hover {
-        color: rgb(255, 255, 255)!important;
-        vertical-align: middle;
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        backface-visibility: hidden;
-        -moz-osx-font-smoothing: grayscale;
-        transition-duration: 0.3s;
-        transition-property: transform;
-        transform: scale(1.1);
-    }
-    .brand:hover {
-        color: rgb(12, 12, 12)!important;
-        vertical-align: middle;
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        backface-visibility: hidden;
-        -moz-osx-font-smoothing: grayscale;
-        transition-duration: 0.3s;
-        transition-property: transform;
-        transform: scale(1.1);
-    }
-    .item:hover {
-        color: rgb(135, 154, 165)!important;
-        vertical-align: middle;
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        backface-visibility: hidden;
-        -moz-osx-font-smoothing: grayscale;
-        transition-duration: 0.3s;
-        transition-property: transform;
-        transform: scale(1.1);
-    }
+.header {
+    position: relative;
+    border-bottom: 1px solid #989898;
+    background: rgb(250,250,250);
+    background: linear-gradient(0deg, rgb(214, 214, 214) 0%, rgb(232, 232, 232) 97%, rgba(255,255,255,1) 100%);
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,0.3);
+}
+
+.header .icon {
+    position: relative;
+    bottom: 3px;
+    margin-right: 3px;
 }

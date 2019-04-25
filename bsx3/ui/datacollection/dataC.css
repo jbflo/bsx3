@@ -71,10 +71,8 @@
 }
 .card{
     background: transparent;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.30), 0 10px 8px rgba(0,0,0,0.22)!important;
     position: relative;
     top: 0;
-    height: 800px;
     left: 2.5%;
 }
 
@@ -136,7 +134,6 @@
    .col-m-11 {width: 91.66%;}
    .col-m-12 {width: 100%;}
 }
-
 @media only screen and (min-width: 769px) {
     /* Design for desktop */
    .col-1 {width: 8.33%;}
