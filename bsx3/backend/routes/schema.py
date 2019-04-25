@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from bsx3.backend.schemas import JSON_SCHEMAS
 
 api = Blueprint("schema_api", __name__)
@@ -21,5 +21,3 @@ def get_schema(name):
         status_code = 409
 
     return jsonify(resp), status_code
-
-

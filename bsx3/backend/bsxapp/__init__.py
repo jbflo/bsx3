@@ -18,7 +18,7 @@ class Application():
 
     COUNTER = 1
     SIO = None
-    
+
     def __init__(self, hwr, sio, jwt):
         Application._HWR = hwr
         Application._JWT = jwt

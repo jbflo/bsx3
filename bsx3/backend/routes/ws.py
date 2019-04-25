@@ -1,7 +1,7 @@
 import logging
 from bsx3.backend.bsxapp import get_app
 
-sio = get_app().sio
+sio = get_app().SIO
 
 @sio.on('connect')
 def connect(sid, environ):

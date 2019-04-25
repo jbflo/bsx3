@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Auth module """
-import functools
-
-from flask import Blueprint, request, jsonify
+from flask import jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 from bsx3.backend.bsxapp import auth
@@ -11,7 +9,7 @@ from bsx3.backend.flaskutils import Api
 
 api = Api("auth_api", __name__)
 
-@api.route("/login", request_model=UserLoginModel, response_model=AccessTokenResponseModel, methods=["post"])
+@api.route("/login", UserLoginModel, AccessTokenResponseModel, methods=["post"])
 def login(data: UserLoginModel):
     """ Example login """
 
@@ -19,7 +17,7 @@ def login(data: UserLoginModel):
         access_token = create_access_token(identity=data.username)
 
     return {"access_token": access_token}
-    
+
 @jwt_required
 @api.route("/login", methods=["get"])
 def get_current_indentity():

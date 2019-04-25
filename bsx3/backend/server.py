@@ -16,7 +16,7 @@ from HardwareRepository import HardwareRepository as hwr
 def init_backend(hwr_config_dir):
     flask_app = Flask(__name__)
     base_prefix = "/bsxcube/api/v0.1"
-    
+
     flask_app.register_blueprint(home.api, url_prefix=base_prefix + '')
     flask_app.register_blueprint(auth.api, url_prefix=base_prefix + '/auth')
     flask_app.register_blueprint(counter.api, url_prefix=base_prefix + '/counter')

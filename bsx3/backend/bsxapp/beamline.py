@@ -11,7 +11,7 @@ def get_shutters():
                         name: str
                         state: IntEnum
                         is_valid: bool
-                       }       
+                       }
               }
     """
     shutters = {}
