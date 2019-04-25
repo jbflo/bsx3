@@ -9,6 +9,7 @@ from bsx3.backend.flaskutils import Api
 
 api = Api("auth_api", __name__)
 
+
 @api.route("/login", UserLoginModel, AccessTokenResponseModel, methods=["post"])
 def login(data: UserLoginModel):
     """ Example login """
@@ -17,6 +18,7 @@ def login(data: UserLoginModel):
         access_token = create_access_token(identity=data.username)
 
     return {"access_token": access_token}
+
 
 @jwt_required
 @api.route("/login", methods=["get"])

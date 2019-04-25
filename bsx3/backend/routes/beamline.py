@@ -3,7 +3,7 @@
 from flask import Blueprint, jsonify
 from bsx3.backend.bsxapp import beamline
 
-api = Blueprint('beamline_api', __name__)
+api = Blueprint("beamline_api", __name__)
 
 
 @api.route("shutters", methods=["POST"])

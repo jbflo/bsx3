@@ -3,6 +3,7 @@
 
 base_prefix = "/bsxcube/api/v0.1/counter"
 
+
 def test_increment(client):
     """ Tests increment count """
     resp = client.post(base_prefix + "/get-count")

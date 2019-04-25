@@ -4,6 +4,7 @@ import functools
 from pydantic import ValidationError
 from flask import Blueprint, request, jsonify
 
+
 class Api(Blueprint):
     def __init__(self, *args, **kwargs):
         Blueprint.__init__(self, *args, **kwargs)
@@ -18,6 +19,7 @@ class Api(Blueprint):
             return f
 
         return decorator
+
 
 def with_parse_request(request_model, response_model=None):
     def decorator_with_request_model(func):
@@ -43,6 +45,7 @@ def with_parse_request(request_model, response_model=None):
             return resp
 
         return wrapper_with_request_model
+
     return decorator_with_request_model
 
 

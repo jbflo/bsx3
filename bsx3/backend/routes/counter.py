@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify
 
 from bsx3.backend.bsxapp import counter
 
-api = Blueprint('counter_api', __name__)
+api = Blueprint("counter_api", __name__)
 
 
 @api.route("/increment", methods=["POST"])

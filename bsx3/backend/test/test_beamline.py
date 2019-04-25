@@ -3,6 +3,7 @@
 
 base_prefix = "/bsxcube/api/v0.1/beamline"
 
+
 def test_get_shutters(client):
     """ Tests get_shutters """
     resp = client.post(base_prefix + "/shutters")

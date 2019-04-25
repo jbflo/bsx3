@@ -2,6 +2,7 @@
 """ Utileties for accessing beamline hardware"""
 from bsx3.backend.bsxapp import get_app
 
+
 def get_shutters():
     """
     Retreives dictionary represenation of all shutters
@@ -20,7 +21,7 @@ def get_shutters():
         shutters[role] = {
             "name": role,
             "state": shutter.state(),
-            "is_valid": shutter.is_valid()
+            "is_valid": shutter.is_valid(),
         }
 
     return shutters
@@ -97,8 +98,8 @@ def get_energy():
         "state": energy.is_ready(),
         "tunable": energy.can_move_energy(),
         "energy_limits": energy.get_energy_limits(),
-        "wavelength_limits": energy.get_wavelength_limits()
-        }
+        "wavelength_limits": energy.get_wavelength_limits(),
+    }
 
 
 def set_energy(energy):
@@ -138,10 +139,8 @@ def get_machine_info():
     """
     machine_info = get_app().beamline.machine_info
 
-    return {
-        "current": machine_info.getCurrent(),
-        "message": machine_info.getMessage()
-    }
+    return {"current": machine_info.getCurrent(), "message": machine_info.getMessage()}
+
 
 def get_beamline():
     """ Returns dictiornary represenation of all beamline attributes
@@ -156,5 +155,5 @@ def get_beamline():
     return {
         "shutters": get_shutters(),
         "energy": get_energy(),
-        "machine_info": get_machine_info()
+        "machine_info": get_machine_info(),
     }

@@ -11,8 +11,10 @@ HOMAP = [
     {"attr": "beamline", "role": "beamline", "required": True},
 ]
 
-class Application():
+
+class Application:
     """ Encapsulates all application wide data """
+
     _HWR = None
     _JWT = None
 
