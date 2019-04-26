@@ -7,11 +7,6 @@
     margin-right: 0px;
     height: 600px
 }
-.gridtable{
-    /* height: 1000px !important; */
-    /* background: #7cb342!important; */
-    caption-side: top;
-}
 
 .navbartop{
     position: relative;
@@ -23,12 +18,38 @@
 }
 .btnaddqueue {
     position: relative;
-    top: 65px;
-    /* margin-top: 30px!important; */
+    /* top: 65px; */
+    margin-top: 30px!important;
     font-size: 12px!important;
     background: #7cb342!important;
     color: #fff!important;
     width: 140px;
+}
+.gridtable tr:hover{
+  background: #dcedc8!important;
+}
+.thead th{
+    background: #dcedc8;
+    color: #00695c;
+    max-height: 10px!important;
+    font-size: 13px!important;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+.input_form{
+    border: none!important;
+    background:  none!important;
+    text-align:center!important;
+}
+.btnadd{
+  height: 30px;
+
+}
+.flexclass{
+    display: flex;
+    margin-right: 5px!important;
 }
 
 .labelinput{
@@ -47,7 +68,7 @@
     height: 25px!important;
     width: 25px!important;
     cursor: pointer!important;
-    margin: 10px!important;
+    margin: 0px!important;
 }
 .del-icon{
     color: #f82424;
@@ -63,4 +84,8 @@
 .cancel-icon{
     color: #b34242;
 }
-/* Css for Sc Table  */
+.drag-icon{
+    cursor: grab!important;
+    margin-left: 10px!important;
+}
+

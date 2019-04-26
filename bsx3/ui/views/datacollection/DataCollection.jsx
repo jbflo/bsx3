@@ -5,29 +5,18 @@ import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
-import App from '../queue/index';
-import Hplc from '../hplc/Hplc';
-import Sc from '../sc/Sc';
+import Hplc from './hplc/Hplc';
+import SampleChanger from './sampleChanger/SampleChanger';
+import Queue from './queue/Queue';
 
 import './dataC.css';
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  default_tab: {
-    boxShadow: '0 2px 3px 1px rgba(165, 204, 130, 0.877)',
-    borderRadius: 11,
-    outline: 'none',
-  }
-};
 
 class Datacollection extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       valuetab1: 0,
-      // valuetab2: 0,
+      valuetab2: 0,
     };
     // this.handleChangeTab1 = this.handleChangeTab1.bind(this);
     // this.handleChangeTab2 = this.handleChangeTab2.bind(this);
@@ -42,35 +31,34 @@ class Datacollection extends Component {
   // };
 
   render() {
-    // const { valuetab1, valuetab2 } = this.state;
-
     return [
 
       <div>
         <BeamlineStatus key="bmstatatus" />
       </div>,
-
-      <div className="contain">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-md-8 col-sm-12">
+          <div className="col-md-9 col-sm-12">
             <div className="horizontal-tabs">
-              <div className="card">
+              <div className="cardtabs">
                 <Tabs
-                  style={{ width: '100%' }}
-                  className="tabs"
+                  className="nav nav-tabs nav-fill"
                   activeKey={this.state.valuetab1}
                   onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
-                  <Tab eventKey={0} title="SAMPLE CHANGER" className="tab" style={styles.default_tab}>
-                    <Sc key="sc" />
+                  <Tab eventKey={0} title="SAMPLE CHANGER" className="nav-item nav-link">
+                    <SampleChanger />
                   </Tab>
-                  <Tab eventKey={1} title="HPLC" className="tab" style={styles.active_tab}>
+                  <Tab eventKey={1} title="HPLC" className="nav-item nav-link">
                     <Hplc key="hplc" />
                   </Tab>
-                  <Tab eventKey={2} title="WORK FLOW" style={styles.active_tab}>
+                  <Tab eventKey={2} title="WORK FLOW" className="nav-item nav-link">
                     Content Work Flow Panel Here
                   </Tab>
-                  <Tab eventKey={3} title="SET UP" style={styles.active_tab}>
+                  <Tab eventKey={3} title="SET UP" className="nav-item nav-link">
+                    Content Set Up PanelHere
+                  </Tab>
+                  <Tab eventKey={4} title="RESULT" className="nav-item nav-link">
                     Content Set Up PanelHere
                   </Tab>
                 </Tabs>
@@ -78,19 +66,18 @@ class Datacollection extends Component {
             </div>
           </div>
           {/* Tab for messages and Queue  */}
-          <div className="col-md-4 col-sm-12">
+          <div className="col-md-3 col-sm-12">
             <div className="horizontal-tabs spec">
-              <div className="card">
+              <div className="cardtabs">
                 <Tabs
-                  style={{ width: '100%' }}
-                  className="tabs"
+                  className="nav nav-tabs nav-fill"
                   activeKey={this.state.valuetab2}
                   onSelect={valuetab2 => this.setState({ valuetab2 })}
                 >
-                  <Tab eventKey={0} title="QUEUE" className="tab" style={styles.active_tab}>
-                    <App />
+                  <Tab eventKey={0} title="QUEUE" className="nav-item nav-link">
+                    <Queue />
                   </Tab>
-                  <Tab eventKey={1} title="MESSAGES" className="tab" style={styles.default_tab}>
+                  <Tab eventKey={1} title="MESSAGES" className="nav-item nav-link">
                     Content Messages Panel Here
                   </Tab>
                 </Tabs>
