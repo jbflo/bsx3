@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from bsx3.backend.schemas import JSON_SCHEMAS
+from bsx3.backend.models import JSON_SCHEMAS
 
 api = Blueprint("schema_api", __name__)
 

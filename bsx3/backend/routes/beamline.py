@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify
 from flask_apispec import marshal_with
 
 from bsx3.backend.app import beamline
-from bsx3.backend.schemas import ShutterSchema
+from bsx3.backend.models import ShutterSchema
 
 
 api = Blueprint("beamline_api", __name__)
