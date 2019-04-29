@@ -5,9 +5,9 @@ import {
   Navbar, Nav, Badge
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
-import SimpleInOut from '../components/SimpleInOut/SimpleInOut';
-import PopInput from '../components/PopInput/PopInput';
-import LabeledValue from '../components/LabeledValue/LabeledValue';
+import SimpleInOut from '../../components/SimpleInOut/SimpleInOut';
+import PopInput from '../../components/PopInput/PopInput';
+import LabeledValue from '../../components/LabeledValue/LabeledValue';
 import * as beamlineAPI
   from './beamline-api';
 
@@ -85,7 +85,7 @@ class BeamlineStatus extends React.Component {
                     suffix="keV"
                     value={this.props.beamline.energy.energy}
                     data={this.props.beamline.energy.energy}
-                    onSave={this.setBLValue}
+                    onSave={() => this.setBLValue}
                     onCancel={this.onCancelHandler}
                   />
                 </Nav.Item>
@@ -212,6 +212,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getAllBLValues: beamlineAPI.getBeamline,
     toggleShutter: beamlineAPI.toggleShutter,
+    setBLValue: beamlineAPI.setBeamline,
   }, dispatch);
 }
 

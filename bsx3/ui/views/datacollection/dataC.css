@@ -1,0 +1,74 @@
+
+/* Horizontal Tabs */
+.container-fluid{
+    margin-left: 0% !important;
+    position: relative;
+    left: -25px!important;
+}
+
+.horizontal-tabs .nav-tabs {
+    width: 100%;
+    font-size: 13px!important;
+    padding-top: 10px;
+    padding-right: 10px;
+    height: 65px;
+    border-color: #dcedc87c!important;
+    border-bottom: 2px ridge ;
+}
+
+.horizontal-tabs .nav-tabs .nav-link:hover {
+    color: rgba(0, 0, 0, 0.733)!important;
+}
+
+.horizontal-tabs .nav-tabs .nav-link {
+    border-bottom: 0px !important;
+    margin-left: 10px; 
+    padding: 15px;
+    color: #00695c!important;
+    background: #dcedc8;
+    transform: translateY(10px);
+    -webkit-transform: translateY(10px);
+    height: 45px;
+    outline: none;
+    border-top-left-radius: 10%;
+    border-top-right-radius:10%;
+}
+
+.horizontal-tabs .nav-tabs .nav-link.active {
+    color: rgba(0, 0, 0, 0.733)!important;
+    border-width: 1.5px;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    height: 55px;
+    border-color: #00695da8;
+
+}
+
+.cardtabs{
+    background: transparent;
+    position: relative;
+    top: 0;
+    height: 800px;
+    left: 2.5%;
+    border: 1px solid lightgray;
+}
+
+
+ /* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+  
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {  }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+ 
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {  }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  }

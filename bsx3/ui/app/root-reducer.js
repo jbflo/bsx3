@@ -5,16 +5,16 @@ import { connectRouter } from 'connected-react-router';
 import { reducer as formReducer } from 'redux-form';
 
 import counter from '../counter/counter-api';
-import beamline from '../beamlinestatus/beamline-api';
-import sc from '../sc/sc-api';
-import queue from '../queue/queue-api';
+import beamline from '../views/beamlinestatus/beamline-api';
+import sampleChanger from '../views/datacollection/sampleChanger/sampleChanger-api';
+import queue from '../views/datacollection/queue/queue-api';
 
 export default function createRootReducer(history) {
     return combineReducers({
         router: connectRouter(history),
         counter,
         beamline,
-        sc,
+        sampleChanger,
         queue,
         form: formReducer
     });

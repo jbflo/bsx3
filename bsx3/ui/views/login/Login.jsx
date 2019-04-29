@@ -6,8 +6,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as LoginAPI from './login-api';
-import loader from '../img/loader.gif';
-import logo from '../img/logo.png'; // relative path to logo
+import loader from '../../img/loader.gif';
+import logo from '../../img/logo.png'; // relative path to logo
 
 import './login.css';
 
@@ -131,7 +131,6 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-  // const { loggingIn } = state.authentication;
   return {
     state
   };

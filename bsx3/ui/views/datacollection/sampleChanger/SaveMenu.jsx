@@ -3,7 +3,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   button: {
@@ -63,4 +62,4 @@ SaveMenu.defaultProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SaveMenu); withStyles(styles);
+)(SaveMenu);
