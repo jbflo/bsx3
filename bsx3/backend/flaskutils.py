@@ -21,7 +21,7 @@ class Api(Blueprint):
         return decorator
 
 
-def with_parse_request(request_model, response_model=None):
+def with_parse_request(request_model=None, response_model=None):
     def decorator_with_request_model(func):
         @functools.wraps(func)
         def wrapper_with_request_model(*args, **kwargs):
@@ -31,7 +31,7 @@ def with_parse_request(request_model, response_model=None):
                 valid, data, resp = parse_request(request, request_model)
 
                 if valid:
-                    resp = create_response(func(data), response_model)
+                    resp = create_response(func(data))
 
             elif request_model:
                 valid, data, resp = parse_request(request, request_model)
@@ -40,7 +40,10 @@ def with_parse_request(request_model, response_model=None):
                     resp = func(data)
 
             elif response_model:
-                resp = create_response(func(), response_model)
+                import pdb
+
+                pdb.set_trace()
+                resp = create_response(func(*args, **kwargs))
 
             return resp
 
@@ -70,14 +73,7 @@ def parse_request(r, model):
     return valid, data, resp
 
 
-def create_response(data, model):
-    valid, _d, message = _parse_model(data, model)
-
-    if valid:
-        resp = jsonify(data)
-        resp.status_code = 200
-    else:
-        resp = jsonify(message)
-        resp.status_code = 422
-
+def create_response(data):
+    resp = jsonify(data.dict())
+    resp.status_code = 200
     return resp

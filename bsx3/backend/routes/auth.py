@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 """ Auth module """
-from flask import jsonify
+from flask import jsonify, Blueprint
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_apispec import use_kwargs, marshal_with
 
-from bsx3.backend.bsxapp import auth
-from bsx3.backend.schemas import UserLoginModel, AccessTokenResponseModel
-from bsx3.backend.flaskutils import Api
+from bsx3.backend.app import auth
+from bsx3.backend.schemas import UserModel, UserLoginSchema, AccessTokenResponseSchema
 
-api = Api("auth_api", __name__)
+api = Blueprint("auth_api", __name__)
 
 
-@api.route("/login", UserLoginModel, AccessTokenResponseModel, methods=["post"])
-def login(data: UserLoginModel):
-    """ Example login """
+@api.route("/login", methods=["post"])
+@use_kwargs(UserLoginSchema)
+@marshal_with(AccessTokenResponseSchema)
+def login(**kwargs):
+    """Login route"""
+    user = UserModel(**kwargs)
 
-    if auth.login(data.username, data.password):
-        access_token = create_access_token(identity=data.username)
+    if auth.login(user.username, user.password):
+        access_token = create_access_token(identity=user.username)
 
     return {"access_token": access_token}
 

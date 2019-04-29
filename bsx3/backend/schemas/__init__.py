@@ -1,15 +1,34 @@
+from typing import ClassVar, Type
+from dataclasses import dataclass
+
 from flask import jsonify
-from pydantic import BaseModel, Schema
+from marshmallow import Schema, fields, validate
+from marshmallow_jsonschema import JSONSchema
+
+from marshmallow_dataclass import class_schema
+
+@dataclass
+class UserModel():
+    username: str
+    password: str
+
+class UserLoginSchema(Schema):
+    username = fields.String(required=True)
+    password = fields.String(validate=validate.Length(min=8), required=True)
 
 
-class UserLoginModel(BaseModel):
-    username: str = Schema(..., title="Username", min_length=5)
-
-    password: str = Schema(..., title="Password", min_length=8)
+class AccessTokenResponseSchema(Schema):
+    access_token = fields.String()
 
 
-class AccessTokenResponseModel(BaseModel):
-    access_token: str
+class ShutterSchema(Schema):
+    name = fields.String()
+    id = fields.String()
+    state = fields.String()
+    open_text = fields.String()
+    close_text = fields.String()
+    msg = fields.String()
+    is_valid = fields.Bool()
 
 
-JSON_SCHEMAS = {"user_login": UserLoginModel.schema()}
+JSON_SCHEMAS = {"user_login": JSONSchema().dump(UserLoginSchema()).data}

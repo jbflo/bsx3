@@ -3,7 +3,7 @@
 """
 from flask import Blueprint, jsonify
 
-from bsx3.backend.bsxapp import counter
+from bsx3.backend.app import counter
 
 api = Blueprint("counter_api", __name__)
 

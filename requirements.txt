@@ -10,4 +10,7 @@ Flask-Session
 louie-latest
 jsonschema
 flask_jwt_extended
-pydantic
+marshmallow
+marshmallow-jsonschema
+flask-apispec
+marshmallow_dataclass
