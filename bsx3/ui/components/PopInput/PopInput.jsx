@@ -201,7 +201,6 @@ export default class PopInput extends React.Component {
       el = (
         <span className={`popinput-input-label ${this.props.ref}`}>
           {this.props.name}
-        :
         </span>
       );
     } else {
@@ -211,7 +210,7 @@ export default class PopInput extends React.Component {
           style={{ display: 'block', fontSize: '100%', marginBottom: '3px' }}
           className={`popinput-input-label ${this.props.ref}`}
         >
-          {`${this.props.name}:`}
+          {this.props.name}
         </Badge>
       );
     }
@@ -254,7 +253,7 @@ export default class PopInput extends React.Component {
           variant="info"
           onContextMenu={this.onLinkClick}
           key="valueLabel"
-          style={{ display: 'block', fontSize: '100%' }}
+          style={{ display: 'block', fontSize: '100%', borderRadius: '0px' }}
           className={`popinput-input-link ${linkClass} ${stateClass}`}
         >
           {value}

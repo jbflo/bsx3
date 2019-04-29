@@ -79,7 +79,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         shutters: {
           ...state.shutters,
-          [action.shutter.name]: { ...action.shutter }
+          [action.shutter.id]: { ...action.shutter }
         }
       };
     }
@@ -131,9 +131,9 @@ export function setBeamline(name) {
 }
 
 
-export function toggleShutter(name) {
+export function toggleShutter(id) {
   return (dispatch) => {
-    axios.post(`${API_URL}/toggle-shutter`, { name })
+    axios.put(`${API_URL}/toggle-shutter/${id}`)
       .then((response) => {
         dispatch(updateShutterAction(response.data));
       })

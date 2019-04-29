@@ -20,12 +20,10 @@ export default class NavLoggedIn extends Component {
   render() {
     return (
       <div>
-        <Navbar className="header justify-content-between navbar-dark">
-          <Navbar.Brand href="./" className="brand">
-            <h4>
-              BSXCuBE 3
-            </h4>
-          </Navbar.Brand>
+        <Navbar className="header justify-content-between">
+          <h3>
+            BSXCuBE 3
+          </h3>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Nav className="justify-content-end" style={{ fontSize: '17px' }}>
             <LinkContainer className="link " to="/help" eventKey={4}>

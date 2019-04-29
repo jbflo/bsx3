@@ -17,7 +17,7 @@ export default class InOutSwitch extends React.Component {
 
 
   onLinkRightClick(e) {
-    this.overlayRef.current.handleToggle();
+    this.overlayRef.current.handleClick();
     e.preventDefault();
   }
 
@@ -81,16 +81,16 @@ export default class InOutSwitch extends React.Component {
 
   render() {
     let msgBgStyle = 'warning';
-    if (this.props.data.state === 'CLOSED') {
+    if (this.props.state === 'CLOSED') {
       msgBgStyle = 'success';
-    } else if (this.props.data.state === 'OPEN') {
+    } else if (this.props.state === 'OPEN') {
       msgBgStyle = 'danger';
     }
 
     let btn = <Button block bsSize="small" disabled>---</Button>;
-    if (this.props.data.state === 'OPEN') {
+    if (this.props.state === 'OPEN') {
       btn = <Button block bsSize="small" onClick={this.setIn}>{this.props.offText}</Button>;
-    } else if (this.props.data.state === 'CLOSED') {
+    } else if (this.props.state === 'CLOSED') {
       btn = <Button block bsSize="small" onClick={this.setOut}>{this.props.onText}</Button>;
     }
 
@@ -112,7 +112,7 @@ export default class InOutSwitch extends React.Component {
           overlay={(<Popover id={`${this.props.labelText} popover`}>{btn}</Popover>)}
         >
           <div onContextMenu={this.onLinkRightClick}>
-            <Badge variant={msgBgStyle} style={msgLabelStyle}>{this.props.data.state}</Badge>
+            <Badge variant={msgBgStyle} style={msgLabelStyle}>{this.props.state}</Badge>
           </div>
         </OverlayTrigger>
       </div>

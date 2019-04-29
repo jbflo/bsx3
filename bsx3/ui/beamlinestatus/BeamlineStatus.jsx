@@ -46,7 +46,7 @@ class BeamlineStatus extends React.Component {
       <Row
         className="beamline-status"
         style={{
-          background: '#fafbfc',
+          background: 'rgba(126, 204, 226, 0.06)',
           paddingTop: '1em',
           paddingBottom: '0.5em',
           borderBottom: '1px solid #d2d2d2'
@@ -55,13 +55,14 @@ class BeamlineStatus extends React.Component {
         <Col>
           <span className="blstatus-item" style={{ marginLeft: '1em' }}>
             <InOutSwitch
-              onText="OPEN"
-              offText="CLOSED"
-              labelText="Fast Shutter"
+              labelText={this.props.beamline.shutters.fast_shutter.name}
+              onText={this.props.beamline.shutters.fast_shutter.on_text}
+              offText={this.props.beamline.shutters.fast_shutter.off_text}
+              state={this.props.beamline.shutters.fast_shutter.state}
               key={this.props.beamline.shutters.fast_shutter.name}
               data={this.props.beamline.shutters.fast_shutter}
               onSave={() => {
-                this.onSaveHandler(this.props.beamline.shutters.fast_shutter.name);
+                this.onSaveHandler(this.props.beamline.shutters.fast_shutter.id);
               }}
             />
           </span>
