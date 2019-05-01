@@ -1,14 +1,10 @@
 const styles = {
   wrap: {
+    width: '100%',
     fontFamily: 'sans-serif',
     textAlign: 'center',
-    padding: '1rem',
-    width: '100%',
-    minHeight: '300px'
-  },
-  table: {
-    width: '100%',
-    height: '100px'
+    // padding: '1rem',
+    // marginLeft: '-30px'
   },
   droppable: {
     border: '1px lightgray',

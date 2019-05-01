@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import './style.css';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -28,7 +29,7 @@ class SaveMenu extends React.Component {
   render() {
     return (
       <div>
-        <Dropdown style={{ marginTop: '25px' }}>
+        <Dropdown style={{ marginTop: '30px' }}>
           <Dropdown.Toggle variant="none" id="dropdown-basic" style={styles.button}>
             File
           </Dropdown.Toggle>

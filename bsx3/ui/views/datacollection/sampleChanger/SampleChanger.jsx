@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
 import SampleChangerTable from './SampleChangerTable';
-import SaveMenu from './SaveMenu';
-import FolderUploader from './FolderUploader';
+import SaveMenu from './menu/SaveMenu';
+import FolderUploader from './folderDirectory/FolderDirectory';
 import * as SampleChangerAction from './sampleChanger-api';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -33,43 +32,39 @@ class SampleChanger extends Component {
     };
   }
 
-  componentDidMount = () => this.props.handleLoadStateLocalStorage();
+  componentDidMount() { this.props.handleLoadStateLocalStorage(); }
 
-  componentDidUpdate = () => this.props.handleSaveStateLocalStorage(this.props.Rows);
+  componentDidUpdate() { this.props.handleSaveStateLocalStorage(this.props.Rows); }
 
-  handleAddRow = RowValue => this.props.handleAddRow(RowValue);
+  handleReorderRow(initialPosition, newPosition) {
+    this.props.handleReorderRow(initialPosition, newPosition);
+  }
 
-  handleCancelEditRow = () => this.props.handleCancelEditRow();
+  handleAddRow(RowValue) { this.props.handleAddRow(RowValue); }
 
-  handleDeleteRow = selectedRowId => this.props.handleDeleteRow(selectedRowId);
+  handleDeleteRow(selectedRowId) { this.props.handleDeleteRow(selectedRowId); }
 
-  handleEditRow = modifiedRow => this.props.handleEditRow(modifiedRow);
+  handleSelectEditRow(id) { this.props.handleSelectEditRow(id); }
 
-  handleRowCompletion = modifiedRow => this.props.handleRowCompletion(modifiedRow);
+  handleCancelEditRow() { this.props.handleCancelEditRow(); }
 
-  handleSelectEditRow = id => this.props.handleSelectEditRow(id);
+  handleEditRow(modifiedRow) { this.props.handleEditRow(modifiedRow); }
 
-  handleReorderRow =
- (initialPosition, newPosition) => this.props.handleReorderRow(initialPosition, newPosition);
+  // handleRowCompletion = modifiedRow => this.props.handleRowCompletion(modifiedRow);
+
 
   render() {
     return [
-      <div className="sc tab-content">
-        <div className="flex">
-          <Nav.Item className="fas fa-cogs justify-content-center">  Sample Configuration </Nav.Item>
-        </div>
+      <div className="sc ">
+        {/* <div className="flex sctitle" id="nav">
+          <h3 className="alert-success text-center">Sample Configuration </h3>
+        </div> */}
         <Nav style={{ width: '100%', marginBottom: '0px' }}>
-          <div style={{ marginLeft: '10px', marginRight: '10px' }}>
+          <div style={{ marginRight: '10px' }}>
             <SaveMenu className="menesavebtn" />
           </div>
           <div className="mr-auto" style={{ marginTop: '0px' }}>
             <FolderUploader className="folderup" />
-          </div>
-          <div style={{ }}>
-            <Button variant="contained" className="btnaddqueue" align="right">
-            Add to Queue
-              <i className="fas fa-share-square" style={{ marginLeft: '10px' }} />
-            </Button>
           </div>
         </Nav>
         <SampleChangerTable {...this.props} />

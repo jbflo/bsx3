@@ -2,17 +2,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import ListFormEditable from './EditRowForm';
-import ListForm from './RowList';
-import ListFormAdding from './AddRowForm';
+import { Menu, Item, contextMenu } from 'react-contexify';
+import { Button, Table } from 'react-bootstrap';
+import EditRowForm from './EditRowForm';
+import RowList from './RowList';
+import AddRowForm from './AddRowForm';
 import styles, { getDraggableStyle, getDroppableStyle } from './styles';
+
 
 class SampleChanger extends React.Component {
   constructor(props) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onDuplicate = this.onDuplicate.bind(this);
+    this.MyMenu = this.MyMenu.bind(this);
   }
 
   onDragEnd(result) {
@@ -22,14 +25,51 @@ class SampleChanger extends React.Component {
     }
   }
 
+  onDuplicate(result) {
+    const { source, destination } = result;
+    if (result.destination) {
+      this.props.handleReorderRow(source.index, destination.index);
+    }
+  }
+
+  MyMenu() {
+    return (
+      <Menu id="menu_id">
+        <Item onClick={this.onDuplicate}>Duplicate Me</Item>
+      </Menu>
+    );
+  }
+
+  handlContextMenu(e, rowid) {
+    e.preventDefault();
+    alert(`SHOWN${e}`);
+    contextMenu.show({
+      id: 'menu_id',
+      event: e,
+      props: {
+        msg: 'hello',
+        id: rowid
+      }
+    });
+  }
+
   render() {
     return (
-      <div style={styles.wrap}>
+      <div className="table-wrap" style={styles.wrap}>
+        <div className="panel-heading">
+          <h3 className="mr-auto">Queue Name </h3>
+          <div className="">
+            <Button variant="contained" className="btnaddqueue" align="right">
+                      Add to Queue
+              <i className="fa fa-share-square" style={{ marginLeft: '10px' }} />
+            </Button>
+          </div>
+        </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="gridtable" responsive hover style={styles.table}>
-            <thead className="thead">
+          <Table className="sctable" size="sm" style={styles.table}>
+            <thead className="">
               <tr>
-                <th>
+                <th style={{ marginLeft: '100px' }}>
                   <Button
                     className=" btn-success btnadd"
                     style={{ fontWeight: 'bold' }}
@@ -40,17 +80,18 @@ class SampleChanger extends React.Component {
                   >
                     New
                   </Button>
+                  { <this.MyMenu /> }
                 </th>
-                <th>samplename</th>
-                <th>concentration</th>
-                <th>plate</th>
-                <th>row</th>
-                <th>column</th>
-                <th>frame</th>
-                <th>exposuretime</th>
-                <th>attenuation</th>
-                <th>buffer</th>
-                <th>flow</th>
+                <th>Sample Name</th>
+                <th>Concentration</th>
+                <th>Plate</th>
+                <th>Row</th>
+                <th>Column</th>
+                <th>Frame (/s)</th>
+                <th>ExposureTime (ms)</th>
+                <th>Attenuation</th>
+                <th>Buffer</th>
+                <th>Flow</th>
                 <th>Temp</th>
               </tr>
             </thead>
@@ -62,6 +103,15 @@ class SampleChanger extends React.Component {
                   isDraggingOver={snapshot.isDraggingOver}
                   style={getDroppableStyle(snapshot.isDraggingOver)}
                 >
+                  {this.props.isAddingNewRow ? (
+                    <AddRowForm
+                      row={this.props.addingRow}
+                      handleAddRow={this.props.handleAddRow}
+                      handleIsAddingNewRow={this.props.handleIsAddingNewRow}
+                    />
+                  ) : (
+                    null
+                  )}
                   {this.props.rows.map((row, index) => [
                     <Draggable
                       draggableId={`draggable-${row.id}`}
@@ -70,6 +120,7 @@ class SampleChanger extends React.Component {
                     >
                       {(provided, snapshot) => [
                         <tr
+                          onContextMenu={this.handlContextMenu}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -79,13 +130,15 @@ class SampleChanger extends React.Component {
                           )}
                         >
                           {this.props.editingRow.id === row.id ? (
-                            <ListFormEditable
+                            <EditRowForm
+                              key={row.id}
                               row={this.props.editingRow}
                               handleEditRow={this.props.handleEditRow}
                               handleCancelEditRow={this.props.handleCancelEditRow}
                             />
                           ) : [
-                            <ListForm
+                            <RowList
+                              key={row.id}
                               index={index}
                               row={row}
                               handleDeleteRow={this.props.handleDeleteRow}
@@ -98,15 +151,6 @@ class SampleChanger extends React.Component {
                       ]}
                     </Draggable>
                   ])}
-                  {this.props.isAddingNewRow ? (
-                    <ListFormAdding
-                      row={this.props.addingRow}
-                      handleAddRow={this.props.handleAddRow}
-                      handleIsAddingNewRow={this.props.handleIsAddingNewRow}
-                    />
-                  ) : (
-                    null
-                  )}
                   {provided.placeholder}
                 </tbody>
               )}

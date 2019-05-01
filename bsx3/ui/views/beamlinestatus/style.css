@@ -1,0 +1,80 @@
+
+.bmstatus {
+    position: relative;
+    height: 60px;
+    max-width: 100%;
+    margin-bottom: 40px!important;
+    z-index:9999 !important;
+    background: linear-gradient(to right, rgba(108, 145, 81, 0.205), rgba(108, 145, 81, 0.24));
+    float: none!important;
+    border-bottom: 0px!important;
+}
+.bmstatus:hover {
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 5px rgba(121, 138, 155, 0);
+    background: linear-gradient(to right, rgba(108, 145, 81, 0.411), rgba(108, 145, 81, 0.397));
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+.nav {
+    margin: 0;
+    padding-right: 2px;
+    width: 140px;
+    height: 65px;
+}
+.name {
+    color: rgb(6, 80, 85)!important;
+    font-size: 11px !important;
+    margin-right: 10px;
+    width: 140px;
+    cursor: default!important;
+}
+.item{
+    margin-top: 5px;
+}
+.badge {
+    width: 100%;
+    height: 25px;
+    position: relative;
+    cursor: default
+}
+.bgsuccess{
+    background: #4caf50
+}
+.bgdanger{
+    background: #ff5252
+}
+
+
+    /* change navbar background on collapse */
+@media (max-width: 768px) {
+    .collapse {
+        background-color: rgba(108, 145, 81, 0.233);
+        width: 153px!important;
+        margin: 0%;
+        border-radius: 20px;
+    }
+    .nav {
+        margin: 0;
+        padding-right: 5px;
+        width: 144px
+    }
+    .bmstatus {
+        width: 180px!important;
+    }
+    .name {
+        color: rgb(6, 80, 85)!important;
+        font-size: 9px !important;
+        margin-right: 10px;
+        width: 135px;
+    }
+    .badge {
+        width: 100%;
+        height: 25px;
+        position: relative;
+        
+    }
+  }

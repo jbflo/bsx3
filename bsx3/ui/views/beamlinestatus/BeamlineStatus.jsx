@@ -11,7 +11,7 @@ import LabeledValue from '../../components/LabeledValue/LabeledValue';
 import * as beamlineAPI
   from './beamline-api';
 
-import './bscontainers.css';
+import './style.css';
 
 // const API_URL = '/api/beamline';
 

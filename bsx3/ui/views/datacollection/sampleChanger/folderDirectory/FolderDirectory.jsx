@@ -3,25 +3,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-  menuItem: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& $primary, & $icon': {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  primary: {},
-  icon: {},
-});
+import './style.css';
 
-class FolderUploader extends React.Component {
+class FolderDirectory extends React.Component {
   componentDidMount() {
     if (this.folder) {
       // this.folder.directory = true;
@@ -45,7 +30,7 @@ class FolderUploader extends React.Component {
           id="files"
           ref={(ref) => { this.folder = ref; }}
           style={{
-            position: 'relative', top: '-1.4px', marginLeft: '-12px', height: '32px', paddingLeft: '8px'
+            position: 'relative', top: '-3px', marginLeft: '-8px', height: '32px', paddingLeft: '8px'
           }}
         />
       </div>
@@ -65,10 +50,10 @@ function mapDispatchToProps(dispatch) {
     dispatch
   };
 }
-FolderUploader.defaultProps = {
+FolderDirectory.defaultProps = {
   classes: PropTypes.object.isRequired,
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FolderUploader); withStyles(styles);
+)(FolderDirectory);

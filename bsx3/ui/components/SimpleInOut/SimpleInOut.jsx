@@ -28,7 +28,7 @@ const styles = {
   }
 };
 
-export default class InOutSwitch extends React.Component {
+export default class SimpleInOut extends React.Component {
   constructor(props) {
     super(props);
     this.setIn = this.setIn.bind(this);
@@ -112,7 +112,7 @@ export default class InOutSwitch extends React.Component {
 }
 
 
-InOutSwitch.defaultProps = {
+SimpleInOut.defaultProps = {
   onText: 'Open',
   offText: 'Close',
   pkey: undefined,

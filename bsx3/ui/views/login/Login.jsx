@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Avatar from '@material-ui/core/Avatar';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as LoginAPI from './login-api';
 import loader from '../../img/loader.gif';
 import logo from '../../img/logo.png'; // relative path to logo
@@ -68,43 +63,27 @@ class Login extends Component {
             // src={logo}
             alt="LOGO"
           /> */}
-          <Grid
-            className="gridlogin"
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Avatar className="">
-              <LockOutlinedIcon />
-            </Avatar>
-          </Grid>
-          <FormControl margin="none">
-            <TextField
-              required
-              id="outlined-dense"
-              label="User Name"
-              inputRef={(ref) => { this.username = ref; }}
-              type="text"
-              name="username"
-              margin="dense"
-              variant="outlined"
-            />
-          </FormControl>
-
-          <FormControl margin="none">
-            <TextField
-              required
-              id="outlined-password-input"
-              label="Password"
-              inputRef={(ref) => { this.password = ref; }}
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              variant="outlined"
-            />
-          </FormControl>
+          <input
+            required
+            id="outlined-dense"
+            label="User Name"
+            inputRef={(ref) => { this.username = ref; }}
+            type="text"
+            name="username"
+            margin="dense"
+            variant="outlined"
+          />
+          <input
+            required
+            id="outlined-password-input"
+            label="Password"
+            inputRef={(ref) => { this.password = ref; }}
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            variant="outlined"
+          />
 
           <button
             className="btn"

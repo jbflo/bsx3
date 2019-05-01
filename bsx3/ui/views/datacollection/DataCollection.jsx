@@ -46,19 +46,19 @@ class Datacollection extends Component {
                   activeKey={this.state.valuetab1}
                   onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
-                  <Tab eventKey={0} title="SAMPLE CHANGER" className="nav-item nav-link">
+                  <Tab eventKey={0} title="SAMPLE CHANGER" className="nav-item">
                     <SampleChanger />
                   </Tab>
-                  <Tab eventKey={1} title="HPLC" className="nav-item nav-link">
+                  <Tab eventKey={1} title="HPLC" className="">
                     <Hplc key="hplc" />
                   </Tab>
-                  <Tab eventKey={2} title="WORK FLOW" className="nav-item nav-link">
+                  <Tab eventKey={2} title="WORK FLOW" className="nav-item">
                     Content Work Flow Panel Here
                   </Tab>
-                  <Tab eventKey={3} title="SET UP" className="nav-item nav-link">
+                  <Tab eventKey={3} title="SET UP" className="nav-item">
                     Content Set Up PanelHere
                   </Tab>
-                  <Tab eventKey={4} title="RESULT" className="nav-item nav-link">
+                  <Tab eventKey={4} title="RESULT" className="nav-item">
                     Content Set Up PanelHere
                   </Tab>
                 </Tabs>

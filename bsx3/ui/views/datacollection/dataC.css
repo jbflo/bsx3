@@ -19,7 +19,7 @@
 .horizontal-tabs .nav-tabs .nav-link:hover {
     color: rgba(0, 0, 0, 0.733)!important;
 }
-
+ 
 .horizontal-tabs .nav-tabs .nav-link {
     border-bottom: 0px !important;
     margin-left: 10px; 
@@ -36,7 +36,7 @@
 
 .horizontal-tabs .nav-tabs .nav-link.active {
     color: rgba(0, 0, 0, 0.733)!important;
-    border-width: 1.5px;
+    border-top-width: 3px;
     transform: translateY(0);
     -webkit-transform: translateY(0);
     height: 55px;
@@ -53,6 +53,7 @@
     border: 1px solid lightgray;
 }
 
+/* For the Future If Responsive Divice is not Fit we can set Style here  */
 
  /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) { 

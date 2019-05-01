@@ -3,8 +3,25 @@ import PropTypes from 'prop-types';
 import {
   MdCancel, MdSave
 } from 'react-icons/md';
-// import './FormEdit.css';
 
+// const rowSchema = {
+//   type: 'object',
+//   required: ['samplename', 'concentration', 'plate', 'row', 'column', 'frame',
+// 'exposuretime', 'attenuation', 'buffer', 'flow', 'temp'],
+//   properties: {
+//     samplename: { type: 'string' },
+//     concentration: { type: 'string' },
+//     plate: { type: 'string' },
+//     row: { type: 'string' },
+//     column: { type: 'string' },
+//     frame: { type: 'string' },
+//     exposuretime: { type: 'string' },
+//     attenuation: { type: 'string' },
+//     buffer: { type: 'string' },
+//     flow: { type: 'string' },
+//     temp: { type: 'string' },
+//   }
+// };
 export default class EditRowForm extends Component {
   constructor(props) {
     super(props);
@@ -87,7 +104,7 @@ export default class EditRowForm extends Component {
           <MdSave
             className="save-icon md-icon"
             title="Save edit row"
-            onClick={() => this.handleEditAndResetForm}
+            onClick={this.handleEditAndResetForm}
           />
         </div>
       </td>,

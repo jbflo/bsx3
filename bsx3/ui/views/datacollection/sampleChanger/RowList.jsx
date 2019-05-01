@@ -1,13 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  MdOpenWith
-} from 'react-icons/md';
-import PropertyButton from './PropertyButton';
+// import { Menu, Item, contextMenu } from 'react-contexify';
+// import {
+//   MdOpenWith
+// } from 'react-icons/md';
+import PropertyButton from './propertyButton/PropertyButton';
 
-// import Checkout from '../Checkout/Checkout';
-
+// const menuId = 'menu_id';
+// const MyMenu = () => (
+//   <Menu
+//     id={menuId}
+//   >
+//     <Item>Copy</Item>
+//   </Menu>
+// );
 export default class RowList extends Component {
+  constructor(props) {
+    super(props);
+    this.onDuplicate = this.onDuplicate.bind(this);
+  }
+
+  onDuplicate(result) {
+    const { source, destination } = result;
+    if (result.destination) {
+      this.props.handleReorderRow(source.index, destination.index);
+    }
+  }
+
+  // handlContextMenu(e) {
+  //   e.preventDefault();
+  //   contextMenu.show({
+  //     id: { menuId },
+  //     event: e,
+  //     props: {
+  //       msg: 'hello'
+  //     }
+  //   });
+  // }
+
   render() {
     return [
       <td>
@@ -16,10 +46,12 @@ export default class RowList extends Component {
             {this.props.index}
           </span>
           <PropertyButton
+            key={this.props.row.id}
             id={this.props.row.id}
             handleSelectEditRow={this.props.handleSelectEditRow}
             handleDeleteRow={this.props.handleDeleteRow}
           />
+          {/* <MyMenu /> */}
         </div>
       </td>,
       <td><input className="form-control input_form" type="text" value={this.props.row.samplename} /></td>,
@@ -32,15 +64,15 @@ export default class RowList extends Component {
       <td><input className="form-control input_form" type="text" value={this.props.row.attenuation} /></td>,
       <td><input className="form-control input_form" type="text" value={this.props.row.buffer} /></td>,
       <td><input className="form-control input_form" type="text" value={this.props.row.flow} /></td>,
-      <td>
-        <div className="flexclass">
-          <input className="form-control input_form" type="text" value={this.props.row.temp} />
-          <MdOpenWith
-            className="drag-icon md-icon"
-            title="Drag row to change order"
-          />
-        </div>
-      </td>
+      <td><input className="form-control input_form" type="text" value={this.props.row.temp} /></td>,
+      // <td>
+      //   <div className="flexclass">
+      //     <MdOpenWith
+      //       className="drag-icon md-icon"
+      //       title="Drag row to change order"
+      //     />
+      //   </div>
+      // </td>
     ];
   }
 }
@@ -63,7 +95,6 @@ RowList.propTypes = {
   }),
   handleDeleteRow: PropTypes.func.isRequired,
   handleSelectEditRow: PropTypes.func.isRequired,
-  // handleItemCompletion: PropTypes.func.isRequired,
 };
 
 

@@ -7,16 +7,15 @@ import {
 
 // Reducer
 export const INITIAL_STATE = {
-
   rows: generateRows({
     columnValues: { id: ({ index }) => index, ...scDeafaultValues },
     length: 2,
   }),
+  editingRow: {},
   isAddingNewRow: false,
   addedRows: [],
   sorting: [],
   selection: [],
-
 };
 
 // Action TYPE
@@ -55,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
         id: state.rows.length,
       };
 
-      return { ...state, rows: [...state.rows, newrow] };
+      return { ...state, rows: [newrow, ...state.rows] };
     }
     case IS_ADDING_NEW_ROW_ACTION: {
       let AddingNewRow = state.isAddingNewRow;
@@ -107,7 +106,6 @@ export default (state = INITIAL_STATE, action) => {
     //     if (row.id === action.modifiedRow.id) {
     //       row.completed = !row.completed;
     //     }
-
     //     return row;
     //   });
 

@@ -1,13 +1,24 @@
 
 /* Css for Seu.jsx Content  */
 .sc{
-    position: relative;
+    /* position: relative; */
     caption-side: top;
-    margin-left: 0px;
-    margin-right: 0px;
-    height: 600px
+    height: 600px;
+    padding: 0%!important;
 }
+.sctitle{
+    margin-top: 40px;
+    align-content: center;
+    text-align: center;
+    width: 100%;
+}
+.sctitle h3{
+    margin-left: 33%;
+    align-content: center;
+    text-align: center;
+    width: 400px
 
+}
 .navbartop{
     position: relative;
 }
@@ -17,51 +28,72 @@
     align-content: center;
 }
 .btnaddqueue {
-    position: relative;
-    /* top: 65px; */
-    margin-top: 30px!important;
-    font-size: 12px!important;
+   position: relative; 
+    font-size: 14px!important;
     background: #7cb342!important;
     color: #fff!important;
-    width: 140px;
+    margin-left: 10px;
+    width: 150px;
+    height: 40px;
 }
-.gridtable tr:hover{
-  background: #dcedc8!important;
-}
-.thead th{
+.panel-heading{
     background: #dcedc8;
-    color: #00695c;
-    max-height: 10px!important;
-    font-size: 13px!important;
-    text-align: center;
-    margin-top: 10px;
-    font-weight: bold;
+    display: flex;
+    width:100%; 
+}
+.sctable{
+    border-collapse: collapse;
+  background: white;
+  /* table-layout: fixed; */
+  width: 100%;
   }
-  
-.input_form{
+
+  th, td {
+    /* padding: 8px 16px; */
+    /* border: 1px solid #ddd; */
+    /* width: 160px; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+.table-wrap{
+    width:100%;
+    max-height: 300px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.sctable tr:hover{
+    background: #dcedc8!important;
+}
+th{
+    color: #00695c;
+    text-align: center;
+  }
+.input_add{
+    margin: 0%!important;
+    text-align:center!important;
+}
+.input_form{ 
+    margin: 0%!important;
     border: none!important;
     background:  none!important;
     text-align:center!important;
 }
 .btnadd{
-  height: 30px;
+    /* margin-right: 100px; */
+  padding: 0%!important;
+  height: 25px;
+  width: 40px;
+  font-size: 12px!important;
 
 }
 .flexclass{
     display: flex;
     margin-right: 5px!important;
-}
-
-.labelinput{
-    position: relative;
-    top: 0%;
-    margin-top: 0%!important;
-    background: #00695c!important;
-    color: #fff!important;
-    font-size: 12px!important;
-}
-.folderU{
-    margin-top: 30px!important;
+    display: -webkit-flex;
+    -webkit-align-content: center;
+    align-content: center;
 }
 
 .md-icon{
@@ -85,6 +117,8 @@
     color: #b34242;
 }
 .drag-icon{
+    position: relative;
+    left: 40%;
     cursor: grab!important;
     margin-left: 10px!important;
 }
