@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
+import Notification from './notification/Notification';
 import SampleChangerTable from './SampleChangerTable';
 import SaveMenu from './menu/SaveMenu';
 import FolderUploader from './folderDirectory/FolderDirectory';
@@ -50,15 +51,15 @@ class SampleChanger extends Component {
 
   handleEditRow(modifiedRow) { this.props.handleEditRow(modifiedRow); }
 
-  // handleRowCompletion = modifiedRow => this.props.handleRowCompletion(modifiedRow);
-
-
   render() {
+    const notif = true;
     return [
       <div className="sc ">
-        {/* <div className="flex sctitle" id="nav">
-          <h3 className="alert-success text-center">Sample Configuration </h3>
-        </div> */}
+        <Notification
+          level="success"
+          message="Succesfully delete row"
+          visible={notif}
+        />
         <Nav style={{ width: '100%', marginBottom: '0px' }}>
           <div style={{ marginRight: '10px' }}>
             <SaveMenu className="menesavebtn" />
@@ -87,7 +88,6 @@ function mapDispatchToProps(dispatch) {
     handleCancelEditRow: SampleChangerAction.CancelEditRow,
     handleDeleteRow: SampleChangerAction.deleteRow,
     handleEditRow: SampleChangerAction.editRow,
-    // handleRowCompletion: SampleChangerAction.rowCompletion,
     handleSelectEditRow: SampleChangerAction.selectEditRow,
     handleSaveStateLocalStorage: SampleChangerAction.saveStateLocalStorage,
     handleLoadStateLocalStorage: SampleChangerAction.loadStateLocalStorage,

@@ -38,7 +38,22 @@ class Datacollection extends Component {
       </div>,
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-9 col-sm-12">
+          <div className="col-3" style={{ marginLeft: '15px' }}>
+            <div className="horizontal-tabs">
+              <div className="cardtabs">
+                <Tabs
+                  className="nav nav-tabs nav-fill"
+                  activeKey={this.state.valuetab2}
+                  onSelect={valuetab2 => this.setState({ valuetab2 })}
+                >
+                  <Tab eventKey={0} title="RESULT" className="nav-item nav-link">
+                     Home Tab will Be there
+                  </Tab>
+                </Tabs>
+              </div>
+            </div>
+          </div>
+          <div className="col-7" style={{ marginLeft: '-20px' }}>
             <div className="horizontal-tabs">
               <div className="cardtabs">
                 <Tabs
@@ -58,15 +73,12 @@ class Datacollection extends Component {
                   <Tab eventKey={3} title="SET UP" className="nav-item">
                     Content Set Up PanelHere
                   </Tab>
-                  <Tab eventKey={4} title="RESULT" className="nav-item">
-                    Content Set Up PanelHere
-                  </Tab>
                 </Tabs>
               </div>
             </div>
           </div>
           {/* Tab for messages and Queue  */}
-          <div className="col-md-3 col-sm-12">
+          <div className="col-2">
             <div className="horizontal-tabs spec">
               <div className="cardtabs">
                 <Tabs
@@ -76,9 +88,6 @@ class Datacollection extends Component {
                 >
                   <Tab eventKey={0} title="QUEUE" className="nav-item nav-link">
                     <Queue />
-                  </Tab>
-                  <Tab eventKey={1} title="MESSAGES" className="nav-item nav-link">
-                    Content Messages Panel Here
                   </Tab>
                 </Tabs>
               </div>

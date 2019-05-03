@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  MdCancel, MdSave
-} from 'react-icons/md';
-// import './Formadd.css';
+import { Button } from 'react-bootstrap';
+// import {
+//   MdCancel, MdSave
+// } from 'react-icons/md';
+// // import './Formadd.css';
 
 export default class AddRowForm extends Component {
   constructor(props) {
@@ -20,7 +21,10 @@ export default class AddRowForm extends Component {
       attenuation: props.row.attenuation,
       buffer: props.row.buffer,
       flow: props.row.flow,
-      temp: props.row.temp,
+      volume: props.row.volume,
+      seutemp: props.row.seutemp,
+      stemp: props.row.stemp,
+      energy: props.row.energy,
     };
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleAddAndResetForm = this.handleAddAndResetForm.bind(this);
@@ -39,8 +43,9 @@ export default class AddRowForm extends Component {
   }
 
   handleRowChange(event) {
-    const { name, value } = event.target;
+    const { name, value, checked } = event.target;
     this.setState({ [name]: value });
+    this.setState({ flow: checked });
   }
 
   handleAddAndResetForm(event) {
@@ -57,7 +62,10 @@ export default class AddRowForm extends Component {
       attenuation: this.state.attenuation,
       buffer: this.state.buffer,
       flow: this.state.flow,
-      temp: this.state.temp,
+      volume: this.state.volume,
+      seutemp: this.state.seutemp,
+      stemp: this.state.stemp,
+      energy: this.state.energy,
     });
     // Reset value
     return this.setState({
@@ -71,41 +79,58 @@ export default class AddRowForm extends Component {
       attenuation: '',
       buffer: '',
       flow: '',
-      temp: '',
+      volume: '',
+      seutemp: '',
+      stemp: '',
+      energy: '',
     });
   }
 
   render() {
     return (
-      <tr name="form_add" method="POST" onSubmit={this.handleAddAndResetForm}>
+      <tr>
         <td>
-          <div className="flexclass">
-            <MdCancel
-              className="cancel-icon md-icon"
-              title="Cancel adding"
-              onClick={() => {
-                this.props.handleIsAddingNewRow(false);
-              }}
-            />
-            <MdSave
-              className="save-icon md-icon"
-              title="Save add row"
-              // disabled={!this.state.itemValue}
-              onClick={this.handleAddAndResetForm}
-            />
-          </div>
+          {/* <div className="flexclass"> */}
+          {/* <MdCancel
+            className="cancel-icon md-icon"
+            title="Cancel adding"
+            onClick={() => {
+              this.props.handleIsAddingNewRow(false);
+            }}
+          /> */}
+          {/* <MdSave
+            className="save-icon md-icon"
+            title="Save add row"
+            // disabled={!this.state.itemValue}
+            onClick={this.handleAddAndResetForm}
+          /> */}
+          {/* </div> */}
         </td>
-        <td><input className="form-control input_add" name="samplename" type="text" onChange={this.handleRowChange} value={this.state.samplename} /></td>
-        <td><input className="form-control input_add" name="concentration" type="text" onChange={this.handleRowChange} value={this.state.concentration} /></td>
-        <td><input className="form-control input_add" name="plate" type="text" onChange={this.handleRowChange} value={this.state.plate} /></td>
-        <td><input className="form-control input_add" name="row" type="text" onChange={this.handleRowChange} value={this.state.row} /></td>
-        <td><input className="form-control input_add" name="column" type="text" onChange={this.handleRowChange} value={this.state.column} /></td>
-        <td><input className="form-control input_add" name="frame" type="text" onChange={this.handleRowChange} value={this.state.frame} /></td>
-        <td><input className="form-control input_add" name="exposuretime" type="text" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
-        <td><input className="form-control input_add" name="attenuation" type="text" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
-        <td><input className="form-control input_add" name="buffer" type="text" onChange={this.handleRowChange} value={this.state.buffer} /></td>
-        <td><input className="form-control input_add" name="flow" type="text" onChange={this.handleRowChange} value={this.state.flow} /></td>
-        <td><input className="form-control input_add" name="temp" type="text" onChange={this.handleRowChange} value={this.state.temp} /></td>
+        <td><input className="form-control input_add" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>
+        <td><input className="form-control input_add" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
+        <td><input className="form-control input_add" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
+        <td><input className="form-control input_add" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
+        <td><input className="form-control input_add" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
+        <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
+        <td><input className="form-control input_add" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
+        <td><input className="form-control input_add" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
+        <td><input className="form-control input_add" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
+        <td><input className="form-control input_add" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
+        <td><input className="form-control input_add" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
+        <td><input className="form-control input_add" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
+        <td><input className="form-control input_add" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
+        <td><input className="form-control input_add" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
+
+        <td>
+          <Button
+            className=" btn-success btnadd"
+            style={{ fontWeight: 'bold' }}
+            onClick={this.handleAddAndResetForm}
+            title="Create new row"
+          >
+            +
+          </Button>
+        </td>
       </tr>
     );
   }
@@ -124,10 +149,13 @@ AddRowForm.propTypes = {
     attenuation: PropTypes.string.isRequired,
     buffer: PropTypes.string.isRequired,
     flow: PropTypes.string.isRequired,
-    temp: PropTypes.string.isRequired,
+    volume: PropTypes.number.isRequired,
+    seutemp: PropTypes.number.isRequired,
+    stemp: PropTypes.number.isRequired,
+    energy: PropTypes.number.isRequired,
   }),
   handleAddRow: PropTypes.func.isRequired,
-  handleIsAddingNewRow: PropTypes.func.isRequired,
+  // handleIsAddingNewRow: PropTypes.func.isRequired,
 };
 
 AddRowForm.defaultProps = {
@@ -143,6 +171,9 @@ AddRowForm.defaultProps = {
     attenuation: PropTypes.string.isRequired,
     buffer: PropTypes.string.isRequired,
     flow: PropTypes.string.isRequired,
-    temp: PropTypes.string.isRequired,
+    seutemp: PropTypes.number.isRequired,
+    volume: PropTypes.number.isRequired,
+    stemp: PropTypes.number.isRequired,
+    energy: PropTypes.number.isRequired,
   }),
 };

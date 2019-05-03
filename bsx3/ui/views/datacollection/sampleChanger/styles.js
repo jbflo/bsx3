@@ -21,11 +21,11 @@ const styles = {
     backgroundColor: 'white',
     margin: '0rem',
     padding: '0rem',
-    height: '70px',
+    height: '40px',
   },
   draggableDragging: {
     backgroundColor: '#dcedc8',
-    color: 'white'
+    // color: 'white'
   }
 };
 

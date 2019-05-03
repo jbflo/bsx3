@@ -42,7 +42,7 @@ class SampleChanger extends React.Component {
 
   handlContextMenu(e, rowid) {
     e.preventDefault();
-    alert(`SHOWN${e}`);
+    alert(`Filter wull be there${e}`);
     contextMenu.show({
       id: 'menu_id',
       event: e,
@@ -57,7 +57,7 @@ class SampleChanger extends React.Component {
     return (
       <div className="table-wrap" style={styles.wrap}>
         <div className="panel-heading">
-          <h3 className="mr-auto">Queue Name </h3>
+          <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
           <div className="">
             <Button variant="contained" className="btnaddqueue" align="right">
                       Add to Queue
@@ -66,11 +66,11 @@ class SampleChanger extends React.Component {
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable" size="sm" style={styles.table}>
+          <Table className="sctable table" size="sm" style={styles.table}>
             <thead className="">
               <tr>
-                <th style={{ marginLeft: '100px' }}>
-                  <Button
+                <th style={{}}>
+                  {/* <Button
                     className=" btn-success btnadd"
                     style={{ fontWeight: 'bold' }}
                     onClick={() => {
@@ -79,20 +79,30 @@ class SampleChanger extends React.Component {
                     title="Create new row"
                   >
                     New
-                  </Button>
+                  </Button> */}
+                  <div className="flexclass">
+                    <input
+                      type="checkbox"
+                      className="check-icon"
+                    />
+                  </div>
                   { <this.MyMenu /> }
                 </th>
-                <th>Sample Name</th>
-                <th>Concentration</th>
+                <th data-sortable="true">Sample Name</th>
+                <th>Buffer</th>
                 <th>Plate</th>
                 <th>Row</th>
                 <th>Column</th>
-                <th>Frame (/s)</th>
-                <th>ExposureTime (ms)</th>
-                <th>Attenuation</th>
-                <th>Buffer</th>
                 <th>Flow</th>
-                <th>Temp</th>
+                <th>Energy</th>
+                <th>volume (ul)</th>
+                <th>SEU Temp.</th>
+                <th>Storage Temp.</th>
+                <th style={{ display: '' }} onClick={this.handlContextMenu}>Concentration</th>
+                <th>No. Frames</th>
+                <th>Exp. Time (ms)</th>
+                <th>Attenuation %</th>
+                <th />
               </tr>
             </thead>
             <Droppable droppableId="droppabe-list">
@@ -176,11 +186,12 @@ SampleChanger.propTypes = {
     exposuretime: PropTypes.string,
     attenuation: PropTypes.string,
     buffer: PropTypes.string,
-    flow: PropTypes.string,
+    flow: PropTypes.bool,
     temp: PropTypes.string,
+    is_select: PropTypes.bool,
   }),
   addingRow: PropTypes.shape({
-    // id: PropTypes.number,
+    id: PropTypes.number,
     samplename: PropTypes.string,
     concentration: PropTypes.string,
     plate: PropTypes.string,
@@ -190,8 +201,9 @@ SampleChanger.propTypes = {
     exposuretime: PropTypes.string,
     attenuation: PropTypes.string,
     buffer: PropTypes.string,
-    flow: PropTypes.string,
+    flow: PropTypes.bool,
     temp: PropTypes.string,
+    is_select: PropTypes.bool,
   }),
   className: PropTypes.string.isRequired,
   handleAddRow: PropTypes.func.isRequired,

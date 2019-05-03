@@ -73,6 +73,28 @@ class BeamlineStatus extends React.Component {
             </Label>
           </Nav>
 
+          {/* <Nav className="nav">
+            <Label className="name btn">
+              {this.props.beamline.shutters.safty_shutter.name}
+              {'  '}
+              <Badge
+                className={this.props.beamline.shutters.safty_shutter.state
+                  === 'OPEN' ? 'btn-success' : 'bgdanger'}
+              >
+                <Nav.Item className="item">
+                  <SimpleInOut
+                    onText="OPEN"
+                    offText="CLOSED"
+                    key={this.props.beamline.shutters.safty_shutter.name}
+                    data={this.props.beamline.shutters.safty_shutter}
+                    onSave={() => {
+                      this.onSaveHandler(this.props.beamline.shutters.safty_shutter.name);
+                    }}
+                  />
+                </Nav.Item>
+              </Badge>
+            </Label>
+          </Nav> */}
           <Nav className="nav ">
             <Label className="name btn">
                 Energy
@@ -203,7 +225,6 @@ class BeamlineStatus extends React.Component {
 function mapStateToProps(state) {
   return {
     state,
-    data: { value: 'undefined', state: 'IN', msg: 'UNKNOWN' },
     beamline: state.beamline,
   };
 }

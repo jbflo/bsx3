@@ -19,9 +19,6 @@
     width: 400px
 
 }
-.navbartop{
-    position: relative;
-}
 
 .bar{
     position: relative;
@@ -66,13 +63,28 @@
 .sctable tr:hover{
     background: #dcedc8!important;
 }
-th{
+.sctable td{
+   margin: 0%!important;
+   max-height: 20px!important;
+}
+.sctable th{
     color: #00695c;
     text-align: center;
   }
+
+  /*  */
 .input_add{
     margin: 0%!important;
     text-align:center!important;
+}
+.input_edit{
+    margin: 0%!important;
+    text-align:center!important;
+}
+.input_check{
+  height: 20px!important;
+  width: 20px!important;
+  margin: 10px!important; 
 }
 .input_form{ 
     margin: 0%!important;
@@ -80,17 +92,15 @@ th{
     background:  none!important;
     text-align:center!important;
 }
-.btnadd{
-    /* margin-right: 100px; */
-  padding: 0%!important;
-  height: 25px;
-  width: 40px;
-  font-size: 12px!important;
-
+.input_queue-name{
+    text-align:center!important;
+    margin: 0px!important;
+    width: 150px!important;
+    background: none!important;
 }
+/*  */
 .flexclass{
-    display: flex;
-    margin-right: 5px!important;
+    /* display: flex; */
     display: -webkit-flex;
     -webkit-align-content: center;
     align-content: center;
@@ -117,9 +127,7 @@ th{
     color: #b34242;
 }
 .drag-icon{
-    position: relative;
-    left: 40%;
     cursor: grab!important;
-    margin-left: 10px!important;
+    margin-left: 0px!important;
 }
 

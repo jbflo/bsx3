@@ -29,7 +29,12 @@ export const UPDATE_SHUTTER = 'beamline/UPDATE_SHUTTER';
 export const INITIAL_STATE = {
   shutters: {
     fast_shutter: {
-      name: 'fast_shutter',
+      name: 'Fast Shutter',
+      is_valid: false,
+      state: 'undefined',
+    },
+    safty_shutter: {
+      name: 'safty_shutter',
       is_valid: false,
       state: 'undefined',
     }

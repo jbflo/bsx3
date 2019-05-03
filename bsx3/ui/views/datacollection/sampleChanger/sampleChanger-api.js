@@ -12,14 +12,13 @@ export const INITIAL_STATE = {
     length: 2,
   }),
   editingRow: {},
-  isAddingNewRow: false,
+  isAddingNewRow: true,
   addedRows: [],
   sorting: [],
-  selection: [],
+  selections: {},
 };
 
 // Action TYPE
-export const GRID_STATE_SET_ACTION = 'GRID_STATE_SET';
 export const ADD_ROW_ACTION = 'sc/ADD_ROW';
 export const IS_ADDING_NEW_ROW_ACTION = 'sc/IS_ADDING_NEW_ROW_ACTION';
 export const EDIT_ROW_ACTION = 'sc/EDIT_ROW';
@@ -29,12 +28,21 @@ export const LOAD_STATE_LOCALSTORAGE_ACTION = 'sc/LOAD_STATE_LOCALSTORAGE_ACTION
 export const REORDER_ROW_ACTION = 'sc/REORDER_ROW_ACTION';
 export const SAVE_STATE_LOCALSTORAGE_ACTION = 'sc/SAVE_STATE_LOCALSTORAGE_ACTION';
 export const SELECT_EDIT_ROW_ACTION = 'sc/SELECT_EDIT_ROW_ACTION';
-export const ROW_COMPLETION_ACTION = 'sc/ROW_COMPLETION_ACTION';
+export const ROW_SELECTION_ACTION = 'sc/ROW_COMPLETION_ACTION';
 
 
 // //////////////// Reducer /////////////////////////////////////////////////
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ROW_SELECTION_ACTION: {
+      const Temprows = state.rows.map((row) => {
+        if (row.id === action.selectedRow.id) {
+          row.selected = action.selectedRow.selected;
+        }
+        return row;
+      });
+      return { ...state, Temprows, selections: Temprows };
+    }
     case ADD_ROW_ACTION: {
       // let newRows = state.rows;
       // const startingAddedId = newRows.length > 0 ? newRows[newRows.length - 1].id + 1 : 0;
@@ -50,7 +58,11 @@ export default (state = INITIAL_STATE, action) => {
         attenuation: action.newRow.attenuation,
         buffer: action.newRow.buffer,
         flow: action.newRow.flow,
-        temp: action.newRow.temp,
+        seutemp: action.newRow.seutemp,
+        stemp: action.newRow.stemp,
+        energy: action.newRow.energy,
+        volume: action.newRow.volume,
+        selected: action.newRow.selected,
         id: state.rows.length,
       };
 
@@ -84,11 +96,14 @@ export default (state = INITIAL_STATE, action) => {
           row.attenuation = action.modifiedRow.attenuation;
           row.buffer = action.modifiedRow.buffer;
           row.flow = action.modifiedRow.flow;
-          row.temp = action.modifiedRow.temp;
+          row.seutemp = action.modifiedRow.seutemp;
+          row.volume = action.modifiedRow.volume;
+          row.stemp = action.modifiedRow.stemp;
+          row.energy = action.modifiedRow.energy;
+          row.selected = action.modifiedRow.selected;
         }
         return row;
       });
-
       return { ...state, rows, editingRow: {} };
     }
     case CANCEL_EDIT_ROW_ACTION: {
@@ -101,16 +116,6 @@ export default (state = INITIAL_STATE, action) => {
       clone.splice(action.newPosition, 0, removed);
       return { ...state, rows: clone };
     }
-    // case ROW_COMPLETION_ACTION: {
-    //   const items = state.rows.map((row) => {
-    //     if (row.id === action.modifiedRow.id) {
-    //       row.completed = !row.completed;
-    //     }
-    //     return row;
-    //   });
-
-    //   return { ...state, items };
-    // }
     default:
       return state;
   }
@@ -171,10 +176,10 @@ export function selectEditRowAction(id) {
   };
 }
 
-export function ItemCompletion(modifiedRow) {
+export function rowSelection(selectedRow) {
   return {
-    type: ROW_COMPLETION_ACTION,
-    modifiedRow
+    type: ROW_SELECTION_ACTION,
+    selectedRow
   };
 }
 

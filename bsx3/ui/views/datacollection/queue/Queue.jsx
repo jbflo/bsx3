@@ -130,6 +130,20 @@ class Queue extends React.PureComponent {
                               title="Delete row"
                             />
                           </div>
+                          <div className="flexclass">
+                            <span>
+                              {' '}
+                              {row.queuetype}
+                              {' '}
+                            </span>
+                          </div>
+                          <div className="flexclass">
+                            <span>
+                              {' '}
+                              {row.sample}
+                              {' '}
+                            </span>
+                          </div>
 
                         </div>
                         <hr style={{ padding: '0px' }} />

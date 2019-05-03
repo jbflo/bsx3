@@ -1,6 +1,6 @@
 .flexclass{
   display: flex;
-  margin-right: 5px!important;
+  /* margin-right: 5px!important; */
 }
 
 .check-icon{

@@ -37,7 +37,10 @@ export default class EditRowForm extends Component {
       attenuation: props.row.attenuation,
       buffer: props.row.buffer,
       flow: props.row.flow,
-      temp: props.row.temp,
+      volume: props.row.volume,
+      seutemp: props.row.seutemp,
+      stemp: props.row.stemp,
+      energy: props.row.energy,
     };
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleEditAndResetForm = this.handleEditAndResetForm.bind(this);
@@ -56,8 +59,9 @@ export default class EditRowForm extends Component {
   }
 
   handleRowChange(event) {
-    const { name, value } = event.target;
+    const { name, value, checked } = event.target;
     this.setState({ [name]: value });
+    this.setState({ flow: checked });
   }
 
   handleEditAndResetForm(event) {
@@ -74,7 +78,10 @@ export default class EditRowForm extends Component {
       attenuation: this.state.attenuation,
       buffer: this.state.buffer,
       flow: this.state.flow,
-      temp: this.state.temp,
+      volume: this.state.volume,
+      seutemp: this.state.seutemp,
+      stemp: this.state.stemp,
+      energy: this.state.energy,
     });
     // Reset value
     return this.setState({
@@ -88,37 +95,42 @@ export default class EditRowForm extends Component {
       attenuation: '',
       buffer: '',
       flow: '',
-      temp: '',
+      volume: '',
+      seutemp: '',
+      stemp: '',
+      energy: '',
     });
   }
 
   render() {
     return [
+      <td> Editing....</td>,
+      <td><input className="form-control input_edit" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>,
+      <td><input className="form-control input_edit" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>,
+      <td><input className="form-control input_edit" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>,
+      <td><input className="form-control input_edit" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>,
+      <td><input className="form-control input_edit" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>,
+      <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>,
+      <td><input className="form-control input_edit" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>,
+      <td><input className="form-control input_edit" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>,
+      <td><input className="form-control input_edit" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>,
+      <td><input className="form-control input_edit" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>,
+      <td><input className="form-control input_edit" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>,
+      <td><input className="form-control input_edit" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>,
+      <td><input className="form-control input_edit" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>,
+      <td><input className="form-control input_edit" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>,
       <td>
-        <div className="flexclass">
-          <MdCancel
-            className="cancel-icon md-icon"
-            title="Cancel editing"
-            onClick={this.props.handleCancelEditRow}
-          />
-          <MdSave
-            className="save-icon md-icon"
-            title="Save edit row"
-            onClick={this.handleEditAndResetForm}
-          />
-        </div>
-      </td>,
-      <td><input className="form-control input_edit" name="samplename" type="text" onChange={this.handleRowChange} value={this.state.samplename} /></td>,
-      <td><input className="form-control input_edit" name="concentration" type="text" onChange={this.handleRowChange} value={this.state.concentration} /></td>,
-      <td><input className="form-control input_edit" name="plate" type="text" onChange={this.handleRowChange} value={this.state.plate} /></td>,
-      <td><input className="form-control input_edit" name="row" type="text" onChange={this.handleRowChange} value={this.state.row} /></td>,
-      <td><input className="form-control input_edit" name="column" type="text" onChange={this.handleRowChange} value={this.state.column} /></td>,
-      <td><input className="form-control input_edit" name="frame" type="text" onChange={this.handleRowChange} value={this.state.frame} /></td>,
-      <td><input className="form-control input_edit" name="exposuretime" type="text" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>,
-      <td><input className="form-control input_edit" name="attenuation" type="text" onChange={this.handleRowChange} value={this.state.attenuation} /></td>,
-      <td><input className="form-control input_edit" name="buffer" type="text" onChange={this.handleRowChange} value={this.state.buffer} /></td>,
-      <td><input className="form-control input_edit" name="flow" type="text" onChange={this.handleRowChange} value={this.state.flow} /></td>,
-      <td><input className="form-control input_edit" name="temp" type="text" onChange={this.handleRowChange} value={this.state.temp} /></td>,
+        <MdCancel
+          className="cancel-icon md-icon"
+          title="Cancel editing"
+          onClick={this.props.handleCancelEditRow}
+        />
+        <MdSave
+          className="save-icon md-icon"
+          title="Save edit row"
+          onClick={this.handleEditAndResetForm}
+        />
+      </td>
     ];
   }
 }
@@ -135,8 +147,11 @@ EditRowForm.propTypes = {
     exposuretime: PropTypes.string.isRequired,
     attenuation: PropTypes.string.isRequired,
     buffer: PropTypes.string.isRequired,
-    flow: PropTypes.string.isRequired,
-    temp: PropTypes.string.isRequired,
+    flow: PropTypes.bool.isRequired,
+    volume: PropTypes.number.isRequired,
+    seutemp: PropTypes.number.isRequired,
+    stemp: PropTypes.number.isRequired,
+    energy: PropTypes.number.isRequired,
   }),
   handleEditRow: PropTypes.func.isRequired,
   handleCancelEditRow: PropTypes.func.isRequired,
@@ -154,7 +169,10 @@ EditRowForm.defaultProps = {
     exposuretime: PropTypes.string.isRequired,
     attenuation: PropTypes.string.isRequired,
     buffer: PropTypes.string.isRequired,
-    flow: PropTypes.string.isRequired,
-    temp: PropTypes.string.isRequired,
+    flow: PropTypes.bool.isRequired,
+    volume: PropTypes.number.isRequired,
+    seutemp: PropTypes.number.isRequired,
+    stemp: PropTypes.number.isRequired,
+    energy: PropTypes.number.isRequired,
   }),
 };
