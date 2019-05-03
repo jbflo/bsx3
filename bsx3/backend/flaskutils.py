@@ -12,17 +12,21 @@ class Api(Blueprint):
         Blueprint.__init__(self, *args, **kwargs)
 
     # pylint: disable=arguments-differ
-    def route(self, rule, request_model=None, response_model=None, **options):
+    def route(
+        self, rule, request_model=None, response_model=None, errors={}, **options
+    ):
         def decorator(f):
             if request_model:
-                f = use_kwargs(request_model.Schema(strict=True).fields)(f)
+                f = use_kwargs(request_model)(f)
 
             if response_model:
-                f = marshal_with(response_model.Schema(strict=True))(f)
-                # f = decorator_apply_response_model(response_model)(f)
+                f = marshal_with(response_model)(f)
 
             endpoint = options.pop("endpoint", f.__name__)
             self.add_url_rule(rule, endpoint, f, **options)
+
+            for code, schema in errors.items():
+                f = marshal_with(schema, code=code)(f)
 
             return f
 
@@ -32,8 +36,8 @@ class Api(Blueprint):
 def decorator_apply_response_model(response_model=None):
     def decorator_apply_response_model(func):
         @functools.wraps(func)
-        def wrapper_apply_response_model(*args):
-            return func(response_model(args))
+        def wrapper_apply_response_model(*ar):
+            return func(response_model(ar))
 
         return wrapper_apply_response_model
 

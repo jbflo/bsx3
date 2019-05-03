@@ -1,5 +1,5 @@
 import logging
-from bsx3.backend.app import App
+from bsx3.backend.core import App
 
 sio = App().SIO
 

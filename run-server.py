@@ -16,8 +16,8 @@ if __name__ == '__main__':
 
     from bsx3.backend import server
 
-    hwr_config_dir = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), "external/config"))
+    config_fpath = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), "config/conf.yaml"))
 
-    flask_app, socketio = server.init_backend(hwr_config_dir)
+    flask_app, socketio = server.init_backend(config_fpath)
     socketio.run(flask_app, host='0.0.0.0', port=8080, debug=True, use_reloader=False)

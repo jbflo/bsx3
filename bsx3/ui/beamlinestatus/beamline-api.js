@@ -106,7 +106,6 @@ export function updateShutterAction(shutter) {
 
 export function getBeamline() {
   return (dispatch) => {
-    // debugger;
     axios.get(`${API_URL}/beamline`)
       .then((response) => {
         dispatch(getBeamlineAction(response.data));

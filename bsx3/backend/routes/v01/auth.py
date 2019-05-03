@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 """ Auth module """
+from flask import jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
-from bsx3.backend.app import auth
-from bsx3.backend.models import UserModel, AccessTokenResponseModel
+from bsx3.backend.core import auth
+from bsx3.backend.models import UserLoginModel, AccessTokenResponseModel
 from bsx3.backend.flaskutils import Api
 
-api = Api("auth_api", __name__)
+api = Api("Authentication API", __name__)
 
 
 @api.route(
     "/login",
-    request_model=UserModel,
-    response_model=AccessTokenResponseModel,
+    request_model=UserLoginModel.Schema(strict=True),
+    response_model=AccessTokenResponseModel.Schema(strict=True),
     methods=["post"],
 )
-def login(args):
+def login(user: UserLoginModel):
     """Login route
     
     Args:
@@ -23,10 +24,7 @@ def login(args):
 
     Returns:
         AccessTokenResponseModel
-
     """
-    user = UserModel(**args)
-
     if auth.login(user.username, user.password):
         access_token = create_access_token(identity=user.username)
     else:
