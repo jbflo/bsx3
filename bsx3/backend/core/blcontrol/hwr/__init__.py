@@ -19,9 +19,7 @@ class HWRProtocolHandler(ProtocolHandler):
         hwr_logger = logging.getLogger("HWR")
         hwr_logger.setLevel(logging.DEBUG)
 
-    def get_control_object(
-        self, address=None, wrapper=None, name=None, attr=None, **kwargs
-    ):
+    def get_control_object(self, address=None, wrapper=None, name=None, attr=None, **kwargs):
         ho = self._hwr.getHardwareObject(address)
 
         if not ho:
@@ -44,7 +42,7 @@ class HWRProtocolHandler(ProtocolHandler):
         return ho
 
 
-class HWRShutter(Wrapper, AbstractShutter):
+class HWRShutter(Wrapper):
     def __init__(self, *args):
         Wrapper.__init__(self, *args)
 
@@ -94,5 +92,5 @@ class HWRMachineInfo(Wrapper):
 
     def data(self):
         return MachineInfoModel(
-            **{"current": self._obj.getCurrent(), "message": self._obj.getMessage()}
+            **{"current": str(self._obj.getCurrent()), "message": self._obj.getMessage()}
         )

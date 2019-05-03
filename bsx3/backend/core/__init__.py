@@ -27,7 +27,7 @@ class App(metaclass=Singleton):
     SIO = None
     COUNTER = 1
 
-    def __init__(self, config_fpath, name=__name__, base_prefix="v0.1"):
+    def __init__(self, config_fpath=None, name=__name__, base_prefix="v0.1"):
         App.FLASK_APP = Flask(name)
 
         App.FLASK_APP.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!

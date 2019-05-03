@@ -4,16 +4,16 @@ import dataclasses
 import logging
 import importlib
 
-
 from marshmallow.exceptions import ValidationError
 
 
 class ProtocolHandler:
     @abc.abstractmethod
-    def get_control_object(self):
+    def get_control_object(self, address=None, wrapper=None, name=None, attr=None, **kwargs):
         pass
 
-    def get_wrapper(self, wrapper_module_path):
+    @staticmethod
+    def get_wrapper(wrapper_module_path):
         try:
             mpath, _cls_name = wrapper_module_path.rsplit(".", 1)
             package = None
@@ -32,9 +32,7 @@ class ProtocolHandler:
 
 class Wrapper:
     def __init__(self, obj, name, address, attr):
-        self.__class__ = type(
-            obj.__class__.__name__, (self.__class__, obj.__class__), {}
-        )
+        self.__class__ = type(obj.__class__.__name__, (self.__class__, obj.__class__), {})
         self.__dict__ = obj.__dict__
 
         self._obj = obj

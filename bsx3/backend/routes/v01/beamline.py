@@ -54,7 +54,7 @@ def machine_info():
             MachineInfoModel
 
     """
-    return App().blcontrol.get("machine_info").get_machine_info()
+    return App().blcontrol.get("machine_info").asdict()
 
 
 @api.route(

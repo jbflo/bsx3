@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
-import logging
-
 from bsx3.backend.routes.v01 import home, auth, counter, beamline, schema
 from bsx3.backend.core import App
 
-# pylint: disable=import-error
-from HardwareRepository import HardwareRepository as hwr
-
-
 def init_backend(config_fpath):
-    app = App(config_fpath, name="BSXCuBE3", base_prefix="/bsxcube/api/v0.1")
+    app = App(config_fpath=config_fpath, name="BSXCuBE3", base_prefix="/bsxcube/api/v0.1")
 
     app.register_blueprint(home.api, url_prefix="")
     app.register_blueprint(auth.api, url_prefix="/auth")

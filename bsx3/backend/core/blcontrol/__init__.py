@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import yaml
 import logging
 import time
+import yaml
 
 from bsx3.backend.core.base import Singleton
 from bsx3.backend.core.blcontrol.hwr import HWRProtocolHandler
