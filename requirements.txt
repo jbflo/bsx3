@@ -15,4 +15,4 @@ marshmallow-jsonschema
 flask-apispec
 marshmallow_dataclass
 apispec_webframeworks
-yaml
+pyyaml
