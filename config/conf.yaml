@@ -1,0 +1,25 @@
+protocols:
+  - id: HR
+    type: HWR
+    params:
+      path: "{CWD}/external/config"
+
+control_objects:
+  - name: Fast Shuter
+    address: fast-shutter
+    attr: fast_shutter
+    protocol_id: HR
+    wrapper: .hwr.HWRShutter
+    group: shutters
+
+  - name: Energy
+    address: energy
+    attr: energy
+    protocol_id: HR
+    wrapper: .hwr.HWREnergy
+
+  - name: Machine Current
+    address: machine-info
+    attr: machine_info
+    protocol_id: HR
+    wrapper: .hwr.HWRMachineInfo
