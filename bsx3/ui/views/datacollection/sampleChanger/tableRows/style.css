@@ -1,0 +1,30 @@
+
+/* Css for Table Row Data input RowList.jsx Content  */
+
+.input_check{
+  height: 15px!important;
+  width: 15px!important;
+  margin: 10px!important; 
+}
+.input_form{ 
+    margin: 0%!important;
+    border: none!important;
+    background:  none!important;
+    text-align:center!important;
+}
+.drag-icon{
+    cursor: grab!important;
+    margin-top: 7px;
+    margin-right: 5px; 
+}
+
+.check-row{
+    height: 15px!important;
+    width: 15px!important;
+    margin-top: 10px!important; 
+    margin-left: 4px
+}
+.index-row{
+    margin-top: 5px!important; 
+    margin-left: 6px
+}

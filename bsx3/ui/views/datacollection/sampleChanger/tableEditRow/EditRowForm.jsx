@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  MdCancel, MdSave
-} from 'react-icons/md';
+import { Button } from 'react-bootstrap';
+import './style.css';
 
 // const rowSchema = {
 //   type: 'object',
@@ -120,16 +119,24 @@ export default class EditRowForm extends Component {
       <td><input className="form-control input_edit" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>,
       <td><input className="form-control input_edit" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>,
       <td>
-        <MdCancel
-          className="cancel-icon md-icon"
-          title="Cancel editing"
+        <Button
+          variant="link"
+          title="Cancel row editting"
+          className="save-cancel cancel-btn"
+          align="right"
           onClick={this.props.handleCancelEditRow}
-        />
-        <MdSave
-          className="save-icon md-icon"
-          title="Save edit row"
+        >
+          <i className="fas fa-window-close" />
+        </Button>
+        <Button
+          variant="link"
+          title="Save edited row"
+          className="save-cancel save-btn"
+          align="right"
           onClick={this.handleEditAndResetForm}
-        />
+        >
+          <i className="far fa-save" />
+        </Button>
       </td>
     ];
   }

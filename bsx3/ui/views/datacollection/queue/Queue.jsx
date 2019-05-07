@@ -5,10 +5,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
-  MdEdit, MdDeleteSweep,
-  // MdCancel, MdSave
-} from 'react-icons/md';
-import {
   Button, Nav
 } from 'react-bootstrap';
 import * as initialData from './queue-api';
@@ -111,25 +107,6 @@ class Queue extends React.PureComponent {
                         )}
                       >
                         <div className="flexclass">
-                          <div className="flexclass">
-                            <MdEdit
-                              className="edit-icon md-icon"
-                              // onClick={onExecute}
-                            />
-                          </div>
-                          <div className="flexclass">
-                            <MdDeleteSweep
-                              className="md-icon del-icon"
-                              color="dander"
-                              onClick={() => {
-                                // eslint-disable-next-line
-                                if (window.confirm('Are you sure you want to delete this row?')) {
-                                  this.deleteQueue();
-                                }
-                              }}
-                              title="Delete row"
-                            />
-                          </div>
                           <div className="flexclass">
                             <span>
                               {' '}

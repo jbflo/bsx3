@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Menu, Item, contextMenu } from 'react-contexify';
 import { Button, Table } from 'react-bootstrap';
-import EditRowForm from './EditRowForm';
-import RowList from './RowList';
-import AddRowForm from './AddRowForm';
+import { Label } from 'react-bootstrap/Form';
+import ColumnChooser from './tableColumnChooser/ColumnChooser';
+import EditRowForm from './tableEditRow/EditRowForm';
+import RowList from './tableRows/RowList';
+import AddRowForm from './tableAddRow/AddRowForm';
 import styles, { getDraggableStyle, getDroppableStyle } from './styles';
 
 
@@ -59,14 +61,17 @@ class SampleChanger extends React.Component {
         <div className="panel-heading">
           <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
           <div className="">
-            <Button variant="contained" className="btnaddqueue" align="right">
+            <Label className="btn">
+              <ColumnChooser />
+            </Label>
+            <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue" align="right">
                       Add to Queue
               <i className="fa fa-share-square" style={{ marginLeft: '10px' }} />
             </Button>
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable table" size="sm" style={styles.table}>
+          <Table className="sctable " bordered size="sm" style={styles.table}>
             <thead className="">
               <tr>
                 <th style={{}}>
@@ -145,6 +150,7 @@ class SampleChanger extends React.Component {
                               row={this.props.editingRow}
                               handleEditRow={this.props.handleEditRow}
                               handleCancelEditRow={this.props.handleCancelEditRow}
+                              handleShowNotification={this.props.handleShowNotification}
                             />
                           ) : [
                             <RowList
@@ -154,6 +160,8 @@ class SampleChanger extends React.Component {
                               handleDeleteRow={this.props.handleDeleteRow}
                               handleSelectEditRow={this.props.handleSelectEditRow}
                               handleRowCompletion={this.props.handleRowCompletion}
+                              handleShowNotification={this.props.handleShowNotification}
+                              showNotification={this.props.showNotification}
                             />
                           ]}
                           {provided.placeholder}
@@ -173,6 +181,7 @@ class SampleChanger extends React.Component {
 }
 
 SampleChanger.propTypes = {
+  showNotification: PropTypes.bool.isRequired,
   rows: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAddingNewRow: PropTypes.bool.isRequired,
   editingRow: PropTypes.shape({
@@ -214,6 +223,7 @@ SampleChanger.propTypes = {
   handleSelectEditRow: PropTypes.func.isRequired,
   handleReorderRow: PropTypes.func.isRequired,
   handleIsAddingNewRow: PropTypes.func.isRequired,
+  handleShowNotification: PropTypes.func.isRequired,
 };
 
 SampleChanger.defaultProps = {

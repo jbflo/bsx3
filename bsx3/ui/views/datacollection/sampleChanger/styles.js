@@ -1,7 +1,6 @@
 const styles = {
   wrap: {
     width: '100%',
-    fontFamily: 'sans-serif',
     textAlign: 'center',
     // padding: '1rem',
     // marginLeft: '-30px'
@@ -12,10 +11,10 @@ const styles = {
     padding: '1rem',
     borderRadius: '5px',
     width: '100%',
-    minHeight: '300px'
+    minHeight: '400px'
   },
   droppableDragging: {
-    borderColor: 'green'
+    borderColor: 'green',
   },
   draggable: {
     backgroundColor: 'white',
@@ -25,7 +24,7 @@ const styles = {
   },
   draggableDragging: {
     backgroundColor: '#dcedc8',
-    // color: 'white'
+    width: '700px',
   }
 };
 

@@ -22,7 +22,7 @@ class BeamlineStatus extends React.Component {
     this.state = {
       // testbeam: [],
     };
-    this.onSaveHandler = this.onSaveHandler.bind(this);
+    this.toggleShutters = this.toggleShutters.bind(this);
     this.setAttribute = this.setAttribute.bind(this);
     this.onCancelHandler = this.onCancelHandler.bind(this);
     // const API_URL = '/api/beamline'.bind(this);
@@ -32,17 +32,16 @@ class BeamlineStatus extends React.Component {
     this.props.getAllBLValues();
   }
 
-  onSaveHandler(name) {
-    this.props.toggleShutter(name);
-  }
-
   onCancelHandler(name) {
     this.props.abortCurrentAction(name);
   }
 
-
   setAttribute(name, value) {
     this.props.setAttribute(name, value);
+  }
+
+  toggleShutters(name) {
+    this.props.toggleShutter(name);
   }
 
   render() {
@@ -65,7 +64,7 @@ class BeamlineStatus extends React.Component {
                     key={this.props.beamline.shutters.fast_shutter.name}
                     data={this.props.beamline.shutters.fast_shutter}
                     onSave={() => {
-                      this.onSaveHandler(this.props.beamline.shutters.fast_shutter.name);
+                      this.toggleShutters(this.props.beamline.shutters.fast_shutter.name);
                     }}
                   />
                 </Nav.Item>

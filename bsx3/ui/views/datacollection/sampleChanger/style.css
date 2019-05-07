@@ -60,38 +60,21 @@
     overflow-x: auto;
     overflow-y: auto;
 }
+/* css  Application only when draging  */
+.sctable tr{
+    width: 56%!important;
+}
 .sctable tr:hover{
     background: #dcedc8!important;
 }
 .sctable td{
    margin: 0%!important;
-   max-height: 20px!important;
 }
 .sctable th{
     color: #00695c;
     text-align: center;
   }
 
-  /*  */
-.input_add{
-    margin: 0%!important;
-    text-align:center!important;
-}
-.input_edit{
-    margin: 0%!important;
-    text-align:center!important;
-}
-.input_check{
-  height: 20px!important;
-  width: 20px!important;
-  margin: 10px!important; 
-}
-.input_form{ 
-    margin: 0%!important;
-    border: none!important;
-    background:  none!important;
-    text-align:center!important;
-}
 .input_queue-name{
     text-align:center!important;
     margin: 0px!important;
@@ -106,28 +89,10 @@
     align-content: center;
 }
 
+
 .md-icon{
-    height: 25px!important;
-    width: 25px!important;
+    height: 20px!important;
+    width: 20px!important;
     cursor: pointer!important;
-    margin: 0px!important;
-}
-.del-icon{
-    color: #f82424;
-}
-.edit-icon{
-    color: orange;
-}
 
-.save-icon{
-    color: #7cb342;
 }
-
-.cancel-icon{
-    color: #b34242;
-}
-.drag-icon{
-    cursor: grab!important;
-    margin-left: 0px!important;
-}
-

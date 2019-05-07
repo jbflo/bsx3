@@ -6,6 +6,8 @@ import { Button } from 'react-bootstrap';
 // } from 'react-icons/md';
 // // import './Formadd.css';
 
+import './style.css';
+
 export default class AddRowForm extends Component {
   constructor(props) {
     super(props);
@@ -123,7 +125,7 @@ export default class AddRowForm extends Component {
 
         <td>
           <Button
-            className=" btn-success btnadd"
+            className=" btn-success btnaddrow"
             style={{ fontWeight: 'bold' }}
             onClick={this.handleAddAndResetForm}
             title="Create new row"

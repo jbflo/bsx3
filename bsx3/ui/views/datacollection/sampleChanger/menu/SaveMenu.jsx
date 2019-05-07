@@ -9,7 +9,7 @@ const styles = {
   button: {
     backgroundColor: '#00695c',
     color: '#fff',
-    width: '100px',
+    width: '75px',
     fontSize: '12px'
   },
   primary: {},
@@ -31,7 +31,8 @@ class SaveMenu extends React.Component {
       <div>
         <Dropdown style={{ marginTop: '30px' }}>
           <Dropdown.Toggle variant="none" id="dropdown-basic" style={styles.button}>
-            File
+            <i className="fas fa-cog" style={{ marginRight: '7px' }} />
+            Save
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item href="#/action-4">Import</Dropdown.Item>

@@ -1,11 +1,5 @@
 
 /* Horizontal Tabs */
-.container-fluid{
-    margin-left: 0% !important;
-    position: relative;
-    left: -25px!important;
-}
-
 .horizontal-tabs .nav-tabs {
     width: 100%;
     font-size: 13px!important;
@@ -35,7 +29,7 @@
 }
 
 .horizontal-tabs .nav-tabs .nav-link.active {
-    color: rgba(0, 0, 0, 0.733)!important;
+    font-weight: bold!important;
     border-top-width: 3px;
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -46,14 +40,12 @@
 
 .cardtabs{
     background: transparent;
-    position: relative;
     top: 0;
     height: 800px;
-    left: 2.5%;
     border: 1px solid lightgray;
 }
 
-/* For the Future If Responsive Divice is not Fit we can set Style here  */
+/* For the Future If Responsive Device is not Fit we can set Style here  */
 
  /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) { 

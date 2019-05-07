@@ -34,11 +34,11 @@ class Datacollection extends Component {
     return [
 
       <div>
-        <BeamlineStatus key="bmstatatus" />
+        <BeamlineStatus key="bstatus" />
       </div>,
       <div className="container-fluid">
         <div className="row">
-          <div className="col-3" style={{ marginLeft: '15px' }}>
+          <div className="col-3" style={{ }}>
             <div className="horizontal-tabs">
               <div className="cardtabs">
                 <Tabs
@@ -53,7 +53,7 @@ class Datacollection extends Component {
               </div>
             </div>
           </div>
-          <div className="col-7" style={{ marginLeft: '-20px' }}>
+          <div className="col-7" style={{ }}>
             <div className="horizontal-tabs">
               <div className="cardtabs">
                 <Tabs
@@ -62,7 +62,7 @@ class Datacollection extends Component {
                   onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
                   <Tab eventKey={0} title="SAMPLE CHANGER" className="nav-item">
-                    <SampleChanger />
+                    <SampleChanger key="scTab" />
                   </Tab>
                   <Tab eventKey={1} title="HPLC" className="">
                     <Hplc key="hplc" />
@@ -78,7 +78,7 @@ class Datacollection extends Component {
             </div>
           </div>
           {/* Tab for messages and Queue  */}
-          <div className="col-2">
+          <div className="col-2" style={{ }}>
             <div className="horizontal-tabs spec">
               <div className="cardtabs">
                 <Tabs
@@ -87,7 +87,7 @@ class Datacollection extends Component {
                   onSelect={valuetab2 => this.setState({ valuetab2 })}
                 >
                   <Tab eventKey={0} title="QUEUE" className="nav-item nav-link">
-                    <Queue />
+                    <Queue key="queueTab" />
                   </Tab>
                 </Tabs>
               </div>

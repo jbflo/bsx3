@@ -1,0 +1,18 @@
+.flexclass{
+  display: flex;
+  /* margin-right: 5px!important; */
+}
+
+.del-btn{
+  color: #ff0000!important;
+  margin-right: 2px;
+}
+.edit-btn{
+  color: orange!important;
+  margin-left: 0%;
+}
+
+.edit-del {
+  height: 20px;
+  width: 20px;
+}
