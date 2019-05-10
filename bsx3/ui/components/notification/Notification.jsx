@@ -6,7 +6,7 @@ const NotificationPropTypes = {
   visible: PropTypes.bool.isRequired,
   level: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  // handleShowNotification: PropTypes.func.isRequired,
+  handleShowNotification: PropTypes.func.isRequired,
 };
 const styles = {
   display: {

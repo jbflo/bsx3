@@ -48,9 +48,6 @@ class SampleChanger extends Component {
           <div className="mr-auto" style={{ marginTop: '0px' }}>
             <FolderUploader className="folderup" />
           </div>
-          <div>
-            {` Who are you  ${this.props.showNotification} `}
-          </div>
         </Nav>
         <SampleChangerTable {...this.props} />
       </div>
@@ -61,6 +58,7 @@ class SampleChanger extends Component {
 function mapStateToProps(state) {
   return {
     rows: state.sampleChanger.rows,
+    columns: state.sampleChanger.columns,
     editingRow: state.sampleChanger.editingRow,
     isAddingNewRow: state.sampleChanger.isAddingNewRow,
     showNotification: state.main.showNotification,

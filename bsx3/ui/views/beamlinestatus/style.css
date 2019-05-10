@@ -4,7 +4,7 @@
     height: 60px;
     max-width: 100%;
     margin-bottom: 40px!important;
-    z-index:9999 !important;
+    z-index:10 !important;
     background: linear-gradient(to right, rgba(108, 145, 81, 0.205), rgba(108, 145, 81, 0.24));
     float: none!important;
     border-bottom: 0px!important;

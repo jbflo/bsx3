@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import NavLoggedOut from '../views/header/NavLoggedOut';
@@ -6,6 +7,7 @@ import NavLoggedIn from '../views/header/NavLoggedIn';
 import Login from '../views/login/Login';
 import Counter from '../counter/Counter';
 import Datacollection from '../views/datacollection/DataCollection';
+import Notification from '../components/notification/Notification';
 import './main.css';
 
 const history = createBrowserHistory();
@@ -40,6 +42,17 @@ class Main extends Component {
     return [
     //  headercontent,
       <div className="main">
+        {this.props.showNotification
+          ? (
+            <Notification
+              level="success"
+              message="Succesfully delete row"
+              visible={this.props.showNotification}
+              handleShowNotification={this.props.handleShowNotification}
+            />
+          )
+          : null
+        }
         { <Route exact path="/login" component={NavLoggedOut} />
         }
         { <Route exact path="/datacollection" component={NavLoggedIn} />
@@ -54,4 +67,11 @@ class Main extends Component {
   }
 }
 
-export default Main;
+function mapStateToProps() {
+  return {
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(Main);

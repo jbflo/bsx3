@@ -13,7 +13,7 @@
     text-align:center!important;
 }
 .drag-icon{
-    cursor: grab!important;
+    cursor: all-scroll!important;
     margin-top: 7px;
     margin-right: 5px; 
 }

@@ -2,14 +2,20 @@
 
 import {
   generateRows,
-  scDeafaultValues,
+  generateColumns,
+  scDeafaultRowValues,
+  scDeafaultColumns,
 } from '../../../constant/generator';
 
 // Reducer
 export const INITIAL_STATE = {
   rows: generateRows({
-    columnValues: { id: ({ index }) => index, ...scDeafaultValues },
-    length: 2,
+    columnValues: { id: ({ index }) => index, ...scDeafaultRowValues },
+    length: 3
+  }),
+  columns: generateColumns({
+    columnValues: { id: ({ index }) => index, ...scDeafaultColumns },
+    length: 1
   }),
   editingRow: {},
   isAddingNewRow: true,

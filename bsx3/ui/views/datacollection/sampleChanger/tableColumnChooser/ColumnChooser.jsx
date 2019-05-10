@@ -26,7 +26,7 @@ class ColumnChooser extends React.Component {
       >
         <div onContextMenu={this.onLinkRightClick}>
           Column
-          <i className="fas fa-columns" />
+          <i className="fas fa-columns" style={{ marginLeft: '5px' }} />
         </div>
       </OverlayTrigger>
     );

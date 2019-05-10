@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
@@ -141,45 +140,3 @@ export default class EditRowForm extends Component {
     ];
   }
 }
-
-EditRowForm.propTypes = {
-  row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    samplename: PropTypes.string.isRequired,
-    concentration: PropTypes.string.isRequired,
-    plate: PropTypes.string.isRequired,
-    row: PropTypes.string.isRequired,
-    column: PropTypes.string.isRequired,
-    frame: PropTypes.string.isRequired,
-    exposuretime: PropTypes.string.isRequired,
-    attenuation: PropTypes.string.isRequired,
-    buffer: PropTypes.string.isRequired,
-    flow: PropTypes.bool.isRequired,
-    volume: PropTypes.number.isRequired,
-    seutemp: PropTypes.number.isRequired,
-    stemp: PropTypes.number.isRequired,
-    energy: PropTypes.number.isRequired,
-  }),
-  handleEditRow: PropTypes.func.isRequired,
-  handleCancelEditRow: PropTypes.func.isRequired,
-};
-
-EditRowForm.defaultProps = {
-  row: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    samplename: PropTypes.string.isRequired,
-    concentration: PropTypes.string.isRequired,
-    plate: PropTypes.string.isRequired,
-    row: PropTypes.string.isRequired,
-    column: PropTypes.string.isRequired,
-    frame: PropTypes.string.isRequired,
-    exposuretime: PropTypes.string.isRequired,
-    attenuation: PropTypes.string.isRequired,
-    buffer: PropTypes.string.isRequired,
-    flow: PropTypes.bool.isRequired,
-    volume: PropTypes.number.isRequired,
-    seutemp: PropTypes.number.isRequired,
-    stemp: PropTypes.number.isRequired,
-    energy: PropTypes.number.isRequired,
-  }),
-};

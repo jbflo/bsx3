@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import Confirmation from '../confirmation/Confirmation';
 
 const propertyButonPropTypes = {
   showNotification: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
-  rowindex: PropTypes.number.isRequired,
+  // rowindex: PropTypes.number.isRequired,
   handleSelectEditRow: PropTypes.func.isRequired,
   handleDeleteRow: PropTypes.func.isRequired,
   handleShowNotification: PropTypes.func.isRequired,
@@ -14,8 +15,18 @@ const propertyButonPropTypes = {
 
 class PropertyButton extends React.Component {
   render() {
+    let notif = false;
     return (
       <div className="flexclass">
+        {notif
+          ? (
+            <Confirmation
+              show
+              message=" Are you sure you want to delete this Record?"
+            />
+          )
+          : null
+      }
         <div className="flexclass">
           <Button
             variant="link"
@@ -33,7 +44,8 @@ class PropertyButton extends React.Component {
             title="Delete row"
             className="edit-del del-btn"
             onClick={() => {
-              if (window.confirm(`Are you sure you want to delete this row? ${this.props.rowindex} ${this.props.showNotification} `)) {
+              notif = true;
+              if (window.confirm(`Are you sure you want to delete this row? ${this.props.id} ${this.props.showNotification} `)) {
                 this.props.handleDeleteRow(this.props.id);
                 this.props.handleShowNotification(true);
               }
