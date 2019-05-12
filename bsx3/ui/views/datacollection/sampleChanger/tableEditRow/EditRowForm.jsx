@@ -101,42 +101,117 @@ export default class EditRowForm extends Component {
   }
 
   render() {
-    return [
-      <td> Editing....</td>,
-      <td><input className="form-control input_edit" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>,
-      <td><input className="form-control input_edit" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>,
-      <td><input className="form-control input_edit" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>,
-      <td><input className="form-control input_edit" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>,
-      <td><input className="form-control input_edit" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>,
-      <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>,
-      <td><input className="form-control input_edit" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>,
-      <td><input className="form-control input_edit" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>,
-      <td><input className="form-control input_edit" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>,
-      <td><input className="form-control input_edit" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>,
-      <td><input className="form-control input_edit" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>,
-      <td><input className="form-control input_edit" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>,
-      <td><input className="form-control input_edit" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>,
-      <td><input className="form-control input_edit" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>,
-      <td>
-        <Button
-          variant="link"
-          title="Cancel row editting"
-          className="save-cancel cancel-btn"
-          align="right"
-          onClick={this.props.handleCancelEditRow}
-        >
-          <i className="fas fa-window-close" />
-        </Button>
-        <Button
-          variant="link"
-          title="Save edited row"
-          className="save-cancel save-btn"
-          align="right"
-          onClick={this.handleEditAndResetForm}
-        >
-          <i className="far fa-save" />
-        </Button>
-      </td>
-    ];
+    return (
+      <>
+        <td>
+          Editing....
+          <div className="flexclass">
+            <Button
+              variant="link"
+              title="Cancel row editting"
+              className="save-cancel cancel-btn"
+              align="right"
+              onClick={this.props.handleCancelEditRow}
+            >
+              <i className="fas fa-window-close" />
+            </Button>
+            <Button
+              variant="link"
+              title="Save edited row"
+              className="save-cancel save-btn"
+              align="right"
+              onClick={this.handleEditAndResetForm}
+            >
+              <i className="far fa-save" />
+            </Button>
+          </div>
+        </td>
+        {this.props.columns.samplename.display
+          ? (
+            <td style={{ width: '133px' }}><input className="form-control input_edit" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>
+          )
+          : null
+                }
+        {this.props.columns.buffer.display
+          ? <td style={{ width: '76px' }}><input className="form-control input_edit" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
+          : null
+                }
+        {this.props.columns.plate.display
+          ? <td style={{ width: '65px' }}><input className="form-control input_edit" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
+          : null
+                }
+        {this.props.columns.row.display
+          ? <td style={{ width: '58px' }}><input className="form-control input_edit" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
+          : null
+                }
+        {this.props.columns.column.display
+          ? <td style={{ width: '83px' }}><input className="form-control input_edit" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
+          : null
+                }
+        {this.props.columns.flow.display
+          ? <td style={{ width: '62px' }}><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
+          : null
+                }
+        {this.props.columns.energy.display
+          ? <td style={{ width: '79px' }}><input className="form-control input_edit" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
+          : null
+                }
+        {this.props.columns.volume.display
+          ? <td style={{ width: '112px' }}><input className="form-control input_edit" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
+          : null
+                }
+        {this.props.columns.seutemp.display
+          ? <td style={{ width: '105px' }}><input className="form-control input_edit" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
+          : null
+                }
+        {this.props.columns.stemp.display
+          ? <td style={{ width: '135px' }}><input className="form-control input_edit" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
+          : null
+                }
+        {this.props.columns.concentration.display
+          ? <td style={{ width: '135px' }}><input className="form-control input_edit" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
+          : null
+                }
+        {this.props.columns.frame.display
+          ? <td style={{ width: '110px' }}><input className="form-control input_edit" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
+          : null
+                }
+        {this.props.columns.exposuretime.display
+          ? <td style={{ width: '134px' }}><input className="form-control input_edit" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
+          : null
+                }
+        {this.props.columns.attenuation.display
+          ? <td style={{ width: '133px' }}><input className="form-control input_edit" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
+          : null
+                }
+        {this.props.columns.tools.display
+          ? (
+            <td style={{ width: '30px' }}>
+              <div className="flexclass">
+                <Button
+                  variant="link"
+                  title="Cancel row editting"
+                  className="save-cancel cancel-btn"
+                  align="right"
+                  onClick={this.props.handleCancelEditRow}
+                >
+                  <i className="fas fa-window-close" />
+                </Button>
+                <Button
+                  variant="link"
+                  title="Save edited row"
+                  className="save-cancel save-btn"
+                  align="right"
+                  onClick={this.handleEditAndResetForm}
+                >
+                  <i className="far fa-save" />
+                </Button>
+              </div>
+            </td>
+          )
+          : null
+        }
+      </>
+    );
   }
 }

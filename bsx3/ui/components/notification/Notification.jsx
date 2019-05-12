@@ -37,7 +37,7 @@ class Notification extends React.Component {
     //   });
     // }
     setTimeout(() => this.props.handleShowNotification(false),
-      3000);
+      100000);
   }
 
   getIcon() {

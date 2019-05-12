@@ -92,38 +92,7 @@ export default class AddRowForm extends Component {
     return (
       <tr>
         <td>
-          {/* <div className="flexclass"> */}
-          {/* <MdCancel
-            className="cancel-icon md-icon"
-            title="Cancel adding"
-            onClick={() => {
-              this.props.handleIsAddingNewRow(false);
-            }}
-          /> */}
-          {/* <MdSave
-            className="save-icon md-icon"
-            title="Save add row"
-            // disabled={!this.state.itemValue}
-            onClick={this.handleAddAndResetForm}
-          /> */}
-          {/* </div> */}
-        </td>
-        <td><input className="form-control input_add" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>
-        <td><input className="form-control input_add" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
-        <td><input className="form-control input_add" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
-        <td><input className="form-control input_add" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
-        <td><input className="form-control input_add" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
-        <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
-        <td><input className="form-control input_add" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
-        <td><input className="form-control input_add" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
-        <td><input className="form-control input_add" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
-        <td><input className="form-control input_add" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
-        <td><input className="form-control input_add" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
-        <td><input className="form-control input_add" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
-        <td><input className="form-control input_add" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
-        <td><input className="form-control input_add" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
-
-        <td>
+          {/* <i className="fa fa-cog" /> */}
           <Button
             className=" btn-success btnaddrow"
             style={{ fontWeight: 'bold' }}
@@ -133,10 +102,84 @@ export default class AddRowForm extends Component {
             +
           </Button>
         </td>
+        {this.props.columns.samplename.display
+          ? (
+            <td style={{ width: '133px' }}><input className="form-control input_add" name="samplename" onChange={this.handleRowChange} value={this.state.samplename} /></td>
+          )
+          : null
+        }
+        {this.props.columns.buffer.display
+          ? <td style={{ width: '76px' }}><input className="form-control input_add" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
+          : null
+                }
+        {this.props.columns.plate.display
+          ? <td style={{ width: '65px' }}><input className="form-control input_add" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
+          : null
+                }
+        {this.props.columns.row.display
+          ? <td style={{ width: '58px' }}><input className="form-control input_add" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
+          : null
+                }
+        {this.props.columns.column.display
+          ? <td style={{ width: '83px' }}><input className="form-control input_add" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
+          : null
+                }
+        {this.props.columns.flow.display
+          ? <td style={{ width: '62px' }}><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
+          : null
+                }
+        {this.props.columns.energy.display
+          ? <td style={{ width: '79px' }}><input className="form-control input_add" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
+          : null
+                }
+        {this.props.columns.volume.display
+          ? <td style={{ width: '112px' }}><input className="form-control input_add" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
+          : null
+                }
+        {this.props.columns.seutemp.display
+          ? <td style={{ width: '105px' }}><input className="form-control input_add" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
+          : null
+                }
+        {this.props.columns.stemp.display
+          ? <td style={{ width: '135px' }}><input className="form-control input_add" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
+          : null
+                }
+        {this.props.columns.concentration.display
+          ? <td style={{ width: '135px' }}><input className="form-control input_add" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
+          : null
+                }
+        {this.props.columns.frame.display
+          ? <td style={{ width: '110px' }}><input className="form-control input_add" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
+          : null
+                }
+        {this.props.columns.exposuretime.display
+          ? <td style={{ width: '134px' }}><input className="form-control input_add" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
+          : null
+                }
+        {this.props.columns.attenuation.display
+          ? <td style={{ width: '133px' }}><input className="form-control input_add" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
+          : null
+                }
+        {this.props.columns.tools.display
+          ? (
+            <td style={{ width: '30px' }}>
+              <Button
+                className=" btn-success btnaddrow"
+                style={{ fontWeight: 'bold' }}
+                onClick={this.handleAddAndResetForm}
+                title="Create new row"
+              >
+                +
+              </Button>
+            </td>
+          )
+          : null
+        }
       </tr>
     );
   }
 }
+
 
 AddRowForm.propTypes = {
   row: PropTypes.shape({

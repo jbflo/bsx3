@@ -2,9 +2,7 @@
 
 import {
   generateRows,
-  generateColumns,
   scDeafaultRowValues,
-  scDeafaultColumns,
 } from '../../../constant/generator';
 
 // Reducer
@@ -13,10 +11,70 @@ export const INITIAL_STATE = {
     columnValues: { id: ({ index }) => index, ...scDeafaultRowValues },
     length: 3
   }),
-  columns: generateColumns({
-    columnValues: { id: ({ index }) => index, ...scDeafaultColumns },
-    length: 1
-  }),
+
+  columns: {
+    samplename: {
+      name: 'Sample Name',
+      display: true,
+    },
+    buffer: {
+      name: 'Buffer',
+      display: true,
+    },
+    plate: {
+      name: 'Plate',
+      display: true,
+    },
+    row: {
+      name: 'Row',
+      display: true,
+    },
+    column: {
+      name: 'Column',
+      display: true,
+    },
+    flow: {
+      name: 'Flow',
+      display: true,
+    },
+    energy: {
+      name: 'Energy',
+      display: true,
+    },
+    volume: {
+      name: 'volume (μl)',
+      display: true,
+    },
+    seutemp: {
+      name: 'SEU Temp.',
+      display: false,
+    },
+    stemp: {
+      name: 'Storage Temp.',
+      display: false,
+    },
+    concentration: {
+      name: 'Concentration',
+      display: false,
+    },
+    frame: {
+      name: 'Frames No.',
+      display: false,
+    },
+    exposuretime: {
+      name: 'Exp Time (ms)',
+      display: false,
+    },
+    attenuation: {
+      name: 'Attenuation %',
+      display: false,
+    },
+    tools: {
+      name: 'tools',
+      display: false,
+    },
+  },
+  columnId: ['samplename', 'buffer', 'plate', 'row', 'column', 'flow', 'energy', 'volume', 'seutemp', 'stemp', 'concentration', 'frame', 'exposuretime', 'attenuation %'],
   editingRow: {},
   isAddingNewRow: true,
   addedRows: [],

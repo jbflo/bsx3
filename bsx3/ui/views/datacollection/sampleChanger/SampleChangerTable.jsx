@@ -4,12 +4,12 @@ import withSelections from 'react-item-select';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Menu, Item, contextMenu } from 'react-contexify';
 import { Button, Table } from 'react-bootstrap';
-import { Label } from 'react-bootstrap/Form';
+// import { Label } from 'react-bootstrap/Form';
 import ColumnChooser from './tableColumnChooser/ColumnChooser';
 import EditRowForm from './tableEditRow/EditRowForm';
 import RowList from './tableRows/RowList';
 import AddRowForm from './tableAddRow/AddRowForm';
-import styles, { getDraggableStyle, getDroppableStyle } from './styles';
+import { getDraggableStyle, getDroppableStyle } from './styles';
 
 
 class SampleChanger extends React.Component {
@@ -69,67 +69,115 @@ class SampleChanger extends React.Component {
       handleSelect, isItemSelected, areAllSelected, handleSelectAll
     } = this.props;
     return (
-      <div className="table-wrap" style={styles.wrap}>
+      <>
         <div className="panel-heading">
           <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
-          <div className="">
-            <Label className="btn columnCh" title="Choose Column to display">
-              <ColumnChooser />
-            </Label>
-            <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue">
-                Add to Queue
-              <i className="fa fa-share-square" style={{ marginLeft: '5px' }} />
-            </Button>
+          <div className="flexclass">
+            <div className="" title="Choose Column to display">
+              <ColumnChooser {...this.props} />
+            </div>
+            <div>
+              <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue">
+                  Add to Queue
+                <i className="fa fa-share-square" style={{ marginLeft: '5px' }} />
+              </Button>
+            </div>
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable " bordered size="sm" style={styles.table}>
+          <Table className="sctable" responsive bordered>
             <thead className="">
               <tr>
-                {this.props.columns.map(comlumn => (
-                  comlumn.columnNames.map(name => [
-                    <>
-                      <th style={{}}>
-                        {/* <Button
-                          className=" btn-success btnadd"
-                          style={{ fontWeight: 'bold' }}
-                          onClick={() => {
-                            this.props.handleIsAddingNewRow(true);
-                          }}
-                          title="Create new row"
-                        >
-                          New
-                        </Button> */}
-                        <input
-                          type="checkbox"
-                          id="checkall"
-                          checked={areAllSelected(this.props.rows)}
-                          onChange={() => handleSelectAll(this.props.rows)}
-                          className="checkall"
-                          ref={(ref) => { this.checkall = ref; }}
-                        />
-                        { <this.MyMenu /> }
-                      </th>
-                      <th data-sortable="true">{name.id}</th>
-                      <th>Buffer</th>
-                      <th>Plate</th>
-                      <th>Row</th>
-                      <th>Column</th>
-                      <th>Flow</th>
-                      <th>Energy</th>
-                      <th>volume (ul)</th>
-                      <th>SEU Temp.</th>
-                      <th>Storage Temp.</th>
-                      <th style={{ display: '' }} onClick={this.handlContextMenu}>Concentration</th>
-                      <th>No. Frames</th>
-                      <th>Exp. Time (ms)</th>
-                      <th style={{ display: '' }}>Attenuation %</th>
-                      <th>
+                <th>
+                  {/* <Button
+                    className=" btn-success btnadd"
+                    style={{ fontWeight: 'bold' }}
+                    onClick={() => {
+                      this.props.handleIsAddingNewRow(true);
+                    }}
+                    title="Create new row"
+                  >
+                    New
+                  </Button> */}
+                  <div style={{ width: '100px' }}>
+                    <input
+                      type="checkbox"
+                      id="checkall"
+                      checked={areAllSelected(this.props.rows)}
+                      onChange={() => handleSelectAll(this.props.rows)}
+                      className="checkall"
+                      ref={(ref) => { this.checkall = ref; }}
+                    />
+                  </div>
+                  { <this.MyMenu /> }
+                </th>
+                {/*  Conditional rendering of the Column  */}
+                {this.props.columns.samplename.display
+                  ? <th><div style={{ width: '110px' }}>{this.props.columns.samplename.name}</div></th>
+                  : null
+                }
+                {this.props.columns.buffer.display
+                  ? <th><div>{this.props.columns.buffer.name}</div></th>
+                  : null
+                }
+                {this.props.columns.plate.display
+                  ? <th>{this.props.columns.plate.name}</th>
+                  : null
+                }
+                {this.props.columns.row.display
+                  ? <th>{this.props.columns.row.name}</th>
+                  : null
+                }
+                {this.props.columns.column.display
+                  ? <th>{this.props.columns.column.name}</th>
+                  : null
+                }
+                {this.props.columns.flow.display
+                  ? <th>{this.props.columns.flow.name}</th>
+                  : null
+                }
+                {this.props.columns.energy.display
+                  ? <th>{this.props.columns.energy.name}</th>
+                  : null
+                }
+                {this.props.columns.volume.display
+                  ? <th>{this.props.columns.volume.name}</th>
+                  : null
+                }
+                {this.props.columns.seutemp.display
+                  ? <th>{this.props.columns.seutemp.name}</th>
+                  : null
+                }
+                {this.props.columns.stemp.display
+                  ? <th>{this.props.columns.stemp.name}</th>
+                  : null
+                }
+                {this.props.columns.concentration.display
+                  ? <th>{this.props.columns.concentration.name}</th>
+                  : null
+                }
+                {this.props.columns.frame.display
+                  ? <th>{this.props.columns.frame.name}</th>
+                  : null
+                }
+                {this.props.columns.exposuretime.display
+                  ? <th>{this.props.columns.exposuretime.name}</th>
+                  : null
+                }
+                {this.props.columns.attenuation.display
+                  ? <th>{this.props.columns.attenuation.name}</th>
+                  : null
+                }
+                {this.props.columns.tools.display
+                  ? (
+                    <th>
+                      <div style={{ width: '50px' }}>
                         <i className="fa fa-cog" />
-                      </th>
-                    </>
-                  ])
-                ))}
+                      </div>
+                    </th>
+                  )
+                  : null
+                }
               </tr>
             </thead>
             <Droppable droppableId="droppabe-list">
@@ -142,9 +190,7 @@ class SampleChanger extends React.Component {
                 >
                   {this.props.isAddingNewRow ? (
                     <AddRowForm
-                      rows={this.props.defaultRow}
-                      handleAddRow={this.props.handleAddRow}
-                      handleIsAddingNewRow={this.props.handleIsAddingNewRow}
+                      {...this.props}
                     />
                   ) : (
                     null
@@ -170,21 +216,16 @@ class SampleChanger extends React.Component {
                             <EditRowForm
                               key={row.id}
                               row={this.props.editingRow}
-                              handleEditRow={this.props.handleEditRow}
-                              handleCancelEditRow={this.props.handleCancelEditRow}
-                              handleShowNotification={this.props.handleShowNotification}
+                              {...this.props}
                             />
                           ) : [
                             <RowList
                               key={row.id}
                               index={index}
                               row={row}
-                              handleDeleteRow={this.props.handleDeleteRow}
-                              handleSelectEditRow={this.props.handleSelectEditRow}
-                              checked={isItemSelected(row.id)}
                               onSelectChange={() => handleSelect(row.id)}
-                              handleShowNotification={this.props.handleShowNotification}
-                              showNotification={this.props.showNotification}
+                              checked={isItemSelected(row.id)}
+                              {...this.props}
                             />
                           ]}
                           {provided.placeholder}
@@ -198,10 +239,8 @@ class SampleChanger extends React.Component {
             </Droppable>
           </Table>
         </DragDropContext>
-      </div>
+      </>
     );
   }
 }
-
-
 export default(withSelections(SampleChanger));

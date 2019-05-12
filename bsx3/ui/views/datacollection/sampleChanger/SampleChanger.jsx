@@ -59,6 +59,7 @@ function mapStateToProps(state) {
   return {
     rows: state.sampleChanger.rows,
     columns: state.sampleChanger.columns,
+    columnId: state.sampleChanger.columnId,
     editingRow: state.sampleChanger.editingRow,
     isAddingNewRow: state.sampleChanger.isAddingNewRow,
     showNotification: state.main.showNotification,

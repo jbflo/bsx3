@@ -1,17 +1,18 @@
 const styles = {
   wrap: {
-    width: '100%',
-    textAlign: 'center',
+    // width: '100%',
+    // textAlign: 'center',
     // padding: '1rem',
     // marginLeft: '-30px'
   },
-  droppable: {
-    border: '1px lightgray',
-    margin: '1rem',
-    padding: '1rem',
-    borderRadius: '5px',
+  table: {
     width: '100%',
-    minHeight: '400px'
+  },
+  droppable: {
+    // border: '1px lightgray',
+    // borderRadius: '5px',
+    // width: '100%',
+    minHeight: '300px'
   },
   droppableDragging: {
     borderColor: 'green',
@@ -24,7 +25,7 @@ const styles = {
   },
   draggableDragging: {
     backgroundColor: '#dcedc8',
-    width: '700px',
+    // width: '70px',
   }
 };
 

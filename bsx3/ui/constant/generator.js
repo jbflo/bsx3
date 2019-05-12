@@ -9,7 +9,7 @@ export const defaultColumnNames = {
 
 };
 export const scDeafaultRowValues = {
-  id: [0, 1, 4],
+  // id: [0, 1, 2],
   samplename: ['s1', 's2', 's3'],
   buffer: ['B1', 'B21', 'B2'],
   concentration: ['c1', 'c2', 'c3'],
