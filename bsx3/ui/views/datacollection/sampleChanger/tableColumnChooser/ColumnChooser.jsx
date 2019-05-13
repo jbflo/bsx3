@@ -7,26 +7,14 @@ import {
 import { Label } from 'react-bootstrap/Form';
 import './style.css';
 
-const columnChooserPropTypes = {
-  // showNotification: PropTypes.bool.isRequired,
-  // id: PropTypes.number.isRequired,
-  // rowindex: PropTypes.number.isRequired,
-  // handleSelectEditRow: PropTypes.func.isRequired,
-  // handleDeleteRow: PropTypes.func.isRequired,
-  // handleShowNotification: PropTypes.func.isRequired,
-};
-
 class ColumnChooser extends React.Component {
   constructor(props) {
     super(props);
     this.togleColumn = this.togleColumn.bind(this);
   }
 
-  togleColumn(result) {
-    const { source, destination } = result;
-    if (result.destination) {
-      this.props.handleReorderRow(source.index, destination.index);
-    }
+  togleColumn(columnName) {
+    this.props.handleColumnChooser(columnName);
   }
 
   render() {
@@ -44,7 +32,7 @@ class ColumnChooser extends React.Component {
                     className="success"
                     checked={column.display}
                     onChange={() => {
-
+                      this.togleColumn(key);
                     }}
                   />
                   <span className="slider round" />
@@ -64,16 +52,14 @@ class ColumnChooser extends React.Component {
         overlay={(<Popover className="colpopover" id={`${this.props.labelText} popover`}>{content}</Popover>)}
       >
         <div onContextMenu={this.onLinkRightClick}>
-          <Label className="btn columnCh" title="Choose Column to display">
+          <Label className="columnCh" title="Choose Column to display">
             {/* Column */}
-            <i className="fas fa-columns" />
+            <i className="fa fa-eye" />
           </Label>
         </div>
       </OverlayTrigger>
     );
   }
 }
-
-ColumnChooser.propTypes = columnChooserPropTypes;
 
 export default ColumnChooser;

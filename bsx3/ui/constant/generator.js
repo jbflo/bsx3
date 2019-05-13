@@ -5,9 +5,6 @@ export const importedColumnValues = {
 
 };
 
-export const defaultColumnNames = {
-
-};
 export const scDeafaultRowValues = {
   // id: [0, 1, 2],
   samplename: ['s1', 's2', 's3'],
@@ -26,14 +23,6 @@ export const scDeafaultRowValues = {
   volume: ['60', '70', 67],
 
 };
-
-export const scDeafaultColumns = {
-  id: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-  columnNames: ['Id', 'Sample Name', 'Buffer', 'plate', 'row', 'Column', 'flow', 'Energy', 'volume μl', 'SEU Temp', 'Storage Temp', 'concentration', 'No. Frames', 'Exp. Time (ms)', 'Attenuation %'],
-  Show: [true, true, true, true, true, true, true, true,
-    true, true, false, false, false, false, false],
-};
-// μ
 
 export const queueDeafaultValues = {
   // id: ['0', '1'],
@@ -69,45 +58,6 @@ export function generateRows({
       }
 
       // const value = values[Math.floor(random() * values.length)];
-      const value = values[i];
-      if (typeof value === 'object') {
-        record[column] = Object.assign({}, value);
-      } else {
-        record[column] = value;
-      }
-    });
-
-    data.push(record);
-  }
-
-  return data;
-}
-
-
-// export function generateColumns
-
-export function generateColumns({
-  columnNames = defaultColumnNames,
-  length,
-}) {
-  const data = [];
-  const columns = Object.keys(columnNames);
-
-  for (let i = 0; i < length; i += 1) {
-    const record = {};
-
-    columns.forEach((column) => {
-      let values = columnNames[column];
-
-      if (typeof values === 'function') {
-        record[column] = values({ i, index: i, record });
-        return;
-      }
-
-      while (values.length === 2 && typeof values[1] === 'object') {
-        values = values[1][record[values[0]]];
-      }
-
       const value = values[i];
       if (typeof value === 'object') {
         record[column] = Object.assign({}, value);

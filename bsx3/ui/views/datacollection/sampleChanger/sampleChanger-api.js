@@ -43,7 +43,7 @@ export const INITIAL_STATE = {
     },
     volume: {
       name: 'volume (μl)',
-      display: true,
+      display: false,
     },
     seutemp: {
       name: 'SEU Temp.',
@@ -74,7 +74,6 @@ export const INITIAL_STATE = {
       display: false,
     },
   },
-  columnId: ['samplename', 'buffer', 'plate', 'row', 'column', 'flow', 'energy', 'volume', 'seutemp', 'stemp', 'concentration', 'frame', 'exposuretime', 'attenuation %'],
   editingRow: {},
   isAddingNewRow: true,
   addedRows: [],
@@ -90,6 +89,7 @@ export const DELETE_ROW_ACTION = 'sc/DELETE_ROW';
 export const CANCEL_EDIT_ROW_ACTION = 'sc/CANCEL_EDIT_ROW_ACTION';
 export const LOAD_STATE_LOCALSTORAGE_ACTION = 'sc/LOAD_STATE_LOCALSTORAGE_ACTION';
 export const REORDER_ROW_ACTION = 'sc/REORDER_ROW_ACTION';
+export const TOGGLE_COLUMN_CHOOSER_ACTION = 'sc/TOGGLE_COLUMN_CHOOSER_ACTION';
 export const SAVE_STATE_LOCALSTORAGE_ACTION = 'sc/SAVE_STATE_LOCALSTORAGE_ACTION';
 export const SELECT_EDIT_ROW_ACTION = 'sc/SELECT_EDIT_ROW_ACTION';
 export const ROW_SELECTION_ACTION = 'sc/ROW_COMPLETION_ACTION';
@@ -175,10 +175,17 @@ export default (state = INITIAL_STATE, action) => {
       return newState;
     }
     case REORDER_ROW_ACTION: {
-      const clone = [...state.rows];
-      const [removed] = clone.splice(action.initialPosition, 1);
-      clone.splice(action.newPosition, 0, removed);
-      return { ...state, rows: clone };
+      const rows = [...state.rows];
+      const [removed] = rows.splice(action.initialPosition, 1);
+      rows.splice(action.newPosition, 0, removed);
+
+      return { ...state, rows };
+    }
+    case TOGGLE_COLUMN_CHOOSER_ACTION: {
+      const column = state.columns[action.key];
+      const columns = { ...state.columns, [action.key]: { ...column, display: !column.display } };
+
+      return { ...state, columns };
     }
     default:
       return state;
@@ -186,34 +193,48 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 // ////////////////////  ACTIONS //////////////////
-export function addRowAction(newRow) {
+function addRowAction(newRow) {
   return {
     type: ADD_ROW_ACTION,
     newRow,
   };
 }
-export function isAddingNewRowAction(value) {
+function isAddingNewRowAction(value) {
   return {
     type: IS_ADDING_NEW_ROW_ACTION,
     value
   };
 }
-export function editRowACtion(modifiedRow) {
+function editRowACtion(modifiedRow) {
   return {
     type: EDIT_ROW_ACTION,
     modifiedRow
   };
 }
-export function deleteRowAction(id) {
+function deleteRowAction(id) {
   return {
     type: DELETE_ROW_ACTION,
     id
   };
 }
 
-export function cancelEditrowAction() {
+function cancelEditrowAction() {
   return {
     type: CANCEL_EDIT_ROW_ACTION,
+  };
+}
+function reorderRowAction(initialPosition, newPosition) {
+  return {
+    type: REORDER_ROW_ACTION,
+    initialPosition,
+    newPosition
+  };
+}
+
+function toggleColumnChooserAction(key) {
+  return {
+    type: TOGGLE_COLUMN_CHOOSER_ACTION,
+    key,
   };
 }
 
@@ -222,18 +243,12 @@ export const loadStateLocalStorageAction = () => ({
   payload: {},
 });
 
-export const reorderRowActionAction = (initialPosition, newPosition) => ({
-  type: REORDER_ROW_ACTION,
-  initialPosition,
-  newPosition
-});
-
 export const saveStateLocalStorageAction = state => ({
   type: SAVE_STATE_LOCALSTORAGE_ACTION,
   payload: { state },
 });
 
-export function selectEditRowAction(id) {
+function selectEditRowAction(id) {
   return {
     type: SELECT_EDIT_ROW_ACTION,
     id
@@ -296,6 +311,12 @@ export function selectEditRow(id) {
 
 export function reorderRow(initialPosition, newPosition) {
   return (dispatch) => {
-    dispatch(reorderRowActionAction(initialPosition, newPosition));
+    dispatch(reorderRowAction(initialPosition, newPosition));
+  };
+}
+
+export function toggleColumnChooser(key) {
+  return (dispatch) => {
+    dispatch(toggleColumnChooserAction(key));
   };
 }

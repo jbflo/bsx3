@@ -5,11 +5,22 @@
   padding-left: 15px;
 }
 .columnCh{
-  font-size: 13px!important;
-  background: #7cb342!important;
-  color: #fff!important;
-  /* width: 90px; */
+  margin-top: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 20px;
+  color: rgb(102, 102, 102);
 }
+
+.columnCh:hover{
+  width: 30px;
+  padding-left: 4px;
+  border-radius: 20%;
+ color: white;
+  background: rgb(102, 102, 102);
+}
+
+/* Pop pop Content  */
 .ulheader{
   margin-bottom: 5px;
   color: #00695c;

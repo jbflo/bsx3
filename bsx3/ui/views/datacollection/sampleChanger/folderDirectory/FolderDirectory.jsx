@@ -50,20 +50,21 @@ class FolderDirectory extends React.Component {
         </Button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title className="modal-title custom_align">Edit data paths</Modal.Title>
+            <Modal.Title className="modal-title custom_align">Path For Data Colection</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="modal-content">
-              <div className="modal-body">
-                <div className="form-group">
-                  <input className="form-control " type="text" placeholder="Mohsin" />
-                </div>
-                <div className="form-group">
-                  <input className="form-control " type="text" placeholder="Irshad" />
-                </div>
-                <div className="form-group">
-                  <textarea rows="2" className="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan" />
-                </div>
+            <div className="">
+              <div className="form-group">
+                <span className=""> Path: ...</span>
+              </div>
+              <div className="form-group">
+                <span className=""> File Name: ...</span>
+              </div>
+              <div className="form-group">
+                <input className="form-control " type="text" placeholder="Subdirectory" />
+              </div>
+              <div className="form-group">
+                <input className="form-control " type="text" placeholder="Prefix" />
               </div>
             </div>
           </Modal.Body>

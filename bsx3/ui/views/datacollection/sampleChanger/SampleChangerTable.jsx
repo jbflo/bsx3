@@ -68,6 +68,7 @@ class SampleChanger extends React.Component {
     const {
       handleSelect, isItemSelected, areAllSelected, handleSelectAll
     } = this.props;
+
     return (
       <>
         <div className="panel-heading">
@@ -85,7 +86,7 @@ class SampleChanger extends React.Component {
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable" responsive bordered>
+          <Table className="sctable" responsive>
             <thead className="">
               <tr>
                 <th>
@@ -113,59 +114,59 @@ class SampleChanger extends React.Component {
                 </th>
                 {/*  Conditional rendering of the Column  */}
                 {this.props.columns.samplename.display
-                  ? <th><div style={{ width: '110px' }}>{this.props.columns.samplename.name}</div></th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.samplename.name} /></th>
                   : null
                 }
                 {this.props.columns.buffer.display
-                  ? <th><div>{this.props.columns.buffer.name}</div></th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.buffer.name} /></th>
                   : null
                 }
                 {this.props.columns.plate.display
-                  ? <th>{this.props.columns.plate.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.plate.name} /></th>
                   : null
                 }
                 {this.props.columns.row.display
-                  ? <th>{this.props.columns.row.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.row.name} /></th>
                   : null
                 }
                 {this.props.columns.column.display
-                  ? <th>{this.props.columns.column.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.column.name} /></th>
                   : null
                 }
                 {this.props.columns.flow.display
-                  ? <th>{this.props.columns.flow.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.flow.name} /></th>
                   : null
                 }
                 {this.props.columns.energy.display
-                  ? <th>{this.props.columns.energy.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.energy.name} /></th>
                   : null
                 }
                 {this.props.columns.volume.display
-                  ? <th>{this.props.columns.volume.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.volume.name} /></th>
                   : null
                 }
                 {this.props.columns.seutemp.display
-                  ? <th>{this.props.columns.seutemp.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.seutemp.name} /></th>
                   : null
                 }
                 {this.props.columns.stemp.display
-                  ? <th>{this.props.columns.stemp.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.stemp.name} /></th>
                   : null
                 }
                 {this.props.columns.concentration.display
-                  ? <th>{this.props.columns.concentration.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.concentration.name} /></th>
                   : null
                 }
                 {this.props.columns.frame.display
-                  ? <th>{this.props.columns.frame.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.frame.name} /></th>
                   : null
                 }
                 {this.props.columns.exposuretime.display
-                  ? <th>{this.props.columns.exposuretime.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.exposuretime.name} /></th>
                   : null
                 }
                 {this.props.columns.attenuation.display
-                  ? <th>{this.props.columns.attenuation.name}</th>
+                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.attenuation.name} /></th>
                   : null
                 }
                 {this.props.columns.tools.display

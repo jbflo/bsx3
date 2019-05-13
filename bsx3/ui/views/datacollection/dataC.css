@@ -6,8 +6,8 @@
     padding-top: 10px;
     padding-right: 10px;
     height: 65px;
-    border-color: #dcedc87c!important;
-    border-bottom: 2px ridge ;
+    border-color: rgba(108, 145, 81, 0.144)!important;
+    border-bottom: 1px ridge ;
 }
 
 .horizontal-tabs .nav-tabs .nav-link:hover {
@@ -19,7 +19,7 @@
     margin-left: 10px; 
     padding: 15px;
     color: #00695c!important;
-    background: #dcedc8;
+    background: linear-gradient(to right, rgba(108, 145, 81, 0.137), rgba(108, 145, 81, 0.144));
     transform: translateY(10px);
     -webkit-transform: translateY(10px);
     height: 45px;
@@ -34,7 +34,7 @@
     transform: translateY(0);
     -webkit-transform: translateY(0);
     height: 55px;
-    border-color: #00695da8;
+    border-color: #00695d86;
 
 }
 

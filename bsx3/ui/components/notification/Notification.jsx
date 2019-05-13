@@ -23,21 +23,12 @@ class Notification extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // visible: false
     };
   }
 
   componentWillMount() {
-    // if (this.props.visible !== this.visible) {
-    //   this.setState({
-    //     visible: this.props.visible
-    //   }, () => {
-    //     setTimeout(() => this.setState({ visible: false }),
-    //       3000);
-    //   });
-    // }
     setTimeout(() => this.props.handleShowNotification(false),
-      100000);
+      3000);
   }
 
   getIcon() {
