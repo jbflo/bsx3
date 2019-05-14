@@ -1,14 +1,15 @@
 const styles = {
   wrap: {
     marginTop: '20px',
+    marginLeft: '0px',
+    marginRight: '0px',
     fontFamily: 'sans-serif',
     textAlign: 'center',
-    padding: '1rem',
     width: '100%',
     minHeight: '300px'
   },
   droppable: {
-    border: '1px dashed lightgray',
+    // border: '1px dashed lightgray',
     // margin: '1rem',
     // padding: '1rem',
     borderRadius: '5px',
@@ -19,10 +20,10 @@ const styles = {
     borderColor: 'green'
   },
   draggable: {
-    border: '1px solid lightgray',
+    // border: '1px solid lightgray',
     backgroundColor: 'white',
     margin: '.5rem',
-    padding: '.5rem',
+    // padding: '.5rem',
     borderRadius: '5px'
   },
   draggableDragging: {

@@ -1,23 +1,26 @@
 /* eslint-disable no-shadow */
 import React from 'react';
-import withSelections from 'react-item-select';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Menu, Item, contextMenu } from 'react-contexify';
 import { Button, Table } from 'react-bootstrap';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import WithSelections from '../../../../components/withSelections/WithSelections';
 // import { Label } from 'react-bootstrap/Form';
-import ColumnChooser from './tableColumnChooser/ColumnChooser';
-import EditRowForm from './tableEditRow/EditRowForm';
-import RowList from './tableRows/RowList';
-import AddRowForm from './tableAddRow/AddRowForm';
-import { getDraggableStyle, getDroppableStyle } from './styles';
+import ColumnChooser from '../tableColumnChooser/ColumnChooser';
+import EditRowForm from '../tableEditRow/EditRowForm';
+import RowList from '../tableRows/RowList';
+import AddRowForm from '../tableAddRow/AddRowForm';
+import { getDraggableStyle, getDroppableStyle } from '../styles';
 
+import './style.css';
 
 class SampleChanger extends React.Component {
   constructor(props) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.onDuplicate = this.onDuplicate.bind(this);
-    this.MyMenu = this.MyMenu.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.handleSelectAll(this.props.rows);
   }
 
   componentDidMount() {
@@ -43,27 +46,6 @@ class SampleChanger extends React.Component {
     }
   }
 
-  MyMenu() {
-    return (
-      <Menu id="menu_id">
-        <Item onClick={this.onDuplicate}>Duplicate Me</Item>
-      </Menu>
-    );
-  }
-
-  handlContextMenu(e, rowid) {
-    e.preventDefault();
-    alert(`Filter wull be there${e}`);
-    contextMenu.show({
-      id: 'menu_id',
-      event: e,
-      props: {
-        msg: 'hello',
-        id: rowid
-      }
-    });
-  }
-
   render() {
     const {
       handleSelect, isItemSelected, areAllSelected, handleSelectAll
@@ -74,7 +56,7 @@ class SampleChanger extends React.Component {
         <div className="panel-heading">
           <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
           <div className="flexclass">
-            <div className="" title="Choose Column to display">
+            <div className="" title="Choose Column to be display">
               <ColumnChooser {...this.props} />
             </div>
             <div>
@@ -86,10 +68,10 @@ class SampleChanger extends React.Component {
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable" responsive>
+          <Table className="sctable" responsive bordered>
             <thead className="">
               <tr>
-                <th>
+                <th style={{ width: '90px' }}>
                   {/* <Button
                     className=" btn-success btnadd"
                     style={{ fontWeight: 'bold' }}
@@ -110,63 +92,62 @@ class SampleChanger extends React.Component {
                       ref={(ref) => { this.checkall = ref; }}
                     />
                   </div>
-                  { <this.MyMenu /> }
                 </th>
                 {/*  Conditional rendering of the Column  */}
                 {this.props.columns.samplename.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.samplename.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.samplename.name} /></th>
                   : null
                 }
                 {this.props.columns.buffer.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.buffer.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.buffer.name} /></th>
                   : null
                 }
                 {this.props.columns.plate.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.plate.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.plate.name} /></th>
                   : null
                 }
                 {this.props.columns.row.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.row.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.row.name} /></th>
                   : null
                 }
                 {this.props.columns.column.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.column.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.column.name} /></th>
                   : null
                 }
                 {this.props.columns.flow.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.flow.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.flow.name} /></th>
                   : null
                 }
                 {this.props.columns.energy.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.energy.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.energy.name} /></th>
                   : null
                 }
                 {this.props.columns.volume.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.volume.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.volume.name} /></th>
                   : null
                 }
                 {this.props.columns.seutemp.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.seutemp.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.seutemp.name} /></th>
                   : null
                 }
                 {this.props.columns.stemp.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.stemp.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.stemp.name} /></th>
                   : null
                 }
                 {this.props.columns.concentration.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.concentration.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.concentration.name} /></th>
                   : null
                 }
                 {this.props.columns.frame.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.frame.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.frame.name} /></th>
                   : null
                 }
                 {this.props.columns.exposuretime.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.exposuretime.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.exposuretime.name} /></th>
                   : null
                 }
                 {this.props.columns.attenuation.display
-                  ? <th><input className="form-control input_form" readOnly value={this.props.columns.attenuation.name} /></th>
+                  ? <th><input className="form-control input_th" readOnly value={this.props.columns.attenuation.name} /></th>
                   : null
                 }
                 {this.props.columns.tools.display
@@ -204,7 +185,6 @@ class SampleChanger extends React.Component {
                     >
                       {(provided, snapshot) => [
                         <tr
-                          onContextMenu={this.handlContextMenu}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -244,4 +224,4 @@ class SampleChanger extends React.Component {
     );
   }
 }
-export default(withSelections(SampleChanger));
+export default(WithSelections(SampleChanger));

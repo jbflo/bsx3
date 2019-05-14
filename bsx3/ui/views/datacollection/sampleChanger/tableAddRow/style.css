@@ -13,4 +13,10 @@
   margin: 10px!important; 
 }
 
+.add-row-tr{
+  background: rgba(108, 145, 81, 0.144);
+}
 
+.btnaddrow{
+  margin: 0%;
+}

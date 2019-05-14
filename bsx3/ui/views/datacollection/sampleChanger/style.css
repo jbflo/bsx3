@@ -24,76 +24,7 @@
     align-content: center;
 }
 
-.panel-heading{
-    background: rgba(108, 145, 81, 0.144);
-    display: flex;
-    width:100%; 
-    height: 34px;
-}
 
-.input_queue-name{
-    text-align:center;
-    margin: 0px;
-    width: 150px!important;
-    background: none!important;
-    height: 33px!important;
-}
-.btnaddqueue {
-    font-size: 13px!important;
-    /* background: #7cb342!important; */
-    color: rgb(102, 102, 102);
-    margin-top: 2px;
-    height: 30px;
-    width: 140px;
- }
-
-/*  Table Style  */
-.sctable{
-   width: 100%;
-}
-
-.sctable tbody{
-  display: block;
-  overflow-y: auto;
-  width: 100%;
-  height: 100px;
-}
-
-.sctable thead, tbody tr {
-    display:table;
-    width:100%;
-    table-layout:fixed;
-}
-
-thead {
-    width: calc( 100% - 1000px )
-}
-.sctable thead  {
-    text-align: right;
- }
-
-.sctable th, .sctable td  {
-  text-align: center;
-  width: 127px;
-}
-
-.sctable tr:hover{
-    background: #dcedc8!important;
-}
-.sctable td{
-    margin: 0%!important;
-}
-.sctable th{
-    color: #00695c;
-    text-align: center;
-    white-space: nowrap;
-    margin: 0%!important;
-  }
-
-.checkall {
-    height: 15px!important;
-    width: 15px!important;
-  }
   
   .flexclass{
     display: flex;

@@ -9,12 +9,14 @@ const styles = {
     width: '100%',
   },
   droppable: {
-    // border: '1px lightgray',
-    // borderRadius: '5px',
-    // width: '100%',
+    borderBotton: '1px solid lightgray',
+    borderRadius: '5px',
+    width: '100%',
     minHeight: '300px'
   },
   droppableDragging: {
+    border: '1px lightgray',
+    borderRadius: '5px',
     borderColor: 'green',
   },
   draggable: {

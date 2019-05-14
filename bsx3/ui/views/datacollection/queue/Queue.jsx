@@ -8,7 +8,7 @@ import {
   Button, Nav
 } from 'react-bootstrap';
 import * as initialData from './queue-api';
-import styles, { getDraggableStyle, getDroppableStyle } from './styles';
+import { getDraggableStyle, getDroppableStyle } from './styles';
 // import QueueProgress from './QueueProgress';
 // import queueData from './queue-api';
 import './queue.css';
@@ -81,11 +81,12 @@ class Queue extends React.PureComponent {
     }
 
     return (
-      <div style={styles.wrap}>
+      <>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppabe-list">
             {(provided, snapshot) => (
               <div
+                className="row"
                 ref={provided.innerRef}
                 style={getDroppableStyle(snapshot.isDraggingOver)}
               >
@@ -97,7 +98,7 @@ class Queue extends React.PureComponent {
                   >
                     {(provided, snapshot) => (
                       <div
-                        className="flexclass"
+                        className=" text-center"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -106,24 +107,12 @@ class Queue extends React.PureComponent {
                           provided.draggableProps.style
                         )}
                       >
-                        <div className="flexclass">
-                          <div className="flexclass">
-                            <span>
-                              {' '}
-                              {row.queuetype}
-                              {' '}
-                            </span>
-                          </div>
-                          <div className="flexclass">
-                            <span>
-                              {' '}
-                              {row.sample}
-                              {' '}
-                            </span>
-                          </div>
-
+                        <div className="list-group list-group-horizontal">
+                          <span href="#" className="list-group-item active">{row.queuetype}</span>
+                          <span href="#" className="list-group-item">{row.sample}</span>
+                          <span href="#" className="list-group-item">next</span>
+                          <span href="#" className="list-group-item"> ..</span>
                         </div>
-                        <hr style={{ padding: '0px' }} />
                       </div>
                     )}
                   </Draggable>
@@ -133,11 +122,11 @@ class Queue extends React.PureComponent {
           </Droppable>
         </DragDropContext>
         <Nav className="cardbtnqueue justify-content-center">
-          <Nav.Item>
+          <Nav.Item className="navbtn justify-content-center">
             {btn}
           </Nav.Item>
         </Nav>
-      </div>
+      </>
     );
   }
 }

@@ -84,6 +84,7 @@ export const INITIAL_STATE = {
 // Action TYPE
 export const ADD_ROW_ACTION = 'sc/ADD_ROW';
 export const IS_ADDING_NEW_ROW_ACTION = 'sc/IS_ADDING_NEW_ROW_ACTION';
+export const DUPLICATE_ROW_ACTION = 'sc/DUPLICATE_ROW_ACTION';
 export const EDIT_ROW_ACTION = 'sc/EDIT_ROW';
 export const DELETE_ROW_ACTION = 'sc/DELETE_ROW';
 export const CANCEL_EDIT_ROW_ACTION = 'sc/CANCEL_EDIT_ROW_ACTION';
@@ -107,10 +108,14 @@ export default (state = INITIAL_STATE, action) => {
       });
       return { ...state, Temprows, selections: Temprows };
     }
+    case IS_ADDING_NEW_ROW_ACTION: {
+      let AddingNewRow = state.isAddingNewRow;
+      if (AddingNewRow !== action.value) {
+        AddingNewRow = action.value;
+      }
+      return { ...state, isAddingNewRow: AddingNewRow };
+    }
     case ADD_ROW_ACTION: {
-      // let newRows = state.rows;
-      // const startingAddedId = newRows.length > 0 ? newRows[newRows.length - 1].id + 1 : 0;
-      // id: startingAddedId + index,
       const newrow = {
         samplename: action.newRow.samplename,
         concentration: action.newRow.concentration,
@@ -132,21 +137,29 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, rows: [newrow, ...state.rows] };
     }
-    case IS_ADDING_NEW_ROW_ACTION: {
-      let AddingNewRow = state.isAddingNewRow;
-      if (AddingNewRow !== action.value) {
-        AddingNewRow = action.value;
-      }
-      return { ...state, isAddingNewRow: AddingNewRow };
+
+    case DUPLICATE_ROW_ACTION: {
+      let newrow = null;
+      state.rows.map((row) => {
+        if (row.id === action.rowId) {
+          newrow = row;
+        }
+        return null;
+      });
+      const duplicaterow = { ...newrow, id: state.rows.length };
+      return { ...state, rows: [duplicaterow, ...state.rows] };
     }
-    case DELETE_ROW_ACTION: {
-      const rows = state.rows.filter(({ id }) => id !== action.id);
-      return { ...state, rows };
-    }
+
     case SELECT_EDIT_ROW_ACTION: {
       const row = state.rows.find(({ id }) => id === action.id);
       return { ...state, editingRow: row };
     }
+
+    case DELETE_ROW_ACTION: {
+      const rows = state.rows.filter(({ id }) => id !== action.id);
+      return { ...state, rows };
+    }
+
     case EDIT_ROW_ACTION: {
       const rows = state.rows.map((row) => {
         if (row.id === action.modifiedRow.id) {
@@ -170,6 +183,7 @@ export default (state = INITIAL_STATE, action) => {
       });
       return { ...state, rows, editingRow: {} };
     }
+
     case CANCEL_EDIT_ROW_ACTION: {
       const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
       return newState;
@@ -193,16 +207,22 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 // ////////////////////  ACTIONS //////////////////
+function isAddingNewRowAction(value) {
+  return {
+    type: IS_ADDING_NEW_ROW_ACTION,
+    value
+  };
+}
 function addRowAction(newRow) {
   return {
     type: ADD_ROW_ACTION,
     newRow,
   };
 }
-function isAddingNewRowAction(value) {
+function duplicateRowAction(rowId) {
   return {
-    type: IS_ADDING_NEW_ROW_ACTION,
-    value
+    type: DUPLICATE_ROW_ACTION,
+    rowId,
   };
 }
 function editRowACtion(modifiedRow) {
@@ -275,16 +295,23 @@ export function saveStateLocalStorage() {
   };
 }
 
-export function addNewRow(newRow) {
-  return (dispatch) => {
-    dispatch(addRowAction(newRow));
-  };
-}
 export function isAddingNewRow(value) {
   return (dispatch) => {
     dispatch(isAddingNewRowAction(value));
   };
 }
+export function addNewRow(newRow) {
+  return (dispatch) => {
+    dispatch(addRowAction(newRow));
+  };
+}
+
+export function duplicateNewRow(rowId) {
+  return (dispatch) => {
+    dispatch(duplicateRowAction(rowId));
+  };
+}
+
 
 export function editRow(modifiedRow) {
   return (dispatch) => {

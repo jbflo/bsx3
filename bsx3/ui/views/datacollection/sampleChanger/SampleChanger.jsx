@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
-import SampleChangerTable from './SampleChangerTable';
+import SampleChangerTable from './tableSC/SampleChangerTable';
 import SaveMenu from './menu/SaveMenu';
 import FolderUploader from './folderDirectory/FolderDirectory';
 import * as SampleChangerAction from './sampleChanger-api';
@@ -12,20 +12,6 @@ import * as globalAction from '../../../app/main-api';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import './style.css';
-
-const SampleChangerPropTypes = {
-  handleAddRow: PropTypes.func.isRequired,
-  handleCancelEditRow: PropTypes.func.isRequired,
-  handleDeleteRow: PropTypes.func.isRequired,
-  handleEditRow: PropTypes.func.isRequired,
-  handleRowCompletion: PropTypes.func.isRequired,
-  handleSelectEditRow: PropTypes.func.isRequired,
-  handleLoadStateLocalStorage: PropTypes.func.isRequired,
-  handleSaveStateLocalStorage: PropTypes.func.isRequired,
-  handleReorderRow: PropTypes.func.isRequired,
-  handleIsAddingNewRow: PropTypes.func.isRequired,
-  handleShowNotification: PropTypes.func.isRequired,
-};
 
 class SampleChanger extends Component {
   constructor(props, context) {
@@ -50,6 +36,15 @@ class SampleChanger extends Component {
           </div>
         </Nav>
         <SampleChangerTable {...this.props} />
+        <Nav style={{ width: '100%', marginTop: '20px' }}>
+          <div style={{ marginRight: '10px' }}>
+            <span>
+              Plate Viewer will be there
+              { ' ' }
+              <i className="fas fa-arrow-circle-down" />
+            </span>
+          </div>
+        </Nav>
       </div>
     ];
   }
@@ -68,21 +63,24 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    handleIsAddingNewRow: SampleChangerAction.isAddingNewRow,
     handleAddRow: SampleChangerAction.addNewRow,
-    handleCancelEditRow: SampleChangerAction.CancelEditRow,
-    handleDeleteRow: SampleChangerAction.deleteRow,
-    handleEditRow: SampleChangerAction.editRow,
+    handleDuplicateRow: SampleChangerAction.duplicateNewRow,
+
     handleSelectEditRow: SampleChangerAction.selectEditRow,
+    handleEditRow: SampleChangerAction.editRow,
+    handleCancelEditRow: SampleChangerAction.CancelEditRow,
+
+    handleDeleteRow: SampleChangerAction.deleteRow,
+
     handleSaveStateLocalStorage: SampleChangerAction.saveStateLocalStorage,
     handleLoadStateLocalStorage: SampleChangerAction.loadStateLocalStorage,
+
     handleReorderRow: SampleChangerAction.reorderRow,
     handleColumnChooser: SampleChangerAction.toggleColumnChooser,
-    handleIsAddingNewRow: SampleChangerAction.isAddingNewRow,
     handleShowNotification: globalAction.showNotification,
   }, dispatch);
 }
-
-SampleChanger.propTypes = SampleChangerPropTypes;
 
 export default connect(
   mapStateToProps,

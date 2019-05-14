@@ -21,7 +21,7 @@ export default class NavLoggedIn extends Component {
   render() {
     return (
       <Navbar className="Header justify-content-between">
-        <Navbar.Brand href="./" className="brand">BSXcube 3</Navbar.Brand>
+        <Navbar.Brand href="./" title="Data collection software" className="brand">BSXcube 3</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Nav className="justify-content-center">
           <LinkContainer className="link " to="/logging" eventKey={1}><Nav.Link className="page_menu"> System log</Nav.Link></LinkContainer>

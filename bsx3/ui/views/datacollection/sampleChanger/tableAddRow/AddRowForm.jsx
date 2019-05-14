@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-// import {
-//   MdCancel, MdSave
-// } from 'react-icons/md';
-// // import './Formadd.css';
-
 import './style.css';
 
 export default class AddRowForm extends Component {
@@ -90,17 +85,18 @@ export default class AddRowForm extends Component {
 
   render() {
     return (
-      <tr>
-        <td>
-          {/* <i className="fa fa-cog" /> */}
-          <Button
-            className=" btn-success btnaddrow"
-            style={{ fontWeight: 'bold' }}
-            onClick={this.handleAddAndResetForm}
-            title="Create new row"
-          >
+      <tr className="add-row-tr">
+        <td style={{ width: '90px' }}>
+          <div style={{ width: '' }}>
+            <Button
+              className=" btn-success btnaddrow"
+              style={{ fontWeight: 'bold' }}
+              onClick={this.handleAddAndResetForm}
+              title="Create new row"
+            >
             +
-          </Button>
+            </Button>
+          </div>
         </td>
         {this.props.columns.samplename.display
           ? (
