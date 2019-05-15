@@ -1,0 +1,32 @@
+/* Css for Seu.jsx Content  */
+.sc{
+    /* position: relative; */
+    caption-side: top;
+    height: 600px;
+    padding: 0%!important;
+}
+.sctitle{
+    margin-top: 40px;
+    align-content: center;
+    text-align: center;
+    width: 100%;
+}
+.sctitle h3{
+    margin-left: 33%;
+    align-content: center;
+    text-align: center;
+    width: 400px
+
+}
+
+.bar{
+    position: relative;
+    align-content: center;
+}
+
+
+  
+  .flexclass{
+    display: flex;
+    /* margin-right: 5px!important; */
+  }

@@ -1,0 +1,16 @@
+
+/* Css for Addinding Roww Table AddRowForm.jsx Content  */
+
+  /*  */
+.input_add{
+    margin: 0%!important;
+    text-align:center!important;
+}
+
+.add-row-tr{
+  background: rgba(108, 145, 81, 0.144);
+}
+
+.btnaddrow{
+  margin: 0%;
+}
