@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import app from './app-api';
-import beamline from '../views/beamlinestatus/beamline-api';
+import app from './actions/app';
+import beamline from './actions/beamline';
 import sampleChanger from '../views/datacollection/sampleChanger/sampleChanger-api';
 import queue from '../views/datacollection/queue/queue-api';
-import login from '../views/login/login-api';
+import login from './actions/login';
 
 export default function createRootReducer(history) {
   return combineReducers({

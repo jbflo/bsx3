@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import NoRequireAuth from '../views/login/NoRequireAuth';
 import RequireAuth from '../views/login/RequireAuth';
 
-import Main from './Main';
+import Main from '../views/main/Main';
 import Login from '../views/login/Login';
 
 import './app.css';

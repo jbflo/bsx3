@@ -8,7 +8,7 @@ import SampleChangerTable from './tableSC/SampleChangerTable';
 import SaveMenu from './menu/SaveMenu';
 import FolderUploader from './folderDirectory/FolderDirectory';
 import * as SampleChangerAction from './sampleChanger-api';
-import * as globalAction from '../../../app/app-api';
+import * as globalAction from '../../../app/actions/app';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import './style.css';

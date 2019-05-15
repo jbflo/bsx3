@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 import Form from 'react-jsonschema-form';
-import * as LoginAPI from './login-api';
+import * as LoginAPI from '../../app/actions/login';
 
 import './login.css';
 

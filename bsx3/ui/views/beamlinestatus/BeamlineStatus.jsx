@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import PopInput from '../../components/PopInput/PopInput';
 import LabeledValue from '../../components/LabeledValue/LabeledValue';
-import * as beamlineAPI from './beamline-api';
+import * as beamlineAPI from '../../app/actions/beamline';
 import InOutSwitch from '../../components/InOutSwitch/InOutSwitch';
 
 // import './bscontainers.css';

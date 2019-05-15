@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { history } from '../../app/redux-store';
+import { history } from '../redux-store';
 
 // import axios from 'axios';
 
