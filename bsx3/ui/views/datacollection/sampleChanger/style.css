@@ -4,6 +4,11 @@
     caption-side: top;
     height: 600px;
     padding: 0%!important;
+    border-left: 1px solid lightgray;
+}
+
+.wrapsc{
+    padding-top: 40px;
 }
 .sctitle{
     margin-top: 40px;

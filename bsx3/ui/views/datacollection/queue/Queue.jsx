@@ -82,6 +82,7 @@ class Queue extends React.PureComponent {
 
     return (
       <>
+        <h3>Queue</h3>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppabe-list">
             {(provided, snapshot) => (

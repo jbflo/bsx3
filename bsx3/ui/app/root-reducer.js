@@ -3,7 +3,7 @@ import { connectRouter } from 'connected-react-router';
 
 import app from './actions/app';
 import beamline from './actions/beamline';
-import sampleChanger from '../views/datacollection/sampleChanger/sampleChanger-api';
+import sampleChanger from './actions/sampleChanger';
 import queue from '../views/datacollection/queue/queue-api';
 import login from './actions/login';
 

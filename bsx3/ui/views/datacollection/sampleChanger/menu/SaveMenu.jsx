@@ -29,7 +29,7 @@ class SaveMenu extends React.Component {
   render() {
     return (
       <div>
-        <Dropdown style={{ marginTop: '30px' }}>
+        <Dropdown style={{ marginRight: '7px' }}>
           <Dropdown.Toggle variant="none" id="dropdown-basic" style={styles.button}>
             <i className="fa fa-cog" style={{ marginRight: '7px' }} />
             Save

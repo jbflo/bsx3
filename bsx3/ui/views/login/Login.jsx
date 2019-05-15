@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Form from 'react-jsonschema-form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import NavLoggedOut from '../header/NavLoggedOut';
 
-import Form from 'react-jsonschema-form';
 import * as LoginAPI from '../../app/actions/login';
 
 import './login.css';
@@ -35,6 +36,7 @@ class Login extends Component {
 
     return (
       <div className="login">
+        <NavLoggedOut />
         <div className="login-inner">
           <Card>
             <Card.Header>Login</Card.Header>

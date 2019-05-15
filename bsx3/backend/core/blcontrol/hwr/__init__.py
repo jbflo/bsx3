@@ -52,9 +52,9 @@ class HWRShutter(Wrapper):
                 "name": self.name,
                 "id": self.id,
                 "state": self._obj.state(),
-                "open_text": self._obj.open_text(),
-                "close_text": self._obj.close_text(),
-                "msg": self._obj.msg(),
+                "open_text": "OPEN",
+                "close_text": "CLOSED",
+                "msg": "",
                 "is_valid": self._obj.is_valid(),
             }
         )

@@ -3,7 +3,7 @@
 import {
   generateRows,
   scDeafaultRowValues,
-} from '../../../constant/generator';
+} from '../../constant/generator';
 
 // Reducer
 export const INITIAL_STATE = {

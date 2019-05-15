@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux';
 // import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
 import SampleChangerTable from './tableSC/SampleChangerTable';
-import SaveMenu from './menu/SaveMenu';
-import FolderUploader from './folderDirectory/FolderDirectory';
-import * as SampleChangerAction from './sampleChanger-api';
+// import SaveMenu from './menu/SaveMenu';
+// import FolderUploader from './folderDirectory/FolderDirectory';
+import * as SampleChangerAction from '../../../app/actions/sampleChanger';
 import * as globalAction from '../../../app/actions/app';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -27,24 +27,26 @@ class SampleChanger extends Component {
   render() {
     return [
       <div className="sc ">
-        <Nav style={{ width: '100%', marginBottom: '0px' }}>
-          <div style={{ marginRight: '10px' }}>
-            <SaveMenu className="menesavebtn" />
-          </div>
-          <div className="mr-auto" style={{ marginTop: '0px' }}>
-            <FolderUploader className="folderup" />
-          </div>
-        </Nav>
-        <SampleChangerTable {...this.props} />
-        <Nav style={{ width: '100%', marginTop: '20px' }}>
-          <div style={{ marginRight: '10px' }}>
-            <span>
-              Plate Viewer will be there
-              { ' ' }
-              <i className="fas fa-arrow-circle-down" />
-            </span>
-          </div>
-        </Nav>
+        <div className="wrapsc">
+          <Nav style={{ width: '100%', marginBottom: '0px' }}>
+            <div style={{ marginRight: '10px' }}>
+              {/* <SaveMenu className="menesavebtn" /> */}
+            </div>
+            <div className="mr-auto" style={{ marginTop: '0px' }}>
+              {/* <FolderUploader className="folderup" /> */}
+            </div>
+          </Nav>
+          <SampleChangerTable {...this.props} />
+          <Nav style={{ width: '100%', marginTop: '20px' }}>
+            <div style={{ marginRight: '10px' }}>
+              <span>
+                Plate Viewer will be there
+                { ' ' }
+                <i className="fas fa-arrow-circle-down" />
+              </span>
+            </div>
+          </Nav>
+        </div>
       </div>
     ];
   }

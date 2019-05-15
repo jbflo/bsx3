@@ -112,7 +112,7 @@ export default class Overlay extends React.Component {
 }
 
 
-SimpleInOut.defaultProps = {
+Overlay.defaultProps = {
   onText: 'Open',
   offText: 'Close',
   pkey: undefined,

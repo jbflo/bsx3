@@ -3,7 +3,8 @@ import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import WithSelections from '../../../../components/withSelections/WithSelections';
-// import { Label } from 'react-bootstrap/Form';
+import SaveMenu from '../menu/SaveMenu';
+import FolderUploader from '../folderDirectory/FolderDirectory';
 import ColumnChooser from '../tableColumnChooser/ColumnChooser';
 import EditRowForm from '../tableEditRow/EditRowForm';
 import RowList from '../tableRows/RowList';
@@ -54,6 +55,8 @@ class SampleChanger extends React.Component {
     return (
       <>
         <div className="panel-heading">
+          <SaveMenu className="menesavebtn" />
+          <FolderUploader className="folderup" />
           <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
           <div className="flexclass">
             <div className="" title="Choose Column to be display">

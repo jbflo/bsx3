@@ -25,7 +25,7 @@ export default class NavLoggedIn extends Component {
             BSXCuBE 3
           </h3>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Nav className="justify-content-end" style={{ fontSize: '17px' }}>
+          <Nav className="justify-content-end" style={{ fontSize: '15px' }}>
             <LinkContainer className="link " to="/help" eventKey={4}>
               <Nav.Link>
                 <span className="icon"><FaInfoCircle /></span>

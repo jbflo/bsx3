@@ -65,7 +65,7 @@ export default class InOutSwitch extends React.Component {
         >
           <div onContextMenu={this.onOptionsRightClick}>
             <Badge
-              style={{ display: 'block', marginBottom: '3px', }}
+              style={{ display: 'block', marginBottom: '3px' }}
             >
               { this.props.labelText }
               <span>
@@ -80,12 +80,21 @@ export default class InOutSwitch extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD:bsx3/ui/components/InOutSwitch/InOutSwitch.jsx
     let msgBgStyle = 'warning';
     if (this.props.state === 'CLOSED') {
       msgBgStyle = 'success';
     } else if (this.props.state === 'OPEN') {
       msgBgStyle = 'danger';
     }
+=======
+    // let msgBgStyle = 'warning';
+    // if (this.props.data.state === 'out') {
+    //   msgBgStyle = 'success';
+    // } else if (this.props.data.state === 'in') {
+    //   msgBgStyle = 'danger';
+    // }
+>>>>>>> :bsx3/ui/components/OnOffSwitch/OnOffSwitch.jsx
 
     let btn = <Button block bsSize="small" disabled>---</Button>;
     if (this.props.state === 'OPEN') {
@@ -98,8 +107,7 @@ export default class InOutSwitch extends React.Component {
       display: 'block',
       fontSize: '100%',
       borderRadius: '0px',
-      color: '#000',
-      cursor: 'pointer'
+      color: '#000'
     };
 
     return (
@@ -113,7 +121,11 @@ export default class InOutSwitch extends React.Component {
           overlay={(<Popover id={`${this.props.labelText} popover`}>{btn}</Popover>)}
         >
           <div onContextMenu={this.onLinkRightClick}>
+<<<<<<< HEAD:bsx3/ui/components/InOutSwitch/InOutSwitch.jsx
             <Badge variant={msgBgStyle} style={msgLabelStyle}>{this.props.state}</Badge>
+=======
+            <Label style={msgLabelStyle}>{this.props.data.msg}</Label>
+>>>>>>> :bsx3/ui/components/OnOffSwitch/OnOffSwitch.jsx
           </div>
         </OverlayTrigger>
       </div>

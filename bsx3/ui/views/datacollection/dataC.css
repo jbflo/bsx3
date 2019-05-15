@@ -2,13 +2,10 @@
 /* Horizontal Tabs */
 .horizontal-tabs .nav-tabs {
     width: 100%;
-    font-size: 13px;
-    padding-top: 10px;
-    padding-right: 10px;
-    height: 65px;
+    font-size: 15px;
+    height: 85px;
     border-color: rgba(108, 145, 81, 0.274)!important;
     border-bottom: 1px ridge ;
-    /* border: none; */
 }
 
 .horizontal-tabs .nav-tabs .nav-link:hover {
@@ -16,17 +13,18 @@
 }
  
 .horizontal-tabs .nav-tabs .nav-link {
+    margin-top: 20px;
     border-bottom: 0px;
     margin-left: 10px; 
     padding: 15px;
     color: #00695c;
-    background: linear-gradient(to right, rgba(108, 145, 81, 0.137), rgba(108, 145, 81, 0.144));
-    transform: translateY(10px);
+    background:  rgba(108, 145, 81, 0.137);
+    transform: translateY(10);
     -webkit-transform: translateY(10px);
-    height: 43.5px;
+    height: 55px;
     outline: none;
-    border-top-left-radius: 10%;
-    border-top-right-radius:10%;
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
 }
 
 .horizontal-tabs .nav-tabs .nav-link.active {
@@ -35,16 +33,22 @@
     background: white;
     transform: translateY(0);
     -webkit-transform: translateY(0);
-    height: 55px;
+    height: 65px;
     border-color: #00695d86;
-
 }
 
-.cardtabs{
+.cardtabs1{
     background: transparent;
     top: 0;
     height: 800px;
-    border: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+
+.cardtabs2{
+    background: transparent;
+    top: 0;
+    height: 800px;
+    /* border-right: 1px solid lightgray; */
 }
 
 /* For the Future If Responsive Device is not Fit we can set Style here  */
