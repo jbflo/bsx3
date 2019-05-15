@@ -2,7 +2,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import {
-  OverlayTrigger, Popover
+  OverlayTrigger, Popover, Button
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
 import './style.css';
@@ -24,7 +24,7 @@ class ColumnChooser extends React.Component {
         <ul className="list-group list-group-flush">
           {Object.entries(this.props.columns).map(([key, column]) => {
             return (
-              <li className="list-group-item" key={key}>
+              <li className="list-group-item list-group-column" key={key}>
                 {column.name}
                 <Label className="switch ">
                   <input
@@ -52,10 +52,10 @@ class ColumnChooser extends React.Component {
         overlay={(<Popover className="colpopover" id={`${this.props.labelText} popover`}>{content}</Popover>)}
       >
         <div onContextMenu={this.onLinkRightClick}>
-          <Label className="columnCh" title="Choose Column to display">
+          <Button variant="link" className="columnCh" title="Choose Column to display">
             {/* Column */}
             <i className="fa fa-eye" />
-          </Label>
+          </Button>
         </div>
       </OverlayTrigger>
     );

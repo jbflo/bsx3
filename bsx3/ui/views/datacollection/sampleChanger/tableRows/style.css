@@ -12,6 +12,9 @@
     background:  none!important;
     text-align:center!important;
 }
+.input_form:focus{
+    box-shadow:none;
+  }
 .drag-icon{
     cursor: all-scroll!important;
     margin-top: 7px;

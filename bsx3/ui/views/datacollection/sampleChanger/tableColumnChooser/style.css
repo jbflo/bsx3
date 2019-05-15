@@ -5,18 +5,19 @@
   padding-left: 15px;
 }
 .columnCh{
-  margin-top: 4px;
+  /* margin-top: 4px; */
   cursor: pointer;
   margin-right: 10px;
   font-size: 20px;
   color: rgb(102, 102, 102);
 }
 
-.columnCh:hover{
+.columnCh:hover, .columnCh:focus{
   width: 30px;
-  padding-left: 4px;
+  height: 30px;
+  padding: 0px;
   border-radius: 20%;
- color: white;
+  color: white;
   background: rgb(102, 102, 102);
 }
 
@@ -26,7 +27,7 @@
   color: #00695c;
   font-weight: bold;
 }
-.list-group-item{
+.list-group-column{
   padding-top: 5px!important;
   height: 32px;
 }

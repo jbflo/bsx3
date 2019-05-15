@@ -68,7 +68,7 @@ class SampleChanger extends React.Component {
           </div>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Table className="sctable" responsive bordered>
+          <Table className="sctable" responsive>
             <thead className="">
               <tr>
                 <th style={{ width: '90px' }}>

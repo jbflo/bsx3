@@ -50,6 +50,8 @@ thead {
 }
 
 .sctable th, .sctable td  {
+  margin: 0%!important;
+  height: 20px;
 text-align: center;
 width: 128px;
 }
@@ -62,6 +64,7 @@ width: 128px;
 }
 
 .checkall {
+  margin: 0%!important;
   height: 15px!important;
   width: 15px!important;
 }
@@ -74,9 +77,8 @@ width: 128px;
   color: #00695c;
   text-align: center;
   white-space: nowrap;
- 
 }
 
-.input_th:focus, .input_th:active{
-  box-shadow:none !important;
+.input_th:focus{
+  box-shadow:none;
 }
