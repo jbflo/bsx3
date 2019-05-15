@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/beamline';
+const API_URL = '/bsxcube/api/v0.1/beamline';
 
 // import fetch from 'isomorphic-fetch';
 // The different states a beamline attribute can assume.
@@ -41,7 +41,7 @@ export const INITIAL_STATE = {
   },
   energy: {
     name: 'Energy',
-    energy: 0,
+    value: 0,
     energy_limits: [0, 0],
     state: true,
     tunable: true,
@@ -84,7 +84,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         shutters: {
           ...state.shutters,
-          [action.shutter.name]: { ...action.shutter }
+          [action.shutter.id]: { ...action.shutter }
         }
       };
     }
@@ -111,8 +111,7 @@ export function updateShutterAction(shutter) {
 
 export function getBeamline() {
   return (dispatch) => {
-    // debugger;
-    axios.post(`${API_URL}/get-beamline`)
+    axios.get(`${API_URL}/beamline`)
       .then((response) => {
         dispatch(getBeamlineAction(response.data));
       })
@@ -136,14 +135,14 @@ export function setBeamline(name) {
 }
 
 
-export function toggleShutter(name) {
+export function toggleShutter(id) {
   return (dispatch) => {
-    axios.post(`${API_URL}/toggle-shutter`, { name })
+    axios.put(`${API_URL}/toggle-shutter/${id}`)
       .then((response) => {
         dispatch(updateShutterAction(response.data));
       })
       .catch((error) => {
-        throw (error);
+        throw new Error(`PUT ${API_URL} failed with ${error}`);
       });
   };
 }

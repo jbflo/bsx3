@@ -1,125 +1,71 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
+import Form from 'react-jsonschema-form';
 import * as LoginAPI from './login-api';
-import loader from '../../img/loader.gif';
-import logo from '../../img/logo.png'; // relative path to logo
 
 import './login.css';
 
+const uiSchema = {
+  'ui:order': ['username', 'password'],
+  username: {
+    'ui:placeholder': 'Username',
+    'ui:title': 'Username'
+  },
+  password: {
+    'ui:widget': 'password',
+    'ui:placeholder': 'Password',
+    'ui:title': 'Password'
+  }
+};
+
+const log = type => console.log.bind(console, type);
+
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    // this.props.dispatch(LoginAPI.logout());
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {};
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    // let logini;
+  login(formData) {
+    console.log(formData);
   }
-
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const username = event.target.username.value;
-    const password = event.target.password.value;
-    if (username && password) {
-      this.props.dispatch(LoginAPI.loginRequest(username.toLowerCase(), password));
-    }
-    // this.props.setLoading(true);
-  }
-
-
-  handleKeyPress(target) {
-    if (target.charCode === 13) {
-      this.signIn();
-    }
-    if (target.charCode === 13) {
-      this.logini = true;
-    }
-  }
-
-  validateForm() {
-    return (
-      this.props.username > 0
-      && this.props.password > 0
-    );
-  }
-
 
   render() {
-    if (this.props.loading && !this.props.showProposalsForm) {
-      return <img src={loader} className="centered" alt="Loading" />;
+    if (!this.props.schema) {
+      return null;
     }
 
-    const { isLoginPending, isLoginSuccess, loginError } = this.props;
-    const { loggingIn } = this.props;
-    return [
+    return (
       <div className="login">
-        <form name="Login" onSubmit={this.handleSubmit}>
-          {/* <Image
-            style={{
-              width: '80px', height: '80px', marginBottom: '20px',
-                marginTop: '35px', marginLeft: '11%'
-            }}
-            // src={logo}
-            alt="LOGO"
-          /> */}
-          <input
-            required
-            id="outlined-dense"
-            label="User Name"
-            inputRef={(ref) => { this.username = ref; }}
-            type="text"
-            name="username"
-            margin="dense"
-            variant="outlined"
-          />
-          <input
-            required
-            id="outlined-password-input"
-            label="Password"
-            inputRef={(ref) => { this.password = ref; }}
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-            variant="outlined"
-          />
-
-          <button
-            className="btn"
-            // disabled={!this.validateForm()}
-            type="submit"
-          >
-          Login
-          </button>
-          {loggingIn
-              && <img src={logo} alt=" " />
-          }
-        </form>
-        <div className="message">
-          { isLoginPending && <div>Please wait...</div> }
-          { isLoginSuccess && <div>Success.</div> }
-          { loginError && <div>{loginError.message}</div> }
+        <div className="login-inner">
+          <Card>
+            <Card.Header>Login</Card.Header>
+            <Form
+              schema={this.props.schema}
+              uiSchema={uiSchema}
+              onChange={log('changed')}
+              onSubmit={(e) => {
+                this.props.dispatch(LoginAPI.loginRequest(
+                  e.formData.username, e.formData.password
+                ));
+              }}
+              onError={log('errors')}
+              showErrorList={false}
+            >
+              <div>
+                <Button className="pull-right" variant="info" type="submit">Login</Button>
+              </div>
+            </Form>
+          </Card>
         </div>
-        {/* {(this.props.showError ? <Alert bsStyle="danger"><h4>Login failed</h4></Alert> : '')}
-        {(<Alert bsStyle="danger"><h4>{this.username}</h4></Alert>,
-          <Alert bsStyle="danger"><h4>{this.password}</h4></Alert>)} */}
       </div>
-    ];
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ app }) {
   return {
-    state
+    schema: app.schemas.user_login
   };
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     login: (email, password) => dispatch(login(email, password))
-//   };
-// }
 
 export default connect(
   mapStateToProps,

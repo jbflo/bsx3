@@ -1,13 +1,11 @@
+import axios from 'axios';
 
+const SCHEMA_API_URL = '/bsxcube/api/v0.1/schemas/';
 
-// Action TYPE
 export const INIT = 'app/INIT';
-export const SHOW_NOTIFICATION_ACTION = 'main/SHOW_NOTIFICATION_ACTION';
-
 
 const initialState = {
-  compress: false,
-  autoScale: true,
+  schemas: {},
   showNotification: false
 };
 
@@ -16,7 +14,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case INIT:
       return {
-        ...initialState
+        ...state, schemas: { ...action.schemas }
       };
     case SHOW_NOTIFICATION_ACTION: {
       let showNotif = state.showNotification;
@@ -25,7 +23,6 @@ export default (state = initialState, action) => {
       }
       return (
         { ...state, showNotification: showNotif }
-        // setTimeout(() => ({ ...state, showNotification: false }), 3000)
       );
     }
     default:
@@ -33,7 +30,6 @@ export default (state = initialState, action) => {
   }
 };
 
-// ////////////////////  ACTIONS //////////////////
 export function showNotificationAction(value) {
   return {
     type: SHOW_NOTIFICATION_ACTION,
@@ -41,11 +37,24 @@ export function showNotificationAction(value) {
   };
 }
 
-
-// /////////////// Dispatch Action ///////////////////////////////
-
 export function showNotification(value) {
   return (dispatch) => {
     dispatch(showNotificationAction(value));
+  };
+}
+
+export function initAppAction(schemas) {
+  return { type: INIT, schemas };
+}
+
+export function initAppRequest() {
+  return (dispatch) => {
+    axios.get(`${SCHEMA_API_URL}`)
+      .then((response) => {
+        dispatch(initAppAction(response.data));
+      })
+      .catch((error) => {
+        throw new Error(`GET ${SCHEMA_API_URL} failed with ${error}`);
+      });
   };
 }

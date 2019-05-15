@@ -1,7 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Row, Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import NumericInput from 'react-numeric-input';
+
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import './style.css';
 
 export default class DefaultInput extends React.Component {
@@ -12,22 +15,20 @@ export default class DefaultInput extends React.Component {
     this.submit = this.submit.bind(this);
     this.stepIncrement = this.stepChange.bind(this, props.motorName, 1);
     this.stepDecrement = this.stepChange.bind(this, props.motorName, -1);
+    this.formControlRef = React.createRef();
+    this.inputRef = React.createRef();
   }
 
   getValue() {
-    const input = this.NumericInput;
-    // console.log(input.value);
-    return input.value;
+    return this.formControlRef.current.value;
   }
 
-
   stepChange(name, operator) {
-    const input = ReactDOM(this.formControl);
+    const input = this.formControlRef.current;
     const nv = (Number(input.value) + this.props.step * operator).toFixed(this.props.precision);
     input.value = nv;
     input.defaultValue = nv;
   }
-
 
   save() {
     this.props.onSave();
@@ -45,22 +46,26 @@ export default class DefaultInput extends React.Component {
   render() {
     return (
       <Form inline onSubmit={this.submit} noValidate>
-        <Form.Group as={Row} className="pull-right popcontent" role="group">
-          <NumericInput
-            // size={this.props.inputSize}
-            size={5}
-            className="form-control numericinput"
-            column
-            sm="2"
-            ref={(ref) => { this.NumericInput = ref; }}
-            step={0.1}
-            precision={2}
-            value={this.props.value}
-            // snap
-          />
-          <Button column sm="2" type="button" className="btnpopinput btnsuccess btn-xs btn-success img-circle" onClick={this.save}>&#x2713;</Button>
-          <Button column sm="2" type="button" className="btnpopinput btndanger btn-xs btn-danger img-circle" onClick={this.cancel}>X</Button>
-        </Form.Group>
+        <NumericInput
+          className="popinput-input"
+          size="5"
+          ref={this.formControlRef}
+          defaultValue={this.props.value}
+          precision={this.props.precision}
+          value={this.props.value}
+          step={this.props.step}
+        />
+        <ButtonToolbar style={{ marginLeft: '0px' }} className="form-group editable-buttons">
+          <Button variant="success" className="btn-sm" onClick={this.save}>
+            <FaCheck />
+          </Button>
+          { !this.props.inplace ? (
+            <Button variant="danger" className="btn-sm" onClick={this.cancel}>
+              <FaTimes />
+            </Button>
+          ) : (null)
+          }
+        </ButtonToolbar>
       </Form>
     );
   }
@@ -69,9 +74,10 @@ export default class DefaultInput extends React.Component {
 
 DefaultInput.defaultProps = {
   dataType: 'number',
-  inputSize: '110',
-  step: 'any',
-  precision: 1,
+  inputSize: '10',
+  step: 0.1,
+  inplace: false,
+  precision: 3,
   value: 0,
   onSave: undefined,
   onCancel: undefined,
