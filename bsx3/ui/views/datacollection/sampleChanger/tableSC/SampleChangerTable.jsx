@@ -82,16 +82,14 @@ class SampleChanger extends React.Component {
                   >
                     New
                   </Button> */}
-                  <div style={{ width: '100px' }}>
-                    <input
-                      type="checkbox"
-                      id="checkall"
-                      checked={areAllSelected(this.props.rows)}
-                      onChange={() => handleSelectAll(this.props.rows)}
-                      className="checkall"
-                      ref={(ref) => { this.checkall = ref; }}
-                    />
-                  </div>
+                  <input
+                    type="checkbox"
+                    id="checkall"
+                    checked={areAllSelected(this.props.rows)}
+                    onChange={() => handleSelectAll(this.props.rows)}
+                    className="checkall"
+                    ref={(ref) => { this.checkall = ref; }}
+                  />
                 </th>
                 {/*  Conditional rendering of the Column  */}
                 {this.props.columns.samplename.display

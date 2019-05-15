@@ -103,7 +103,7 @@ export default class EditRowForm extends Component {
   render() {
     return (
       <>
-        <td>
+        <td style={{ width: '90px' }}>
           Editing....
           <div className="flexclass">
             <Button

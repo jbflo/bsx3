@@ -1,5 +1,6 @@
 .list-group-horizontal .list-group-item {
-    font-size: 13px;
+	font-size: 12px;
+	padding: 5px;
     text-align: center;
     white-space: nowrap;
     display: inline-block;
