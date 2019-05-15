@@ -23,7 +23,7 @@ export default class InOutSwitch extends React.Component {
 
 
   onOptionsRightClick(e) {
-    this.optionsOverlayRef.current.handleToggle();
+    this.optionsOverlayRef.current.handleClick();
     e.preventDefault();
   }
 

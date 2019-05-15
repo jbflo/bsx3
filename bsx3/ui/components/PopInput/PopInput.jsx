@@ -64,7 +64,7 @@ export default class PopInput extends React.Component {
 
 
   onLinkClick(e) {
-    this.overlayRef.current.handleToggle();
+    this.overlayRef.current.handleClick();
     e.preventDefault();
   }
 
