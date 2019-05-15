@@ -3,6 +3,7 @@ import axios from 'axios';
 const SCHEMA_API_URL = '/bsxcube/api/v0.1/schemas/';
 
 export const INIT = 'app/INIT';
+export const SHOW_NOTIFICATION_ACTION = 'app/SHOW_NOTIFICATION_ACTION';
 
 const initialState = {
   schemas: {},

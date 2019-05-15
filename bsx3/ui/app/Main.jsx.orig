@@ -1,57 +1,65 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import NoRequireAuth from '../login/NoRequireAuth';
-import RequireAuth from '../login/RequireAuth';
-
-// import NavLoggedOut from '../header/NavLoggedOut';
-// import NavLoggedIn from '../header/NavLoggedIn';
-<<<<<<< Updated upstream
-import LoginJSForm from '../login/LoginJSForm';
+import NavLoggedOut from '../views/header/NavLoggedOut';
+import NavLoggedIn from '../views/header/NavLoggedIn';
+import Login from '../views/login/Login';
 import Counter from '../counter/Counter';
-=======
->>>>>>> Stashed changes
-// import Datacollection from '../datacollection/DataCollection';
-
-import Counter from '../counter/Counter';
-import LoginJSForm from '../login/LoginJSForm';
+import Datacollection from '../views/datacollection/DataCollection';
+import Notification from '../components/notification/Notification';
 import './main.css';
+=======
+import Container from 'react-bootstrap/Container';
+import NavLoggedIn from '../header/NavLoggedIn';
+>>>>>>> upstream/master
 
-const history = createBrowserHistory();
+// import DataCollection from '../datacollection/DataCollection';
+import BeamlineStatus from '../beamlinestatus/BeamlineStatus';
+
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { initialized: false };
-  }
-
-  componentWillMount() {
-    this.setState({ initialized: true });
-    if (!this.props.authenticated) {
-      history.push('/');
-    }
-  }
-
-  componentDidMount() {
-    this.props.hideLoader();
-  }
-
-  componentWillUpdate(nextProps) {
-    if (!nextProps.authenticated) {
-      history.push('/');
-    }
-  }
-
   render() {
-    if (!this.state.initialized) return <span>Loading...</span>;
-
-    return [
+    return (
       <div className="main">
-        <Route exact path="/" component={RequireAuth(Counter)} />
-        <Route exact path="/login" component={NoRequireAuth(LoginJSForm)} />
+<<<<<<< HEAD
+        {this.props.showNotification
+          ? (
+            <Notification
+              level="success"
+              message="Succesfully delete row"
+              visible={this.props.showNotification}
+              handleShowNotification={this.props.handleShowNotification}
+            />
+          )
+          : null
+        }
+        { <Route exact path="/login" component={NavLoggedOut} />
+        }
+        { <Route exact path="/datacollection" component={NavLoggedIn} />
+        }
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/counter" component={Counter} />
+        <Route exact path="/datacollection" component={Datacollection} />
+        <Route exact path="/" component={NavLoggedIn} />
+        <Route exact path="/" component={Datacollection} />
+=======
+        <Container fluid style={{ padding: '0px' }}>
+          <NavLoggedIn />
+          <BeamlineStatus key="bmstatatus" />
+        </Container>
+>>>>>>> upstream/master
       </div>
-    ];
+    );
   }
 }
 
-export default Main;
+function mapStateToProps() {
+  return {
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(Main);

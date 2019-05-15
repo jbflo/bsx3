@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import PopInput from '../components/PopInput/PopInput';
-import LabeledValue from '../components/LabeledValue/LabeledValue';
+import PopInput from '../../components/PopInput/PopInput';
+import LabeledValue from '../../components/LabeledValue/LabeledValue';
 import * as beamlineAPI from './beamline-api';
-import InOutSwitch from '../components/InOutSwitch/InOutSwitch';
+import InOutSwitch from '../../components/InOutSwitch/InOutSwitch';
 
 // import './bscontainers.css';
 

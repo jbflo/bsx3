@@ -4,9 +4,9 @@ import { history } from '../../app/redux-store';
 // import axios from 'axios';
 
 // Actions
-export const LOGIN_REQUESTED = 'counter/LOGIN_REQUESTED';
-export const LOGIN_SUCCESS = 'counter/LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'counter/LOGIN_ERROR';
+export const LOGIN_REQUESTED = 'login/LOGIN_REQUESTED';
+export const LOGIN_SUCCESS = 'login/LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'login/LOGIN_ERROR';
 
 export const initialState = {
   username: '',
@@ -48,7 +48,6 @@ export function loginSuccess(username) {
 export function loginFailed(error) {
   return { type: LOGIN_ERROR, error };
 }
-
 
 export function loginRequest(username, password) {
   return (dispatch) => {

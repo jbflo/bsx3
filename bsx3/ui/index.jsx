@@ -12,8 +12,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import 'mdbreact/dist/css/mdb.css';
 import './index.css';
 
-import { initAppRequest } from './app/main-api';
-import { loginSuccess } from './login/login-api';
+import { initAppRequest } from './app/app-api';
+import { loginSuccess } from './views/login/login-api';
 
 const target = document.querySelector('#root');
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import NoRequireAuth from '../login/NoRequireAuth';
-import RequireAuth from '../login/RequireAuth';
+import NoRequireAuth from '../views/login/NoRequireAuth';
+import RequireAuth from '../views/login/RequireAuth';
 
 import Main from './Main';
-import Login from '../login/Login';
+import Login from '../views/login/Login';
 
 import './app.css';
 
