@@ -9,7 +9,7 @@ const styles = {
     minHeight: '300px'
   },
   droppable: {
-    // border: '1px dashed lightgray',
+    border: '1px solid lightgray',
     // margin: '1rem',
     // padding: '1rem',
     borderRadius: '5px',

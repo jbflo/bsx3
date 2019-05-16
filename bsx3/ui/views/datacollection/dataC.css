@@ -3,8 +3,11 @@
 .horizontal-tabs .nav-tabs {
     width: 100%;
     font-size: 15px;
-    height: 85px;
+    padding-top: 10px;
+    margin-left: 0px; 
+    height: 55px;
     border-color: rgba(108, 145, 81, 0.274)!important;
+    background: rgba(126, 204, 226, 0.06);
     border-bottom: 1px ridge ;
 }
 
@@ -13,27 +16,25 @@
 }
  
 .horizontal-tabs .nav-tabs .nav-link {
-    margin-top: 20px;
+    font-weight: bold;
     border-bottom: 0px;
-    margin-left: 10px; 
-    padding: 15px;
+    margin-left: 30px; 
+    padding: 10px;
     color: #00695c;
-    background:  rgba(108, 145, 81, 0.137);
     transform: translateY(10);
     -webkit-transform: translateY(10px);
-    height: 55px;
+    height: 45px;
     outline: none;
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
 }
 
 .horizontal-tabs .nav-tabs .nav-link.active {
-    font-weight: bold;
-    border-top-width: 3px;
+    border-top-width: 4px;
     background: white;
     transform: translateY(0);
     -webkit-transform: translateY(0);
-    height: 65px;
+    height: 45px;
     border-color: #00695d86;
 }
 
@@ -41,7 +42,6 @@
     background: transparent;
     top: 0;
     height: 800px;
-    border-right: 1px solid lightgray;
 }
 
 .cardtabs2{

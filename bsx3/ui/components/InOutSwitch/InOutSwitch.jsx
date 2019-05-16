@@ -82,9 +82,9 @@ export default class InOutSwitch extends React.Component {
   render() {
     let msgBgStyle = 'warning';
     if (this.props.state === 'CLOSED') {
-      msgBgStyle = 'success';
-    } else if (this.props.state === 'OPEN') {
       msgBgStyle = 'danger';
+    } else if (this.props.state === 'OPEN') {
+      msgBgStyle = 'success';
     }
 
     let btn = <Button block bsSize="small" disabled>---</Button>;

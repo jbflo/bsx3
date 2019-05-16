@@ -27,8 +27,9 @@ class Queue extends React.PureComponent {
 
     onDragEnd = (result) => {
       const { source, destination } = result;
-      if (!destination) return;
-      this.reorderRows(source.index, destination.index);
+      if (result.destination) {
+        this.reorderRows(source.index, destination.index);
+      }
     };
 
   deleteQueue = queue => () => {
@@ -81,7 +82,7 @@ class Queue extends React.PureComponent {
     }
 
     return (
-      <>
+      <div className="">
         <h3>Queue</h3>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppabe-list">
@@ -89,15 +90,17 @@ class Queue extends React.PureComponent {
               <div
                 className="row"
                 ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
                 style={getDroppableStyle(snapshot.isDraggingOver)}
               >
                 {this.state.queueData.map((row, index) => (
                   <Draggable
-                    draggableId={`draggable-${row.key}`}
+                    draggableId={`drag-${row.key}`}
                     key={row.key}
                     index={index}
                   >
-                    {(provided, snapshot) => (
+                    {(provided, snapshot) => [
                       <div
                         className=" text-center"
                         ref={provided.innerRef}
@@ -114,10 +117,12 @@ class Queue extends React.PureComponent {
                           <span href="#" className="list-group-item">next</span>
                           <span href="#" className="list-group-item"> ..</span>
                         </div>
+                        {provided.placeholder}
                       </div>
-                    )}
+                    ]}
                   </Draggable>
                 ))}
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
@@ -127,7 +132,7 @@ class Queue extends React.PureComponent {
             {btn}
           </Nav.Item>
         </Nav>
-      </>
+      </div>
     );
   }
 }

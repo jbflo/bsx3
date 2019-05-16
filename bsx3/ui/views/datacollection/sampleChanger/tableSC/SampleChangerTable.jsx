@@ -9,7 +9,7 @@ import ColumnChooser from '../tableColumnChooser/ColumnChooser';
 import EditRowForm from '../tableEditRow/EditRowForm';
 import RowList from '../tableRows/RowList';
 import AddRowForm from '../tableAddRow/AddRowForm';
-import { getDraggableStyle, getDroppableStyle } from '../styles';
+import style, { getDraggableStyle, getDroppableStyle } from '../styles';
 
 import './style.css';
 
@@ -17,7 +17,6 @@ class SampleChanger extends React.Component {
   constructor(props) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.onDuplicate = this.onDuplicate.bind(this);
   }
 
   componentWillMount() {
@@ -40,24 +39,23 @@ class SampleChanger extends React.Component {
     }
   }
 
-  onDuplicate(result) {
-    const { source, destination } = result;
-    if (result.destination) {
-      this.props.handleReorderRow(source.index, destination.index);
-    }
-  }
-
   render() {
     const {
       handleSelect, isItemSelected, areAllSelected, handleSelectAll
     } = this.props;
 
     return (
-      <>
+      <div style={style.wrap}>
         <div className="panel-heading">
           <SaveMenu className="menesavebtn" />
           <FolderUploader className="folderup" />
-          <input className="form-control input_queue-name mr-auto" placeholder="Queue Name " name="samplename" type="text" />
+          {/* <input className="form-control input_queue-name" "type="text" /> */}
+          <div className="mr-auto">
+            <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue">
+              Define Buffer
+              <i className="far fa-arrow-alt-circle-down" style={{ marginLeft: '5px' }} />
+            </Button>
+          </div>
           <div className="flexclass">
             <div className="" title="Choose Column to be display">
               <ColumnChooser {...this.props} />
@@ -178,13 +176,13 @@ class SampleChanger extends React.Component {
                   ) : (
                     null
                   )}
-                  {this.props.rows.map((row, index) => [
+                  {this.props.rows.map((row, index) => (
                     <Draggable
                       draggableId={`draggable-${row.id}`}
                       key={row.id}
                       index={index}
                     >
-                      {(provided, snapshot) => [
+                      {(provided, snapshot) => (
                         <tr
                           ref={provided.innerRef}
                           {...provided.draggableProps}
@@ -212,16 +210,16 @@ class SampleChanger extends React.Component {
                           ]}
                           {provided.placeholder}
                         </tr>
-                      ]}
+                      )}
                     </Draggable>
-                  ])}
+                  ))}
                   {provided.placeholder}
                 </tbody>
               )}
             </Droppable>
           </Table>
         </DragDropContext>
-      </>
+      </div>
     );
   }
 }

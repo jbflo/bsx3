@@ -1,9 +1,9 @@
 const styles = {
   wrap: {
-    // width: '100%',
-    // textAlign: 'center',
-    // padding: '1rem',
-    // marginLeft: '-30px'
+    width: '100%',
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    minHeight: '300px'
   },
   table: {
     width: '100%',

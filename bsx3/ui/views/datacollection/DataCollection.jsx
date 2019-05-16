@@ -16,7 +16,7 @@ class Datacollection extends Component {
     super(props, context);
     this.state = {
       valuetab1: 0,
-      // valuetab2: 0,
+      valuetab2: 0,
     };
     // this.handleChangeTab1 = this.handleChangeTab1.bind(this);
     // this.handleChangeTab2 = this.handleChangeTab2.bind(this);
@@ -32,17 +32,16 @@ class Datacollection extends Component {
 
   render() {
     return [
-
-      <div>
-        <BeamlineStatus key="bstatus" />
-      </div>,
-      <div className="container-fluid">
+      <div className="">
+        <div>
+          <BeamlineStatus key="bstatus" />
+        </div>
         <div className="row">
           <div className="col-9" style={{ }}>
             <div className="horizontal-tabs">
               <div className="cardtabs1">
                 <Tabs
-                  className="nav nav-tabs nav-fill"
+                  className="nav nav-tabs"
                   activeKey={this.state.valuetab1}
                   onSelect={valuetab1 => this.setState({ valuetab1 })}
                 >
@@ -63,10 +62,18 @@ class Datacollection extends Component {
             </div>
           </div>
           {/* Tab for messages and Queue  */}
-          <div className="col-3" style={{ }}>
+          <div className="col-3 " style={{ }}>
             <div className="horizontal-tabs spec">
               <div className="cardtabs2">
-                <Queue key="queueTab" />
+                <Tabs
+                  className="nav nav-tabs"
+                  activeKey={this.state.valuetab2}
+                  onSelect={valuetab2 => this.setState({ valuetab2 })}
+                >
+                  <Tab eventKey={0} className="nav-item">
+                    <Queue key="queueTab" />
+                  </Tab>
+                </Tabs>
               </div>
             </div>
           </div>

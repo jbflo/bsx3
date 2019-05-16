@@ -1,11 +1,12 @@
 @media all and (min-width: 480px) {
     .login {
-      padding: 140px 0;
+     
     }
   
     .login-inner {
       margin: 0 auto;
       max-width: 25%;
+      padding: 140px 0;
     }
 
     .login .card {

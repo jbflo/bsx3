@@ -26,7 +26,7 @@ class SampleChanger extends Component {
 
   render() {
     return [
-      <div className="sc ">
+      <div className="sc container-fluid">
         <div className="wrapsc">
           <Nav style={{ width: '100%', marginBottom: '0px' }}>
             <div style={{ marginRight: '10px' }}>
