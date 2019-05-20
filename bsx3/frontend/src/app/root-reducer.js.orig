@@ -1,0 +1,30 @@
+/* eslint-disable eol-last */
+/* eslint-disable indent */
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import { reducer as formReducer } from 'redux-form';
+
+import app from './main-api';
+import beamline from '../beamlinestatus/beamline-api';
+import sc from '../sc/sc-api';
+<<<<<<< HEAD
+import login from '../login/login-api';
+
+import counter from '../counter/counter-api';
+
+=======
+import queue from '../queue/queue-api';
+>>>>>>> 35a67c73dd742b67a9aa418278781e31a2cc15d1
+
+export default function createRootReducer(history) {
+    return combineReducers({
+        router: connectRouter(history),
+        app,
+        counter,
+        login,
+        beamline,
+        sc,
+        queue,
+        form: formReducer
+    });
+}
