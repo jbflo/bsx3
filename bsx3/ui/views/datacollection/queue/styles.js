@@ -10,7 +10,8 @@ const styles = {
   },
   droppable: {
     border: '1px solid lightgray',
-    // margin: '1rem',
+    marginTop: '40px',
+    marginLeft: '10px',
     // padding: '1rem',
     borderRadius: '5px',
     width: '100%',

@@ -83,7 +83,7 @@ class Queue extends React.PureComponent {
 
     return (
       <div className="">
-        <h3>Queue</h3>
+        {/* <h3>Queue</h3> */}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppabe-list">
             {(provided, snapshot) => (
@@ -102,7 +102,7 @@ class Queue extends React.PureComponent {
                   >
                     {(provided, snapshot) => [
                       <div
-                        className=" text-center"
+                        className=" text-center container-fluid"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}

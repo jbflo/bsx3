@@ -12,66 +12,115 @@ export const INITIAL_STATE = {
     length: 3
   }),
 
-  columns: {
+  dataTable: {
+    id: ['0', '1', '2'],
     samplename: {
-      name: 'Sample Name',
+      columnName: 'Sample Name',
       display: true,
+      size: 105,
+      columnValues: ['s1', 's2', 's3'],
     },
     buffer: {
-      name: 'Buffer',
+      columnName: 'Buffer',
       display: true,
+      size: 70,
+      columnValues: ['B1', 'B21', 'B2'],
     },
     plate: {
-      name: 'Plate',
+      columnName: 'Plate',
       display: true,
+      size: 70,
+      columnValues: ['p1', 'p2', 'p3'],
     },
     row: {
-      name: 'Row',
+      columnName: 'Row',
       display: true,
+      size: 40,
+      columnValues: ['r1', 'R2', 'r3'],
     },
     column: {
-      name: 'Column',
+      columnName: 'Column',
       display: true,
+      size: 60,
+      columnValues: ['co1', 'co23', 'co3']
     },
     flow: {
-      name: 'Flow',
+      columnName: 'Flow',
       display: true,
+      size: 50,
+      columnValues: [true, false, true],
+    },
+    recap: {
+      columnName: 'Recap',
+      display: true,
+      size: 55,
+      columnValues: [false, false, true],
     },
     energy: {
-      name: 'Energy',
+      columnName: 'Energy',
       display: true,
+      size: 75,
+      columnValues: [17, 27, 38],
     },
     volume: {
-      name: 'volume (μl)',
-      display: false,
+      columnName: 'volume (μl)',
+      display: true,
+      size: 105,
+      columnValues: [60, 70, 67],
     },
     seutemp: {
-      name: 'SEU Temp.',
-      display: false,
+      columnName: 'SEU Temp.',
+      display: true,
+      size: 90,
+      columnValues: [50, 6, 55],
     },
     stemp: {
-      name: 'Storage Temp.',
-      display: false,
+      columnName: 'Storage Temp.',
+      display: true,
+      size: 110,
+      columnValues: [6, 7, 99],
     },
     concentration: {
-      name: 'Concentration',
-      display: false,
+      columnName: 'Concentration',
+      display: true,
+      size: 105,
+      columnValues: [0, 0, 0],
+    },
+    viscovity: {
+      columnName: 'viscovity',
+      display: true,
+      size: 80,
+      columnValues: ['low', 'medium', 'high'],
     },
     frame: {
-      name: 'Frames No.',
-      display: false,
+      columnName: 'Frames No.',
+      display: true,
+      size: 90,
+      columnValues: [0, 0, 0],
     },
     exposuretime: {
-      name: 'Exp Time (ms)',
-      display: false,
+      columnName: 'Exp Time(ms)',
+      display: true,
+      size: 105,
+      columnValues: [0, 0, 0],
+    },
+    transmission: {
+      columnName: 'Transmission %',
+      display: true,
+      size: 100,
+      columnValues: [0, 50, 0],
     },
     attenuation: {
-      name: 'Attenuation %',
-      display: false,
+      columnName: 'Attenuation %',
+      display: true,
+      size: 115,
+      columnValues: [0, 0, 100],
     },
     tools: {
-      name: 'tools',
-      display: false,
+      columnName: 'tools',
+      display: true,
+      size: 60,
+      columnValues: [],
     },
   },
   editingRow: {},
@@ -150,14 +199,14 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, rows: [duplicaterow, ...state.rows] };
     }
 
-    case SELECT_EDIT_ROW_ACTION: {
-      const row = state.rows.find(({ id }) => id === action.id);
-      return { ...state, editingRow: row };
+    case DELETE_ROW_ACTION: {
+      const dataTable = state.dataTable.id.filter(({ id }) => id !== action.id);
+      return { ...state, dataTable };
     }
 
-    case DELETE_ROW_ACTION: {
-      const rows = state.rows.filter(({ id }) => id !== action.id);
-      return { ...state, rows };
+    case SELECT_EDIT_ROW_ACTION: {
+      const row = state.dataTable.id.find(({ id }) => id === action.id);
+      return { ...state, editingRow: row };
     }
 
     case EDIT_ROW_ACTION: {
@@ -185,21 +234,23 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case CANCEL_EDIT_ROW_ACTION: {
-      const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
+      const newState = state.dataTable.length ? { ...state, editingRow: {} } : { ...state };
       return newState;
     }
     case REORDER_ROW_ACTION: {
-      const rows = [...state.rows];
-      const [removed] = rows.splice(action.initialPosition, 1);
-      rows.splice(action.newPosition, 0, removed);
+      const dataTable = [...state.dataTable];
+      const [removed] = dataTable.splice(action.initialPosition, 1);
+      dataTable.splice(action.newPosition, 0, removed);
 
-      return { ...state, rows };
+      return { ...state, dataTable };
     }
     case TOGGLE_COLUMN_CHOOSER_ACTION: {
-      const column = state.columns[action.key];
-      const columns = { ...state.columns, [action.key]: { ...column, display: !column.display } };
-
-      return { ...state, columns };
+      const colums = state.dataTable[action.key];
+      const dataTable = {
+        ...state.dataTable,
+        [action.key]: { ...colums, display: !colums.display }
+      };
+      return { ...state, dataTable };
     }
     default:
       return state;

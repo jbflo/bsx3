@@ -20,7 +20,7 @@ import './style.css';
 //     temp: { type: 'string' },
 //   }
 // };
-export default class EditRowForm extends Component {
+export default class TableEditRow extends Component {
   constructor(props) {
     super(props);
 
@@ -126,65 +126,115 @@ export default class EditRowForm extends Component {
             </Button>
           </div>
         </td>
-        {this.props.columns.samplename.display
+
+        {Object.entries(this.props.dataTable).map(([key, column]) => (
+          // eslint-disable-next-line no-nested-ternary
+          column.display
+            ? (
+              // eslint-disable-next-line no-nested-ternary
+              key === 'flow'
+                ? (
+                  <td key={key} style={{ width: column.size }}>
+                    <input className="input_check" type="checkbox" name={key} onChange={this.handleRowChange} checked={column.columnValues[this.props.index]} />
+                  </td>
+                )
+                : (
+                  key === 'tools'
+                    ? (
+                      <td key={key} style={{ width: column.size }}>
+                        <Button
+                          className=" btn-success btnaddrow"
+                          style={{ fontWeight: 'bold' }}
+                          onClick={this.handleAddAndResetForm}
+                          title="Create new row"
+                        >
+                        +
+                        </Button>
+                      </td>
+                    )
+                    : (
+                      <td style={{ width: column.size }}>
+                        <input className="form-control input_add" name={key} onChange={this.handleRowChange} value={column.columnValues[this.props.index]} />
+                      </td>
+                    )
+                )
+
+            )
+            : null
+        ))}
+        {/* {this.props.sampleColumns.samplename.display
           ? (
-            <td><input className="form-control input_edit" name="samplename" required onChange={this.handleRowChange} value={this.state.samplename} /></td>
+            <td><input className="form-control input_edit" name="samplename"
+            required onChange={this.handleRowChange} value={this.state.samplename} /></td>
           )
           : null
                 }
-        {this.props.columns.buffer.display
-          ? <td><input className="form-control input_edit" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
+        {this.props.sampleColumns.buffer.display
+          ? <td><input className="form-control input_edit" name="buffer"
+          onChange={this.handleRowChange} value={this.state.buffer} /></td>
           : null
                 }
-        {this.props.columns.plate.display
-          ? <td><input className="form-control input_edit" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
+        {this.props.sampleColumns.plate.display
+          ? <td><input className="form-control input_edit" name="plate"
+          onChange={this.handleRowChange} value={this.state.plate} /></td>
           : null
                 }
-        {this.props.columns.row.display
-          ? <td><input className="form-control input_edit" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
+        {this.props.sampleColumns.row.display
+          ? <td><input className="form-control input_edit" name="row"
+          onChange={this.handleRowChange} value={this.state.row} /></td>
           : null
                 }
-        {this.props.columns.column.display
-          ? <td><input className="form-control input_edit" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
+        {this.props.colsampleColumnsumns.column.display
+          ? <td><input className="form-control input_edit" name="column"
+          onChange={this.handleRowChange} value={this.state.column} /></td>
           : null
                 }
-        {this.props.columns.flow.display
-          ? <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
+        {this.props.sampleColumns.flow.display
+          ? <td><input className="input_check" type="checkBox" name="flow"
+          onChange={this.handleRowChange} checked={this.state.flow} /></td>
           : null
                 }
-        {this.props.columns.energy.display
-          ? <td><input className="form-control input_edit" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
+        {this.props.sampleColumns.energy.display
+          ? <td><input className="form-control input_edit" name="energy"
+          onChange={this.handleRowChange} value={this.state.energy} /></td>
           : null
                 }
-        {this.props.columns.volume.display
-          ? <td><input className="form-control input_edit" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
+        {this.props.sampleColumns.volume.display
+          ? <td><input className="form-control input_edit" name="volume"
+          onChange={this.handleRowChange} value={this.state.volume} /></td>
           : null
                 }
-        {this.props.columns.seutemp.display
-          ? <td><input className="form-control input_edit" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
+        {this.props.sampleColumns.seutemp.display
+          ? <td><input className="form-control input_edit" name="seutemp"
+          onChange={this.handleRowChange} value={this.state.seutemp} /></td>
           : null
                 }
-        {this.props.columns.stemp.display
-          ? <td><input className="form-control input_edit" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
+        {this.props.sampleColumns.stemp.display
+          ? <td><input className="form-control input_edit" name="stemp"
+          onChange={this.handleRowChange} value={this.state.stemp} /></td>
           : null
                 }
-        {this.props.columns.concentration.display
-          ? <td><input className="form-control input_edit" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
+        {this.props.sampleColumns.concentration.display
+          ? <td><input className="form-control input_edit" name="concentration"
+          onChange={this.handleRowChange} value={this.state.concentration} /></td>
           : null
                 }
-        {this.props.columns.frame.display
-          ? <td><input className="form-control input_edit" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
+        {this.props.sampleColumns.frame.display
+          ? <td><input className="form-control input_edit" name="frame"
+          onChange={this.handleRowChange} value={this.state.frame} /></td>
           : null
                 }
-        {this.props.columns.exposuretime.display
-          ? <td><input className="form-control input_edit" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
+        {this.props.sampleColumns.exposuretime.display
+          ? <td><input className="form-control input_edit" name="exposuretime"
+          onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
           : null
                 }
-        {this.props.columns.attenuation.display
-          ? <td><input className="form-control input_edit" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
+        {this.props.sampleColumns.attenuation.display
+          ? <td><input className="form-control input_edit" name="attenuation"
+          onChange={this.handleRowChange} value={this.state.attenuation} /></td>
           : null
                 }
-        {this.props.columns.tools.display
+        {this.props.sampleColumns.tools.display
           ? (
             <td>
               <div className="flexclass">
@@ -210,7 +260,7 @@ export default class EditRowForm extends Component {
             </td>
           )
           : null
-        }
+        } */}
       </>
     );
   }

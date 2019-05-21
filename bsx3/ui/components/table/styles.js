@@ -5,6 +5,9 @@ const styles = {
     borderRadius: '5px',
     minHeight: '300px'
   },
+  table: {
+    width: '100%',
+  },
   droppable: {
     borderBotton: '1px solid lightgray',
     borderRadius: '5px',
@@ -20,7 +23,7 @@ const styles = {
     backgroundColor: 'white',
     margin: '0rem',
     padding: '0rem',
-    height: '40px',
+    // height: '40px',
   },
   draggableDragging: {
     backgroundColor: '#dcedc8',

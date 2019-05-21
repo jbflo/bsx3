@@ -1,11 +1,15 @@
 
 /* Horizontal Tabs */
+.nopadding{
+   padding: 0 !important;
+   margin: 0 !important;
+}
 .horizontal-tabs .nav-tabs {
     width: 100%;
     font-size: 15px;
     padding-top: 10px;
     margin-left: 0px; 
-    height: 55px;
+    height: 45px;
     border-color: rgba(108, 145, 81, 0.274)!important;
     background: rgba(126, 204, 226, 0.06);
     border-bottom: 1px ridge ;
@@ -19,22 +23,14 @@
     font-weight: bold;
     border-bottom: 0px;
     margin-left: 30px; 
-    padding: 10px;
     color: #00695c;
-    transform: translateY(10);
-    -webkit-transform: translateY(10px);
-    height: 45px;
+    height: 25px;
     outline: none;
-    border-top-left-radius: 20%;
-    border-top-right-radius: 20%;
 }
 
 .horizontal-tabs .nav-tabs .nav-link.active {
-    border-top-width: 4px;
-    background: white;
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-    height: 45px;
+    border-top-width: 3px;
+    height: 35px;
     border-color: #00695d86;
 }
 
@@ -43,7 +39,6 @@
     top: 0;
     height: 800px;
 }
-
 .cardtabs2{
     background: transparent;
     top: 0;

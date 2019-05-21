@@ -1,0 +1,132 @@
+/* eslint-disable no-shadow */
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import WithSelections from '../withSelections/WithSelections';
+import TableAddRow from './TableAddRow';
+import TableEditRow from './TableEditRow';
+import TableRow from './TableRow';
+
+import style, { getDraggableStyle, getDroppableStyle } from './styles';
+
+import './style.css';
+
+class SampleChanger extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.handleSelectAll(this.props.rows);
+  }
+
+  componentDidMount() {
+    this.checkall.indeterminate = this.props.areAllIndeterminate(this.props.rows);
+    this.props.areAllSelected(true);
+  }
+
+  componentDidUpdate() {
+    this.checkall.indeterminate = this.props.areAllIndeterminate(this.props.rows);
+  }
+
+  onDragEnd(result) {
+    const { source, destination } = result;
+    if (result.destination) {
+      this.props.handleReorderRow(source.index, destination.index);
+    }
+  }
+
+  render() {
+    const {
+      handleSelect, isItemSelected, areAllSelected, handleSelectAll
+    } = this.props;
+
+    return (
+      <div style={style.wrap}>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Table className="sctable" responsive bordered>
+            <thead className="">
+              <tr>
+                <th style={{ width: '70px' }}>
+                  <input
+                    type="checkbox"
+                    id="checkall"
+                    checked={areAllSelected(this.props.rows)}
+                    onChange={() => handleSelectAll(this.props.rows)}
+                    className="checkall"
+                    ref={(ref) => { this.checkall = ref; }}
+                  />
+                </th>
+                {/*  Conditional rendering of the Column  */}
+                {Object.entries(this.props.dataTable).map(([key, column]) => (
+                  column.display
+                    ? <th style={{ width: column.size }} key={key}><input className="form-control input_th" readOnly value={column.columnName} /></th>
+                    : null
+                ))
+               }
+              </tr>
+            </thead>
+            <Droppable droppableId="droppabe-list">
+              {(provided, snapshot) => (
+                <tbody
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  isDraggingOver={snapshot.isDraggingOver}
+                  style={getDroppableStyle(snapshot.isDraggingOver)}
+                >
+                  {this.props.isAddingNewRow ? (
+                    <TableAddRow
+                      {...this.props}
+                    />
+                  ) : (
+                    null
+                  )}
+                  {this.props.dataTable.id.map((id, index) => (
+                    <Draggable
+                      draggableId={`draggable-${id}`}
+                      key={id}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <tr
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getDraggableStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          {this.props.editingRow.id === id ? (
+                            <TableEditRow
+                              key={id}
+                              row={this.props.editingRow}
+                              {...this.props}
+                            />
+                          ) : [
+                            <TableRow
+                              key={id}
+                              index={index}
+                              id={id}
+                              onSelectChange={() => handleSelect(id)}
+                              checked={isItemSelected(id)}
+                              {...this.props}
+                            />
+                          ]}
+                          {provided.placeholder}
+                        </tr>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </tbody>
+              )}
+            </Droppable>
+          </Table>
+        </DragDropContext>
+      </div>
+    );
+  }
+}
+export default(WithSelections(SampleChanger));

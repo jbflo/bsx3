@@ -37,7 +37,7 @@ class Datacollection extends Component {
           <BeamlineStatus key="bstatus" />
         </div>
         <div className="row">
-          <div className="col-9" style={{ }}>
+          <div className="col-9 nopadding" style={{ }}>
             <div className="horizontal-tabs">
               <div className="cardtabs1">
                 <Tabs
@@ -62,15 +62,15 @@ class Datacollection extends Component {
             </div>
           </div>
           {/* Tab for messages and Queue  */}
-          <div className="col-3 " style={{ }}>
-            <div className="horizontal-tabs spec">
+          <div className="col-3 nopadding" style={{ }}>
+            <div className="horizontal-tabs">
               <div className="cardtabs2">
                 <Tabs
                   className="nav nav-tabs"
                   activeKey={this.state.valuetab2}
                   onSelect={valuetab2 => this.setState({ valuetab2 })}
                 >
-                  <Tab eventKey={0} className="nav-item">
+                  <Tab title="QUEUE" eventKey={0} className="nav-item">
                     <Queue key="queueTab" />
                   </Tab>
                 </Tabs>

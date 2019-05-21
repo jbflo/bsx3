@@ -86,7 +86,7 @@ export default class AddRowForm extends Component {
   render() {
     return (
       <tr className="add-row-tr">
-        <td style={{ width: '90px' }}>
+        <td style={{ width: '70px' }}>
           <div style={{ width: '' }}>
             <Button
               className=" btn-success btnaddrow"
@@ -98,79 +98,76 @@ export default class AddRowForm extends Component {
             </Button>
           </div>
         </td>
-        {this.props.columns.samplename.display
-          ? (
-            <td><input className="form-control input_add" name="samplename" onChange={this.handleRowChange} value={this.state.samplename} /></td>
-          )
-          : null
-        }
-        {this.props.columns.buffer.display
-          ? <td><input className="form-control input_add" name="buffer" onChange={this.handleRowChange} value={this.state.buffer} /></td>
-          : null
-                }
-        {this.props.columns.plate.display
-          ? <td><input className="form-control input_add" name="plate" onChange={this.handleRowChange} value={this.state.plate} /></td>
-          : null
-                }
-        {this.props.columns.row.display
-          ? <td><input className="form-control input_add" name="row" onChange={this.handleRowChange} value={this.state.row} /></td>
-          : null
-                }
-        {this.props.columns.column.display
-          ? <td><input className="form-control input_add" name="column" onChange={this.handleRowChange} value={this.state.column} /></td>
-          : null
-                }
-        {this.props.columns.flow.display
-          ? <td><input className="input_check" type="checkBox" name="flow" onChange={this.handleRowChange} checked={this.state.flow} /></td>
-          : null
-                }
-        {this.props.columns.energy.display
-          ? <td><input className="form-control input_add" name="energy" onChange={this.handleRowChange} value={this.state.energy} /></td>
-          : null
-                }
-        {this.props.columns.volume.display
-          ? <td><input className="form-control input_add" name="volume" onChange={this.handleRowChange} value={this.state.volume} /></td>
-          : null
-                }
-        {this.props.columns.seutemp.display
-          ? <td><input className="form-control input_add" name="seutemp" onChange={this.handleRowChange} value={this.state.seutemp} /></td>
-          : null
-                }
-        {this.props.columns.stemp.display
-          ? <td><input className="form-control input_add" name="stemp" onChange={this.handleRowChange} value={this.state.stemp} /></td>
-          : null
-                }
-        {this.props.columns.concentration.display
-          ? <td><input className="form-control input_add" name="concentration" onChange={this.handleRowChange} value={this.state.concentration} /></td>
-          : null
-                }
-        {this.props.columns.frame.display
-          ? <td><input className="form-control input_add" name="frame" onChange={this.handleRowChange} value={this.state.frame} /></td>
-          : null
-                }
-        {this.props.columns.exposuretime.display
-          ? <td><input className="form-control input_add" name="exposuretime" onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
-          : null
-                }
-        {this.props.columns.attenuation.display
-          ? <td><input className="form-control input_add" name="attenuation" onChange={this.handleRowChange} value={this.state.attenuation} /></td>
-          : null
-                }
-        {this.props.columns.tools.display
-          ? (
-            <td>
-              <Button
-                className=" btn-success btnaddrow"
-                style={{ fontWeight: 'bold' }}
-                onClick={this.handleAddAndResetForm}
-                title="Create new row"
-              >
-                +
-              </Button>
-            </td>
-          )
-          : null
-        }
+        {Object.entries(this.props.dataTable).map(([key, column]) => (
+          // eslint-disable-next-line no-nested-ternary
+          column.display
+            ? (
+              // eslint-disable-next-line no-nested-ternary
+              key === 'flow'
+                ? (
+                  <td key={key} style={{ width: column.size }}>
+                    <input className="input_check" type="checkbox" onChange={this.handleRowChange} checked={column.columnValues[this.props.index]} />
+                  </td>
+                )
+                : (
+                  key === 'tools'
+                    ? (
+                      <td key={key} style={{ width: column.size }}>
+                        <Button
+                          className=" btn-success btnaddrow"
+                          style={{ fontWeight: 'bold' }}
+                          onClick={this.handleAddAndResetForm}
+                          title="Create new row"
+                        >
+                        +
+                        </Button>
+                      </td>
+                    )
+                    : (
+                      <td style={{ width: column.size }}>
+                        <input className="form-control input_add" onChange={this.handleRowChange} value={column.columnValues[this.props.index]} />
+                      </td>
+                    )
+                )
+
+            )
+            : null
+        ))}
+        {Object.entries(this.props.dataTable).map(([key, column]) => (
+          column.display
+            ? () => {
+              switch (key) {
+                case 'flow':
+                  return (
+                    <td key={key} style={{ Maxwidth: column.size }}>
+                      <input className="input_check" type="checkbox" name={key} onChange={this.handleRowChange} checked={this.props.row.flow} />
+                    </td>
+                  );
+                case 'tools':
+                  return (
+                    <td>
+                      <Button
+                        className=" btn-success btnaddrow"
+                        style={{ fontWeight: 'bold' }}
+                        onClick={this.handleAddAndResetForm}
+                        title="Create new row"
+                      >
+                        +
+                      </Button>
+                    </td>
+                  );
+                default:
+                  return (
+                    <td key={key} style={{ width: column.size }}>
+                      <input className="form-control input_add" name={key} onChange={this.handleRowChange} value={column.values[this.props.index]} />
+                    </td>
+                  );
+              }
+            }
+
+            : null
+        ))
+      }
       </tr>
     );
   }
