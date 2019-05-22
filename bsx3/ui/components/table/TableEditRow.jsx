@@ -25,20 +25,6 @@ export default class TableEditRow extends Component {
     super(props);
 
     this.state = {
-      samplename: props.row.samplename,
-      concentration: props.row.concentration,
-      plate: props.row.plate,
-      row: props.row.row,
-      column: props.row.column,
-      frame: props.row.frame,
-      exposuretime: props.row.exposuretime,
-      attenuation: props.row.attenuation,
-      buffer: props.row.buffer,
-      flow: props.row.flow,
-      volume: props.row.volume,
-      seutemp: props.row.seutemp,
-      stemp: props.row.stemp,
-      energy: props.row.energy,
     };
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleEditAndResetForm = this.handleEditAndResetForm.bind(this);
@@ -103,7 +89,7 @@ export default class TableEditRow extends Component {
   render() {
     return (
       <>
-        <td style={{ width: '90px' }}>
+        <td style={{ width: '70px' }}>
           Editing....
           <div className="flexclass">
             <Button
@@ -126,39 +112,42 @@ export default class TableEditRow extends Component {
             </Button>
           </div>
         </td>
-
-        {Object.entries(this.props.dataTable).map(([key, column]) => (
+        {Object.entries(this.props.columns).map(([key, column]) => (
           // eslint-disable-next-line no-nested-ternary
           column.display
             ? (
-              // eslint-disable-next-line no-nested-ternary
-              key === 'flow'
+              key === 'tools'
                 ? (
-                  <td key={key} style={{ width: column.size }}>
-                    <input className="input_check" type="checkbox" name={key} onChange={this.handleRowChange} checked={column.columnValues[this.props.index]} />
+                  <td>
+                    <div className="flexclass">
+                      <Button
+                        variant="link"
+                        title="Cancel row editting"
+                        className="save-cancel cancel-btn"
+                        align="right"
+                        onClick={this.props.handleCancelEditRow}
+                      >
+                        <i className="fas fa-window-close" />
+                      </Button>
+                      <Button
+                        variant="link"
+                        title="Save edited row"
+                        className="save-cancel save-btn"
+                        align="right"
+                        onClick={this.handleEditAndResetForm}
+                      >
+                        <i className="far fa-save" />
+                      </Button>
+                    </div>
                   </td>
                 )
                 : (
-                  key === 'tools'
-                    ? (
-                      <td key={key} style={{ width: column.size }}>
-                        <Button
-                          className=" btn-success btnaddrow"
-                          style={{ fontWeight: 'bold' }}
-                          onClick={this.handleAddAndResetForm}
-                          title="Create new row"
-                        >
-                        +
-                        </Button>
-                      </td>
-                    )
-                    : (
-                      <td style={{ width: column.size }}>
-                        <input className="form-control input_add" name={key} onChange={this.handleRowChange} value={column.columnValues[this.props.index]} />
-                      </td>
-                    )
+                  <td style={{ width: column.size }}>
+                    <div className="" style={{ margin: '5px' }}>
+                      <input className="form-control input_edit" type={column.inputType} name={key} onChange={this.handleRowChange} checked={this.props.row[key]} value={this.props.row[key]} />
+                    </div>
+                  </td>
                 )
-
             )
             : null
         ))}

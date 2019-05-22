@@ -21,19 +21,18 @@ class SampleTable extends Component {
   componentDidUpdate() { this.props.handleSaveStateLocalStorage(this.props.Rows); }
 
   render() {
-    return [
+    return (
       <div className="sctable">
         <Table {...this.props} />
       </div>
-    ];
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     rows: state.sampleChanger.rows,
-    dataTable: state.sampleChanger.dataTable,
-    columnId: state.sampleChanger.columnId,
+    columns: state.sampleChanger.columns,
     editingRow: state.sampleChanger.editingRow,
     isAddingNewRow: state.sampleChanger.isAddingNewRow,
     showNotification: state.app.showNotification,

@@ -1,36 +1,5 @@
 /* Css for Seu.jsx Content  */
-.sc{
-    /* position: relative; */
-    caption-side: top;
-    height: 600px;
-    /* padding: 0%!important; */
-    border-left: 1px solid lightgray;
-}
 
-.wrapsc{
-    padding-top: 40px;
-}
-.sctitle{
-    margin-top: 40px;
-    align-content: center;
-    text-align: center;
-    width: 100%;
-}
-.sctitle h3{
-    margin-left: 33%;
-    align-content: center;
-    text-align: center;
-    width: 400px
-
-}
-
-.bar{
-    position: relative;
-    align-content: center;
-}
-
-
-  
   .flexclass{
     display: flex;
     /* margin-right: 5px!important; */
@@ -38,21 +7,7 @@
 
 
   /*   */
-
-  .panel-heading{
-    background: rgba(108, 145, 81, 0.144);
-    display: flex;
-    width:100%; 
-    height: 34px;
-  }
   
-  .input_queue-name{
-    text-align:center;
-    margin: 0px;
-    width: 150px!important;
-    background: none!important;
-    height: 33px!important;
-  }
   .btnaddqueue {
     font-size: 15px!important;
     color: rgb(102, 102, 102);
@@ -107,7 +62,6 @@
 
   .form-control{
     padding: 0%!important;
-    margin-right: 103%!important;
   }
   
   .input_th{
@@ -142,32 +96,40 @@
 
 
 /* Css for Table Row Data input RowList.jsx Content  */
+.input_form[type="checkbox"]{
+    height: 15px;
+    width: 15px;
+    margin-top: 18px; 
+    margin-left: 19px
+}
+.input_edit[type="checkbox"]{
+    height: 15px;
+    width: 15px;
+    margin-top: 18px; 
+    margin-left: 14px
+}
 
 .input_check{
-    height: 15px!important;
-    width: 15px!important;
-    margin: 10px!important; 
+    height: 15px;
+    width: 15px;
+    margin-top: 8px; 
+    margin-right: 4px
   }
   .input_form{ 
       border: none!important;
       background:  none!important;
-      text-align:center!important;
+      text-align:center;
   }
   .input_form:focus{
       box-shadow:none;
     }
+
   .drag-icon{
-      cursor: all-scroll!important;
+      cursor: all-scroll;
       margin-top: 7px;
-      margin-right: 5px; 
+      margin-right: 10px; 
   }
   
-  .check-row{
-      height: 15px!important;
-      width: 15px!important;
-      margin-top: 10px!important; 
-      margin-left: 4px
-  }
   .index-row{
       margin-top: 5px!important; 
       margin-left: 6px

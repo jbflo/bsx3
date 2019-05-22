@@ -11,7 +11,7 @@ import 'bootstrap/dist/js/bootstrap';
 
 import './home.css';
 
-class SampleQueueContainer extends Component {
+class Home extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -51,4 +51,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SampleQueueContainer);
+)(Home);

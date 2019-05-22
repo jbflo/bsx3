@@ -8,7 +8,6 @@
     width: 100%;
     font-size: 15px;
     padding-top: 10px;
-    margin-left: 0px; 
     height: 45px;
     border-color: rgba(108, 145, 81, 0.274)!important;
     background: rgba(126, 204, 226, 0.06);
@@ -34,17 +33,14 @@
     border-color: #00695d86;
 }
 
-.cardtabs1{
+.cardtabs{
     background: transparent;
     top: 0;
     height: 800px;
+    width: 100%;
+    /* border: 1px solid #00695c */
 }
-.cardtabs2{
-    background: transparent;
-    top: 0;
-    height: 800px;
-    /* border-right: 1px solid lightgray; */
-}
+
 
 /* For the Future If Responsive Device is not Fit we can set Style here  */
 

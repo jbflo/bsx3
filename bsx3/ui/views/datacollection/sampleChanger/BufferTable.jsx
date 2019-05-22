@@ -32,7 +32,7 @@ class BufferTable extends Component {
 function mapStateToProps(state) {
   return {
     rows: state.sampleChanger.rows,
-    dataTable: state.sampleChanger.dataTable,
+    columns: state.sampleChanger.columns,
     columnId: state.sampleChanger.columnId,
     editingRow: state.sampleChanger.editingRow,
     isAddingNewRow: state.sampleChanger.isAddingNewRow,

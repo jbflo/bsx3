@@ -13,27 +13,27 @@ export default class TableRow extends Component {
   render() {
     const MyMenu = () => (
       <Menu
-        id={this.props.id}
+        id={this.props.row.id}
         onShown={() => { }}
         onHidden={() => { }}
       >
         <Item>Add to Queue</Item>
         <Separator />
-        <Item onClick={() => this.props.handleDuplicateRow(this.props.id)}>
+        <Item onClick={() => this.props.handleDuplicateRow(this.props.row.id)}>
           <span>
             Duplicate
             { ' ' }
             <i className="far fa-copy" />
           </span>
         </Item>
-        <Item onClick={() => this.props.handleSelectEditRow(this.props.id)}>
+        <Item onClick={() => this.props.handleSelectEditRow(this.props.row.id)}>
           <span>
             Edit row
             { ' ' }
             <i className="far fa-edit" />
           </span>
         </Item>
-        <Item onClick={() => this.props.handleDeleteRow(this.props.id)}>
+        <Item onClick={() => this.props.handleDeleteRow(this.props.row.id)}>
           <span>
             Delete row
             { ' ' }
@@ -52,7 +52,7 @@ export default class TableRow extends Component {
 
     return (
       <Fragment>
-        <MenuProvider id={this.props.id} component="tr">
+        <MenuProvider id={this.props.row.id} component="tr">
           <MyMenu />
           {this.props.showNotification
             ? (
@@ -66,7 +66,7 @@ export default class TableRow extends Component {
             : null
           }
           <td style={{ width: '70px' }}>
-            <div className="flexclass" style={{ width: '' }}>
+            <div className="flexclass" style={{ width: '', marginLeft: '5px' }}>
               <span
                 className="drag-icon"
                 title="Drag row to change order"
@@ -84,38 +84,29 @@ export default class TableRow extends Component {
               </span>
             </div>
           </td>
-          {Object.entries(this.props.dataTable).map(([key, column]) => (
-            // eslint-disable-next-line no-nested-ternary
-            column.display
-              ? (
-                // eslint-disable-next-line no-nested-ternary
-                key === 'flow'
-                  ? (
-                    <td key={key} style={{ width: column.size }}>
-                      <input className="input_check" type="checkbox" readOnly checked={column.columnValues[this.props.index]} />
-                    </td>
-                  )
-                  : (
-                    key === 'tools'
-                      ? (
-                        <td key={key} style={{ width: column.size }}>
-                          <PropertyButton
-                            key={this.props.id}
-                            id={this.props.id}
-                            {...this.props}
-                          />
-                        </td>
-                      )
-                      : (
-                        <td style={{ width: column.size }}>
-                          <input className="form-control input_form" readOnly value={column.columnValues[this.props.index]} />
-                        </td>
-                      )
-                  )
+          {Object.entries(this.props.columns).map(([key, column]) => {
+            let res = null;
 
-              )
-              : null
-          ))}
+            if (column.display) {
+              if (key === 'tools') {
+                res = (
+                  <td key={key} style={{ width: column.size }}>
+                    <PropertyButton
+                      {...this.props}
+                    />
+                  </td>
+                );
+              } else {
+                res = (
+                  <td key={key} style={{ width: column.size }}>
+                    <input className="form-control input_form" type={column.inputType} readOnly checked={this.props.row[key]} value={this.props.row[key]} />
+                  </td>
+                );
+              }
+            }
+
+            return res;
+          })}
         </MenuProvider>
       </Fragment>
     );

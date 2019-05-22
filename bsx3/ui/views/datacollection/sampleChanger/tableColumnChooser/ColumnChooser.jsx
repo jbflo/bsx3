@@ -20,11 +20,11 @@ class ColumnChooser extends React.Component {
   }
 
   render() {
-    const content = [
+    const content = (
       <div className="row">
         <div className="ulheader">Check Column to be display </div>
         <ul className="list-group list-group-flush">
-          {Object.entries(this.props.dataTable).map(([key, column]) => {
+          {Object.entries(this.props.columns).map(([key, column]) => {
             return (
               <li className="list-group-item list-group-column" key={key}>
                 {column.columnName}
@@ -44,7 +44,7 @@ class ColumnChooser extends React.Component {
           }
         </ul>
       </div>
-    ];
+    );
     return (
       <OverlayTrigger
         ref={(ref) => { this.OverlayTrigger = ref; }}
@@ -65,33 +65,13 @@ class ColumnChooser extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    // rows: state.sampleChanger.rows,
-    dataTable: state.sampleChanger.dataTable,
-    // columnId: state.sampleChanger.columnId,
-    // editingRow: state.sampleChanger.editingRow,
-    // isAddingNewRow: state.sampleChanger.isAddingNewRow,
-    // showNotification: state.app.showNotification,
+    columns: state.sampleChanger.columns,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    // handleIsAddingNewRow: SampleChangerAction.isAddingNewRow,
-    // handleAddRow: SampleChangerAction.addNewRow,
-    // handleDuplicateRow: SampleChangerAction.duplicateNewRow,
-
-    // handleSelectEditRow: SampleChangerAction.selectEditRow,
-    // handleEditRow: SampleChangerAction.editRow,
-    // handleCancelEditRow: SampleChangerAction.CancelEditRow,
-
-    // handleDeleteRow: SampleChangerAction.deleteRow,
-
-    // handleSaveStateLocalStorage: SampleChangerAction.saveStateLocalStorage,
-    // handleLoadStateLocalStorage: SampleChangerAction.loadStateLocalStorage,
-
-    // handleReorderRow: SampleChangerAction.reorderRow,
     handleColumnChooser: SampleChangerAction.toggleColumnChooser,
-    // handleShowNotification: globalAction.showNotification,
   }, dispatch);
 }
 

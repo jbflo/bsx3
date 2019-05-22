@@ -22,7 +22,7 @@ class ColumnChooser extends React.Component {
       <div className="row">
         <div className="ulheader">Check Column to be display </div>
         <ul className="list-group list-group-flush">
-          {Object.entries(this.props.dataTable).map(([key, column]) => {
+          {Object.entries(this.props.columns).map(([key, column]) => {
             return (
               <li className="list-group-item list-group-column" key={key}>
                 {column.columnName}

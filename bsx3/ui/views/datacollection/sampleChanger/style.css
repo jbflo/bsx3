@@ -1,33 +1,34 @@
 /* Css for Seu.jsx Content  */
 .sc{
     height: 700px;
+    
 }
 
 .wrapsc{
-    padding-top: 40px;
-    margin-left: 10px;
-}
-.sctitle{
     margin-top: 40px;
-    align-content: center;
-    text-align: center;
-    width: 100%;
-}
-.sctitle h3{
-    margin-left: 33%;
-    align-content: center;
-    text-align: center;
-    width: 400px
-
+    margin-left: 10px;
+    /* border: 1px solid black;  */
 }
 
-.bar{
-    position: relative;
-    align-content: center;
+.divcollapsebtn{
+ width: 193px;
+ background: rgba(108, 145, 81, 0.164);
+ border: 1px solid lightgray; 
+ border-radius: 20px; 
 }
 
+.collapsebtn{
+    border: 2px solid black; 
+    border-radius: 20px!important; 
+}
 
-  
+.panel-heading{
+    background: rgba(108, 145, 81, 0.144);
+    display: flex;
+    width:100%; 
+    height: 34px;
+  } 
+
   .flexclass{
     display: flex;
     /* margin-right: 5px!important; */

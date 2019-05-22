@@ -8,20 +8,7 @@ export default class AddRowForm extends Component {
     super(props);
 
     this.state = {
-      samplename: props.row.samplename,
-      concentration: props.row.concentration,
-      plate: props.row.plate,
-      row: props.row.row,
-      column: props.row.column,
-      frame: props.row.frame,
-      exposuretime: props.row.exposuretime,
-      attenuation: props.row.attenuation,
-      buffer: props.row.buffer,
-      flow: props.row.flow,
-      volume: props.row.volume,
-      seutemp: props.row.seutemp,
-      stemp: props.row.stemp,
-      energy: props.row.energy,
+      // row: this.props.row
     };
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleAddAndResetForm = this.handleAddAndResetForm.bind(this);
@@ -40,46 +27,49 @@ export default class AddRowForm extends Component {
   }
 
   handleRowChange(event) {
-    const { name, value, checked } = event.target;
+    const { name, value } = event.target;
     this.setState({ [name]: value });
-    this.setState({ flow: checked });
+    // this.setState({ flow: checked });
   }
 
   handleAddAndResetForm(event) {
     event.preventDefault();
     this.props.handleAddRow({
       ...this.props.row,
-      samplename: this.state.samplename,
-      concentration: this.state.concentration,
-      plate: this.state.plate,
-      row: this.state.row,
-      column: this.state.column,
-      frame: this.state.frame,
-      exposuretime: this.state.exposuretime,
-      attenuation: this.state.attenuation,
-      buffer: this.state.buffer,
-      flow: this.state.flow,
-      volume: this.state.volume,
-      seutemp: this.state.seutemp,
-      stemp: this.state.stemp,
-      energy: this.state.energy,
+      // samplename: this.state.samplename,
+      // concentration: this.state.concentration,
+      // plate: this.state.plate,
+      // row: this.state.row,
+      // column: this.state.column,
+      // frame: this.state.frame,
+      // exposuretime: this.state.exposuretime,
+      // attenuation: this.state.attenuation,
+      // buffer: this.state.buffer,
+      // flow: this.state.flow,
+      // volume: this.state.volume,
+      // seutemp: this.state.seutemp,
+      // stemp: this.state.stemp,
+      // energy: this.state.energy,
     });
     // Reset value
     return this.setState({
-      samplename: '',
-      concentration: '',
-      plate: '',
-      row: '',
-      column: '',
-      frame: '',
-      exposuretime: '',
-      attenuation: '',
-      buffer: '',
-      flow: '',
-      volume: '',
-      seutemp: '',
-      stemp: '',
-      energy: '',
+      // samplename: '',
+      // buffer: '',
+      // plate: '',
+      // row: '',
+      // column: '',
+      // flow: false,
+      // recap: false,
+      // energy: '',
+      // volume: '',
+      // seutemp: '',
+      // stemp: '',
+      // concentration: '',
+      // viscovity: '',
+      // frame: 7,
+      // exposuretime: '',
+      // transmission: '',
+      // attenuation: '',
     });
   }
 
@@ -98,76 +88,35 @@ export default class AddRowForm extends Component {
             </Button>
           </div>
         </td>
-        {Object.entries(this.props.dataTable).map(([key, column]) => (
-          // eslint-disable-next-line no-nested-ternary
-          column.display
-            ? (
-              // eslint-disable-next-line no-nested-ternary
-              key === 'flow'
-                ? (
-                  <td key={key} style={{ width: column.size }}>
-                    <input className="input_check" type="checkbox" onChange={this.handleRowChange} checked={column.columnValues[this.props.index]} />
-                  </td>
-                )
-                : (
-                  key === 'tools'
-                    ? (
-                      <td key={key} style={{ width: column.size }}>
-                        <Button
-                          className=" btn-success btnaddrow"
-                          style={{ fontWeight: 'bold' }}
-                          onClick={this.handleAddAndResetForm}
-                          title="Create new row"
-                        >
-                        +
-                        </Button>
-                      </td>
-                    )
-                    : (
-                      <td style={{ width: column.size }}>
-                        <input className="form-control input_add" onChange={this.handleRowChange} value={column.columnValues[this.props.index]} />
-                      </td>
-                    )
-                )
-
-            )
-            : null
-        ))}
-        {Object.entries(this.props.dataTable).map(([key, column]) => (
-          column.display
-            ? () => {
-              switch (key) {
-                case 'flow':
-                  return (
-                    <td key={key} style={{ Maxwidth: column.size }}>
-                      <input className="input_check" type="checkbox" name={key} onChange={this.handleRowChange} checked={this.props.row.flow} />
-                    </td>
-                  );
-                case 'tools':
-                  return (
-                    <td>
-                      <Button
-                        className=" btn-success btnaddrow"
-                        style={{ fontWeight: 'bold' }}
-                        onClick={this.handleAddAndResetForm}
-                        title="Create new row"
-                      >
-                        +
-                      </Button>
-                    </td>
-                  );
-                default:
-                  return (
-                    <td key={key} style={{ width: column.size }}>
-                      <input className="form-control input_add" name={key} onChange={this.handleRowChange} value={column.values[this.props.index]} />
-                    </td>
-                  );
-              }
+        {Object.entries(this.props.columns).map(([key, column]) => {
+          let res = null;
+          if (column.display) {
+            if (key === 'tools') {
+              res = (
+                <td key={key} style={{ width: column.size }}>
+                  <Button
+                    className=" btn-success btnaddrow"
+                    style={{ fontWeight: 'bold' }}
+                    onClick={this.handleAddAndResetForm}
+                    title="Create new row"
+                  >
+                  +
+                  </Button>
+                </td>
+              );
+            } else {
+              res = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="" style={{ margin: '5px' }}>
+                    <input className="form-control input_edit" name={key} type={column.inputType} onChange={this.handleRowChange} />
+                  </div>
+                </td>
+              );
             }
+          }
 
-            : null
-        ))
-      }
+          return res;
+        })}
       </tr>
     );
   }

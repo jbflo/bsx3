@@ -59,7 +59,7 @@ class SampleChanger extends React.Component {
                   />
                 </th>
                 {/*  Conditional rendering of the Column  */}
-                {Object.entries(this.props.dataTable).map(([key, column]) => (
+                {Object.entries(this.props.columns).map(([key, column]) => (
                   column.display
                     ? <th style={{ width: column.size }} key={key}><input className="form-control input_th" readOnly value={column.columnName} /></th>
                     : null
@@ -82,10 +82,10 @@ class SampleChanger extends React.Component {
                   ) : (
                     null
                   )}
-                  {this.props.dataTable.id.map((id, index) => (
+                  {this.props.rows.map((row, index) => (
                     <Draggable
-                      draggableId={`draggable-${id}`}
-                      key={id}
+                      draggableId={`draggable-${row.id}`}
+                      key={row.id}
                       index={index}
                     >
                       {(provided, snapshot) => (
@@ -98,19 +98,19 @@ class SampleChanger extends React.Component {
                             provided.draggableProps.style
                           )}
                         >
-                          {this.props.editingRow.id === id ? (
+                          {this.props.editingRow.id === row.id ? (
                             <TableEditRow
-                              key={id}
+                              key={row.id}
                               row={this.props.editingRow}
                               {...this.props}
                             />
                           ) : [
                             <TableRow
-                              key={id}
+                              key={row.id}
                               index={index}
-                              id={id}
-                              onSelectChange={() => handleSelect(id)}
-                              checked={isItemSelected(id)}
+                              row={row}
+                              onSelectChange={() => handleSelect(row.id)}
+                              checked={isItemSelected(row.id)}
                               {...this.props}
                             />
                           ]}

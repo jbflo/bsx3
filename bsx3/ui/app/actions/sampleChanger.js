@@ -1,126 +1,177 @@
 /* eslint-disable no-param-reassign */
-
-import {
-  generateRows,
-  scDeafaultRowValues,
-} from '../../constant/generator';
-
+import * as R from 'ramda';
 // Reducer
 export const INITIAL_STATE = {
-  rows: generateRows({
-    columnValues: { id: ({ index }) => index, ...scDeafaultRowValues },
-    length: 3
-  }),
+  rows: [
+    {
+      id: 0,
+      samplename: 's1',
+      buffer: 'B1',
+      plate: 'p1',
+      row: 'r1',
+      column: 'co1',
+      flow: true,
+      recap: true,
+      energy: 17,
+      volume: 60,
+      seutemp: 50,
+      stemp: 6,
+      concentration: 0,
+      viscovity: 0,
+      frame: 7,
+      exposuretime: 100,
+      transmission: 0,
+      attenuation: 23,
+    },
+    {
+      id: 1,
+      samplename: 's2',
+      buffer: 'B2',
+      plate: 'p2',
+      row: 'r3',
+      column: 'co2',
+      flow: true,
+      recap: true,
+      energy: 17,
+      volume: 67,
+      seutemp: 58,
+      stemp: 66,
+      concentration: 0,
+      viscovity: 0,
+      frame: 7,
+      exposuretime: 70,
+      transmission: 8,
+      attenuation: 29,
+    },
+    {
+      id: 2,
+      samplename: 's3',
+      buffer: 'B3',
+      plate: 'p3',
+      row: 'r3',
+      column: 'co3',
+      flow: false,
+      recap: false,
+      energy: 17,
+      volume: 60,
+      seutemp: 50,
+      stemp: 6,
+      concentration: 0,
+      viscovity: 0,
+      frame: 7,
+      exposuretime: 100,
+      transmission: 0,
+      attenuation: 23,
+    }
+  ],
 
-  dataTable: {
-    id: ['0', '1', '2'],
+  columns: {
     samplename: {
       columnName: 'Sample Name',
       display: true,
       size: 105,
-      columnValues: ['s1', 's2', 's3'],
+      inputType: 'input',
     },
     buffer: {
       columnName: 'Buffer',
       display: true,
       size: 70,
-      columnValues: ['B1', 'B21', 'B2'],
     },
     plate: {
       columnName: 'Plate',
       display: true,
       size: 70,
-      columnValues: ['p1', 'p2', 'p3'],
+      inputType: 'input',
     },
     row: {
       columnName: 'Row',
       display: true,
       size: 40,
-      columnValues: ['r1', 'R2', 'r3'],
+      inputType: 'input',
     },
     column: {
       columnName: 'Column',
       display: true,
       size: 60,
-      columnValues: ['co1', 'co23', 'co3']
+      inputType: 'input',
     },
     flow: {
       columnName: 'Flow',
       display: true,
       size: 50,
-      columnValues: [true, false, true],
+      inputType: 'checkbox',
     },
     recap: {
       columnName: 'Recap',
       display: true,
       size: 55,
-      columnValues: [false, false, true],
+      inputType: 'checkbox',
     },
     energy: {
       columnName: 'Energy',
       display: true,
       size: 75,
-      columnValues: [17, 27, 38],
+      inputType: 'input',
     },
     volume: {
       columnName: 'volume (μl)',
       display: true,
       size: 105,
-      columnValues: [60, 70, 67],
+      inputType: 'input',
     },
     seutemp: {
       columnName: 'SEU Temp.',
       display: true,
       size: 90,
-      columnValues: [50, 6, 55],
+      inputType: 'input',
     },
     stemp: {
       columnName: 'Storage Temp.',
       display: true,
       size: 110,
-      columnValues: [6, 7, 99],
+      inputType: 'input',
     },
     concentration: {
       columnName: 'Concentration',
       display: true,
       size: 105,
-      columnValues: [0, 0, 0],
+      inputType: 'input',
     },
     viscovity: {
       columnName: 'viscovity',
       display: true,
       size: 80,
-      columnValues: ['low', 'medium', 'high'],
+      inputType: 'dropdown',
     },
     frame: {
       columnName: 'Frames No.',
       display: true,
       size: 90,
-      columnValues: [0, 0, 0],
+      inputType: 'input',
     },
     exposuretime: {
       columnName: 'Exp Time(ms)',
       display: true,
       size: 105,
-      columnValues: [0, 0, 0],
+      inputType: 'input',
     },
     transmission: {
       columnName: 'Transmission %',
       display: true,
       size: 100,
-      columnValues: [0, 50, 0],
+      inputType: 'input',
     },
     attenuation: {
       columnName: 'Attenuation %',
       display: true,
       size: 115,
-      columnValues: [0, 0, 100],
+      inputType: 'input',
     },
     tools: {
       columnName: 'tools',
       display: true,
       size: 60,
-      columnValues: [],
+      inputType: 'tools',
     },
   },
   editingRow: {},
@@ -200,12 +251,14 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case DELETE_ROW_ACTION: {
-      const dataTable = state.dataTable.id.filter(({ id }) => id !== action.id);
-      return { ...state, dataTable };
+      // const rows = state.rows.filter(({ row }) => row !== action.row);
+      console.log(state.rows.filter(({ row }) => row !== action.row));
+      const rows = R.without(action.row, state.rows);
+      return { ...state, rows };
     }
 
     case SELECT_EDIT_ROW_ACTION: {
-      const row = state.dataTable.id.find(({ id }) => id === action.id);
+      const row = state.rows.find(({ id }) => id === action.id);
       return { ...state, editingRow: row };
     }
 
@@ -234,7 +287,7 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case CANCEL_EDIT_ROW_ACTION: {
-      const newState = state.dataTable.length ? { ...state, editingRow: {} } : { ...state };
+      const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
       return newState;
     }
     case REORDER_ROW_ACTION: {
@@ -282,10 +335,10 @@ function editRowACtion(modifiedRow) {
     modifiedRow
   };
 }
-function deleteRowAction(id) {
+function deleteRowAction(row) {
   return {
     type: DELETE_ROW_ACTION,
-    id
+    row
   };
 }
 
@@ -370,9 +423,9 @@ export function editRow(modifiedRow) {
   };
 }
 
-export function deleteRow(id) {
+export function deleteRow(row) {
   return (dispatch) => {
-    dispatch(deleteRowAction(id));
+    dispatch(deleteRowAction(row));
   };
 }
 export function CancelEditRow() {

@@ -21,8 +21,87 @@ export const scDeafaultRowValues = {
   seutemp: ['50', '6', '55'],
   stemp: ['6', '7', '99'],
   volume: ['60', '70', 67],
-
 };
+
+export const columnsDef = [
+  {
+    id: 'samplename',
+    columnName: 'Sample Name',
+    display: true,
+    size: 105,
+    inputType: 'input',
+    columnValues: ['s1', 's2', 's3'],
+  },
+  {
+    id: 'buffer',
+    columnName: 'Buffer',
+    display: true,
+    size: 70,
+    columnValues: ['B1', 'B21', 'B2'],
+  },
+  {
+    id: 'plate',
+    columnName: 'Plate',
+    display: true,
+    size: 70,
+    columnValues: ['p1', 'p2', 'p3'],
+  }
+];
+
+// columnDef[colIdx].id
+
+// rowData[coldIdx][columnDef[rowIdx].id] -> s1
+
+export const rowData = [
+  {
+    samplename: 's1',
+    buffer: 'B1',
+    concentration: 'c1',
+    plate: 'p1',
+    row: 'r1',
+    column: 'co1',
+    frame: '7',
+    exposuretime: '100',
+    energy: '17',
+    attenuation: '23',
+    flow: true,
+    seutemp: '50',
+    stemp: '6',
+    volume: '60',
+  },
+  {
+    samplename: 's2',
+    buffer: 'B2',
+    concentration: 'c1',
+    plate: 'p1',
+    row: 'r1',
+    column: 'co1',
+    frame: '7',
+    exposuretime: '100',
+    energy: '17',
+    attenuation: '23',
+    flow: true,
+    seutemp: '50',
+    stemp: '6',
+    volume: '60',
+  },
+  {
+    samplename: 's3',
+    buffer: 'B3',
+    concentration: 'c1',
+    plate: 'p1',
+    row: 'r1',
+    column: 'co1',
+    frame: '7',
+    exposuretime: '100',
+    energy: '17',
+    attenuation: '23',
+    flow: true,
+    seutemp: '50',
+    stemp: '6',
+    volume: '60',
+  }
+];
 
 export const queueDeafaultValues = {
   // id: ['0', '1'],
