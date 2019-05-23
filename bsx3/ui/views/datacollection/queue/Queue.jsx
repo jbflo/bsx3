@@ -111,7 +111,7 @@ class Queue extends React.PureComponent {
                         )}
                       >
                         <div className="list-group list-group-horizontal">
-                          <span href="#" className="list-group-item active">{row.queuetype}</span>
+                          <span href="#" className="list-group-item ">{row.queuetype}</span>
                           <span href="#" className="list-group-item">{row.sample}</span>
                           <span href="#" className="list-group-item">next</span>
                           <span href="#" className="list-group-item"> ..</span>

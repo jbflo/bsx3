@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from '../../../components/table/Table';
-import * as SampleChangerAction from '../../../app/actions/sampleChanger';
+import * as sampleAction from '../../../app/actions/scSample';
 import * as globalAction from '../../../app/actions/app';
 
 
@@ -31,32 +31,32 @@ class SampleTable extends Component {
 
 function mapStateToProps(state) {
   return {
-    rows: state.sampleChanger.rows,
-    columns: state.sampleChanger.columns,
-    editingRow: state.sampleChanger.editingRow,
-    isAddingNewRow: state.sampleChanger.isAddingNewRow,
+    rows: state.sample.rows,
+    columns: state.sample.columns,
+    editingRow: state.sample.editingRow,
+    isAddingNewRow: state.sample.isAddingNewRow,
     showNotification: state.app.showNotification,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    handleIsAddingNewRow: SampleChangerAction.isAddingNewRow,
-    handleAddRow: SampleChangerAction.addNewRow,
-    handleDuplicateRow: SampleChangerAction.duplicateNewRow,
+    handleIsAddingNewRow: sampleAction.isAddingNewRowAction,
+    handleAddRow: sampleAction.addNewRowAction,
+    handleDuplicateRow: sampleAction.duplicateNewRowAction,
 
-    handleSelectEditRow: SampleChangerAction.selectEditRow,
-    handleEditRow: SampleChangerAction.editRow,
-    handleCancelEditRow: SampleChangerAction.CancelEditRow,
+    handleSelectEditRow: sampleAction.selectEditRowAction,
+    handleEditRow: sampleAction.editRowAction,
+    handleCancelEditRow: sampleAction.cancelEditRowAction,
 
-    handleDeleteRow: SampleChangerAction.deleteRow,
+    handleDeleteRow: sampleAction.deleteRowAction,
 
-    handleSaveStateLocalStorage: SampleChangerAction.saveStateLocalStorage,
-    handleLoadStateLocalStorage: SampleChangerAction.loadStateLocalStorage,
+    handleSaveStateLocalStorage: sampleAction.saveStateLocalStorageAction,
+    handleLoadStateLocalStorage: sampleAction.loadStateLocalStorageAction,
 
-    handleReorderRow: SampleChangerAction.reorderRow,
-    handleColumnChooser: SampleChangerAction.toggleColumnChooser,
-    handleShowNotification: globalAction.showNotification,
+    handleReorderRow: sampleAction.reorderRowAction,
+    handleColumnChooser: sampleAction.toggleColumnChooserAction,
+    handleShowNotification: globalAction.showNotificationAction,
   }, dispatch);
 }
 

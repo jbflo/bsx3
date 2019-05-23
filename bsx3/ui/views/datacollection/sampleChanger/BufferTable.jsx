@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from '../../../components/table/Table';
-import * as SampleChangerAction from '../../../app/actions/sampleChanger';
+import * as bufferAction from '../../../app/actions/scBuffer';
 import * as globalAction from '../../../app/actions/app';
 
 
@@ -31,35 +31,36 @@ class BufferTable extends Component {
 
 function mapStateToProps(state) {
   return {
-    rows: state.sampleChanger.rows,
-    columns: state.sampleChanger.columns,
-    columnId: state.sampleChanger.columnId,
-    editingRow: state.sampleChanger.editingRow,
-    isAddingNewRow: state.sampleChanger.isAddingNewRow,
+    rows: state.buffer.rows,
+    columns: state.buffer.columns,
+    columnId: state.buffer.columnId,
+    editingRow: state.buffer.editingRow,
+    isAddingNewRow: state.buffer.isAddingNewRow,
     showNotification: state.app.showNotification,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    handleIsAddingNewRow: SampleChangerAction.isAddingNewRow,
-    handleAddRow: SampleChangerAction.addNewRow,
-    handleDuplicateRow: SampleChangerAction.duplicateNewRow,
+    handleIsAddingNewRow: bufferAction.isAddingNewRowAction,
+    handleAddRow: bufferAction.addNewRowAction,
+    handleDuplicateRow: bufferAction.duplicateNewRowAction,
 
-    handleSelectEditRow: SampleChangerAction.selectEditRow,
-    handleEditRow: SampleChangerAction.editRow,
-    handleCancelEditRow: SampleChangerAction.CancelEditRow,
+    handleSelectEditRow: bufferAction.selectEditRowAction,
+    handleEditRow: bufferAction.editRowAction,
+    handleCancelEditRow: bufferAction.cancelEditRowAction,
 
-    handleDeleteRow: SampleChangerAction.deleteRow,
+    handleDeleteRow: bufferAction.deleteRowAction,
 
-    handleSaveStateLocalStorage: SampleChangerAction.saveStateLocalStorage,
-    handleLoadStateLocalStorage: SampleChangerAction.loadStateLocalStorage,
+    handleSaveStateLocalStorage: bufferAction.saveStateLocalStorageAction,
+    handleLoadStateLocalStorage: bufferAction.loadStateLocalStorageAction,
 
-    handleReorderRow: SampleChangerAction.reorderRow,
-    handleColumnChooser: SampleChangerAction.toggleColumnChooser,
-    handleShowNotification: globalAction.showNotification,
+    handleReorderRow: bufferAction.reorderRowAction,
+    handleColumnChooser: bufferAction.toggleColumnChooserAction,
+    handleShowNotification: globalAction.showNotificationAction,
   }, dispatch);
 }
+
 
 export default connect(
   mapStateToProps,

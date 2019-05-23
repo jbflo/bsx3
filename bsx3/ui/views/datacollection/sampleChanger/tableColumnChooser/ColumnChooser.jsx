@@ -6,7 +6,7 @@ import {
   OverlayTrigger, Popover, Button
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
-import * as SampleChangerAction from '../../../../app/actions/sampleChanger';
+import * as SampleChangerAction from '../../../../app/actions/scSample';
 import './style.css';
 
 class ColumnChooser extends React.Component {
@@ -65,13 +65,13 @@ class ColumnChooser extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    columns: state.sampleChanger.columns,
+    columns: state.sample.columns,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    handleColumnChooser: SampleChangerAction.toggleColumnChooser,
+    handleColumnChooser: SampleChangerAction.toggleColumnChooserAction,
   }, dispatch);
 }
 

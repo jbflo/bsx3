@@ -1,25 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { MdCancel, MdSave } from 'react-icons/md';
 import './style.css';
 
-// const rowSchema = {
-//   type: 'object',
-//   required: ['samplename', 'concentration', 'plate', 'row', 'column', 'frame',
-// 'exposuretime', 'attenuation', 'buffer', 'flow', 'temp'],
-//   properties: {
-//     samplename: { type: 'string' },
-//     concentration: { type: 'string' },
-//     plate: { type: 'string' },
-//     row: { type: 'string' },
-//     column: { type: 'string' },
-//     frame: { type: 'string' },
-//     exposuretime: { type: 'string' },
-//     attenuation: { type: 'string' },
-//     buffer: { type: 'string' },
-//     flow: { type: 'string' },
-//     temp: { type: 'string' },
-//   }
-// };
 export default class TableEditRow extends Component {
   constructor(props) {
     super(props);
@@ -92,24 +74,16 @@ export default class TableEditRow extends Component {
         <td style={{ width: '70px' }}>
           Editing....
           <div className="flexclass">
-            <Button
-              variant="link"
-              title="Cancel row editting"
-              className="save-cancel cancel-btn"
-              align="right"
+            <MdCancel
               onClick={this.props.handleCancelEditRow}
-            >
-              <i className="fas fa-window-close" />
-            </Button>
-            <Button
-              variant="link"
-              title="Save edited row"
-              className="save-cancel save-btn"
-              align="right"
+              className="save-cancel cancel-icon"
+              title="Cancel row editting"
+            />
+            <MdSave
               onClick={this.handleEditAndResetForm}
-            >
-              <i className="far fa-save" />
-            </Button>
+              className="save-cancel save-icon"
+              title="Save edited row"
+            />
           </div>
         </td>
         {Object.entries(this.props.columns).map(([key, column]) => (
@@ -120,24 +94,16 @@ export default class TableEditRow extends Component {
                 ? (
                   <td>
                     <div className="flexclass">
-                      <Button
-                        variant="link"
-                        title="Cancel row editting"
-                        className="save-cancel cancel-btn"
-                        align="right"
+                      <MdCancel
                         onClick={this.props.handleCancelEditRow}
-                      >
-                        <i className="fas fa-window-close" />
-                      </Button>
-                      <Button
-                        variant="link"
-                        title="Save edited row"
-                        className="save-cancel save-btn"
-                        align="right"
+                        className="save-cancel cancel-icon"
+                        title="Cancel row editting"
+                      />
+                      <MdSave
                         onClick={this.handleEditAndResetForm}
-                      >
-                        <i className="far fa-save" />
-                      </Button>
+                        className="save-cancel save-icon"
+                        title="Save edited row"
+                      />
                     </div>
                   </td>
                 )
@@ -151,105 +117,6 @@ export default class TableEditRow extends Component {
             )
             : null
         ))}
-        {/* {this.props.sampleColumns.samplename.display
-          ? (
-            <td><input className="form-control input_edit" name="samplename"
-            required onChange={this.handleRowChange} value={this.state.samplename} /></td>
-          )
-          : null
-                }
-        {this.props.sampleColumns.buffer.display
-          ? <td><input className="form-control input_edit" name="buffer"
-          onChange={this.handleRowChange} value={this.state.buffer} /></td>
-          : null
-                }
-        {this.props.sampleColumns.plate.display
-          ? <td><input className="form-control input_edit" name="plate"
-          onChange={this.handleRowChange} value={this.state.plate} /></td>
-          : null
-                }
-        {this.props.sampleColumns.row.display
-          ? <td><input className="form-control input_edit" name="row"
-          onChange={this.handleRowChange} value={this.state.row} /></td>
-          : null
-                }
-        {this.props.colsampleColumnsumns.column.display
-          ? <td><input className="form-control input_edit" name="column"
-          onChange={this.handleRowChange} value={this.state.column} /></td>
-          : null
-                }
-        {this.props.sampleColumns.flow.display
-          ? <td><input className="input_check" type="checkBox" name="flow"
-          onChange={this.handleRowChange} checked={this.state.flow} /></td>
-          : null
-                }
-        {this.props.sampleColumns.energy.display
-          ? <td><input className="form-control input_edit" name="energy"
-          onChange={this.handleRowChange} value={this.state.energy} /></td>
-          : null
-                }
-        {this.props.sampleColumns.volume.display
-          ? <td><input className="form-control input_edit" name="volume"
-          onChange={this.handleRowChange} value={this.state.volume} /></td>
-          : null
-                }
-        {this.props.sampleColumns.seutemp.display
-          ? <td><input className="form-control input_edit" name="seutemp"
-          onChange={this.handleRowChange} value={this.state.seutemp} /></td>
-          : null
-                }
-        {this.props.sampleColumns.stemp.display
-          ? <td><input className="form-control input_edit" name="stemp"
-          onChange={this.handleRowChange} value={this.state.stemp} /></td>
-          : null
-                }
-        {this.props.sampleColumns.concentration.display
-          ? <td><input className="form-control input_edit" name="concentration"
-          onChange={this.handleRowChange} value={this.state.concentration} /></td>
-          : null
-                }
-        {this.props.sampleColumns.frame.display
-          ? <td><input className="form-control input_edit" name="frame"
-          onChange={this.handleRowChange} value={this.state.frame} /></td>
-          : null
-                }
-        {this.props.sampleColumns.exposuretime.display
-          ? <td><input className="form-control input_edit" name="exposuretime"
-          onChange={this.handleRowChange} value={this.state.exposuretime} /></td>
-          : null
-                }
-        {this.props.sampleColumns.attenuation.display
-          ? <td><input className="form-control input_edit" name="attenuation"
-          onChange={this.handleRowChange} value={this.state.attenuation} /></td>
-          : null
-                }
-        {this.props.sampleColumns.tools.display
-          ? (
-            <td>
-              <div className="flexclass">
-                <Button
-                  variant="link"
-                  title="Cancel row editting"
-                  className="save-cancel cancel-btn"
-                  align="right"
-                  onClick={this.props.handleCancelEditRow}
-                >
-                  <i className="fas fa-window-close" />
-                </Button>
-                <Button
-                  variant="link"
-                  title="Save edited row"
-                  className="save-cancel save-btn"
-                  align="right"
-                  onClick={this.handleEditAndResetForm}
-                >
-                  <i className="far fa-save" />
-                </Button>
-              </div>
-            </td>
-          )
-          : null
-        } */}
       </>
     );
   }

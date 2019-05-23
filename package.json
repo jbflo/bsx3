@@ -90,6 +90,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-persist": "^5.10.0",
     "redux-persist-crosstab": "^3.7.0",
+    "redux-ramda": "^1.0.1",
     "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
     "sass-loader": "^7.1.0",

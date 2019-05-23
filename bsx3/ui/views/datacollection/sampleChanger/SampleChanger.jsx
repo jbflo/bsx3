@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav, Button } from 'react-bootstrap';
-import { Label } from 'react-bootstrap/Form';
+import Form, { Label } from 'react-bootstrap/Form';
 import SampleTable from './SampleTable';
 import BufferTable from './BufferTable';
 import SaveMenu from './menu/SaveMenu';
@@ -23,20 +23,25 @@ class SampleChanger extends Component {
 
   componentDidMount() {
     this.buffertable.style.height = '0px';
-    this.samplebtn.style.background = '#81c784';
+    this.samplebtn.style.background = '#0097a7';
+    this.samplebtn.style.color = ' #FFF';
   }
 
   toggleCollapseSample = () => {
     this.sampletable.style.height = '0px';
     this.buffertable.style.height = `${this.sampletable.scrollHeight}px`;
-    this.bufferbtn.style.background = '#81c784';
+    this.bufferbtn.style.background = '#0097a7';
+    this.bufferbtn.style.color = '#FFF';
+    this.samplebtn.style.color = '#455a64';
     this.samplebtn.style.background = '';
   }
 
   toggleCollapseBuffer = () => {
     this.buffertable.style.height = '0px';
     this.sampletable.style.height = `${this.sampletable.scrollHeight}px`;
-    this.samplebtn.style.background = '#81c784';
+    this.samplebtn.style.background = '#0097a7';
+    this.samplebtn.style.color = ' #FFF';
+    this.bufferbtn.style.color = '#455a64';
     this.bufferbtn.style.background = '';
   }
 
@@ -46,17 +51,75 @@ class SampleChanger extends Component {
         <div className="wrapsc">
 
           {/* Collapse Buffer OR sample Table  */}
-          <div className="divcollapsebtn" style={{ marginBottom: '15px' }}>
-            <Button className="collapsebtn" variant="contained" onClick={this.toggleCollapseBuffer} ref={(ref) => { this.samplebtn = ref; }}>
-              Sample
-              <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
-            </Button>
-            <Button className="collapsebtn" variant="contained" onClick={this.toggleCollapseSample} ref={(ref) => { this.bufferbtn = ref; }}>
+          <div className="flexclass">
+            <div className="divcollapsebtn" style={{ marginBottom: '15px', marginRight: '25px' }}>
+              <Button className="collapsebtn" variant="contained" onClick={this.toggleCollapseBuffer} ref={(ref) => { this.samplebtn = ref; }}>
+                Sample
+                <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
+              </Button>
+              <Button className="collapsebtn" variant="contained" onClick={this.toggleCollapseSample} ref={(ref) => { this.bufferbtn = ref; }}>
               Buffer
-              <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
-            </Button>
+                <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
+              </Button>
+            </div>
+            <div className="flexclass optimiz">
+              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Load Default: </span>
+              <Form>
+                <Form.Group controlId="exampleForm.ControlSelect1">
+                  <Form.Control as="select">
+                    <option>User Define</option>
+                    <option>BSA Calibration</option>
+                    <option>Water Calibration</option>
+                    <option>ISPYB</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form>
+            </div>
+            <div className="flexclass optimiz">
+              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Optimiztion: </span>
+              <Form>
+                <Form.Group controlId="exampleForm.ControlSelect1">
+                  <Form.Control as="select">
+                    <option>None</option>
+                    <option>Sample Temperature</option>
+                    <option>Sample Name</option>
+                    <option>Buffer</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form>
+            </div>
           </div>
-
+          <div className="panel-heading">
+            <SaveMenu className="menesavebtn" />
+            <FolderUploader className="folderup" />
+            {/* <input className="form-control input_queue-name" "type="text" /> */}
+            <span className="mr-auto" />
+            <div className="flexclass">
+              <div className="flexclass">
+                <span className="switchall_text"> Hide Columns : </span>
+                <Label className="switchall">
+                  <input
+                    type="checkbox"
+                    className="success"
+                    checked
+                    onChange={() => {
+                      this.togleColumn;
+                    }}
+                  />
+                  <span className="slider round" />
+                </Label>
+              </div>
+              <div className="" title="Choose Column to be display">
+                <ColumnChooser />
+              </div>
+              <div>
+                <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue">
+                    Add to Queue
+                  <i className="fa fa-share-square" style={{ marginLeft: '5px' }} />
+                </Button>
+              </div>
+            </div>
+          </div>
           <div
             ref={(ref) => { this.buffertable = ref; }}
             style={{
@@ -64,9 +127,8 @@ class SampleChanger extends Component {
               transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             }}
           >
-            <BufferTable />
+            <BufferTable name=" Buffer" />
           </div>
-          {/* Sample Table  */}
           <div
             className="sampletable"
             ref={(ref) => { this.sampletable = ref; }}
@@ -75,38 +137,7 @@ class SampleChanger extends Component {
               transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             }}
           >
-            <div className="panel-heading">
-              <SaveMenu className="menesavebtn" />
-              <FolderUploader className="folderup" />
-              {/* <input className="form-control input_queue-name" "type="text" /> */}
-              <span className="mr-auto" />
-              <div className="flexclass">
-                <div className="flexclass">
-                  <span className="switchall_text"> Hide Columns : </span>
-                  <Label className="switchall">
-                    <input
-                      type="checkbox"
-                      className="success"
-                      checked
-                      onChange={() => {
-                        this.togleColumn;
-                      }}
-                    />
-                    <span className="slider round" />
-                  </Label>
-                </div>
-                <div className="" title="Choose Column to be display">
-                  <ColumnChooser />
-                </div>
-                <div>
-                  <Button variant="contained" title="Add Table data to Queue" className="btnaddqueue">
-                      Add to Queue
-                    <i className="fa fa-share-square" style={{ marginLeft: '5px' }} />
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <SampleTable />
+            <SampleTable name=" Sample" />
           </div>
           <Nav style={{ width: '100%', marginTop: '20px', marginLeft: '50px' }}>
             <div style={{ marginRight: '10px' }}>

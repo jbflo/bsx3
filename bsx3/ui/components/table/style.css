@@ -1,13 +1,9 @@
-/* Css for Seu.jsx Content  */
+/* Css for Table component Content  */
 
   .flexclass{
     display: flex;
-    /* margin-right: 5px!important; */
   }
 
-
-  /*   */
-  
   .btnaddqueue {
     font-size: 15px!important;
     color: rgb(102, 102, 102);
@@ -21,6 +17,10 @@
    width: 100%;
   }
   
+  .sctable caption{
+    caption-side: top;
+  } 
+
   .sctable tbody{
   display: block;
   overflow-y: auto;
@@ -39,12 +39,8 @@
   thead {
     width: calc( 100% - 1000px )
   }
-  .sctable thead  {
-    text-align: right;
-  }
   
   .sctable th, .sctable td  {
-    margin: 100px!important;
     padding: 0%!important;
     height: 20px;
     text-align: center;
@@ -80,17 +76,21 @@
 
 /* Css for Edit Row Table .jsx Content  */
 
-.save-btn{
+.save-icon{
     color: #7cb342!important;
+    margin-left:5px; 
 }
 
-.cancel-btn{
+.cancel-icon{
     color: #b34242!important;
+    margin-left:10px; 
 }
 
 .save-cancel {
+    margin-top: 10px;
     height: 20px;
     width: 20px;
+    cursor: pointer;
   }
   
 
@@ -122,8 +122,15 @@
   }
   .input_form:focus{
       box-shadow:none;
-    }
+ }
 
+ .btnaddrow{
+    margin-top: 10px; 
+    margin-right: 10px; 
+    padding: 0%!important; 
+    height: 25px; 
+    width: 25px; 
+ }
   .drag-icon{
       cursor: all-scroll;
       margin-top: 7px;
