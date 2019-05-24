@@ -80,7 +80,7 @@ export default class TableRow extends Component {
                 checked={this.props.checked}
               />
               <span className="index-row">
-                {this.props.index}
+                {this.props.index + 1}
               </span>
             </div>
           </td>

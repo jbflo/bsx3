@@ -51,8 +51,8 @@ class SampleChanger extends Component {
         <div className="wrapsc">
 
           {/* Collapse Buffer OR sample Table  */}
-          <div className="flexclass">
-            <div className="divcollapsebtn" style={{ marginBottom: '15px', marginRight: '25px' }}>
+          <div className="flexclass divConfig ">
+            <div className="scConfig">
               <Button className="collapsebtn" variant="contained" onClick={this.toggleCollapseBuffer} ref={(ref) => { this.samplebtn = ref; }}>
                 Sample
                 <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
@@ -62,21 +62,22 @@ class SampleChanger extends Component {
                 <i className="fas fa-arrow-circle-down" style={{ marginLeft: '5px' }} />
               </Button>
             </div>
-            <div className="flexclass optimiz">
-              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Load Default: </span>
+            <div className=" scConfig">
+              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Load Data: </span>
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Control as="select">
-                    <option>User Define</option>
+                    <option> None (User Define)</option>
                     <option>BSA Calibration</option>
                     <option>Water Calibration</option>
-                    <option>ISPYB</option>
+                    <option>From ISPYB</option>
+                    <option>From File</option>
                   </Form.Control>
                 </Form.Group>
               </Form>
             </div>
-            <div className="flexclass optimiz">
-              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Optimiztion: </span>
+            <div className=" scConfig">
+              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Optimizition: </span>
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Control as="select">

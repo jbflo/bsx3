@@ -26,7 +26,7 @@ class Datacollection extends Component {
         <div>
           <BeamlineStatus key="bstatus" />
         </div>
-        <div className="row container-fluid">
+        <div className="row">
           <div className="col-9 nopadding" style={{ }}>
             <div className="horizontal-tabs">
               <div className="cardtabs">

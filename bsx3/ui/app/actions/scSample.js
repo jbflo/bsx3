@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createReducer } from 'redux-ramda';
 import * as R from 'ramda';
-// Reducer
+
+// Inititislize State Values //
 export const INITIAL_STATE = {
   rows: [
     {
@@ -11,18 +12,20 @@ export const INITIAL_STATE = {
       plate: 'p1',
       row: 'r1',
       column: 'co1',
+      concentration: 0,
       flow: true,
-      recap: true,
-      energy: 17,
+      extraflowt: '5',
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      concentration: 0,
+      energy: 17,
       viscovity: 0,
       frame: 7,
       exposuretime: 100,
       transmission: 0,
-      attenuation: 23,
+      buffermode: 'befor',
+      recap: true,
+      wait: '2',
     },
     {
       id: 1,
@@ -31,18 +34,20 @@ export const INITIAL_STATE = {
       plate: 'p2',
       row: 'r3',
       column: 'co2',
+      concentration: 0,
       flow: true,
-      recap: true,
-      energy: 17,
+      extraflowt: '5',
       volume: 67,
       seutemp: 58,
       stemp: 66,
-      concentration: 0,
+      energy: 17,
       viscovity: 0,
       frame: 7,
       exposuretime: 70,
       transmission: 8,
-      attenuation: 29,
+      buffermode: 'After',
+      recap: true,
+      wait: '8',
     },
     {
       id: 2,
@@ -51,26 +56,28 @@ export const INITIAL_STATE = {
       plate: 'p3',
       row: 'r3',
       column: 'co3',
+      concentration: 0,
       flow: false,
-      recap: false,
-      energy: 17,
+      extraflowt: '7',
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      concentration: 0,
+      energy: 17,
       viscovity: 0,
       frame: 7,
       exposuretime: 100,
       transmission: 0,
-      attenuation: 23,
+      buffermode: 'Fisrt & after',
+      recap: true,
+      wait: '8',
     }
   ],
 
   columns: {
     samplename: {
-      columnName: 'Sample Name',
+      columnName: 'Name',
       display: true,
-      size: 105,
+      size: 80,
       inputType: 'input',
     },
     buffer: {
@@ -96,22 +103,22 @@ export const INITIAL_STATE = {
       size: 60,
       inputType: 'input',
     },
+    concentration: {
+      columnName: 'c (mg/mL)',
+      display: true,
+      size: 80,
+      inputType: 'input',
+    },
     flow: {
       columnName: 'Flow',
       display: true,
       size: 50,
       inputType: 'checkbox',
     },
-    recap: {
-      columnName: 'Recap',
+    extraflowt: {
+      columnName: 'Extra Flow t(s)',
       display: true,
-      size: 55,
-      inputType: 'checkbox',
-    },
-    energy: {
-      columnName: 'Energy',
-      display: true,
-      size: 75,
+      size: 105,
       inputType: 'input',
     },
     volume: {
@@ -132,49 +139,63 @@ export const INITIAL_STATE = {
       size: 110,
       inputType: 'input',
     },
-    concentration: {
-      columnName: 'Concentration',
+    energy: {
+      columnName: 'Energy',
       display: true,
-      size: 105,
+      size: 75,
       inputType: 'input',
     },
     viscovity: {
-      columnName: 'viscovity',
+      columnName: 'Viscovity',
       display: true,
       size: 80,
       inputType: 'dropdown',
     },
     frame: {
-      columnName: 'Frames No.',
+      columnName: 'No. Frames',
       display: true,
       size: 90,
       inputType: 'input',
     },
     exposuretime: {
-      columnName: 'Exp Time(ms)',
+      columnName: 'Exposure(s)',
       display: true,
       size: 105,
       inputType: 'input',
     },
+
     transmission: {
       columnName: 'Transmission %',
-      display: true,
-      size: 100,
-      inputType: 'input',
-    },
-    attenuation: {
-      columnName: 'Attenuation %',
       display: true,
       size: 115,
       inputType: 'input',
     },
+    buffermode: {
+      columnName: 'Buffer mode',
+      display: true,
+      size: 95,
+      inputType: 'input',
+    },
+    recup: {
+      columnName: 'Recuperation',
+      display: true,
+      size: 100,
+      inputType: 'checkbox',
+    },
+    wait: {
+      columnName: 'Wait(s)',
+      display: true,
+      size: 75,
+      inputType: 'input',
+    },
     tools: {
-      columnName: 'tools',
+      columnName: 'Tools',
       display: true,
       size: 60,
       inputType: 'tools',
     },
   },
+  Optimizition: [],
   editingRow: {},
   isAddingNewRow: true,
   addedRows: [],
@@ -197,35 +218,16 @@ export const SELECT_EDIT_ROW_ACTION = 'sc/SELECT_EDIT_ROW_ACTION';
 export const ROW_SELECTION_ACTION = 'sc/ROW_COMPLETION_ACTION';
 
 
-// //////////////// Reducer /////////////////////////////////////////////////
-// case DUPLICATE_ROW_ACTION: {
-//       let newrow = null;
-//       state.rows.map((row) => {
-//         if (row.id === action.rowId) {
-//           newrow = row;
-//         }
-//         return null;
-//       });
-//       const duplicaterow = { ...newrow, id: state.rows.length };
-//       return { ...state, rows: [duplicaterow, ...state.rows] };
-//     }
-//     case REORDER_ROW_ACTION: {
-//       const columns = [...state.columns];
-//       const [removed] = columns.splice(action.initialPosition, 1);
-//       columns.splice(action.newPosition, 0, removed);
-
-//       return { ...state, columns };
-//     }
 export default createReducer(INITIAL_STATE, [
-  [ADD_ROW_ACTION, R.assoc('filter')],
+  [ADD_ROW_ACTION, row => R.evolve({ rows: R.prepend(row) })],
 
   [DUPLICATE_ROW_ACTION, (row) => {
     R.set(R.lensProp(row.id), 'row.id', row);
     R.evolve({ rows: R.prepend(row) });
   }],
 
-  // eslint-disable-next-line max-len
-  // [DELETE_ROW_ACTION, id => R.evolve({ rows: INITIAL_STATE.rows.filter(({ rid }) => rid !== id) })],
+
+  [DELETE_ROW_ACTION, id => R.evolve({ rows: INITIAL_STATE.rows.filter(({ rid }) => rid !== id) })],
   [DELETE_ROW_ACTION, row => R.evolve({ rows: R.without(row, INITIAL_STATE.rows) })],
 
   [REORDER_ROW_ACTION, row => R.evolve({ rows: R.without(row, INITIAL_STATE.rows) })],

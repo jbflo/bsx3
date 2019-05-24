@@ -82,55 +82,63 @@ class Queue extends React.PureComponent {
     }
 
     return (
-      <div className="">
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppabe-list">
-            {(provided, snapshot) => (
-              <div
-                // className="row"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
-                style={getDroppableStyle(snapshot.isDraggingOver)}
-              >
-                {this.state.queueData.map((row, index) => (
-                  <Draggable
-                    draggableId={`drag-${row.key}`}
-                    key={row.key}
-                    index={index}
-                  >
-                    {(provided, snapshot) => [
-                      <div
-                        className=" text-center"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getDraggableStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <div className="list-group list-group-horizontal">
-                          <span href="#" className="list-group-item ">{row.queuetype}</span>
-                          <span href="#" className="list-group-item">{row.sample}</span>
-                          <span href="#" className="list-group-item">next</span>
-                          <span href="#" className="list-group-item"> ..</span>
+      <div className="queue container-fluid">
+        <div className="wrapqueue">
+          <div className="flexclass divConfig">
+            <div className="flexclass scConfig">
+              <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Initial Cleaning: </span>
+              <input className="checkCleanning" type="checkbox" name="cleaning" checked />
+            </div>
+          </div>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppabe-list">
+              {(provided, snapshot) => (
+                <div
+                  // className="row"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  isDraggingOver={snapshot.isDraggingOver}
+                  style={getDroppableStyle(snapshot.isDraggingOver)}
+                >
+                  {this.state.queueData.map((row, index) => (
+                    <Draggable
+                      draggableId={`drag-${row.key}`}
+                      key={row.key}
+                      index={index}
+                    >
+                      {(provided, snapshot) => [
+                        <div
+                          className=" text-center"
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getDraggableStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          <div className="list-group list-group-horizontal">
+                            <span href="#" className="list-group-item ">{row.queuetype}</span>
+                            <span href="#" className="list-group-item">{row.sample}</span>
+                            <span href="#" className="list-group-item">next</span>
+                            <span href="#" className="list-group-item"> ..</span>
+                          </div>
+                          {provided.placeholder}
                         </div>
-                        {provided.placeholder}
-                      </div>
-                    ]}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-        <Nav className="cardbtnqueue justify-content-center">
-          <Nav.Item className="navbtn justify-content-center">
-            {btn}
-          </Nav.Item>
-        </Nav>
+                      ]}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+          <Nav className="cardbtnqueue justify-content-center">
+            <Nav.Item className="navbtn justify-content-center">
+              {btn}
+            </Nav.Item>
+          </Nav>
+        </div>
       </div>
     );
   }

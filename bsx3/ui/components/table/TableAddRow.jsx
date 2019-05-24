@@ -1,12 +1,13 @@
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
-export default class AddRowForm extends Component {
+export default class TableAddRow extends Component {
   constructor(props) {
     super(props);
-
+    this.input = React.createRef();
     this.state = {
       // row: this.props.row
     };
@@ -34,22 +35,18 @@ export default class AddRowForm extends Component {
 
   handleAddAndResetForm(event) {
     event.preventDefault();
+    const { name, value, checked } = event.target;
+    let row = {};
+    row = { [name]: value };
+    row = { name: checked };
+
+    alert(Object.keys(row).map((key) => {
+      row[key] = value;
+      return row[key];
+    }));
     this.props.handleAddRow({
       ...this.props.row,
-      // samplename: this.state.samplename,
-      // concentration: this.state.concentration,
-      // plate: this.state.plate,
-      // row: this.state.row,
-      // column: this.state.column,
-      // frame: this.state.frame,
-      // exposuretime: this.state.exposuretime,
-      // attenuation: this.state.attenuation,
-      // buffer: this.state.buffer,
-      // flow: this.state.flow,
-      // volume: this.state.volume,
-      // seutemp: this.state.seutemp,
-      // stemp: this.state.stemp,
-      // energy: this.state.energy,
+      row
     });
     // Reset value
     return this.setState({
@@ -82,40 +79,46 @@ export default class AddRowForm extends Component {
               className=" btn-success btnaddrow"
               style={{ fontWeight: 'bold' }}
               onClick={this.handleAddAndResetForm}
-              title="Create new row"
+              title="Add new row"
             >
             +
             </Button>
           </div>
         </td>
         {Object.entries(this.props.columns).map(([key, column]) => {
-          let res = null;
+          let td = null;
           if (column.display) {
             if (key === 'tools') {
-              res = (
+              td = (
                 <td key={key} style={{ width: column.size }}>
                   <Button
                     className=" btn-success btnaddrow"
                     style={{ fontWeight: 'bold' }}
                     onClick={this.handleAddAndResetForm}
-                    title="Create new row"
+                    title="Add new row"
                   >
                   +
                   </Button>
                 </td>
               );
             } else {
-              res = (
+              td = (
                 <td key={key} style={{ width: column.size }}>
                   <div className="" style={{ margin: '5px' }}>
-                    <input className="form-control input_edit" name={key} type={column.inputType} onChange={this.handleRowChange} />
+                    <input
+                      className="form-control input_edit"
+                      ref={this.input}
+                      name={key}
+                      type={column.inputType}
+                      onChange={this.handleRowChange}
+                    />
                   </div>
                 </td>
               );
             }
           }
 
-          return res;
+          return td;
         })}
       </tr>
     );
@@ -123,7 +126,7 @@ export default class AddRowForm extends Component {
 }
 
 
-AddRowForm.propTypes = {
+TableAddRow.propTypes = {
   row: PropTypes.shape({
     // id: PropTypes.number.isRequired,
     samplename: PropTypes.string.isRequired,
@@ -141,11 +144,11 @@ AddRowForm.propTypes = {
     stemp: PropTypes.number.isRequired,
     energy: PropTypes.number.isRequired,
   }),
-  handleAddRow: PropTypes.func.isRequired,
+  // handleAddRow: PropTypes.func.isRequired,
   // handleIsAddingNewRow: PropTypes.func.isRequired,
 };
 
-AddRowForm.defaultProps = {
+TableAddRow.defaultProps = {
   row: PropTypes.shape({
     // id: PropTypes.number.isRequired,
     samplename: PropTypes.string.isRequired,

@@ -39,14 +39,32 @@ class SampleChanger extends React.Component {
 
   render() {
     const {
-      handleSelect, isItemSelected, areAllSelected, handleSelectAll
+      handleSelect, isItemSelected, areAllSelected, handleSelectAll, selectedCount, areAnySelected
     } = this.props;
 
     return (
       <div style={style.wrap}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Table className="sctable" responsive bordered>
-            <caption><span>{this.props.name}</span></caption>
+            <caption className="flexclass">
+              <div className="mr-auto" style={{ visibility: areAnySelected ? 'visible' : 'hidden' }}>
+                <span style={{ marginRight: '8px' }}>
+                  {selectedCount}
+                  {this.props.name}
+                  {' '}
+                  selected
+                </span>
+                {/* <Button basic onClick={handleClearAll}>Clear</Button> */}
+              </div>
+              <div>
+                <span>
+                  Number of
+                  {this.props.name}
+                  {'s : '}
+                  {this.props.rows.length}
+                </span>
+              </div>
+            </caption>
             <thead className="">
               <tr>
                 <th style={{ width: '70px' }}>
