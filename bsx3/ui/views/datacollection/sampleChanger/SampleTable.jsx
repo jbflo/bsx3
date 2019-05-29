@@ -36,6 +36,7 @@ function mapStateToProps(state) {
     editingRow: state.sample.editingRow,
     isAddingNewRow: state.sample.isAddingNewRow,
     showNotification: state.app.showNotification,
+    bufferRows: state.buffer.rows,
   };
 }
 

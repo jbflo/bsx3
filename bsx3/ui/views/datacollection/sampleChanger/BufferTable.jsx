@@ -55,7 +55,7 @@ function mapDispatchToProps(dispatch) {
     handleSaveStateLocalStorage: bufferAction.saveStateLocalStorageAction,
     handleLoadStateLocalStorage: bufferAction.loadStateLocalStorageAction,
 
-    handleReorderRow: bufferAction.reorderRowAction,
+    handleReorderRow: bufferAction.reorderRowBufferAction,
     handleColumnChooser: bufferAction.toggleColumnChooserAction,
     handleShowNotification: globalAction.showNotificationAction,
   }, dispatch);

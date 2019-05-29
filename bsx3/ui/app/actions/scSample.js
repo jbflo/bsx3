@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign */
-import { createReducer } from 'redux-ramda';
+import { createAction, handleActions } from 'redux-actions';
 import * as R from 'ramda';
 
 // Inititislize State Values //
@@ -89,19 +88,22 @@ export const INITIAL_STATE = {
       columnName: 'Plate',
       display: true,
       size: 70,
-      inputType: 'input',
+      inputType: 'select',
+      options: ['96 well Plate', '']
     },
     row: {
       columnName: 'Row',
       display: true,
       size: 40,
-      inputType: 'input',
+      inputType: 'select',
+      options: []
     },
     column: {
       columnName: 'Column',
       display: true,
       size: 60,
-      inputType: 'input',
+      inputType: 'select',
+      options: []
     },
     concentration: {
       columnName: 'c (mg/mL)',
@@ -149,7 +151,8 @@ export const INITIAL_STATE = {
       columnName: 'Viscovity',
       display: true,
       size: 80,
-      inputType: 'dropdown',
+      inputType: 'select',
+      options: ['low', 'medium', 'high']
     },
     frame: {
       columnName: 'No. Frames',
@@ -174,7 +177,8 @@ export const INITIAL_STATE = {
       columnName: 'Buffer mode',
       display: true,
       size: 95,
-      inputType: 'input',
+      inputType: 'select',
+      options: ['Befor', 'Before & After', 'After']
     },
     recup: {
       columnName: 'Recuperation',
@@ -195,7 +199,8 @@ export const INITIAL_STATE = {
       inputType: 'tools',
     },
   },
-  Optimizition: [],
+  groupColumnVisibility: false,
+  Optimizition: ['None', 'Sample Temperature', 'Sample Name', 'Buffer'],
   editingRow: {},
   isAddingNewRow: true,
   addedRows: [],
@@ -203,35 +208,47 @@ export const INITIAL_STATE = {
   selections: {},
 };
 
-// Action TYPE
-export const ADD_ROW_ACTION = 'sc/ADD_ROW';
-export const IS_ADDING_NEW_ROW_ACTION = 'sc/IS_ADDING_NEW_ROW_ACTION';
-export const DUPLICATE_ROW_ACTION = 'sc/DUPLICATE_ROW_ACTION';
-export const EDIT_ROW_ACTION = 'sc/EDIT_ROW';
-export const DELETE_ROW_ACTION = 'sc/DELETE_ROW';
-export const CANCEL_EDIT_ROW_ACTION = 'sc/CANCEL_EDIT_ROW_ACTION';
-export const LOAD_STATE_LOCALSTORAGE_ACTION = 'sc/LOAD_STATE_LOCALSTORAGE_ACTION';
-export const REORDER_ROW_ACTION = 'sc/REORDER_ROW_ACTION';
-export const TOGGLE_COLUMN_CHOOSER_ACTION = 'sc/TOGGLE_COLUMN_CHOOSER_ACTION';
-export const SAVE_STATE_LOCALSTORAGE_ACTION = 'sc/SAVE_STATE_LOCALSTORAGE_ACTION';
-export const SELECT_EDIT_ROW_ACTION = 'sc/SELECT_EDIT_ROW_ACTION';
-export const ROW_SELECTION_ACTION = 'sc/ROW_COMPLETION_ACTION';
+// //////////////////// ACTION CREATORS //////////////////
+export const loadStateLocalStorageAction = createAction('sc/LOAD_STATE_LOCALSTORAGE_ACTION');
+export const saveStateLocalStorageAction = createAction('sc/SAVE_STATE_LOCALSTORAGE_ACTION');
+export const addNewRowAction = createAction('sc/ADD_ROW');
+export const isAddingNewRowAction = createAction('sc/IS_ADDING_NEW_ROW_ACTION');
+export const duplicateNewRowAction = createAction('sc/DUPLICATE_ROW_ACTION', (row, index) => ({ row, index }));
+export const editRowAction = createAction('sc/EDIT_ROW');
+export const selectEditRowAction = createAction('sc/SELECT_EDIT_ROW_ACTION');
+export const cancelEditRowAction = createAction('sc/CANCEL_EDIT_ROW_ACTION');
+export const deleteRowAction = createAction('sc/DELETE_ROW_ACTION');
+export const reorderRowAction = createAction('sc/REORDER_ROW_ACTION', (initialPos, newPos) => ({ initialPos, newPos }));
+export const toggleColumnChooserAction = createAction('sc/TOGGLE_COLUMN_CHOOSER_ACTION');
+export const toggleGroupColumnChooserAction = createAction('sc/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION');
+export const rowSelection = createAction('sc/ROW_COMPLETION_ACTION');
 
+// //////////////////// HANDLE ACTIONS / REDUCERS //////////////////
+export default handleActions({
+  [addNewRowAction]:
+  (state, { row }) => R.evolve({ [state.rows]: R.append(row, state.rows) }, state),
 
-export default createReducer(INITIAL_STATE, [
-  [ADD_ROW_ACTION, row => R.evolve({ rows: R.prepend(row) })],
+  [duplicateNewRowAction](state, action) {
+    const row = R.ifElse(R.propEq('id', action.payload.row.id), R.assoc('id', 666), item => item);
+    const rows = R.insert(action.payload.index + 1, row(action.payload.row), state.rows);
+    return { ...state, rows };
+  },
 
-  [DUPLICATE_ROW_ACTION, (row) => {
-    R.set(R.lensProp(row.id), 'row.id', row);
-    R.evolve({ rows: R.prepend(row) });
-  }],
+  [reorderRowAction](state, action) {
+    const rows = [...state.rows];
+    const [removed] = rows.splice(action.payload.initialPos, 1);
+    rows.splice(action.payload.newPos, 0, removed);
+    return { ...state, rows };
+  },
 
-
-  [DELETE_ROW_ACTION, id => R.evolve({ rows: INITIAL_STATE.rows.filter(({ rid }) => rid !== id) })],
-  [DELETE_ROW_ACTION, row => R.evolve({ rows: R.without(row, INITIAL_STATE.rows) })],
-
-  [REORDER_ROW_ACTION, row => R.evolve({ rows: R.without(row, INITIAL_STATE.rows) })],
-]);
+  [deleteRowAction](state, action) {
+    const rows = R.remove(action.payload, action.payload, state.rows);
+    console.log(rows);
+    // const rows = state.rows.filter(({ id }) => id !== action.payload);
+    return { ...state, rows };
+  },
+},
+INITIAL_STATE);
 
 // export default (state = INITIAL_STATE, action) => {
 //   switch (action.type) {
@@ -275,9 +292,10 @@ export default createReducer(INITIAL_STATE, [
 //     }
 
 //     case DUPLICATE_ROW_ACTION: {
+//       console.log('Why ? kaka:');
 //       let newrow = null;
 //       state.rows.map((row) => {
-//         if (row.id === action.rowId) {
+//         if (row.id === action.payload.rowId) {
 //           newrow = row;
 //         }
 //         return null;
@@ -327,11 +345,10 @@ export default createReducer(INITIAL_STATE, [
 //       return newState;
 //     }
 //     case REORDER_ROW_ACTION: {
-//       const columns = [...state.columns];
-//       const [removed] = columns.splice(action.initialPosition, 1);
-//       columns.splice(action.newPosition, 0, removed);
-
-//       return { ...state, columns };
+//       const rows = [...state.rows];
+//       const [removed] = rows.splice(action.initialPosition, 1);
+//       rows.splice(action.newPosition, 0, removed);
+//       return { ...state, rows };
 //     }
 //     case TOGGLE_COLUMN_CHOOSER_ACTION: {
 //       const colum = state.columns[action.key];
@@ -345,83 +362,3 @@ export default createReducer(INITIAL_STATE, [
 //       return state;
 //   }
 // };
-
-// //////////////////// ACTION CREATORS //////////////////
-export function isAddingNewRowAction(value) {
-  return {
-    type: IS_ADDING_NEW_ROW_ACTION,
-    payload: value
-  };
-}
-
-export function addNewRowAction(newRow) {
-  return {
-    type: ADD_ROW_ACTION,
-    payload: newRow,
-  };
-}
-
-export function duplicateNewRowAction(row) {
-  return {
-    type: DUPLICATE_ROW_ACTION,
-    payload: row,
-  };
-}
-
-export function editRowAction(modifiedRow) {
-  return {
-    type: EDIT_ROW_ACTION,
-    payload: modifiedRow
-  };
-}
-
-export function deleteRowAction(row) {
-  return {
-    type: DELETE_ROW_ACTION,
-    payload: row
-  };
-}
-
-export function cancelEditRowAction() {
-  return {
-    type: CANCEL_EDIT_ROW_ACTION,
-  };
-}
-
-export function reorderRowAction(initialPosition, newPosition) {
-  return {
-    type: REORDER_ROW_ACTION,
-    payload: { initialPosition, newPosition }
-  };
-}
-
-export function toggleColumnChooserAction(key) {
-  return {
-    type: TOGGLE_COLUMN_CHOOSER_ACTION,
-    payload: key,
-  };
-}
-
-export const loadStateLocalStorageAction = () => ({
-  type: LOAD_STATE_LOCALSTORAGE_ACTION,
-  payload: {},
-});
-
-export const saveStateLocalStorageAction = state => ({
-  type: SAVE_STATE_LOCALSTORAGE_ACTION,
-  payload: { state },
-});
-
-export function selectEditRowAction(id) {
-  return {
-    type: SELECT_EDIT_ROW_ACTION,
-    payload: id
-  };
-}
-
-export function rowSelection(selectedRow) {
-  return {
-    type: ROW_SELECTION_ACTION,
-    payload: selectedRow
-  };
-}

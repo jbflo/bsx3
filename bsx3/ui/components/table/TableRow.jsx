@@ -19,7 +19,7 @@ export default class TableRow extends Component {
       >
         <Item>Add to Queue</Item>
         <Separator />
-        <Item onClick={() => this.props.handleDuplicateRow(this.props.row)}>
+        <Item onClick={() => this.props.handleDuplicateRow(this.props.row, this.props.index)}>
           <span>
             Duplicate
             { ' ' }
@@ -33,7 +33,7 @@ export default class TableRow extends Component {
             <i className="far fa-edit" />
           </span>
         </Item>
-        <Item onClick={() => this.props.handleDeleteRow(this.props.row)}>
+        <Item onClick={() => this.props.handleDeleteRow(this.props.index)}>
           <span>
             Delete row
             { ' ' }

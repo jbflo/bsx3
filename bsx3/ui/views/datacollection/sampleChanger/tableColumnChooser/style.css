@@ -1,32 +1,25 @@
 
 .colpopover{
-  width: 210px;
-  height: 510px;
+  width: 220px;
+  height: 620px;
   padding-left: 15px;
 }
+.divch{
+  margin-top: 8px;
+}
 .columnCh{
-  /* margin-top: 4px; */
   cursor: pointer;
   margin-right: 10px;
   font-size: 20px;
-  color: rgb(102, 102, 102);
+  color: #8bc34a;
 }
 
-.columnCh:hover, .columnCh:focus{
-  width: 30px;
-  height: 30px;
-  padding: 0px;
+.columnCh:hover{
   border-radius: 20%;
   color: white;
   background: rgb(102, 102, 102);
 }
 
-/* Pop pop Content  */
-.ulheader{
-  margin-bottom: 5px;
-  color: #00695c;
-  font-weight: bold;
-}
 .list-group-column{
   padding-top: 5px!important;
   height: 32px;

@@ -50,6 +50,7 @@ class SampleChanger extends React.Component {
               <div className="mr-auto" style={{ visibility: areAnySelected ? 'visible' : 'hidden' }}>
                 <span style={{ marginRight: '8px' }}>
                   {selectedCount}
+                  {' '}
                   {this.props.name}
                   {' '}
                   selected
@@ -59,6 +60,7 @@ class SampleChanger extends React.Component {
               <div>
                 <span>
                   Number of
+                  {' '}
                   {this.props.name}
                   {'s : '}
                   {this.props.rows.length}

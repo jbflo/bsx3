@@ -23,8 +23,8 @@ class PropertyButton extends React.Component {
           title="Delete row"
           className="edit-del del-btn"
           onClick={() => {
-            if (window.confirm(`Are you sure you want to delete this row? ${this.props.row.id} ${this.props.showNotification} `)) {
-              this.props.handleDeleteRow(this.props.row);
+            if (window.confirm(`Are you sure you want to delete this row? ${this.props.index} ${this.props.showNotification} `)) {
+              this.props.handleDeleteRow(this.props.index);
               this.props.handleShowNotification(true);
             }
           }}

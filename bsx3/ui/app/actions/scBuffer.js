@@ -1,69 +1,69 @@
 /* eslint-disable no-param-reassign */
-import * as R from 'ramda';
+// import * as R from 'ramda';
 // Reducer
-export const INITIAL_STATE = {
+export const INITIAL_BUFFER_STATE = {
   rows: [
-    {
-      id: 10,
-      Buffername: 'bn',
-      plate: 'p1',
-      row: 'r1',
-      column: 'co14',
-      flow: false,
-      recap: true,
-      energy: 17,
-      volume: 60,
-      seutemp: 50,
-      stemp: 6,
-      concentration: 0,
-      viscovity: 0,
-      frame: 7,
-      exposuretime: 100,
-      transmission: 0,
-      attenuation: 23,
-    },
-    {
-      id: 11,
-      Buffername: 'b2',
-      plate: 'p27',
-      row: 'r83',
-      column: 'co2',
-      flow: true,
-      recap: true,
-      energy: 17,
-      volume: 67,
-      seutemp: 58,
-      stemp: 66,
-      concentration: 0,
-      viscovity: 0,
-      frame: 7,
-      exposuretime: 70,
-      transmission: 8,
-      attenuation: 29,
-    },
-    {
-      id: 22,
-      Buffername: 'b3',
-      plate: 'p83',
-      row: 'r63',
-      column: 'cor3',
-      flow: false,
-      recap: false,
-      energy: 17,
-      volume: 60,
-      seutemp: 50,
-      stemp: 6,
-      concentration: 0,
-      viscovity: 0,
-      frame: 7,
-      exposuretime: 160,
-      transmission: 0,
-      attenuation: 23,
-    }
+    // {
+    //   id: 10,
+    //   bufferName: 'bn',
+    //   plate: 'p1',
+    //   row: 'r1',
+    //   column: 'co14',
+    //   flow: false,
+    //   recap: true,
+    //   energy: 17,
+    //   volume: 60,
+    //   seutemp: 50,
+    //   stemp: 6,
+    //   concentration: 0,
+    //   viscovity: 0,
+    //   frame: 7,
+    //   exposuretime: 100,
+    //   transmission: 0,
+    //   attenuation: 23,
+    // },
+    // {
+    //   id: 11,
+    //   bufferName: 'b2',
+    //   plate: 'p27',
+    //   row: 'r83',
+    //   column: 'co2',
+    //   flow: true,
+    //   recap: true,
+    //   energy: 17,
+    //   volume: 67,
+    //   seutemp: 58,
+    //   stemp: 66,
+    //   concentration: 0,
+    //   viscovity: 0,
+    //   frame: 7,
+    //   exposuretime: 70,
+    //   transmission: 8,
+    //   attenuation: 29,
+    // },
+    // {
+    //   id: 22,
+    //   bufferName: 'b3',
+    //   plate: 'p83',
+    //   row: 'r63',
+    //   column: 'cor3',
+    //   flow: false,
+    //   recap: false,
+    //   energy: 17,
+    //   volume: 60,
+    //   seutemp: 50,
+    //   stemp: 6,
+    //   concentration: 0,
+    //   viscovity: 0,
+    //   frame: 7,
+    //   exposuretime: 160,
+    //   transmission: 0,
+    //   attenuation: 23,
+    // }
   ],
 
   columns: {
-    Buffername: {
+    bufferName: {
       columnName: 'Buffer Name',
       display: true,
       size: 105,
@@ -174,22 +174,22 @@ export const INITIAL_STATE = {
 };
 
 // Action TYPE
-export const ADD_ROW_ACTION = 'sc/ADD_ROW';
-export const IS_ADDING_NEW_ROW_ACTION = 'sc/IS_ADDING_NEW_ROW_ACTION';
-export const DUPLICATE_ROW_ACTION = 'sc/DUPLICATE_ROW_ACTION';
-export const EDIT_ROW_ACTION = 'sc/EDIT_ROW';
-export const DELETE_ROW_ACTION = 'sc/DELETE_ROW';
-export const CANCEL_EDIT_ROW_ACTION = 'sc/CANCEL_EDIT_ROW_ACTION';
-export const LOAD_STATE_LOCALSTORAGE_ACTION = 'sc/LOAD_STATE_LOCALSTORAGE_ACTION';
-export const REORDER_ROW_ACTION = 'sc/REORDER_ROW_ACTION';
-export const TOGGLE_COLUMN_CHOOSER_ACTION = 'sc/TOGGLE_COLUMN_CHOOSER_ACTION';
-export const SAVE_STATE_LOCALSTORAGE_ACTION = 'sc/SAVE_STATE_LOCALSTORAGE_ACTION';
-export const SELECT_EDIT_ROW_ACTION = 'sc/SELECT_EDIT_ROW_ACTION';
-export const ROW_SELECTION_ACTION = 'sc/ROW_COMPLETION_ACTION';
+export const ADD_ROW_ACTION = 'bf/ADD_ROW';
+export const IS_ADDING_NEW_ROW_ACTION = 'bf/IS_ADDING_NEW_ROW_ACTION';
+export const DUPLICATE_ROW_ACTION = 'bf/DUPLICATE_ROW_ACTION';
+export const EDIT_ROW_ACTION = 'bf/EDIT_ROW';
+export const DELETE_ROW_ACTION = 'bf/DELETE_ROW';
+export const CANCEL_EDIT_ROW_ACTION = 'bf/CANCEL_EDIT_ROW_ACTION';
+export const LOAD_STATE_LOCALSTORAGE_ACTION = 'bf/LOAD_STATE_LOCALSTORAGE_ACTION';
+export const REORDER_ROW_BUFFER_ACTION = 'bf/REORDER_ROW_ACTION';
+export const TOGGLE_COLUMN_CHOOSER_ACTION = 'bf/TOGGLE_COLUMN_CHOOSER_ACTION';
+export const SAVE_STATE_LOCALSTORAGE_ACTION = 'bf/SAVE_STATE_LOCALSTORAGE_ACTION';
+export const SELECT_EDIT_ROW_ACTION = 'bf/SELECT_EDIT_ROW_ACTION';
+export const ROW_SELECTION_ACTION = 'bf/ROW_COMPLETION_ACTION';
 
 
 // //////////////// Reducer /////////////////////////////////////////////////
-export default (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_BUFFER_STATE, action) => {
   switch (action.type) {
     case ROW_SELECTION_ACTION: {
       const Temprows = state.rows.map((row) => {
@@ -244,9 +244,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case DELETE_ROW_ACTION: {
       // const rows = state.rows.filter(({ row }) => row !== action.row);
-      console.log(state.rows.filter(({ row }) => row !== action.row));
-      const rows = R.without(action.row, state.rows);
-      return { ...state, rows };
+      // console.log(state.rows.filter(({ row }) => row !== action.row));
+      // const rows = R.without(action.row, state.rows);
+      return { ...state };
     }
 
     case SELECT_EDIT_ROW_ACTION: {
@@ -282,7 +282,7 @@ export default (state = INITIAL_STATE, action) => {
       const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
       return newState;
     }
-    case REORDER_ROW_ACTION: {
+    case REORDER_ROW_BUFFER_ACTION: {
       const columns = [...state.columns];
       const [removed] = columns.splice(action.initialPosition, 1);
       columns.splice(action.newPosition, 0, removed);
@@ -344,9 +344,9 @@ export function cancelEditRowAction() {
   };
 }
 
-export function reorderRowAction(initialPosition, newPosition) {
+export function reorderRowBufferAction(initialPosition, newPosition) {
   return {
-    type: REORDER_ROW_ACTION,
+    type: REORDER_ROW_BUFFER_ACTION,
     initialPosition,
     newPosition
   };

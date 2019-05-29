@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
@@ -8,9 +8,10 @@ export default class TableAddRow extends Component {
   constructor(props) {
     super(props);
     this.input = React.createRef();
-    this.state = {
-      // row: this.props.row
-    };
+
+    this.state = Object.entries(this.props.columns).map(([key]) => ({ [key]: '' }));
+
+
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleAddAndResetForm = this.handleAddAndResetForm.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -28,25 +29,27 @@ export default class TableAddRow extends Component {
   }
 
   handleRowChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const { keys, value } = event.target;
+    this.setState({ [keys]: value });
     // this.setState({ flow: checked });
   }
 
   handleAddAndResetForm(event) {
     event.preventDefault();
-    const { name, value, checked } = event.target;
+    const { value } = event.target;
     let row = {};
-    row = { [name]: value };
-    row = { name: checked };
-
-    alert(Object.keys(row).map((key) => {
-      row[key] = value;
+    // Object.entries(this.props.columns).map(([key]) => (row.push({ [key]: value })));
+    alert(Object.entries(this.props.columns).map(([key]) => {
+      row = { [key]: value };
       return row[key];
     }));
+    // alert(Object.keys(row).map((key) => {
+    //   // row = { key: value };
+    //   return row[key];
+    // }));
     this.props.handleAddRow({
       ...this.props.row,
-      row
+      // row
     });
     // Reset value
     return this.setState({
@@ -101,6 +104,34 @@ export default class TableAddRow extends Component {
                   </Button>
                 </td>
               );
+            } else if (key === 'buffer' && this.props.name === 'Sample') {
+              if (this.props.bufferRows.length > 0) {
+                td = (
+                  <td key={key} style={{ width: column.size }}>
+                    <div className="" style={{ margin: '5px' }}>
+                      <select value="" ref={this.input} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                        {this.props.bufferRows.map(row => (
+                          <option value={row.id}>
+                            {row.bufferName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </td>
+                );
+              } else { td = (<span style={{ color: 'red' }}>No Buffer </span>); }
+            } else if (column.inputType === 'select') {
+              td = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="" style={{ margin: '5px' }}>
+                    <select value="" ref={this.input} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                      { column.options.map(value => (
+                        (<option value={value}>{value}</option>)
+                      ))}
+                    </select>
+                  </div>
+                </td>
+              );
             } else {
               td = (
                 <td key={key} style={{ width: column.size }}>
@@ -124,46 +155,3 @@ export default class TableAddRow extends Component {
     );
   }
 }
-
-
-TableAddRow.propTypes = {
-  row: PropTypes.shape({
-    // id: PropTypes.number.isRequired,
-    samplename: PropTypes.string.isRequired,
-    concentration: PropTypes.string.isRequired,
-    plate: PropTypes.string.isRequired,
-    row: PropTypes.string.isRequired,
-    column: PropTypes.string.isRequired,
-    frame: PropTypes.string.isRequired,
-    exposuretime: PropTypes.string.isRequired,
-    attenuation: PropTypes.string.isRequired,
-    buffer: PropTypes.string.isRequired,
-    flow: PropTypes.string.isRequired,
-    volume: PropTypes.number.isRequired,
-    seutemp: PropTypes.number.isRequired,
-    stemp: PropTypes.number.isRequired,
-    energy: PropTypes.number.isRequired,
-  }),
-  // handleAddRow: PropTypes.func.isRequired,
-  // handleIsAddingNewRow: PropTypes.func.isRequired,
-};
-
-TableAddRow.defaultProps = {
-  row: PropTypes.shape({
-    // id: PropTypes.number.isRequired,
-    samplename: PropTypes.string.isRequired,
-    concentration: PropTypes.string.isRequired,
-    plate: PropTypes.string.isRequired,
-    row: PropTypes.string.isRequired,
-    column: PropTypes.string.isRequired,
-    frame: PropTypes.string.isRequired,
-    exposuretime: PropTypes.string.isRequired,
-    attenuation: PropTypes.string.isRequired,
-    buffer: PropTypes.string.isRequired,
-    flow: PropTypes.string.isRequired,
-    seutemp: PropTypes.number.isRequired,
-    volume: PropTypes.number.isRequired,
-    stemp: PropTypes.number.isRequired,
-    energy: PropTypes.number.isRequired,
-  }),
-};

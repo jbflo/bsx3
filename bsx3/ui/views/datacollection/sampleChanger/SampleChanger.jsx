@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav, Button } from 'react-bootstrap';
-import Form, { Label } from 'react-bootstrap/Form';
+import { Label } from 'react-bootstrap/Form';
 import SampleTable from './SampleTable';
 import BufferTable from './BufferTable';
 import SaveMenu from './menu/SaveMenu';
@@ -49,7 +49,6 @@ class SampleChanger extends Component {
     return [
       <div className="sc container-fluid">
         <div className="wrapsc">
-
           {/* Collapse Buffer OR sample Table  */}
           <div className="flexclass divConfig ">
             <div className="scConfig">
@@ -64,30 +63,16 @@ class SampleChanger extends Component {
             </div>
             <div className=" scConfig">
               <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Load Data: </span>
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Control as="select">
-                    <option> None (User Define)</option>
-                    <option>BSA Calibration</option>
-                    <option>Water Calibration</option>
-                    <option>From ISPYB</option>
-                    <option>From File</option>
-                  </Form.Control>
-                </Form.Group>
-              </Form>
+              <select>
+                <option>None (User Define)</option>
+                <option>BSA Calibration</option>
+                <option>Water Calibration</option>
+                <option>From ISPYB</option>
+                <option>From File</option>
+              </select>
             </div>
             <div className=" scConfig">
               <span style={{ marginTop: '7px', marginRight: '10px', marginLeft: '10px' }}> Optimizition: </span>
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Control as="select">
-                    <option>None</option>
-                    <option>Sample Temperature</option>
-                    <option>Sample Name</option>
-                    <option>Buffer</option>
-                  </Form.Control>
-                </Form.Group>
-              </Form>
             </div>
           </div>
           <div className="panel-heading">
@@ -97,7 +82,7 @@ class SampleChanger extends Component {
             <span className="mr-auto" />
             <div className="flexclass">
               <div className="flexclass">
-                <span className="switchall_text"> Hide Columns : </span>
+                <span className="switchall_text"> Show hidden Columns : </span>
                 <Label className="switchall">
                   <input
                     type="checkbox"
@@ -128,7 +113,7 @@ class SampleChanger extends Component {
               transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             }}
           >
-            <BufferTable name=" Buffer" />
+            <BufferTable name="Buffer" />
           </div>
           <div
             className="sampletable"
@@ -138,7 +123,7 @@ class SampleChanger extends Component {
               transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             }}
           >
-            <SampleTable name=" Sample" />
+            <SampleTable name="Sample" />
           </div>
           <Nav style={{ width: '100%', marginTop: '20px', marginLeft: '50px' }}>
             <div style={{ marginRight: '10px' }}>
