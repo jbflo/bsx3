@@ -14,15 +14,10 @@ class ColumnChooser extends React.Component {
   constructor(props) {
     super(props);
     this.togleColumn = this.togleColumn.bind(this);
-    this.toggleGroupColumn = this.toggleGroupColumn.bind(this);
   }
 
   togleColumn(columnName) {
     this.props.handleColumnChooser(columnName);
-  }
-
-  toggleGroupColumn() {
-    this.props.handleGroupColumnChooser();
   }
 
   render() {

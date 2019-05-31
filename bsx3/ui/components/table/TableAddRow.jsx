@@ -119,7 +119,7 @@ export default class TableAddRow extends Component {
                     </div>
                   </td>
                 );
-              } else { td = (<span style={{ color: 'red' }}>No Buffer </span>); }
+              } else { td = (<span key={key} style={{ width: column.size, color: 'red' }}>No Buffer </span>); }
             } else if (column.inputType === 'select') {
               td = (
                 <td key={key} style={{ width: column.size }}>

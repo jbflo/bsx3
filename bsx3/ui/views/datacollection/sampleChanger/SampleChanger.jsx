@@ -7,8 +7,12 @@ import { Label } from 'react-bootstrap/Form';
 import SampleTable from './SampleTable';
 import BufferTable from './BufferTable';
 import SaveMenu from './menu/SaveMenu';
+import * as sampleAction from '../../../app/actions/scSample';
 import FolderUploader from './folderDirectory/FolderDirectory';
 import ColumnChooser from './tableColumnChooser/ColumnChooser';
+import Plate1 from './plate/Plate1';
+import Plate2 from './plate/Plate2';
+import Plate3 from './plate/Plate3';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import './style.css';
@@ -43,6 +47,14 @@ class SampleChanger extends Component {
     this.samplebtn.style.color = ' #FFF';
     this.bufferbtn.style.color = '#455a64';
     this.bufferbtn.style.background = '';
+  }
+
+  toggleGroupColumn() {
+    const keys = ['energy', 'viscovity', 'frame', 'exposuretime', 'transmission', 'buffermode', 'recup', 'wait'];
+    const display = !this.props.groupColumnVisibility;
+    keys.map(key => (
+      this.props.handleGroupColumnChooser(key, display)
+    ));
   }
 
   render() {
@@ -87,9 +99,9 @@ class SampleChanger extends Component {
                   <input
                     type="checkbox"
                     className="success"
-                    checked
+                    checked={this.props.groupColumnVisibility}
                     onChange={() => {
-                      this.togleColumn;
+                      this.toggleGroupColumn();
                     }}
                   />
                   <span className="slider round" />
@@ -125,13 +137,15 @@ class SampleChanger extends Component {
           >
             <SampleTable name="Sample" />
           </div>
-          <Nav style={{ width: '100%', marginTop: '20px', marginLeft: '50px' }}>
+          <Nav className="navplate" style={{ width: '100%', marginTop: '10px', paddingLeft: '25px' }}>
             <div style={{ marginRight: '10px' }}>
-              <span>
-                Plate Viewer will be there
-                { ' ' }
-                <i className="fas fa-arrow-circle-down" />
-              </span>
+              <Plate1 />
+            </div>
+            <div style={{ marginRight: '10px' }}>
+              <Plate2 />
+            </div>
+            <div style={{ marginRight: '10px' }}>
+              <Plate3 />
             </div>
           </Nav>
         </div>
@@ -140,15 +154,15 @@ class SampleChanger extends Component {
   }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
-
+    groupColumnVisibility: state.sample.groupColumnVisibility,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-
+    handleGroupColumnChooser: sampleAction.toggleGroupColumnChooserAction,
   }, dispatch);
 }
 

@@ -89,7 +89,7 @@ export const INITIAL_STATE = {
       display: true,
       size: 70,
       inputType: 'select',
-      options: ['96 well Plate', '']
+      options: ['1', '2', '3']
     },
     row: {
       columnName: 'Row',
@@ -143,52 +143,52 @@ export const INITIAL_STATE = {
     },
     energy: {
       columnName: 'Energy',
-      display: true,
+      display: false,
       size: 75,
       inputType: 'input',
     },
     viscovity: {
       columnName: 'Viscovity',
-      display: true,
+      display: false,
       size: 80,
       inputType: 'select',
       options: ['low', 'medium', 'high']
     },
     frame: {
       columnName: 'No. Frames',
-      display: true,
+      display: false,
       size: 90,
       inputType: 'input',
     },
     exposuretime: {
       columnName: 'Exposure(s)',
-      display: true,
+      display: false,
       size: 105,
       inputType: 'input',
     },
 
     transmission: {
       columnName: 'Transmission %',
-      display: true,
+      display: false,
       size: 115,
       inputType: 'input',
     },
     buffermode: {
       columnName: 'Buffer mode',
-      display: true,
+      display: false,
       size: 95,
       inputType: 'select',
       options: ['Befor', 'Before & After', 'After']
     },
     recup: {
       columnName: 'Recuperation',
-      display: true,
+      display: false,
       size: 100,
       inputType: 'checkbox',
     },
     wait: {
       columnName: 'Wait(s)',
-      display: true,
+      display: false,
       size: 75,
       inputType: 'input',
     },
@@ -220,10 +220,18 @@ export const cancelEditRowAction = createAction('sc/CANCEL_EDIT_ROW_ACTION');
 export const deleteRowAction = createAction('sc/DELETE_ROW_ACTION');
 export const reorderRowAction = createAction('sc/REORDER_ROW_ACTION', (initialPos, newPos) => ({ initialPos, newPos }));
 export const toggleColumnChooserAction = createAction('sc/TOGGLE_COLUMN_CHOOSER_ACTION');
-export const toggleGroupColumnChooserAction = createAction('sc/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION');
+export const toggleGroupColumnChooserAction = createAction('sc/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION', (key, display) => ({ key, display }));
 export const rowSelection = createAction('sc/ROW_COMPLETION_ACTION');
 
 // //////////////////// HANDLE ACTIONS / REDUCERS //////////////////
+//     case TOGGLE_COLUMN_CHOOSER_ACTION: {
+//       const colum = state.columns[action.key];
+//       const columns = {
+//         ...state.columns,
+//         [action.key]: { ...colum, display: !colum.display }
+//       };
+//       return { ...state, columns };
+//     }
 export default handleActions({
   [addNewRowAction]:
   (state, { row }) => R.evolve({ [state.rows]: R.append(row, state.rows) }, state),
@@ -234,18 +242,32 @@ export default handleActions({
     return { ...state, rows };
   },
 
+  [deleteRowAction](state, action) {
+    const rows = R.remove(action.payload, action.payload, state.rows);
+    console.log(rows);
+    return { ...state, rows };
+  },
+
   [reorderRowAction](state, action) {
     const rows = [...state.rows];
     const [removed] = rows.splice(action.payload.initialPos, 1);
     rows.splice(action.payload.newPos, 0, removed);
     return { ...state, rows };
   },
-
-  [deleteRowAction](state, action) {
-    const rows = R.remove(action.payload, action.payload, state.rows);
-    console.log(rows);
-    // const rows = state.rows.filter(({ id }) => id !== action.payload);
-    return { ...state, rows };
+  [toggleColumnChooserAction](state, action) {
+    const columns = R.map(
+      R.when(R.propEq('columnName', state.columns[action.payload].columnName), R.assoc('display', !state.columns[action.payload].display)),
+      state.columns
+    );
+    return { ...state, columns };
+  },
+  [toggleGroupColumnChooserAction](state, action) {
+    const groupColumnVisibility = action.payload.display;
+    const columns = R.map(
+      R.when(R.propEq('columnName', state.columns[action.payload.key].columnName), R.assoc('display', groupColumnVisibility)),
+      state.columns
+    );
+    return { ...state, columns, groupColumnVisibility };
   },
 },
 INITIAL_STATE);

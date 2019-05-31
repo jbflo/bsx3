@@ -1,7 +1,6 @@
 /* Css for Seu.jsx Content  */
 .sc{
     height: 700px;
-    
 }
 
 .wrapsc{
@@ -119,4 +118,8 @@
   
   .slider.round:before {
     border-radius: 50%;
+  }
+
+  .navplate{
+    border: 1px solid lightgray; 
   }
