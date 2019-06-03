@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import './style.css';
 
 export default class TableAddRow extends Component {
@@ -10,7 +9,6 @@ export default class TableAddRow extends Component {
     this.input = React.createRef();
 
     this.state = Object.entries(this.props.columns).map(([key]) => ({ [key]: '' }));
-
 
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleAddAndResetForm = this.handleAddAndResetForm.bind(this);
@@ -29,28 +27,22 @@ export default class TableAddRow extends Component {
   }
 
   handleRowChange(event) {
-    const { keys, value } = event.target;
-    this.setState({ [keys]: value });
-    // this.setState({ flow: checked });
+    alert();
+    const key = event.target.name;
+    let val = event.target.value;
+    if (event.target.value === 'on') {
+      val = event.target.checked;
+    }
+    Object.entries(this.props.columns).map(() => this.setState({ [key]: val }));
+    // this.setState({ [key]: val });
   }
 
   handleAddAndResetForm(event) {
     event.preventDefault();
-    const { value } = event.target;
-    let row = {};
-    // Object.entries(this.props.columns).map(([key]) => (row.push({ [key]: value })));
-    alert(Object.entries(this.props.columns).map(([key]) => {
-      row = { [key]: value };
-      return row[key];
-    }));
-    // alert(Object.keys(row).map((key) => {
-    //   // row = { key: value };
-    //   return row[key];
-    // }));
-    this.props.handleAddRow({
-      ...this.props.row,
-      // row
-    });
+    // const { value } = event.target.value;
+    alert(event.target.value);
+    const row = this.state;
+    this.props.handleAddRow(row);
     // Reset value
     return this.setState({
       // samplename: '',
@@ -78,14 +70,15 @@ export default class TableAddRow extends Component {
       <tr className="add-row-tr">
         <td style={{ width: '70px' }}>
           <div style={{ width: '' }}>
-            <Button
-              className=" btn-success btnaddrow"
+            <button
+              className=" btn btn-success btnaddrow"
               style={{ fontWeight: 'bold' }}
               onClick={this.handleAddAndResetForm}
               title="Add new row"
+              type="submit"
             >
             +
-            </Button>
+            </button>
           </div>
         </td>
         {Object.entries(this.props.columns).map(([key, column]) => {
@@ -94,14 +87,15 @@ export default class TableAddRow extends Component {
             if (key === 'tools') {
               td = (
                 <td key={key} style={{ width: column.size }}>
-                  <Button
-                    className=" btn-success btnaddrow"
+                  <button
+                    className="btn btn-success btnaddrow"
                     style={{ fontWeight: 'bold' }}
                     onClick={this.handleAddAndResetForm}
                     title="Add new row"
+                    type="submit"
                   >
                   +
-                  </Button>
+                  </button>
                 </td>
               );
             } else if (key === 'buffer' && this.props.name === 'Sample') {
@@ -109,7 +103,7 @@ export default class TableAddRow extends Component {
                 td = (
                   <td key={key} style={{ width: column.size }}>
                     <div className="" style={{ margin: '5px' }}>
-                      <select value="" ref={this.input} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                      <select value="" ref={key} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
                         {this.props.bufferRows.map(row => (
                           <option value={row.id}>
                             {row.bufferName}
@@ -124,7 +118,7 @@ export default class TableAddRow extends Component {
               td = (
                 <td key={key} style={{ width: column.size }}>
                   <div className="" style={{ margin: '5px' }}>
-                    <select value="" ref={this.input} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                    <select value={column.options[0]} name={key} ref={key} className="form-control input_edit" onChange={this.handleRowChange}>
                       { column.options.map(value => (
                         (<option value={value}>{value}</option>)
                       ))}
@@ -138,10 +132,11 @@ export default class TableAddRow extends Component {
                   <div className="" style={{ margin: '5px' }}>
                     <input
                       className="form-control input_edit"
-                      ref={this.input}
+                      ref={key}
                       name={key}
                       type={column.inputType}
                       onChange={this.handleRowChange}
+                      value={column.defaultValue}
                     />
                   </div>
                 </td>

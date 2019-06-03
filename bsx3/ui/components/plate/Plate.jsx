@@ -10,9 +10,9 @@ class SampleChanger extends React.Component {
     super(props);
     const grid = [];
     const rowTitle = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-    for (let col = 0; col < 12; col += 1) {
+    for (let col = 0; col < this.props.plateColumns; col += 1) {
       const cols = [];
-      for (let row = 0; row < 8; row += 1) {
+      for (let row = 0; row < this.props.plateRows; row += 1) {
         cols.push({
           col,
           row
@@ -40,36 +40,36 @@ class SampleChanger extends React.Component {
 
   render() {
     const { grid, rowTitle } = this.state;
+    const col = grid.map(col => col);
+    const row = grid[1].map(row => row);
     return (
       <div className="plate">
-        <section className="colHeader" style={{ marginBottom: '20PX' }}>
+        <div className="colHeader" style={{ gridTemplateColumns: `repeat(${col.length}, 1fr)` }}>
           {
-            grid.map((col, i) => [
-              <span
+            grid.map((col, i) => (
+              <div
                 key={`${col}`}
-                className="colheader"
+                className="colList"
               >
                 {i + 1}
-              </span>
-            ])
+              </div>
+            ))
         }
-        </section>
+        </div>
         <div className="flexclass">
-          <ul className="list-group list-group-flush rowul">
+          <div className="rowHeader" style={{ gridTemplateRows: `repeat(${row.length}, 100)` }}>
             {
-              grid[1].map((row, i) => [
-                <li className="rowlist" key={row}>
-                  <span
-                    key={`${row}`}
-                    className="rowheader"
-                  >
-                    {rowTitle[i]}
-                  </span>
-                </li>
-              ])
+              grid[1].map((row, i) => (
+                <span
+                  key={`${row}`}
+                  className="rowlist"
+                >
+                  {rowTitle[i]}
+                </span>
+              ))
           }
-          </ul>
-          <section className="grid flexclass" style={{ gridTemplateColumns: `${grid.length} '1fr'`, gridTemplateRows: `${grid.length} '1fr'` }}>
+          </div>
+          <div className="grid" style={{ gridTemplateColumns: `repeat(${col.length}, 1fr)`, gridTemplateRows: `repeat(${row.length}, 1fr)` }}>
             {
               grid.map(col => [
                 col.map(cell => [
@@ -80,7 +80,7 @@ class SampleChanger extends React.Component {
                 ])
               ])
           }
-          </section>
+          </div>
         </div>
       </div>
     );

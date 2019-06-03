@@ -115,6 +115,9 @@
     margin-top: 8px; 
     margin-right: 4px
   }
+  .input_edit{
+    text-align:center;
+  }
   .input_form{ 
       border: none!important;
       background:  none!important;

@@ -25,7 +25,7 @@ class Plate1 extends Component {
         <span>
           96 Well plate
           { ' ' }
-          <i className="fas fa-arrow-circle-down" />
+          {/* <i className="fas fa-arrow-circle-down" /> */}
         </span>
         <Plate {...this.props} />
       </div>
@@ -33,14 +33,10 @@ class Plate1 extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    rows: state.sample.rows,
-    columns: state.sample.columns,
-    editingRow: state.sample.editingRow,
-    isAddingNewRow: state.sample.isAddingNewRow,
-    showNotification: state.app.showNotification,
-    bufferRows: state.buffer.rows,
+    plateColumns: 12,
+    plateRows: 8,
   };
 }
 

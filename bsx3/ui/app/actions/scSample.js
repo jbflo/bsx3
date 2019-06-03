@@ -11,17 +11,17 @@ export const INITIAL_STATE = {
       plate: 'p1',
       row: 'r1',
       column: 'co1',
-      concentration: 0,
+      concentration: 1,
       flow: true,
       extraflowt: '5',
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      energy: 17,
+      energy: 12.5,
       viscovity: 0,
       frame: 7,
-      exposuretime: 100,
-      transmission: 0,
+      exposuretime: 1,
+      transmission: 100,
       buffermode: 'befor',
       recap: true,
       wait: '2',
@@ -55,17 +55,17 @@ export const INITIAL_STATE = {
       plate: 'p3',
       row: 'r3',
       column: 'co3',
-      concentration: 0,
+      concentration: 1,
       flow: false,
       extraflowt: '7',
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      energy: 17,
+      energy: 12.5,
       viscovity: 0,
       frame: 7,
-      exposuretime: 100,
-      transmission: 0,
+      exposuretime: 1,
+      transmission: 100,
       buffermode: 'Fisrt & after',
       recap: true,
       wait: '8',
@@ -77,12 +77,14 @@ export const INITIAL_STATE = {
       columnName: 'Name',
       display: true,
       size: 80,
-      inputType: 'input',
+      inputType: 'text',
+      defaultValue: ''
     },
     buffer: {
       columnName: 'Buffer',
       display: true,
       size: 70,
+      defaultValue: ''
     },
     plate: {
       columnName: 'Plate',
@@ -109,43 +111,50 @@ export const INITIAL_STATE = {
       columnName: 'c (mg/mL)',
       display: true,
       size: 80,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '1'
     },
     flow: {
       columnName: 'Flow',
       display: true,
       size: 50,
       inputType: 'checkbox',
+      defaultValue: 'true'
     },
     extraflowt: {
       columnName: 'Extra Flow t(s)',
       display: true,
       size: 105,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '5'
     },
     volume: {
       columnName: 'volume (μl)',
       display: true,
       size: 105,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '50'
     },
     seutemp: {
       columnName: 'SEU Temp.',
       display: true,
       size: 90,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '4'
     },
     stemp: {
       columnName: 'Storage Temp.',
       display: true,
       size: 110,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '4'
     },
     energy: {
       columnName: 'Energy',
       display: false,
       size: 75,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '12.5'
     },
     viscovity: {
       columnName: 'Viscovity',
@@ -158,20 +167,23 @@ export const INITIAL_STATE = {
       columnName: 'No. Frames',
       display: false,
       size: 90,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '10'
     },
     exposuretime: {
       columnName: 'Exposure(s)',
       display: false,
       size: 105,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '1'
     },
 
     transmission: {
       columnName: 'Transmission %',
       display: false,
       size: 115,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '100'
     },
     buffermode: {
       columnName: 'Buffer mode',
@@ -185,12 +197,14 @@ export const INITIAL_STATE = {
       display: false,
       size: 100,
       inputType: 'checkbox',
+      defaultValue: 'false'
     },
     wait: {
       columnName: 'Wait(s)',
       display: false,
       size: 75,
-      inputType: 'input',
+      inputType: 'number',
+      defaultValue: '0'
     },
     tools: {
       columnName: 'Tools',
@@ -220,21 +234,15 @@ export const cancelEditRowAction = createAction('sc/CANCEL_EDIT_ROW_ACTION');
 export const deleteRowAction = createAction('sc/DELETE_ROW_ACTION');
 export const reorderRowAction = createAction('sc/REORDER_ROW_ACTION', (initialPos, newPos) => ({ initialPos, newPos }));
 export const toggleColumnChooserAction = createAction('sc/TOGGLE_COLUMN_CHOOSER_ACTION');
-export const toggleGroupColumnChooserAction = createAction('sc/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION', (key, display) => ({ key, display }));
+export const toggleGroupColumnChooserAction = createAction('sc/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION', (keys, display) => ({ keys, display }));
 export const rowSelection = createAction('sc/ROW_COMPLETION_ACTION');
 
-// //////////////////// HANDLE ACTIONS / REDUCERS //////////////////
-//     case TOGGLE_COLUMN_CHOOSER_ACTION: {
-//       const colum = state.columns[action.key];
-//       const columns = {
-//         ...state.columns,
-//         [action.key]: { ...colum, display: !colum.display }
-//       };
-//       return { ...state, columns };
-//     }
+
 export default handleActions({
-  [addNewRowAction]:
-  (state, { row }) => R.evolve({ [state.rows]: R.append(row, state.rows) }, state),
+  [addNewRowAction](state, action) {
+    return R.evolve({ [state.rows]: R.append(action.row, state.rows) }, state);
+    // (state, { row }) => R.evolve({ [state.rows]: R.append(row, state.rows) }, state);
+  },
 
   [duplicateNewRowAction](state, action) {
     const row = R.ifElse(R.propEq('id', action.payload.row.id), R.assoc('id', 666), item => item);
@@ -243,9 +251,7 @@ export default handleActions({
   },
 
   [deleteRowAction](state, action) {
-    const rows = R.remove(action.payload, action.payload, state.rows);
-    console.log(rows);
-    return { ...state, rows };
+    return R.evolve({ rows: R.remove(action.payload, action.payload) }, state);
   },
 
   [reorderRowAction](state, action) {
@@ -263,124 +269,14 @@ export default handleActions({
   },
   [toggleGroupColumnChooserAction](state, action) {
     const groupColumnVisibility = action.payload.display;
+    const columnNames = action.payload.keys.map(key => (state.columns[key].columnName));
+
     const columns = R.map(
-      R.when(R.propEq('columnName', state.columns[action.payload.key].columnName), R.assoc('display', groupColumnVisibility)),
+      R.when(R.propSatisfies(columnName => columnNames.includes(columnName), 'columnName'),
+        R.assoc('display', groupColumnVisibility)),
       state.columns
     );
     return { ...state, columns, groupColumnVisibility };
   },
 },
 INITIAL_STATE);
-
-// export default (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
-//     case ROW_SELECTION_ACTION: {
-//       const Temprows = state.rows.map((row) => {
-//         if (row.id === action.selectedRow.id) {
-//           row.selected = action.selectedRow.selected;
-//         }
-//         return row;
-//       });
-//       return { ...state, Temprows, selections: Temprows };
-//     }
-//     case IS_ADDING_NEW_ROW_ACTION: {
-//       let AddingNewRow = state.isAddingNewRow;
-//       if (AddingNewRow !== action.value) {
-//         AddingNewRow = action.value;
-//       }
-//       return { ...state, isAddingNewRow: AddingNewRow };
-//     }
-//     case ADD_ROW_ACTION: {
-//       const newrow = {
-//         samplename: action.newRow.samplename,
-//         concentration: action.newRow.concentration,
-//         plate: action.newRow.plate,
-//         row: action.newRow.row,
-//         column: action.newRow.column,
-//         frame: action.newRow.frame,
-//         exposuretime: action.newRow.exposuretime,
-//         attenuation: action.newRow.attenuation,
-//         buffer: action.newRow.buffer,
-//         flow: action.newRow.flow,
-//         seutemp: action.newRow.seutemp,
-//         stemp: action.newRow.stemp,
-//         energy: action.newRow.energy,
-//         volume: action.newRow.volume,
-//         selected: action.newRow.selected,
-//         id: state.rows.length,
-//       };
-
-//       return { ...state, rows: [newrow, ...state.rows] };
-//     }
-
-//     case DUPLICATE_ROW_ACTION: {
-//       console.log('Why ? kaka:');
-//       let newrow = null;
-//       state.rows.map((row) => {
-//         if (row.id === action.payload.rowId) {
-//           newrow = row;
-//         }
-//         return null;
-//       });
-//       const duplicaterow = { ...newrow, id: state.rows.length };
-//       return { ...state, rows: [duplicaterow, ...state.rows] };
-//     }
-
-//     case DELETE_ROW_ACTION: {
-//       // const rows = state.rows.filter(({ row }) => row !== action.row);
-//       console.log(state.rows.filter(({ row }) => row !== action.row));
-//       const rows = R.without(action.row, state.rows);
-//       return { ...state, rows };
-//     }
-
-//     case SELECT_EDIT_ROW_ACTION: {
-//       const row = state.rows.find(({ id }) => id === action.id);
-//       return { ...state, editingRow: row };
-//     }
-
-//     case EDIT_ROW_ACTION: {
-//       const rows = state.rows.map((row) => {
-//         if (row.id === action.modifiedRow.id) {
-//           row.samplename = action.modifiedRow.samplename;
-//           row.concentration = action.modifiedRow.concentration;
-//           row.plate = action.modifiedRow.plate;
-//           row.row = action.modifiedRow.row;
-//           row.column = action.modifiedRow.column;
-//           row.frame = action.modifiedRow.frame;
-//           row.exposuretime = action.modifiedRow.exposuretime;
-//           row.attenuation = action.modifiedRow.attenuation;
-//           row.buffer = action.modifiedRow.buffer;
-//           row.flow = action.modifiedRow.flow;
-//           row.seutemp = action.modifiedRow.seutemp;
-//           row.volume = action.modifiedRow.volume;
-//           row.stemp = action.modifiedRow.stemp;
-//           row.energy = action.modifiedRow.energy;
-//           row.selected = action.modifiedRow.selected;
-//         }
-//         return row;
-//       });
-//       return { ...state, rows, editingRow: {} };
-//     }
-
-//     case CANCEL_EDIT_ROW_ACTION: {
-//       const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
-//       return newState;
-//     }
-//     case REORDER_ROW_ACTION: {
-//       const rows = [...state.rows];
-//       const [removed] = rows.splice(action.initialPosition, 1);
-//       rows.splice(action.newPosition, 0, removed);
-//       return { ...state, rows };
-//     }
-//     case TOGGLE_COLUMN_CHOOSER_ACTION: {
-//       const colum = state.columns[action.key];
-//       const columns = {
-//         ...state.columns,
-//         [action.key]: { ...colum, display: !colum.display }
-//       };
-//       return { ...state, columns };
-//     }
-//     default:
-//       return state;
-//   }
-// };

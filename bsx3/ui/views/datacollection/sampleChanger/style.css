@@ -4,7 +4,7 @@
 }
 
 .wrapsc{
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: 10px;
 }
 .scConfig{
@@ -122,4 +122,6 @@
 
   .navplate{
     border: 1px solid lightgray; 
+    height: 230px;
+    background: rgba(108, 145, 81, 0.144);
   }

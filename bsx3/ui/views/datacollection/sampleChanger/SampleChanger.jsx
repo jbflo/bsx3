@@ -52,9 +52,7 @@ class SampleChanger extends Component {
   toggleGroupColumn() {
     const keys = ['energy', 'viscovity', 'frame', 'exposuretime', 'transmission', 'buffermode', 'recup', 'wait'];
     const display = !this.props.groupColumnVisibility;
-    keys.map(key => (
-      this.props.handleGroupColumnChooser(key, display)
-    ));
+    this.props.handleGroupColumnChooser(keys, display);
   }
 
   render() {
@@ -137,15 +135,17 @@ class SampleChanger extends Component {
           >
             <SampleTable name="Sample" />
           </div>
-          <Nav className="navplate" style={{ width: '100%', marginTop: '10px', paddingLeft: '25px' }}>
-            <div style={{ marginRight: '10px' }}>
-              <Plate1 />
-            </div>
-            <div style={{ marginRight: '10px' }}>
-              <Plate2 />
-            </div>
-            <div style={{ marginRight: '10px' }}>
-              <Plate3 />
+          <Nav className="navplate justify-content-center" style={{ width: '100%', marginTop: '10px', paddingLeft: '15px' }}>
+            <div className="row">
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate1 />
+              </div>
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate2 />
+              </div>
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate3 />
+              </div>
             </div>
           </Nav>
         </div>
