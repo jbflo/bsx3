@@ -25,7 +25,12 @@ export default class NavLoggedIn extends Component {
             BSXCuBE 3
           </h3>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Nav className="justify-content-end" style={{ fontSize: '17px' }}>
+          <Nav className="justify-content-center">
+            <LinkContainer className="link " to="/datacollection" eventKey={1}><Nav.Link className="page_menu"> Data Collection</Nav.Link></LinkContainer>
+            <LinkContainer className="link " to="/result" eventKey={2}><Nav.Link className="page_menu"> Result</Nav.Link></LinkContainer>
+            <LinkContainer className="link " to="/logging" eventKey={3}><Nav.Link className="page_menu"> System log</Nav.Link></LinkContainer>
+          </Nav>
+          <Nav className="justify-content-end" style={{ fontSize: '15px' }}>
             <LinkContainer className="link " to="/help" eventKey={4}>
               <Nav.Link>
                 <span className="icon"><FaInfoCircle /></span>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './hplc.css';
 
-class SampleQueueContainer extends Component {
+class HPLC extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -13,12 +13,12 @@ class SampleQueueContainer extends Component {
   }
 
   render() {
-    return [
+    return (
       <div className="" style={{ }}>
          Test
       </div>
 
-    ];
+    );
   }
 }
 
@@ -37,4 +37,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SampleQueueContainer);
+)(HPLC);

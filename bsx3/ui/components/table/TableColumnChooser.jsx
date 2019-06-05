@@ -1,13 +1,10 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import PropTypes from 'prop-types';
 import {
-  OverlayTrigger, Popover
+  OverlayTrigger, Popover, Button
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
-import { MdViewColumn } from 'react-icons/md';
-import * as SampleChangerAction from '../../../../app/actions/scSample';
 import './style.css';
 
 class ColumnChooser extends React.Component {
@@ -21,7 +18,7 @@ class ColumnChooser extends React.Component {
   }
 
   render() {
-    const content = (
+    const content = [
       <div className="row">
         <div className="ulheader">Check Column to be display </div>
         <ul className="list-group list-group-flush">
@@ -45,7 +42,7 @@ class ColumnChooser extends React.Component {
           }
         </ul>
       </div>
-    );
+    ];
     return (
       <OverlayTrigger
         ref={(ref) => { this.OverlayTrigger = ref; }}
@@ -54,32 +51,15 @@ class ColumnChooser extends React.Component {
         placement="bottom"
         overlay={(<Popover className="colpopover" id={`${this.props.labelText} popover`}>{content}</Popover>)}
       >
-        <div className="divch" onContextMenu={this.onLinkRightClick}>
-          <span className=""> Customize Columns : </span>
-          <MdViewColumn className="columnCh" title="Choose Column to display">
+        <div onContextMenu={this.onLinkRightClick}>
+          <Button variant="link" className="columnCh" title="Choose Column to display">
             {/* Column */}
             <i className="fa fa-eye" />
-          </MdViewColumn>
+          </Button>
         </div>
       </OverlayTrigger>
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    columns: state.sample.columns,
-    groupColumnVisibility: state.sample.columns,
-  };
-}
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    handleColumnChooser: SampleChangerAction.toggleColumnChooserAction,
-    handleGroupColumnChooser: SampleChangerAction.toggleGroupColumnChooserAction,
-  }, dispatch);
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ColumnChooser);
+export default ColumnChooser;

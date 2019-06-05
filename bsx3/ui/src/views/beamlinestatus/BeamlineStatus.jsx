@@ -49,7 +49,7 @@ class BeamlineStatus extends React.Component {
           background: 'rgba(126, 204, 226, 0.06)',
           paddingTop: '1em',
           paddingBottom: '0.5em',
-          borderBottom: '1px solid #d2d2d2'
+          // borderBottom: '1px solid #d2d2d2'
         }}
       >
         <Col>
