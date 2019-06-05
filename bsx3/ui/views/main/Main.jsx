@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import NavLoggedOut from '../header/NavLoggedOut';
 import NavLoggedIn from '../header/NavLoggedIn';
 import Login from '../login/Login';
 import Datacollection from '../datacollection/DataCollection';
@@ -52,10 +51,7 @@ class Main extends Component {
           )
           : null
         }
-        { <Route exact path="/login" component={NavLoggedOut} />
-        }
-        { <Route exact path="/datacollection" component={NavLoggedIn} />
-        }
+        <Route exact path="/datacollection" component={NavLoggedIn} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/datacollection" component={Datacollection} />
         <Route exact path="/" component={NavLoggedIn} />

@@ -65,7 +65,7 @@ export default class InOutSwitch extends React.Component {
         >
           <div onContextMenu={this.onOptionsRightClick}>
             <Badge
-              style={{ display: 'block', marginBottom: '3px' }}
+              style={{ display: 'block', marginBottom: '3px', }}
             >
               { this.props.labelText }
               <span>
@@ -82,9 +82,9 @@ export default class InOutSwitch extends React.Component {
   render() {
     let msgBgStyle = 'warning';
     if (this.props.state === 'CLOSED') {
-      msgBgStyle = 'success';
-    } else if (this.props.state === 'OPEN') {
       msgBgStyle = 'danger';
+    } else if (this.props.state === 'OPEN') {
+      msgBgStyle = 'success';
     }
 
     let btn = <Button block bsSize="small" disabled>---</Button>;
@@ -98,7 +98,8 @@ export default class InOutSwitch extends React.Component {
       display: 'block',
       fontSize: '100%',
       borderRadius: '0px',
-      color: '#000'
+      color: '#000',
+      cursor: 'pointer'
     };
 
     return (

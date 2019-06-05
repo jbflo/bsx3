@@ -1,6 +1,6 @@
 const styles = {
   wrap: {
-    marginTop: '20px',
+    // marginTop: '20px',
     marginLeft: '0px',
     marginRight: '0px',
     fontFamily: 'sans-serif',
@@ -9,8 +9,8 @@ const styles = {
     minHeight: '300px'
   },
   droppable: {
-    // border: '1px dashed lightgray',
-    // margin: '1rem',
+    border: '1px solid lightgray',
+    // marginLeft: '10px',
     // padding: '1rem',
     borderRadius: '5px',
     width: '100%',

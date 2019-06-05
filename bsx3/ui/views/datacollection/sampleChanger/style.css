@@ -1,32 +1,127 @@
 /* Css for Seu.jsx Content  */
 .sc{
-    /* position: relative; */
-    caption-side: top;
-    height: 600px;
-    padding: 0%!important;
-}
-.sctitle{
-    margin-top: 40px;
-    align-content: center;
-    text-align: center;
-    width: 100%;
-}
-.sctitle h3{
-    margin-left: 33%;
-    align-content: center;
-    text-align: center;
-    width: 400px
-
+    height: 700px;
 }
 
-.bar{
-    position: relative;
-    align-content: center;
+.wrapsc{
+    margin-top: 30px;
+    margin-left: 10px;
 }
+.scConfig{
+    display: flex;
+    background: rgba(93, 146, 56, 0.164);
+    border: 1px solid lightgray; 
+    border-radius: 5px; 
+    height: 35px;
+    margin-right: 15px
 
-
+}
+.divConfig{
+  margin-bottom: 20px;
   
+}
+.checkCleanning{
+  margin-top: 8px;
+  margin-right: 10px;
+  height: 20px;
+  width: 20px;
+}
+.divcollapsebtn{
+ width: 193px;
+ height: 35px;
+ background: rgba(93, 146, 56, 0.164);
+ border: 1px solid lightgray; 
+ border-radius: 5px; 
+}
+
+.collapsebtn{
+    -moz-appearance: none;
+    border: 2px solid black; 
+    /* color: rgb(124, 120, 120)!important;  */
+}
+
+.collapsebtn:focus{
+    box-shadow: none!important; 
+}
+
+
+.panel-heading{
+    background: rgba(108, 145, 81, 0.144);
+    display: flex;
+    width:100%; 
+    height: 34px;
+  } 
+
   .flexclass{
     display: flex;
     /* margin-right: 5px!important; */
+  }
+
+  /* The switch - the box around the slider */
+  .switchall_text{
+    margin-left: 5px;
+    margin-top: 6px;
+  }
+.switchall {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 15px;
+    margin-top: 10px;
+    width: 30px;
+    height: 17px;
+    float:right;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switchall input {display:none;}
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input.success:checked + .slider {
+    background-color: #8bc34a;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .navplate{
+    border: 1px solid lightgray; 
+    height: 230px;
+    background: rgba(108, 145, 81, 0.144);
   }

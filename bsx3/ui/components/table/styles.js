@@ -1,9 +1,9 @@
 const styles = {
   wrap: {
-    // width: '100%',
-    // textAlign: 'center',
-    // padding: '1rem',
-    // marginLeft: '-30px'
+    width: '100%',
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    minHeight: '300px'
   },
   table: {
     width: '100%',
@@ -23,7 +23,7 @@ const styles = {
     backgroundColor: 'white',
     margin: '0rem',
     padding: '0rem',
-    height: '40px',
+    // height: '40px',
   },
   draggableDragging: {
     backgroundColor: '#dcedc8',
