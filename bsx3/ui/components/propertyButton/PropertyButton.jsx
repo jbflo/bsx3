@@ -25,7 +25,7 @@ class PropertyButton extends React.Component {
           onClick={() => {
             if (window.confirm(`Are you sure you want to delete this row? ${this.props.index} ${this.props.showNotification} `)) {
               this.props.handleDeleteRow(this.props.index);
-              this.props.handleShowNotification(true);
+              // this.props.handleShowNotification(true);
             }
           }}
         >

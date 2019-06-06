@@ -37,6 +37,7 @@ function mapStateToProps(state) {
     isAddingNewRow: state.sample.isAddingNewRow,
     showNotification: state.app.showNotification,
     bufferRows: state.buffer.rows,
+    gridPlate: state.sample.plateGrid,
   };
 }
 
@@ -57,7 +58,9 @@ function mapDispatchToProps(dispatch) {
 
     handleReorderRow: sampleAction.reorderRowAction,
     handleColumnChooser: sampleAction.toggleColumnChooserAction,
+    handleLoadRowsColumns: sampleAction.loadPlateRowsColumnsAction,
     handleShowNotification: globalAction.showNotificationAction,
+
   }, dispatch);
 }
 

@@ -94,7 +94,7 @@ class Queue extends React.PureComponent {
             <Droppable droppableId="droppabe-list">
               {(provided, snapshot) => (
                 <div
-                  // className="row"
+                  className=""
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
@@ -108,7 +108,7 @@ class Queue extends React.PureComponent {
                     >
                       {(provided, snapshot) => [
                         <div
-                          className=" text-center"
+                          className=" ctext-center"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}

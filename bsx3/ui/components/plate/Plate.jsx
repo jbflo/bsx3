@@ -9,10 +9,10 @@ class SampleChanger extends React.Component {
   constructor(props) {
     super(props);
     const grid = [];
-    const rowTitle = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-    for (let col = 0; col < this.props.plateColumns; col += 1) {
+    const rowTitle = this.props.grid.RowHeader;
+    for (let col = 1; col <= this.props.grid.col; col += 1) {
       const cols = [];
-      for (let row = 0; row < this.props.plateRows; row += 1) {
+      for (let row = 1; row <= this.props.grid.row; row += 1) {
         cols.push({
           col,
           row
@@ -40,16 +40,21 @@ class SampleChanger extends React.Component {
 
   render() {
     const { grid, rowTitle } = this.state;
-    const col = grid.map(col => col);
-    const row = grid[1].map(row => row);
+    const cols = grid.map(col => col);
+    const rows = grid[1].map(row => row);
     return (
       <div className="plate">
-        <div className="colHeader" style={{ gridTemplateColumns: `repeat(${col.length}, 1fr)` }}>
+        <div className="colHeader" style={{ gridTemplateColumns: `repeat(${cols.length}, 1fr)` }}>
           {
             grid.map((col, i) => (
               <div
                 key={`${col}`}
-                className="colList"
+                className={`colList
+                ${
+                  this.props.grid.type === 'Block' && i > 7
+                    ? 'cellRounded' : ''
+                }
+                `}
               >
                 {i + 1}
               </div>
@@ -57,7 +62,7 @@ class SampleChanger extends React.Component {
         }
         </div>
         <div className="flexclass">
-          <div className="rowHeader" style={{ gridTemplateRows: `repeat(${row.length}, 100)` }}>
+          <div className="rowHeader" style={{ gridTemplateRows: `repeat(${rows.length}, 100)` }}>
             {
               grid[1].map((row, i) => (
                 <span
@@ -69,14 +74,28 @@ class SampleChanger extends React.Component {
               ))
           }
           </div>
-          <div className="grid" style={{ gridTemplateColumns: `repeat(${col.length}, 1fr)`, gridTemplateRows: `repeat(${row.length}, 1fr)` }}>
+          <div className="grid" style={{ gridTemplateColumns: `repeat(${cols.length}, 1fr)`, gridTemplateRows: `repeat(${rows.length}, 1fr)` }}>
             {
               grid.map(col => [
                 col.map(cell => [
                   <div
+                    style={{ width: this.props.grid.width, height: this.props.grid.heigh }}
                     key={`${cell.row} ${cell.col}`}
-                    className="cell"
-                  />,
+                    className={`cell
+                    ${
+                      this.props.grid.type === 'square'
+                        ? 'cellSquare' : ''
+                    }
+                    ${
+                      this.props.grid.type === 'Round'
+                        ? ' cellSquare cellRounded ' : ''
+                    }
+                    ${
+                      this.props.grid.type === 'Block'
+                        ? ' cellSquare ' : ''
+                    }
+                    `}
+                  />
                 ])
               ])
           }
