@@ -1,22 +1,38 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import NumericInput from 'react-numeric-input';
 import './style.css';
 
 export default class TableAddRow extends Component {
   constructor(props) {
     super(props);
     this.input = React.createRef();
+    const defaultValue = {};
 
-    this.state = Object.entries(this.props.columns).map(([key]) => ({ [key]: '' }));
+
+    Object.entries(this.props.columns).map(
+      ([keys, column]) => {
+        if (column.inputType === 'select') {
+          defaultValue[keys] = column.options[0];
+        } else defaultValue[keys] = column.defaultValue;
+        return defaultValue;
+      }
+    );
+    this.state = defaultValue;
 
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleAddAndResetForm = this.handleAddAndResetForm.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
   }
 
+  componentWillMount() {
+    // this.handlePlateRowColValue(1);
+  }
+
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeyUp);
+    // this.handlePlateRowColValue(1);
   }
 
   handleKeyUp(event) {
@@ -26,43 +42,48 @@ export default class TableAddRow extends Component {
     }
   }
 
+  handlePlateRowColValue(plate) {
+    this.props.gridPlate.map((grid) => {
+      if (grid.name === plate) {
+        const rows = [];
+        const cols = [];
+        for (let col = 1; col <= grid.col; col += 1) {
+          cols.push(col);
+          for (let row = 1; row <= grid.row; row += 1) {
+            rows.push(`${grid.RowHeader[row]}${col}`);
+          }
+        }
+        return this.props.handleLoadRowsColumns(rows, cols);
+      }
+      return null;
+    });
+  }
+
   handleRowChange(event) {
-    alert();
     const key = event.target.name;
-    let val = event.target.value;
-    if (event.target.value === 'on') {
+    let val = null;
+    if (event.target.value === 'true' || event.target.value === 'false') {
       val = event.target.checked;
+    } else val = event.target.value;
+
+    if (event.target.name === 'plate') {
+      this.handlePlateRowColValue(event.target.value);
     }
-    Object.entries(this.props.columns).map(() => this.setState({ [key]: val }));
-    // this.setState({ [key]: val });
+
+    Object.entries(this.props.columns).map(
+      ([keys]) => {
+        if (key === keys) {
+          return this.setState({ [keys]: val });
+        }
+        return null;
+      }
+    );
   }
 
   handleAddAndResetForm(event) {
     event.preventDefault();
-    // const { value } = event.target.value;
-    alert(event.target.value);
     const row = this.state;
     this.props.handleAddRow(row);
-    // Reset value
-    return this.setState({
-      // samplename: '',
-      // buffer: '',
-      // plate: '',
-      // row: '',
-      // column: '',
-      // flow: false,
-      // recap: false,
-      // energy: '',
-      // volume: '',
-      // seutemp: '',
-      // stemp: '',
-      // concentration: '',
-      // viscovity: '',
-      // frame: 7,
-      // exposuretime: '',
-      // transmission: '',
-      // attenuation: '',
-    });
   }
 
   render() {
@@ -103,7 +124,7 @@ export default class TableAddRow extends Component {
                 td = (
                   <td key={key} style={{ width: column.size }}>
                     <div className="" style={{ margin: '5px' }}>
-                      <select value="" ref={key} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                      <select value={this.state[key]} ref={key} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
                         {this.props.bufferRows.map(row => (
                           <option value={row.id}>
                             {row.bufferName}
@@ -118,11 +139,34 @@ export default class TableAddRow extends Component {
               td = (
                 <td key={key} style={{ width: column.size }}>
                   <div className="" style={{ margin: '5px' }}>
-                    <select value={column.options[0]} name={key} ref={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                    <select value={this.state[key]} name={key} ref={key} className="form-control input_edit" onChange={this.handleRowChange}>
                       { column.options.map(value => (
                         (<option value={value}>{value}</option>)
                       ))}
                     </select>
+                  </div>
+                </td>
+              );
+            } else if (column.inputType === 'number') {
+              td = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="" style={{ margin: '5px' }}>
+                    <NumericInput
+                      name="whatever"
+                      className="form-control"
+                      value={this.state[key]}
+                      min={column.minValue}
+                      max={column.maxValue}
+                      step={1}
+                      precision={0}
+                      size={5}
+                      maxLength={2}
+                      required
+                      pattern="[0-9].[0-9][0-9]"
+                      title={column.columnName}
+                      snap
+                      inputmode=""
+                    />
                   </div>
                 </td>
               );
@@ -136,8 +180,11 @@ export default class TableAddRow extends Component {
                       name={key}
                       type={column.inputType}
                       onChange={this.handleRowChange}
-                      value={column.defaultValue}
+                      value={this.state[key]}
+                      checked={this.state[key]}
+                      required
                     />
+                    {/* {this.state} */}
                   </div>
                 </td>
               );

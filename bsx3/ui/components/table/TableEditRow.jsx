@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* eslint-disable prefer-destructuring */
+import React, { Component, Fragment } from 'react';
 import { MdCancel, MdSave } from 'react-icons/md';
 import './style.css';
 
@@ -6,8 +7,18 @@ export default class TableEditRow extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    const defaultValue = {};
+
+    Object.entries(this.props.columns).map(
+      ([keys, column]) => {
+        if (column.inputType === 'select') {
+          defaultValue[keys] = column.options[0];
+        } else defaultValue[keys] = this.props.row[keys];
+        return defaultValue;
+      }
+    );
+    this.state = defaultValue;
+
     this.handleRowChange = this.handleRowChange.bind(this);
     this.handleEditAndResetForm = this.handleEditAndResetForm.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -25,55 +36,34 @@ export default class TableEditRow extends Component {
   }
 
   handleRowChange(event) {
-    const { name, value, checked } = event.target;
-    this.setState({ [name]: value });
-    this.setState({ flow: checked });
+    const key = event.target.name;
+    let val = null;
+    if (event.target.value === 'true' || event.target.value === 'false') {
+      val = event.target.checked;
+    } else val = event.target.value;
+
+    Object.entries(this.props.columns).map(
+      ([keys]) => {
+        if (key === keys) {
+          return this.setState({ [keys]: val });
+        }
+        return null;
+      }
+    );
   }
 
   handleEditAndResetForm(event) {
     event.preventDefault();
-    this.props.handleEditRow({
-      ...this.props.row,
-      samplename: this.state.samplename,
-      concentration: this.state.concentration,
-      plate: this.state.plate,
-      row: this.state.row,
-      column: this.state.column,
-      frame: this.state.frame,
-      exposuretime: this.state.exposuretime,
-      attenuation: this.state.attenuation,
-      buffer: this.state.buffer,
-      flow: this.state.flow,
-      volume: this.state.volume,
-      seutemp: this.state.seutemp,
-      stemp: this.state.stemp,
-      energy: this.state.energy,
-    });
-    // Reset value
-    return this.setState({
-      samplename: '',
-      concentration: '',
-      plate: '',
-      row: '',
-      column: '',
-      frame: '',
-      exposuretime: '',
-      attenuation: '',
-      buffer: '',
-      flow: '',
-      volume: '',
-      seutemp: '',
-      stemp: '',
-      energy: '',
-    });
+    const row = this.state;
+    this.props.handleEditRow(row, this.props.index);
   }
 
   render() {
     return (
-      <>
+      <Fragment>
         <td style={{ width: '70px' }}>
           Editing....
-          <div className="flexclass">
+          <div className="flexclass" style={{ width: '', marginLeft: '5px' }}>
             <MdCancel
               onClick={this.props.handleCancelEditRow}
               className="save-cancel cancel-icon"
@@ -86,38 +76,80 @@ export default class TableEditRow extends Component {
             />
           </div>
         </td>
-        {Object.entries(this.props.columns).map(([key, column]) => (
+        {Object.entries(this.props.columns).map(([key, column]) => {
           // eslint-disable-next-line no-nested-ternary
-          column.display
-            ? (
-              key === 'tools'
-                ? (
-                  <td>
-                    <div className="flexclass">
-                      <MdCancel
-                        onClick={this.props.handleCancelEditRow}
-                        className="save-cancel cancel-icon"
-                        title="Cancel row editting"
-                      />
-                      <MdSave
-                        onClick={this.handleEditAndResetForm}
-                        className="save-cancel save-icon"
-                        title="Save edited row"
-                      />
-                    </div>
-                  </td>
-                )
-                : (
-                  <td style={{ width: column.size }}>
+          let td = null;
+          if (column.display) {
+            if (key === 'tools') {
+              td = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="flexclass">
+                    <MdCancel
+                      onClick={this.props.handleCancelEditRow}
+                      className="save-cancel cancel-icon"
+                      title="Cancel row editting"
+                    />
+                    <MdSave
+                      onClick={this.handleEditAndResetForm}
+                      className="save-cancel save-icon"
+                      title="Save edited row"
+                    />
+                  </div>
+                </td>
+              );
+            } else if (key === 'buffer' && this.props.name === 'Sample') {
+              if (this.props.bufferRows.length > 0) {
+                td = (
+                  <td key={key} style={{ width: column.size }}>
                     <div className="" style={{ margin: '5px' }}>
-                      <input className="form-control input_edit" type={column.inputType} name={key} onChange={this.handleRowChange} checked={this.props.row[key]} value={this.props.row[key]} />
+                      <select value={this.state[key]} ref={key} name={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                        {this.props.bufferRows.map(row => (
+                          <option value={row.id}>
+                            {row.bufferName}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </td>
-                )
-            )
-            : null
-        ))}
-      </>
+                );
+              } else { td = (<span key={key} style={{ width: column.size, color: 'red' }}>No Buffer </span>); }
+            } else if (column.inputType === 'select') {
+              td = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="" style={{ margin: '5px' }}>
+                    <select vvalue={this.state[key]} name={key} ref={key} className="form-control input_edit" onChange={this.handleRowChange}>
+                      { column.options.map(value => (
+                        (<option value={value}>{value}</option>)
+                      ))}
+                    </select>
+                  </div>
+                </td>
+              );
+            } else {
+              td = (
+                <td key={key} style={{ width: column.size }}>
+                  <div className="" style={{ margin: '5px' }}>
+                    <input
+                      className="form-control input_edit"
+                      ref={key}
+                      name={key}
+                      type={column.inputType}
+                      onChange={this.handleRowChange}
+                      min={column.minValue}
+                      max={column.maxValue}
+                      value={this.state[key]}
+                      checked={this.state[key]}
+                      required
+                    />
+                  </div>
+                </td>
+              );
+            }
+          }
+
+          return td;
+        })}
+      </Fragment>
     );
   }
 }

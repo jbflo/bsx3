@@ -6,7 +6,7 @@ const styles = {
     fontFamily: 'sans-serif',
     textAlign: 'center',
     width: '100%',
-    minHeight: '300px'
+    minHeight: '700px'
   },
   droppable: {
     border: '1px solid lightgray',
@@ -14,7 +14,7 @@ const styles = {
     // padding: '1rem',
     borderRadius: '5px',
     width: '100%',
-    minHeight: '300px'
+    minHeight: '500px'
   },
   droppableDragging: {
     borderColor: 'green'
@@ -22,7 +22,7 @@ const styles = {
   draggable: {
     // border: '1px solid lightgray',
     backgroundColor: 'white',
-    margin: '.5rem',
+    // margin: '.5rem',
     // padding: '.5rem',
     borderRadius: '5px'
   },

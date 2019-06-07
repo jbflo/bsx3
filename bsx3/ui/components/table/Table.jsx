@@ -14,16 +14,21 @@ import './style.css';
 class SampleChanger extends React.Component {
   constructor(props) {
     super(props);
+    // provided.innerRef = React.createRef();
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   componentWillMount() {
-    this.props.handleSelectAll(this.props.rows);
+    // this.props.handleSelectAll(this.props.rows);
   }
 
   componentDidMount() {
     this.checkall.indeterminate = this.props.areAllIndeterminate(this.props.rows);
-    this.props.areAllSelected(true);
+    // this.tbody.style.background = '#0097a7';
+    if (this.thead.offsetHeight < this.thead.scrollHeight) {
+      this.props.handleSelectAll(this.props.rows);
+      // this.props.areAllSelected(true);
+    }
   }
 
   componentDidUpdate() {
@@ -67,7 +72,7 @@ class SampleChanger extends React.Component {
                 </span>
               </div>
             </caption>
-            <thead className="">
+            <thead className="" ref={(ref) => { this.thead = ref; }}>
               <tr>
                 <th style={{ width: '70px' }}>
                   <input
@@ -88,9 +93,10 @@ class SampleChanger extends React.Component {
                }
               </tr>
             </thead>
-            <Droppable droppableId="droppabe-list">
+            <Droppable droppableId="droppabe-list" ref={(ref) => { this.Droppable = ref; }}>
               {(provided, snapshot) => (
                 <tbody
+                  // ref={`${(ref) => { this.tbody = ref; }} ${provided.innerRef}`}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
@@ -123,6 +129,7 @@ class SampleChanger extends React.Component {
                             <TableEditRow
                               key={row.id}
                               row={this.props.editingRow}
+                              index={index}
                               {...this.props}
                             />
                           ) : [

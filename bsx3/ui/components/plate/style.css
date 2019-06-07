@@ -29,11 +29,16 @@
   display: inline-block;
 }
 .cell {
-  width: 18px;
-  height:21px;
-  outline: 1px solid rgb(187, 185, 185);
-  border-radius: 50%;
+  /* height:22px; */
   display: inline-block;
+}
+
+.cellSquare{
+  outline: 1px solid rgb(187, 185, 185);
+}
+.cellRounded{
+  border: 1px solid rgb(187, 185, 185);
+  border-radius: 50%;
 }
 
 .sample {
@@ -42,8 +47,4 @@
 
 .buffer {
   background: blue;
-}
-
-.tail {
-  background: lightblue;
 }
