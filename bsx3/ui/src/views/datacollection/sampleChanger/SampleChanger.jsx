@@ -10,9 +10,7 @@ import SaveMenu from './menu/SaveMenu';
 import * as sampleAction from '../../../app/actions/scSample';
 import FolderUploader from './folderDirectory/FolderDirectory';
 import ColumnChooser from './tableColumnChooser/ColumnChooser';
-import Plate1 from './plate/Plate1';
-import Plate2 from './plate/Plate2';
-import Plate3 from './plate/Plate3';
+import Plate from './plate/Plate';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import './style.css';
@@ -137,15 +135,7 @@ class SampleChanger extends Component {
           </div>
           <Nav className="navplate justify-content-center" style={{ width: '100%', marginTop: '10px', paddingLeft: '15px' }}>
             <div className="row">
-              <div className="col-4" style={{ marginRight: '0px' }}>
-                <Plate1 />
-              </div>
-              <div className="col-4" style={{ marginRight: '0px' }}>
-                <Plate2 />
-              </div>
-              <div className="col-4" style={{ marginRight: '0px' }}>
-                <Plate3 />
-              </div>
+              <Plate />
             </div>
           </Nav>
         </div>

@@ -8,7 +8,7 @@ import Plate from '../../../../components/plate/Plate';
 
 // import './style.css';
 
-class Plate1 extends Component {
+class SamplePlate extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -21,22 +21,28 @@ class Plate1 extends Component {
 
   render() {
     return (
-      <div className="plate1">
-        <span>
-          4 x ( 8 + 3 ) Block
-          { ' ' }
-          {/* <i className="fas fa-arrow-circle-down" /> */}
-        </span>
-        <Plate {...this.props} />
-      </div>
+      <>
+        {this.props.gridPlate.map((grid, index) => (
+          <div className="col-4" style={{ marginRight: '0px' }} key={grid.title}>
+            <span>
+              { ' Plate ' }
+              {index + 1}
+              { ' : ' }
+              {grid.title}
+              { ' ' }
+              {/* <i className="fas fa-arrow-circle-down" /> */}
+            </span>
+            <Plate grid={grid} />
+          </div>
+        ))}
+      </>
     );
   }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
-    plateColumns: 8,
-    plateRows: 4,
+    gridPlate: state.sample.plateGrid,
   };
 }
 
@@ -49,4 +55,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Plate1);
+)(SamplePlate);
