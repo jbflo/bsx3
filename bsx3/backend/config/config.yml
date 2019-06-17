@@ -1,0 +1,30 @@
+# Session Variables
+iosecret: 6ade41e5ffbeaa6b85b54fdc5b5b7f4b
+secret: 6ade41e5ffbeaa6b85b54fdc5b5b7f4b
+
+# Authentication Type
+auth_type: ldap
+auth_server: ldap.esrf.fr
+
+# Login Session Type
+session_type: memory
+session_length: 36000
+# session_length: 20
+
+# Metadata Type
+meta_type: redis
+
+# Connected Session
+controls_session_type: bliss
+controls_session_name: test_session
+
+# Enable Debugging
+debug: true
+# debug: false
+
+# Enable CORS
+cors: false
+
+# Path to specific implementors
+# actors / processors
+implementors: implementors/examples

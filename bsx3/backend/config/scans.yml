@@ -1,0 +1,6 @@
+# command: conda activate bliss_env; bliss -s test_session  
+sources:
+  - type: bliss
+    session: test_session
+  # - type: sardana
+  #   arg: value

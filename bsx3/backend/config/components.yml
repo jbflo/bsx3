@@ -1,0 +1,6 @@
+- type: scans
+  config: scans.yml
+# - type: console
+  # config: console.yml  
+- type: hardware
+  config: hardware.yml

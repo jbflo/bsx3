@@ -6,18 +6,21 @@ import beamline from 'actions/beamline.actions';
 import session from 'actions/session.actions';
 import hardware from 'actions/hardware.actions';
 import schemas from 'actions/schema.actions';
-import sampleChanger from 'actions/sampleChanger.actions';
 import queue from 'actions/queue.actions';
+
+import sample from 'actions/scSample';
+import buffer from 'actions/scBuffer';
 
 export default function createRootReducer(history) {
   return combineReducers({
     router: connectRouter(history),
     app,
     beamline,
-    sampleChanger,
     queue,
     session,
     hardware,
-    schemas
+    schemas,
+    sample,
+    buffer,
   });
 }

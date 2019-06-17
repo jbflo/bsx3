@@ -4,13 +4,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav, Button } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
-import * as sampleAction from 'actions/scSample';
 import SampleTable from './SampleTable';
 import BufferTable from './BufferTable';
 import SaveMenu from './menu/SaveMenu';
+import * as sampleAction from '../../../app/actions/scSample';
 import FolderUploader from './folderDirectory/FolderDirectory';
+<<<<<<< HEAD:bsx3/ui/src/views/datacollection/sampleChanger/SampleChanger.jsx
+import * as SampleChangerAction from '../../../actions/sampleChanger.actions';
+import * as globalAction from '../../../actions/app.actions';
+=======
 import ColumnChooser from './tableColumnChooser/ColumnChooser';
-import Plate from './plate/Plate';
+import Plate1 from './plate/Plate1';
+import Plate2 from './plate/Plate2';
+import Plate3 from './plate/Plate3';
+>>>>>>> origin/master:bsx3/ui/views/datacollection/sampleChanger/SampleChanger.jsx
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import './style.css';
@@ -135,7 +142,15 @@ class SampleChanger extends Component {
           </div>
           <Nav className="navplate justify-content-center" style={{ width: '100%', marginTop: '10px', paddingLeft: '15px' }}>
             <div className="row">
-              <Plate />
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate1 />
+              </div>
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate2 />
+              </div>
+              <div className="col-4" style={{ marginRight: '0px' }}>
+                <Plate3 />
+              </div>
             </div>
           </Nav>
         </div>

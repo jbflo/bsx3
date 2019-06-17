@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
 import { MdViewColumn } from 'react-icons/md';
-import * as SampleChangerAction from '../../../../app/actions/scSample';
+import * as SampleChangerAction from 'actions/scSample';
 import './style.css';
 
 class ColumnChooser extends React.Component {

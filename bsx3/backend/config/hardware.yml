@@ -1,0 +1,102 @@
+# Protocol handlers to initialise
+protocols:
+  - id:  bliss
+    type: bliss
+
+  - id: hwr
+    type: hwr
+    path: MyPath
+
+# Hardware groups
+groups:
+  - name: diffractometer
+    groupid: diffractometer
+    description: motors and status for the diffractometer
+    objects:
+      - omega
+      - robz
+      - m0
+
+  - name: robot
+    groupid: robot
+    description: robot motors
+    objects:
+      - robz
+      - roby
+
+  - name: slits
+    groupid: slits
+    description: slit motors
+    objects:
+      - s1b
+      - s1d
+      - s1f
+
+  - name: virtual
+    groupid: virtual
+    description: virtual motors
+    objects:
+      - s1hg
+      - s1ho
+
+  # - name: camera
+  #   description: camera status
+
+# Hardware objects
+objects:
+  - name: omega 123
+    id: omega
+    protocol: bliss
+    address: omega
+
+  - name: robz
+    id: robz
+    protocol: bliss
+    address: robz
+
+  - name: roby
+    id: roby
+    protocol: bliss
+    address: roby
+
+  - name: m0
+    id: m0
+    protocol: bliss
+    address: m0
+
+  - name: s1b
+    id: s1b
+    protocol: bliss
+    address: s1b
+
+  - name: s1d
+    id: s1d
+    protocol: bliss
+    address: s1d
+
+  - name: s1f
+    id: s1f
+    protocol: bliss
+    address: s1f
+
+  - name: s1hg
+    id: s1hg
+    protocol: bliss
+    address: s1hg
+
+  - name: s1ho
+    id: s1ho
+    protocol: bliss
+    address: s1ho
+
+  # - name: lima
+  #   protocol: tango
+  #   host: localhost:20000
+  #   tango_url:  id00/limaccds/simulator1
+  #   type: machinestatus
+
+  # - name: omega_1
+  #   id: omega_1
+  #   protocol: hwr
+  #   address: omega
+  #   type: motor

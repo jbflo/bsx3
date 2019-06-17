@@ -1,0 +1,2 @@
+# command: conda activate bliss_env; bliss -s test_session  
+command: bash
