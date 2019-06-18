@@ -33,10 +33,13 @@ function mapStateToProps(state) {
   return {
     rows: state.buffer.rows,
     columns: state.buffer.columns,
-    columnId: state.buffer.columnId,
+    groupColumnVisibility: state.buffer.groupColumnVisibility,
+    KeyVisibility: state.buffer.KeyVisibility,
     editingRow: state.buffer.editingRow,
     isAddingNewRow: state.buffer.isAddingNewRow,
     showNotification: state.app.showNotification,
+    bufferRows: state.buffer.rows,
+    gridPlate: state.buffer.plateGrid,
   };
 }
 
@@ -55,9 +58,13 @@ function mapDispatchToProps(dispatch) {
     handleSaveStateLocalStorage: bufferAction.saveStateLocalStorageAction,
     handleLoadStateLocalStorage: bufferAction.loadStateLocalStorageAction,
 
-    handleReorderRow: bufferAction.reorderRowBufferAction,
-    handleColumnChooser: bufferAction.toggleColumnChooserAction,
+    handleReorderRow: bufferAction.reorderRowAction,
+    handleLoadRows: bufferAction.loadPlateRowsAction,
+    handleLoadColumns: bufferAction.loadPlateColumnsAction,
     handleShowNotification: globalAction.showNotificationAction,
+
+    handleColumnChooser: bufferAction.toggleColumnChooserAction,
+    handleGroupColumnChooser: bufferAction.toggleGroupColumnChooserAction,
   }, dispatch);
 }
 

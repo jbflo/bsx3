@@ -35,7 +35,6 @@ class SaveMenu extends React.Component {
             Save
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href="#/action-4">Import</Dropdown.Item>
             <Dropdown.Item href="#/action-1">Save</Dropdown.Item>
             <Dropdown.Item href="#/action-2">Save As XLS</Dropdown.Item>
             <Dropdown.Item href="#/action-3">Save As CSV</Dropdown.Item>

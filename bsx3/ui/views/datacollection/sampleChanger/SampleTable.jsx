@@ -16,9 +16,37 @@ class SampleTable extends Component {
     };
   }
 
-  componentDidMount() { this.props.handleLoadStateLocalStorage(); }
+  componentDidMount() {
+    this.props.handleLoadStateLocalStorage();
+    this.handlePlateRowColValue();
+  }
 
   componentDidUpdate() { this.props.handleSaveStateLocalStorage(this.props.Rows); }
+
+  handlePlateRowColValue() {
+    this.props.gridPlate.map((grid) => {
+      if (grid.name === '1') {
+        const rows = [];
+        const cols = [];
+        for (let col = 1; col <= grid.col; col += 1) {
+          cols.push(col);
+          // for (let row = 1; row <= grid.row; row += 1) {
+          //   // rows.push(`${grid.RowHeader[row]}${col}`);
+          //   rows.push(`${grid.RowHeader[row]}$`);
+          // }
+        }
+        for (let row = 0; row < grid.row; row += 1) {
+          // rows.push(`${grid.RowHeader[row]}${col}`);
+          rows.push(grid.RowHeader[row]);
+        }
+        return (
+          this.props.handleLoadRows(rows),
+          this.props.handleLoadColumns(cols)
+        );
+      }
+      return null;
+    });
+  }
 
   render() {
     return (
@@ -33,6 +61,8 @@ function mapStateToProps(state) {
   return {
     rows: state.sample.rows,
     columns: state.sample.columns,
+    groupColumnVisibility: state.sample.groupColumnVisibility,
+    KeyVisibility: state.sample.KeyVisibility,
     editingRow: state.sample.editingRow,
     isAddingNewRow: state.sample.isAddingNewRow,
     showNotification: state.app.showNotification,
@@ -58,8 +88,12 @@ function mapDispatchToProps(dispatch) {
 
     handleReorderRow: sampleAction.reorderRowAction,
     handleColumnChooser: sampleAction.toggleColumnChooserAction,
-    handleLoadRowsColumns: sampleAction.loadPlateRowsColumnsAction,
+    handleLoadRows: sampleAction.loadPlateRowsAction,
+    handleLoadColumns: sampleAction.loadPlateColumnsAction,
     handleShowNotification: globalAction.showNotificationAction,
+
+    handleColumnChooser: sampleAction.toggleColumnChooserAction,
+    handleGroupColumnChooser: sampleAction.toggleGroupColumnChooserAction,
 
   }, dispatch);
 }

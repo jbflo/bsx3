@@ -2,7 +2,6 @@ const styles = {
   wrap: {
     width: '100%',
     border: '1px solid lightgray',
-    borderRadius: '5px',
     minHeight: '300px'
   },
   table: {
@@ -10,13 +9,11 @@ const styles = {
   },
   droppable: {
     borderBotton: '1px solid lightgray',
-    borderRadius: '5px',
     width: '100%',
     minHeight: '300px'
   },
   droppableDragging: {
     border: '1px lightgray',
-    borderRadius: '5px',
     borderColor: 'green',
   },
   draggable: {
