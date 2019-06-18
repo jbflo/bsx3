@@ -1,384 +1,377 @@
-/* eslint-disable no-param-reassign */
-// import * as R from 'ramda';
-// Reducer
-export const INITIAL_BUFFER_STATE = {
+import { createAction, handleActions } from 'redux-actions';
+import * as R from 'ramda';
+
+import * as ID from 'shortid';
+
+// Inititislize State Values //
+export const INITIAL_STATE = {
   rows: [
     {
-      id: 10,
+      id: 4,
       bufferName: 'bn',
+      buffer: 'B1',
       plate: 'p1',
       row: 'r1',
-      column: 'co14',
-      flow: false,
-      recap: true,
-      energy: 17,
+      column: 'co1',
+      concentration: 0,
+      flow: true,
+      extraflowt: 5,
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      concentration: 0,
+      energy: 12.5,
       viscovity: 0,
       frame: 7,
-      exposuretime: 100,
-      transmission: 0,
-      attenuation: 23,
+      exposuretime: 1,
+      transmission: 100,
+      buffermode: 'befor',
+      recap: true,
+      wait: 2,
     },
     {
-      id: 11,
-      bufferName: 'b2',
-      plate: 'p27',
-      row: 'r83',
+      id: 5,
+      bufferName: 'bn1',
+      buffer: 'B2',
+      plate: 'p2',
+      row: 'r3',
       column: 'co2',
+      concentration: 0,
       flow: true,
-      recap: true,
-      energy: 17,
+      extraflowt: 5,
       volume: 67,
       seutemp: 58,
       stemp: 66,
-      concentration: 0,
+      energy: 17,
       viscovity: 0,
       frame: 7,
       exposuretime: 70,
       transmission: 8,
-      attenuation: 29,
+      buffermode: 'After',
+      recap: true,
+      wait: 8,
     },
     {
-      id: 22,
-      bufferName: 'b3',
-      plate: 'p83',
-      row: 'r63',
-      column: 'cor3',
+      id: 6,
+      bufferName: 'bn3',
+      buffer: 'B3',
+      plate: 'p3',
+      row: 'r3',
+      column: 'co3',
+      concentration: 0,
       flow: false,
-      recap: false,
-      energy: 17,
+      extraflowt: '7',
       volume: 60,
       seutemp: 50,
       stemp: 6,
-      concentration: 0,
+      energy: 12.5,
       viscovity: 0,
       frame: 7,
-      exposuretime: 160,
-      transmission: 0,
-      attenuation: 23,
+      exposuretime: 1,
+      transmission: 100,
+      buffermode: 'Fisrt & after',
+      recap: true,
+      wait: 8,
     }
   ],
 
   columns: {
-    bufferName: {
-      columnName: 'Buffer Name',
+    buffer: {
+      columnName: 'Buffer',
       display: true,
-      size: 105,
-      inputType: 'input',
+      width: 70,
+      defaultValue: ''
     },
     plate: {
       columnName: 'Plate',
       display: true,
-      size: 70,
-      inputType: 'input',
+      width: 70,
+      inputType: 'select',
+      options: [1, 2, 3]
+    },
+    well: {
+      columnName: 'Well',
+      display: true,
+      width: 45,
+      inputType: 'select',
+      options: []
     },
     row: {
       columnName: 'Row',
       display: true,
-      size: 40,
-      inputType: 'input',
+      width: 40,
+      inputType: 'select',
+      options: []
     },
     column: {
       columnName: 'Column',
       display: true,
-      size: 60,
-      inputType: 'input',
+      width: 60,
+      inputType: 'select',
+      options: []
+    },
+    concentration: {
+      columnName: 'c (mg/mL)',
+      display: true,
+      width: 80,
+      inputType: 'number',
+      minValue: 0.01,
+      maxValue: 999,
+      defaultValue: 1
     },
     flow: {
       columnName: 'Flow',
       display: true,
-      size: 50,
+      width: 50,
       inputType: 'checkbox',
+      defaultValue: 'true'
     },
-    recap: {
-      columnName: 'Recap',
+    extraflowt: {
+      columnName: 'Extra Flow t(s)',
       display: true,
-      size: 55,
-      inputType: 'checkbox',
-    },
-    energy: {
-      columnName: 'Energy',
-      display: true,
-      size: 75,
-      inputType: 'input',
+      width: 105,
+      inputType: 'number',
+      defaultValue: 5,
+      minValue: 0.1,
+      maxValue: 100,
     },
     volume: {
       columnName: 'volume (μl)',
-      display: true,
-      size: 105,
-      inputType: 'input',
+      display: false,
+      width: 105,
+      inputType: 'number',
+      defaultValue: 50,
+      minValue: 10,
+      maxValue: 200,
     },
     seutemp: {
       columnName: 'SEU Temp.',
       display: true,
-      size: 90,
-      inputType: 'input',
+      width: 90,
+      inputType: 'number',
+      defaultValue: 4,
+      minValue: 4,
+      maxValue: 60,
     },
     stemp: {
       columnName: 'Storage Temp.',
       display: true,
-      size: 110,
-      inputType: 'input',
+      width: 110,
+      inputType: 'number',
+      defaultValue: 4,
+      minValue: 4,
+      maxValue: 40,
     },
-    concentration: {
-      columnName: 'Concentration',
-      display: true,
-      size: 105,
-      inputType: 'input',
+    energy: {
+      columnName: 'Energy',
+      display: false,
+      width: 75,
+      inputType: 'number',
+      defaultValue: 12.5
     },
     viscovity: {
-      columnName: 'viscovity',
-      display: true,
-      size: 80,
-      inputType: 'dropdown',
+      columnName: 'Viscovity',
+      display: false,
+      width: 80,
+      inputType: 'select',
+      options: ['low', 'medium', 'high']
     },
     frame: {
-      columnName: 'Frames No.',
-      display: true,
-      size: 90,
-      inputType: 'input',
+      columnName: 'No. Frames',
+      display: false,
+      width: 90,
+      inputType: 'number',
+      defaultValue: 0
     },
     exposuretime: {
-      columnName: 'Exp Time(ms)',
-      display: true,
-      size: 105,
-      inputType: 'input',
+      columnName: 'Exposure(s)',
+      display: false,
+      width: 105,
+      inputType: 'number',
+      defaultValue: 1
     },
+
     transmission: {
       columnName: 'Transmission %',
-      display: true,
-      size: 100,
-      inputType: 'input',
+      display: false,
+      width: 115,
+      inputType: 'number',
+      defaultValue: 100
     },
-    attenuation: {
-      columnName: 'Attenuation %',
-      display: true,
-      size: 115,
-      inputType: 'input',
+    buffermode: {
+      columnName: 'Buffer mode',
+      display: false,
+      width: 95,
+      inputType: 'select',
+      options: ['Befor', 'Before & After', 'After']
+    },
+    recup: {
+      columnName: 'Recuperation',
+      display: false,
+      width: 100,
+      inputType: 'checkbox',
+      defaultValue: 'false'
+    },
+    wait: {
+      columnName: 'Wait(s)',
+      display: false,
+      width: 75,
+      inputType: 'number',
+      defaultValue: '0'
     },
     tools: {
-      columnName: 'tools',
+      columnName: 'Tools',
       display: true,
-      size: 60,
+      width: 55,
       inputType: 'tools',
+      defaultValue: '0'
     },
   },
+  groupColumnVisibility: false,
+  KeyVisibility: ['energy', 'viscovity', 'frame', 'exposuretime', 'transmission', 'buffermode', 'recup', 'wait'],
+  Optimizition: ['None', 'Sample Temperature', 'Sample Name', 'Buffer'],
   editingRow: {},
   isAddingNewRow: true,
   addedRows: [],
   sorting: [],
+  plate: [1, 2, 3],
+  plateGrid: [
+    {
+      name: '1',
+      col: 12,
+      row: 8,
+      heigh: 21,
+      width: 18,
+      RowHeader: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      type: 'square',
+      title: 'Deep Well'
+    },
+    {
+      name: '2',
+      col: 11,
+      row: 4,
+      rowValue: [],
+      heigh: 24,
+      width: 20,
+      RowHeader: ['A', 'B', 'C', 'D'],
+      type: 'Block',
+      title: '4 x ( 8 + 3 ) Block'
+    },
+    {
+      name: '3',
+      col: 12,
+      row: 8,
+      heigh: 20,
+      width: 18,
+      RowHeader: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      type: 'Round',
+      title: '96 well Plate'
+    }
+  ],
+
   selections: {},
 };
 
-// Action TYPE
-export const ADD_ROW_ACTION = 'bf/ADD_ROW';
-export const IS_ADDING_NEW_ROW_ACTION = 'bf/IS_ADDING_NEW_ROW_ACTION';
-export const DUPLICATE_ROW_ACTION = 'bf/DUPLICATE_ROW_ACTION';
-export const EDIT_ROW_ACTION = 'bf/EDIT_ROW';
-export const DELETE_ROW_ACTION = 'bf/DELETE_ROW';
-export const CANCEL_EDIT_ROW_ACTION = 'bf/CANCEL_EDIT_ROW_ACTION';
-export const LOAD_STATE_LOCALSTORAGE_ACTION = 'bf/LOAD_STATE_LOCALSTORAGE_ACTION';
-export const REORDER_ROW_BUFFER_ACTION = 'bf/REORDER_ROW_ACTION';
-export const TOGGLE_COLUMN_CHOOSER_ACTION = 'bf/TOGGLE_COLUMN_CHOOSER_ACTION';
-export const SAVE_STATE_LOCALSTORAGE_ACTION = 'bf/SAVE_STATE_LOCALSTORAGE_ACTION';
-export const SELECT_EDIT_ROW_ACTION = 'bf/SELECT_EDIT_ROW_ACTION';
-export const ROW_SELECTION_ACTION = 'bf/ROW_COMPLETION_ACTION';
-
-
-// //////////////// Reducer /////////////////////////////////////////////////
-export default (state = INITIAL_BUFFER_STATE, action) => {
-  switch (action.type) {
-    case ROW_SELECTION_ACTION: {
-      const Temprows = state.rows.map((row) => {
-        if (row.id === action.selectedRow.id) {
-          row.selected = action.selectedRow.selected;
-        }
-        return row;
-      });
-      return { ...state, Temprows, selections: Temprows };
-    }
-    case IS_ADDING_NEW_ROW_ACTION: {
-      let AddingNewRow = state.isAddingNewRow;
-      if (AddingNewRow !== action.value) {
-        AddingNewRow = action.value;
-      }
-      return { ...state, isAddingNewRow: AddingNewRow };
-    }
-    case ADD_ROW_ACTION: {
-      const newrow = {
-        samplename: action.newRow.samplename,
-        concentration: action.newRow.concentration,
-        plate: action.newRow.plate,
-        row: action.newRow.row,
-        column: action.newRow.column,
-        frame: action.newRow.frame,
-        exposuretime: action.newRow.exposuretime,
-        attenuation: action.newRow.attenuation,
-        buffer: action.newRow.buffer,
-        flow: action.newRow.flow,
-        seutemp: action.newRow.seutemp,
-        stemp: action.newRow.stemp,
-        energy: action.newRow.energy,
-        volume: action.newRow.volume,
-        selected: action.newRow.selected,
-        id: state.rows.length,
-      };
-
-      return { ...state, rows: [newrow, ...state.rows] };
-    }
-
-    case DUPLICATE_ROW_ACTION: {
-      let newrow = null;
-      state.rows.map((row) => {
-        if (row.id === action.rowId) {
-          newrow = row;
-        }
-        return null;
-      });
-      const duplicaterow = { ...newrow, id: state.rows.length };
-      return { ...state, rows: [duplicaterow, ...state.rows] };
-    }
-
-    case DELETE_ROW_ACTION: {
-      // const rows = state.rows.filter(({ row }) => row !== action.row);
-      // console.log(state.rows.filter(({ row }) => row !== action.row));
-      // const rows = R.without(action.row, state.rows);
-      return { ...state };
-    }
-
-    case SELECT_EDIT_ROW_ACTION: {
-      const row = state.rows.find(({ id }) => id === action.id);
-      return { ...state, editingRow: row };
-    }
-
-    case EDIT_ROW_ACTION: {
-      const rows = state.rows.map((row) => {
-        if (row.id === action.modifiedRow.id) {
-          row.samplename = action.modifiedRow.samplename;
-          row.concentration = action.modifiedRow.concentration;
-          row.plate = action.modifiedRow.plate;
-          row.row = action.modifiedRow.row;
-          row.column = action.modifiedRow.column;
-          row.frame = action.modifiedRow.frame;
-          row.exposuretime = action.modifiedRow.exposuretime;
-          row.attenuation = action.modifiedRow.attenuation;
-          row.buffer = action.modifiedRow.buffer;
-          row.flow = action.modifiedRow.flow;
-          row.seutemp = action.modifiedRow.seutemp;
-          row.volume = action.modifiedRow.volume;
-          row.stemp = action.modifiedRow.stemp;
-          row.energy = action.modifiedRow.energy;
-          row.selected = action.modifiedRow.selected;
-        }
-        return row;
-      });
-      return { ...state, rows, editingRow: {} };
-    }
-
-    case CANCEL_EDIT_ROW_ACTION: {
-      const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
-      return newState;
-    }
-    case REORDER_ROW_BUFFER_ACTION: {
-      const columns = [...state.columns];
-      const [removed] = columns.splice(action.initialPosition, 1);
-      columns.splice(action.newPosition, 0, removed);
-
-      return { ...state, columns };
-    }
-    case TOGGLE_COLUMN_CHOOSER_ACTION: {
-      const colum = state.columns[action.key];
-      const columns = {
-        ...state.columns,
-        [action.key]: { ...colum, display: !colum.display }
-      };
-      return { ...state, columns };
-    }
-    default:
-      return state;
-  }
-};
-
 // //////////////////// ACTION CREATORS //////////////////
-export function isAddingNewRowAction(value) {
-  return {
-    type: IS_ADDING_NEW_ROW_ACTION,
-    value
-  };
-}
+export const loadStateLocalStorageAction = createAction('bf/LOAD_STATE_LOCALSTORAGE_ACTION');
+export const saveStateLocalStorageAction = createAction('bf/SAVE_STATE_LOCALSTORAGE_ACTION');
+export const addNewRowAction = createAction('bf/ADD_ROW_ACTION');
+export const isAddingNewRowAction = createAction('bf/IS_ADDING_NEW_ROW_ACTION');
+export const duplicateNewRowAction = createAction('bf/DUPLICATE_ROW_ACTION', (row, index) => ({ row, index }));
+export const editRowAction = createAction('bf/EDIT_ROW_ACTION', (row, index) => ({ row, index }));
+export const selectEditRowAction = createAction('bf/SELECT_EDIT_ROW_ACTION');
+export const cancelEditRowAction = createAction('bf/CANCEL_EDIT_ROW_ACTION');
+export const deleteRowAction = createAction('bf/DELETE_ROW_ACTION');
+export const reorderRowAction = createAction('bf/REORDER_ROW_ACTION', (initialPos, newPos) => ({ initialPos, newPos }));
+export const loadPlateRowsAction = createAction('bf/LOAD_ROWS_COLUMN_ACTION');
+export const loadPlateColumnsAction = createAction('bf/LOAD_COLUMN_ACTION');
+export const toggleColumnChooserAction = createAction('bf/TOGGLE_COLUMN_CHOOSER_ACTION');
+export const toggleGroupColumnChooserAction = createAction('bf/TOGGLE_GROUP_COLUMN_CHOOSER_ACTION', (keys, display) => ({ keys, display }));
+export const rowSelection = createAction('bf/ROW_COMPLETION_ACTION');
 
-export function addNewRowAction(newRow) {
-  return {
-    type: ADD_ROW_ACTION,
-    newRow,
-  };
-}
 
-export function duplicateNewRowAction(rowId) {
-  return {
-    type: DUPLICATE_ROW_ACTION,
-    rowId,
-  };
-}
+export default handleActions({
+  [addNewRowAction](state, action) {
+    const row = { id: ID.generate(), ...action.payload };
+    const rows = R.insert(0, row, state.rows);
+    return { ...state, rows };
+  },
 
-export function editRowAction(modifiedRow) {
-  return {
-    type: EDIT_ROW_ACTION,
-    modifiedRow
-  };
-}
+  [duplicateNewRowAction](state, action) {
+    const row = R.ifElse(R.propEq('id', action.payload.row.id), R.assoc('id', ID.generate()), item => item);
+    const rows = R.insert(action.payload.index + 1, row(action.payload.row), state.rows);
+    return { ...state, rows };
+  },
 
-export function deleteRowAction(row) {
-  return {
-    type: DELETE_ROW_ACTION,
-    row
-  };
-}
+  [selectEditRowAction](state, action) {
+    const row = state.rows.find(({ id }) => id === action.payload);
+    return { ...state, editingRow: row };
+  },
 
-export function cancelEditRowAction() {
-  return {
-    type: CANCEL_EDIT_ROW_ACTION,
-  };
-}
+  [cancelEditRowAction](state) {
+    const newState = state.rows.length ? { ...state, editingRow: {} } : { ...state };
+    return newState;
+  },
+  [editRowAction](state, action) {
+    return R.evolve({ rows: R.update(action.payload.index, action.payload.row) }, state);
+  },
 
-export function reorderRowBufferAction(initialPosition, newPosition) {
-  return {
-    type: REORDER_ROW_BUFFER_ACTION,
-    initialPosition,
-    newPosition
-  };
-}
+  [deleteRowAction](state, action) {
+    return R.evolve({ rows: R.remove(action.payload, action.payload + 1) }, state);
+  },
 
-export function toggleColumnChooserAction(key) {
-  return {
-    type: TOGGLE_COLUMN_CHOOSER_ACTION,
-    key,
-  };
-}
+  [reorderRowAction](state, action) {
+    const rows = [...state.rows];
+    const [removed] = rows.splice(action.payload.initialPos, 1);
+    rows.splice(action.payload.newPos, 0, removed);
+    return { ...state, rows };
+  },
+  [toggleColumnChooserAction](state, action) {
+    const columns = R.map(
+      R.when(R.propEq('columnName', state.columns[action.payload].columnName), R.assoc('display', !state.columns[action.payload].display)),
+      state.columns
+    );
+    return { ...state, columns };
+  },
+  [toggleGroupColumnChooserAction](state, action) {
+    const groupColumnVisibility = action.payload.display;
+    const columnNames = action.payload.keys.map(key => (state.columns[key].columnName));
 
-export const loadStateLocalStorageAction = () => ({
-  type: LOAD_STATE_LOCALSTORAGE_ACTION,
-  payload: {},
-});
+    const columns = R.map(
+      R.when(R.propSatisfies(columnName => columnNames.includes(columnName), 'columnName'),
+        R.assoc('display', groupColumnVisibility)),
+      state.columns
+    );
+    return { ...state, columns, groupColumnVisibility };
+  },
+  // [loadPlateRowsAction](state, action) {
+  //   const columnNames = ['row', 'column'].map(key => (state.columns[key].columnName));
 
-export const saveStateLocalStorageAction = state => ({
-  type: SAVE_STATE_LOCALSTORAGE_ACTION,
-  payload: { state },
-});
+  //   let options = null;
+  //   if (action.payload.rows) {
+  //     options = action.payload.rows;
+  //   } else if (action.payload.cols) options = action.payload.cols;
 
-export function selectEditRowAction(id) {
-  return {
-    type: SELECT_EDIT_ROW_ACTION,
-    id
-  };
-}
-
-export function rowSelection(selectedRow) {
-  return {
-    type: ROW_SELECTION_ACTION,
-    selectedRow
-  };
-}
+  //   const columns = R.map(
+  //     R.when(R.propSatisfies(columnName => columnNames.includes(columnName), 'columnName'),
+  //       R.assoc('options', options)),
+  //     state.columns
+  //   );
+  //   console.log(columns);
+  //   return { ...state, columns };
+  // },
+  [loadPlateRowsAction](state, action) {
+    const columns = R.map(
+      R.when(R.propEq('columnName', 'Row'), R.assoc('options', action.payload)),
+      state.columns
+    );
+    return { ...state, columns };
+  },
+  [loadPlateColumnsAction](state, action) {
+    const columns = R.map(
+      R.when(R.propEq('columnName', 'Column'), R.assoc('options', action.payload)),
+      state.columns
+    );
+    return { ...state, columns };
+  },
+},
+INITIAL_STATE);

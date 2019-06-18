@@ -1,13 +1,13 @@
-/* eslint-disable arrow-body-style */
+
 import React from 'react';
-// import PropTypes from 'prop-types';
 import {
-  OverlayTrigger, Popover, Button
+  OverlayTrigger, Popover
 } from 'react-bootstrap';
 import { Label } from 'react-bootstrap/Form';
+import { MdViewColumn } from 'react-icons/md';
 import './style.css';
 
-class ColumnChooser extends React.Component {
+class TableColumnChooser extends React.Component {
   constructor(props) {
     super(props);
     this.togleColumn = this.togleColumn.bind(this);
@@ -18,48 +18,48 @@ class ColumnChooser extends React.Component {
   }
 
   render() {
-    const content = [
+    const content = (
       <div className="row">
         <div className="ulheader">Check Column to be display </div>
         <ul className="list-group list-group-flush">
-          {Object.entries(this.props.columns).map(([key, column]) => {
-            return (
-              <li className="list-group-item list-group-column" key={key}>
-                {column.columnName}
-                <Label className="switch ">
-                  <input
-                    type="checkbox"
-                    className="success"
-                    checked={column.display}
-                    onChange={() => {
-                      this.togleColumn(key);
-                    }}
-                  />
-                  <span className="slider round" />
-                </Label>
-              </li>);
-          })
+          {Object.entries(this.props.columns).map(([key, column]) => (
+            <li className="list-group-item list-group-column" key={key}>
+              {column.columnName}
+              <Label className="switch ">
+                <input
+                  type="checkbox"
+                  className="success"
+                  checked={column.display}
+                  onChange={() => {
+                    this.togleColumn(key);
+                  }}
+                />
+                <span className="slider round" />
+              </Label>
+            </li>))
           }
         </ul>
       </div>
-    ];
+    );
     return (
       <OverlayTrigger
         ref={(ref) => { this.OverlayTrigger = ref; }}
         rootClose
         trigger="click"
-        placement="bottom"
-        overlay={(<Popover className="colpopover" id={`${this.props.labelText} popover`}>{content}</Popover>)}
+        placement="left"
+        overlay={(<Popover className="colpopover" id={`${this.props.name} popover`}>{content}</Popover>)}
       >
-        <div onContextMenu={this.onLinkRightClick}>
-          <Button variant="link" className="columnCh" title="Choose Column to display">
+        <div className="divch">
+          <span className=""> Customize Columns : </span>
+          <MdViewColumn className="columnCh" title="Choose Column to display">
             {/* Column */}
             <i className="fa fa-eye" />
-          </Button>
+          </MdViewColumn>
         </div>
       </OverlayTrigger>
     );
   }
 }
 
-export default ColumnChooser;
+
+export default TableColumnChooser;

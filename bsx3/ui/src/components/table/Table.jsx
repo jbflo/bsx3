@@ -1,8 +1,10 @@
 /* eslint-disable no-shadow */
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { Label } from 'react-bootstrap/Form';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import WithSelections from '../withSelections/WithSelections';
+import ColumnChooser from './TableColumnChooser';
 import TableAddRow from './TableAddRow';
 import TableEditRow from './TableEditRow';
 import TableRow from './TableRow';
@@ -42,6 +44,12 @@ class SampleChanger extends React.Component {
     }
   }
 
+  toggleGroupColumn() {
+    const keys = this.props.KeyVisibility;
+    const display = !this.props.groupColumnVisibility;
+    this.props.handleGroupColumnChooser(keys, display);
+  }
+
   render() {
     const {
       handleSelect, isItemSelected, areAllSelected, handleSelectAll, selectedCount, areAnySelected
@@ -61,6 +69,26 @@ class SampleChanger extends React.Component {
                   selected
                 </span>
                 {/* <Button basic onClick={handleClearAll}>Clear</Button> */}
+              </div>
+              <div className="">
+                <span style={{ marginTop: '7px', marginRight: '30px', marginLeft: '10px' }}> Optimizition: </span>
+              </div>
+              <div className="flexclass">
+                <span className="switchall_text"> Show hidden Columns : </span>
+                <Label className="switchall">
+                  <input
+                    type="checkbox"
+                    className="success"
+                    checked={this.props.groupColumnVisibility}
+                    onChange={() => {
+                      this.toggleGroupColumn();
+                    }}
+                  />
+                  <span className="slider round" />
+                </Label>
+              </div>
+              <div className="" title="Choose Column to be display">
+                <ColumnChooser {...this.props} />
               </div>
               <div>
                 <span>

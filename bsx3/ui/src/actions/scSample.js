@@ -95,6 +95,13 @@ export const INITIAL_STATE = {
       inputType: 'select',
       options: [1, 2, 3]
     },
+    well: {
+      columnName: 'Well',
+      display: true,
+      width: 45,
+      inputType: 'select',
+      options: []
+    },
     row: {
       columnName: 'Row',
       display: true,
@@ -227,6 +234,7 @@ export const INITIAL_STATE = {
     },
   },
   groupColumnVisibility: false,
+  KeyVisibility: ['energy', 'viscovity', 'frame', 'exposuretime', 'transmission', 'buffermode', 'recup', 'wait'],
   Optimizition: ['None', 'Sample Temperature', 'Sample Name', 'Buffer'],
   editingRow: {},
   isAddingNewRow: true,
